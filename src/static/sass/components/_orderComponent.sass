@@ -1,0 +1,135 @@
+.orderComponent
+    // position: fixed
+    position: sticky
+    top: 19%
+    left: 41%
+    height: 0
+    margin: 0 auto
+    text-align: center
+    @include responsive(phone)
+        left: 0
+        top: 10%
+    &__title
+        font-size: 4rem
+        color: #393c41
+        font-weight: 500
+        &--big
+            @include responsive(tablet)
+                font-size: 2.7rem
+
+    &__subtitle
+        color: #5c5e62
+        font-size: 1.4rem
+        font-family: 'Gotham Book'
+        font-weight: 400
+        a 
+            color: inherit
+            text-decoration: none
+            padding-bottom: 1px
+            box-shadow: 0 1.1px .1px .1px #5c5e62
+            transition: all .3s ease
+            
+            &:hover
+                box-shadow: 0 1.9px .1px .1px black
+
+    &__buttons
+        margin-top: 50%
+        @include responsive(lg_desktop)
+            margin-top: 30%
+        // @include responsive(desktop)
+        //     margin-top: 90%
+        @include responsive(laptop-landscape)
+            margin-top: 60%
+        @include responsive(laptop)
+            margin-top: 40%
+        @include responsive(tablet)
+            margin-top: 80%
+        @include responsive(phone)
+            // margin-top: 33rem
+            margin-top: 70%
+        @include responsive(phone-high)
+            margin-top: 70%
+        @include responsive(phone-landscape)
+            margin-top: 14rem
+        @include responsive(smallphone)
+            margin-top: 25rem
+        @include responsive(smallphone-landscape)
+            margin-top: 2rem
+            display: flex
+            flex-direction: column
+            align-items: center
+            
+
+
+        &--acces
+            margin-top: 28%
+            @include responsive(lg_desktop)
+                margin-top: 40%
+            @include responsive(desktop)
+                margin-top: 90%
+            @include responsive(laptop-landscape)
+                margin-top: 80%
+            @include responsive(laptop)
+                margin-top: 40%
+            @include responsive(tablet)
+                margin-top: 80%
+            @include responsive(phone)
+                margin-top: 2%
+                // margin-top: 33rem
+            @include responsive(phone-high)
+                margin-top: 34rem
+                width: 80%
+                margin-left: 2rem
+            @include responsive(phone-landscape)
+                margin-top: 20rem
+            @include responsive(smallphone)
+                margin-top: 25rem
+            
+
+    &__button
+        text-decoration: none
+        padding: 1.3rem 7.8rem
+        border-radius: 30px
+        text-transform: uppercase
+        font-size: 1.2rem
+        font-weight: 400
+        @include responsive(phone)
+            display: block
+            width: 50%
+            margin: 2rem auto
+        @include responsive(phone-high)
+            display: block
+            width: 50%
+            margin: 2rem auto
+        @include responsive(smallphone)
+            width: 40%
+
+        &--acces
+            padding: 1.3rem 9.2rem
+            background-color: #171A20
+            color: white
+            
+
+        
+        &--light
+            color: #171a20
+            background-color: rgba(240, 240, 240, .65)
+            @include responsive(phone)
+                margin: 1rem 0 1rem 2rem
+
+        &--dark
+            background-color: rgba(33, 37, 42, .85)
+            margin-right: 2rem
+            color: white
+            @include responsive(phone)
+                margin: 1rem 0 1rem 2rem
+            
+
+    &__icon
+        margin: 3rem 0 0 2rem
+        font-size: 4rem !important
+        animation: arrowAnimation 2s infinite
+        @include responsive(phone)
+            margin-top: 0
+        @include responsive(phone-high)
+            margin-top: 0

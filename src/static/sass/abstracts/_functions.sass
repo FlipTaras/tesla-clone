@@ -1,0 +1,43 @@
+@mixin responsive($breakpoint) 
+    @if $breakpoint == smallphone-landscape 
+        @media only screen and (max-height: 20.5em) // 320px --> 600 / 16
+            @content
+
+    @if $breakpoint == smallphone 
+        @media only screen and (max-width: 20em)  // 320px --> 600 / 16
+            @content
+    
+    @if $breakpoint == phone 
+        @media only screen and (max-width: 37.5em) and (max-height: 50em)  // 600px
+            @content
+
+    @if $breakpoint == phone-high 
+        @media only screen and (max-width: 23.5em) and (max-height: 51em)  // 375px
+            @content
+
+    @if $breakpoint == phone-landscape 
+        @media only screen and (max-height: 26em)   // 416px
+            @content
+        
+    
+    @if $breakpoint == tablet 
+        @media only screen and (max-width: 48em)  // 768px
+            @content
+        
+    @if $breakpoint == laptop  // 1024 px
+        @media only screen and (max-width: 64em) and (max-height: 48em)
+            @content
+
+    @if $breakpoint == laptop-landscape  // 1366 px
+        @media only screen and (max-height: 85.375em) and (max-width: 64em)
+            @content
+    
+    @if $breakpoint == desktop  // 1200 px
+        @media only screen and (max-width: 75em) 
+            @content
+        
+    
+    @if $breakpoint == lg_desktop  // 1633 px
+        @media only screen and (max-width: 102em) 
+            @content
+        

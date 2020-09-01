@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import MainPage from "./pages/MainPage";
+import Model3 from "./pages/Model3";
+import { Switch, Route } from "react-router";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
+  // document.body.addEventListener("touchmove", function (e) {
+  //   e.preventDefault();
+  // });
+  // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+  let vh = window.innerHeight * 0.01;
+  // Then we set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty("--height", `${vh}px`);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Navbar />
+      <Switch>
+        <Route path="/" exact component={MainPage} />
+        <Route path="/model3" component={Model3} />
+      </Switch>
+      {/* <Footer active /> */}
     </div>
   );
 }

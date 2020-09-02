@@ -7,6 +7,17 @@
     justify-content: center
     margin-bottom: 4rem
     opacity: 0
+    flex-wrap: wrap
+    z-index: -1
+    @include responsive(tablet)
+        margin-bottom: 3rem
+    @include responsive(phone)
+        flex-direction: column
+        margin-left: 1rem
+    @include responsive(phone-high)
+        flex-direction: column
+        margin-left: 1rem
+
 
     &__link
         text-decoration: none
@@ -16,5 +27,11 @@
         font-family: 'Gotham Book'
         margin-right: 2rem
         transition: color .2s ease
+        @include responsive(phone)
+            &:not(:last-child)
+                margin-bottom: 1rem
+        @include responsive(phone-high)
+            &:not(:last-child)
+                margin-bottom: 1rem
         &:hover
             color: black

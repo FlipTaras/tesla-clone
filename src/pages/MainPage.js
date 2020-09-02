@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+/* Redux */
+import { connect } from "react-redux";
+import { setWidth, setHeight } from "../static/store/actions";
 /* Components */
 import SectionElement from "../components/SectionElement";
 import Footer from "../components/Footer";
@@ -22,24 +25,43 @@ import SolarRoofImageMobile from "../static/images/Mobile-SolarRoof.jpg";
 import SolarPanelsImageMobile from "../static/images/Mobile-SolarPanels.jpg";
 import AccessoriesImageMobile from "../static/images/Mobile-Accessories.jpg";
 
-export default () => {
+const mapStateToProps = (state) => ({
+  width: state.page.width,
+  height: state.page.height,
+  loaded: state.page.loaded,
+});
+
+const mapActionToProps = {
+  setWidth,
+  setHeight,
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionToProps
+)(({ setWidth, setHeight, width, height }) => {
   const [activeFooter, setActiveFooter] = useState(false);
   const [activeComponent, setActiveComponent] = useState(true);
   const [title, setTitle] = useState("Model Y");
   const [subtitle, setSubtitle] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [windowHeight, setWindowHight] = useState(window.innerHeihg);
 
-  /* Detect width change */
+  /* Detect width and height change */
   useEffect(() => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--height", `${vh}px`);
+
     window.addEventListener("resize", () => {
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-      setWindowWidth(window.innerWidth);
-      setWindowHight(window.innerHeight);
+      vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--height", `${vh}px`);
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
     });
-  }, [windowWidth, windowHeight]);
-  console.log(windowWidth, windowHeight);
+  }, [setWidth, setHeight]);
+
+  /* Fix IOS Scrolling Bug */
+  window.addEventListener("touchmove", (e) => {
+    window.scrollTo(0, 0);
+  });
 
   const onScroll = (e) => {
     /* OrderComponent */
@@ -60,7 +82,9 @@ export default () => {
     /* Footer */
     const rect7 = e.target.childNodes[7].getBoundingClientRect();
     console.log(rect7.top);
-    if (rect7.top < 500) {
+    if (rect7.top < 500 && height > 500) {
+      setActiveFooter(true);
+    } else if (rect7.top < 300) {
       setActiveFooter(true);
     } else {
       setActiveFooter(false);
@@ -76,29 +100,29 @@ export default () => {
       />
       <SectionElement
         title="Model Y"
-        image={windowWidth < 600 ? ModelYImageMobile : ModelYImage}
+        image={width < 600 ? ModelYImageMobile : ModelYImage}
       />
       <SectionElement
         title="Model X"
-        image={windowWidth < 600 ? ModelXImageMobile : ModelXImage}
+        image={width < 600 ? ModelXImageMobile : ModelXImage}
       />
       <SectionElement
         title="Model 3"
-        image={windowWidth < 600 ? Model3ImageMobile : Model3Image}
+        image={width < 600 ? Model3ImageMobile : Model3Image}
       />
       <SectionElement
         title="Model S"
-        image={windowWidth < 600 ? ModelSImageMobile : ModelSImage}
+        image={width < 600 ? ModelSImageMobile : ModelSImage}
       />
       <SectionElement
         subtitle={"Lowest Cost in America - Money-back guarantee"}
         title="Only $1.49/Watt for Solar on Existing Roofs"
-        image={windowWidth < 600 ? SolarPanelsImageMobile : SolarPanelsImage}
+        image={width < 600 ? SolarPanelsImageMobile : SolarPanelsImage}
       />
       <SectionElement
         subtitle={"Solar Roof Costs Less Than a New Roof Plus Solar Panels"}
         title="Solar for New Roofs"
-        image={windowWidth < 600 ? SolarRoofImageMobile : SolarRoofImage}
+        image={width < 600 ? SolarRoofImageMobile : SolarRoofImage}
       />
       <SectionElement
         title="Accessories"
@@ -107,38 +131,4 @@ export default () => {
       <Footer active={activeFooter} />
     </div>
   );
-};
-
-/* OrderComponent */
-// const rect1 = e.target.childNodes[1].getBoundingClientRect();
-// const rect2 = e.target.childNodes[2].getBoundingClientRect();
-// const rect3 = e.target.childNodes[3].getBoundingClientRect();
-// const rect4 = e.target.childNodes[4].getBoundingClientRect();
-// const rect5 = e.target.childNodes[5].getBoundingClientRect();
-// if (rect1.top >= -100 && rect1.top <= 100) {
-//   setTitle("Model Y");
-//   setActiveComponent(true);
-//   setSubtitle(null);
-// } else if (rect2.top >= -100 && rect2.top <= 100) {
-//   setTitle("Model X");
-//   setActiveComponent(true);
-//   setSubtitle(null);
-// } else if (rect3.top >= -100 && rect3.top <= 100) {
-//   setTitle("Model 3");
-//   setActiveComponent(true);
-//   setSubtitle(null);
-// } else if (rect4.top >= -100 && rect4.top <= 100) {
-//   setTitle("Model S");
-//   setActiveComponent(true);
-//   setSubtitle(null);
-// } else if (rect5.top >= -100 && rect5.top <= 100) {
-//   setTitle("Only $1.49/Watt for Solar on Existing Roofs");
-//   setSubtitle("Lowest Cost in America - Money-back guarantee");
-//   setActiveComponent(true);
-// } else if (rect6.top >= -100 && rect6.top <= 100) {
-//   setActiveComponent(true);
-//   setTitle("Accessories");
-//   setSubtitle(null);
-// } else {
-//   setActiveComponent(false);
-// }
+});

@@ -17,10 +17,19 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps)(
   ({ title, active, subtitle, loaded }) => {
+    /* Light Button ClassNames */
+    const lightButtonClassNames = classnames(
+      "orderComponent__button",
+      "orderComponent__button--light",
+      title === "Accessories" && "orderComponent__button--none"
+    );
+
+    /* Order Component ClassNames */
     const orderComponentClassNames = classnames(
       "orderComponent",
       title === "Accessories" && "orderComponent--last"
     );
+    /* Title ClassNames */
     const titleBig =
       title === "Solar for New Roofs" ||
       title === "Only $1.49/Watt for Solar on Existing Roofs";
@@ -30,58 +39,47 @@ export default connect(mapStateToProps)(
       titleBig && "orderComponent__title--big"
     );
 
+    /* Button ClassNames */
     const firstButtonClassNames = classnames(
       "orderComponent__buttons",
       title === "Model Y" && "orderComponent__buttons--first"
     );
+
     const renderSubtitle = () =>
-      title !== "Accessories" && (
-        <h2 style={styleSubtitle} className="orderComponent__subtitle">
-          {subtitle ? (
-            <span>{subtitle}</span>
-          ) : (
-            <span>
-              Order Online for <a href="/">Touchless Delivery</a>
-            </span>
-          )}
-        </h2>
-      );
-    const renderButtons = () =>
-      title !== "Accessories" ? (
-        <div className={firstButtonClassNames}>
-          <a
-            style={styleLeftButton}
-            href="/"
-            className="orderComponent__button orderComponent__button--dark"
-          >
-            Custom Order
-          </a>
-          <a
-            style={styleRightButton}
-            href="/"
-            className="orderComponent__button orderComponent__button--light"
-          >
-            Learn More
-          </a>
-          {title === "Model Y" && (
-            <div
-              style={styleArrowDown}
-              className="orderComponent__iconContainer"
-            >
-              <ExpandMoreOutlinedIcon className="orderComponent__icon" />
-            </div>
-          )}
-        </div>
+      subtitle ? (
+        <span>{subtitle}</span>
       ) : (
-        <div className="orderComponent__buttons orderComponent__buttons--acces">
-          <a
-            className="orderComponent__button orderComponent__button--acces"
-            href="/"
-          >
-            Shop Now
-          </a>
-        </div>
+        <span>
+          Order Online for <a href="/">Touchless Delivery</a>
+        </span>
       );
+    const renderButtons = () => (
+      <>
+        <a
+          style={styleLeftButton}
+          href="/"
+          className={
+            title === "Accessories"
+              ? "orderComponent__button orderComponent__button--acces"
+              : "orderComponent__button orderComponent__button--dark"
+          }
+        >
+          {title === "Accessories" ? "Shop Now" : "Custom Order"}
+        </a>
+        <a style={styleRightButton} href="/" className={lightButtonClassNames}>
+          Learn More
+        </a>
+        <div
+          style={title === "Accessories" ? { display: "none" } : styleArrowDown}
+          className="orderComponent__iconContainer"
+        >
+          {title === "Model Y" && (
+            <ExpandMoreOutlinedIcon className="orderComponent__icon" />
+          )}
+        </div>
+      </>
+    );
+    /* Animation Settings */
     let styleTitle = {};
     let styleSubtitle = {};
     let styleLeftButton = {};
@@ -102,6 +100,7 @@ export default connect(mapStateToProps)(
         animation: "arrowDownApper 1s 1.4s ease forwards",
       };
     }
+
     return (
       <Transition in={active} timeout={200}>
         {(state) => (
@@ -113,9 +112,19 @@ export default connect(mapStateToProps)(
               <h1 style={styleTitle} className={titleClassNames}>
                 {title}
               </h1>
-              {renderSubtitle()}
+              <h2 style={styleSubtitle} className="orderComponent__subtitle">
+                {title === "Accessories" ? "" : renderSubtitle()}
+              </h2>
             </div>
-            {renderButtons()}
+            <div
+              className={
+                title === "Accessories"
+                  ? "orderComponent__buttons orderComponent__buttons--acces"
+                  : firstButtonClassNames
+              }
+            >
+              {renderButtons()}
+            </div>
           </div>
         )}
       </Transition>

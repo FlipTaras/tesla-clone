@@ -10,6 +10,7 @@
     align-items: center
     text-align: center
     margin-left: 1rem
+    overflow: hidden
     &--last
         top: 10%
     @include responsive(phone)
@@ -17,7 +18,7 @@
         height: 75vh
         margin-top: -75vh
         &--last
-            top: 5%
+            top: 10%
 
     &__title
         font-size: 4rem
@@ -56,16 +57,14 @@
             margin-left: -3rem
         @include responsive(phone-high)
             margin-left: -1.5rem
-            // margin-bottom: 6rem
-
 
         &--acces
             @include responsive(phone)
-                margin-bottom: 0
+                margin-bottom: 2rem
                 margin-left: 0
 
             @include responsive(phone-high)
-                margin-bottom: 1rem
+                margin-bottom: 2rem
                 margin-left: 0
             
     &__button
@@ -75,6 +74,10 @@
         text-transform: uppercase
         font-size: 1.2rem
         font-weight: 400
+        display: block
+        &--none
+            position: absolute !important
+            top: 100vh !important
         
         @include responsive(phone)
             display: block
@@ -94,12 +97,11 @@
             background-color: #171A20
             color: white
             @include responsive (phone)
+                margin-bottom: 3rem !important
                 width: 30%
             @include responsive (phone-high)
-                margin-bottom: 3rem
+                margin-bottom: 3rem !important
                 width: 30%
-
-
             
         &--light
             color: #171a20
@@ -119,8 +121,6 @@
                 margin-right: 0
             @include responsive (phone-high)
                 margin-right: 0
-
-
 
             @include responsive(phone)
                 margin: 1rem 0 1rem 2rem

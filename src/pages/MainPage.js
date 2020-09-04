@@ -70,7 +70,7 @@ export default connect(
       const rect = child.getBoundingClientRect();
       const title = child.getAttribute("data-title");
       const subtitle = child.getAttribute("data-subtitle");
-      if (rect.top >= -100 && rect.top <= 100) {
+      if (rect.top >= -100 && rect.top <= 10) {
         setTitle(title);
         setActiveComponent(true);
         setSubtitle(subtitle);
@@ -80,11 +80,10 @@ export default connect(
       }
     });
     /* Footer */
-    const rect7 = e.target.childNodes[7].getBoundingClientRect();
-    console.log(rect7.top);
-    if (rect7.top < 500 && height > 500) {
+    const rectLast = e.target.childNodes[8].getBoundingClientRect();
+    if (rectLast.top < 400 && height > 400) {
       setActiveFooter(true);
-    } else if (rect7.top < 300) {
+    } else if (rectLast.top < 300) {
       setActiveFooter(true);
     } else {
       setActiveFooter(false);
@@ -93,6 +92,7 @@ export default connect(
 
   return (
     <div onScroll={onScroll} className="sections">
+      <Footer active={activeFooter} />
       <OrderComponent
         subtitle={subtitle}
         active={activeComponent}
@@ -128,7 +128,6 @@ export default connect(
         title="Accessories"
         image={SolarRoofImage < 600 ? AccessoriesImageMobile : AccessoriesImage}
       />
-      <Footer active={activeFooter} />
     </div>
   );
 });

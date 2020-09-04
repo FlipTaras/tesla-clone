@@ -54,7 +54,7 @@ export default connect(mapStateToProps)(({ loaded }) => {
           <ul className="navbar__list">
             {navBarProducts.map((el) => (
               <li key={el.title} className="navbar__element">
-                <NavLink className="navbar__link" to={`/${el.link}`}>
+                <NavLink className="navbar__link" to={`${el.link}`}>
                   {el.title}
                 </NavLink>
               </li>

@@ -79,6 +79,7 @@ export default connect(mapStateToProps)(
         </div>
       </>
     );
+
     /* Animation Settings */
     let styleTitle = {};
     let styleSubtitle = {};

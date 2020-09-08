@@ -1,0 +1,54 @@
+.fullpage
+    position: fixed !important
+    top: 24% !important
+    left: 0 !important
+    z-index: 140 !important
+
+    &__buttons 
+        list-style: none !important
+    
+    &__element
+        margin: 1.5rem 0 1rem 1.5rem !important
+        &::before
+            content: '' !important
+            position: absolute !important
+            width: 1px !important
+            height: 2rem !important
+            opacity: .5 !important
+
+        &--dark
+            &::before
+                background-color: #393c41 !important
+
+        &--light
+            &::before
+                background-color: white !important
+
+        &--active
+            &::before
+                width: 2.5px !important
+                opacity: 1 !important
+                left: -1px
+                //left: 1.4rem !important
+
+    &__link
+        text-transform: uppercase !important
+        position: relative !important
+        padding: .5rem 0 0 1rem !important
+        display: block !important
+        font-size: 1rem !important
+        font-weight: 600 !important
+        text-decoration: none !important
+        opacity: 0 !important
+        transition: opacity .3s ease !important
+        
+        &:hover
+            opacity: 1 !important
+
+        &--dark
+            color: #393c41 !important
+
+        &--light 
+            color: white !important
+
+

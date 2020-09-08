@@ -1,6 +1,7 @@
 * 
     margin: 0
     padding: 0
+    box-sizing: border-box
 
 html
     font-size: 62.5%; // defines that 1 rem - 10px;
@@ -11,42 +12,14 @@ body
     sans-serif
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
+    overflow: hidden !important
 
 code 
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace
 
 .app
-    overflow-x: hidden
-
-.sections
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-    overflow-y: auto
-    overflox-x: hidden
-    // Fallback
-    height: 100vh
-    @include responsive(phone)
-        height: calc(var(--height, 1vh) * 100)
-    @include responsive(phone-high)
-        height: calc(var(--height, 1vh) * 100)
-    @include responsive(phone-landscape)
-        height: 100vh
-    @include responsive(smallphone-landscape)
-        height: 100vh
-
-    
-.section__item
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    scroll-snap-align: start
-    height: 100%
-    width: 100%
-    @include responsive(phone)
-        &:last-child
-            background-size: 300% !important
-        
+    overflow-x: hidden      
 
 /* FONTS */
     
@@ -60,4 +33,11 @@ code
     font-style: normal
     font-weight: normal
     src: url("../../fonts/Gotham-Book.otf")
+@font-face 
+    font-family: 'Gotham Light'
+    font-style: normal
+    font-weight: normal
+    src: url("../../fonts/Gotham-Light-Regular.otf")
     
+
+

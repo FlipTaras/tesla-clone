@@ -1,0 +1,101 @@
+.firstSection
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    height: 100vh;
+
+    svg
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        margin-right: 1rem
+        margin-top: -5rem
+
+    .fp-tableCell
+        vertical-align: top
+        display: flex
+        justify-content: center
+
+    &__content 
+        text-align: center
+        margin-top: 8%
+        margin-bottom: 5.5%
+        font-family: 'Gotham Medium'
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: space-between
+
+    &__characteristics
+        display: flex
+        align-items: center
+        align-items: baseline
+        position: relative
+        flex-wrap: wrap
+
+    &__characteristicsElement
+        box-sizing: content-box
+        position: relative
+        padding: 0 3.5rem 0 3.5rem
+        opacity: 0
+        &:first-child
+            width: 13rem
+
+        &:not(:nth-last-child(2))
+            &::after
+                content: ''
+                position: absolute
+                width: 1px
+                height: 7.5rem
+                background-color: black
+                top: 0
+                right: 0
+                opacity: .9
+
+
+    &__title
+        font-size: 4rem
+        color: white
+        font-weight: 500
+        opacity: 0
+
+    &__duration
+        display: inline-block
+        font-size: 2.8rem
+        font-weight: 500
+            
+    &__from
+        font-size: 1.2rem
+        font-family: 'Gotham Book'
+        line-height: 1.5
+
+    &__button
+        background: none
+        border: 3px solid black
+        padding: 1rem 4rem
+        border-radius: 5rem
+        cursor: pointer
+        text-transform: uppercase
+        align-self: center
+        font-size: 1.2rem
+        font-weight: 400
+        font-family: 'Gotham Medium'
+        color: black
+        transition: all .3s ease-in-out
+        opacity: 0
+        &:active,
+        &:focus
+            outline: none
+        &:hover 
+            color: white
+            background-color: black
+
+    &__icon
+        font-size: 4rem !important
+        animation: arrowAnimation 2s infinite
+        flex-basis: 100%
+        color: white
+        position: absolute
+        bottom: 2%
+        left: 49%
+        opacity: 0

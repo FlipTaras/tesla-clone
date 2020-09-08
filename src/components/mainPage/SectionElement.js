@@ -5,7 +5,7 @@ export default ({ image, title, subtitle = null }) => {
     <section
       data-title={title}
       data-subtitle={subtitle}
-      className="section__item"
+      className="mainPage__item"
       style={{ background: `url(${image})` }}
     ></section>
   );

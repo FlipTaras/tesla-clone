@@ -27,35 +27,36 @@ const transitionStyles = {
 
 const mapStateToProps = (state) => ({
   width: state.page.width,
+  navbarActive: state.page.navbarActive,
 });
-export default connect(mapStateToProps)(({ active, width }) => {
+export default connect(mapStateToProps)(({ navbarActive, width }) => {
   const [moreActive, setMoreActive] = useState(false);
   const sidebarElementsBigScreen = [
-    "Used Inventory",
-    "trade-in",
-    "cybertruck",
-    "Roadster",
-    "Semi",
-    "PowerWall",
-    "Comercial Solar",
-    "Test Drive",
-    "Charging",
-    "Find us",
-    "Support",
+    { title: "Used Inventory", link: "/" },
+    { title: "trade-in", link: "/" },
+    { title: "cybertruck", link: "/" },
+    { title: "Roadster", link: "/" },
+    { title: "Semi", link: "/" },
+    { title: "PowerWall", link: "/" },
+    { title: "Comercial Solar", link: "/" },
+    { title: "Test Drive", link: "/" },
+    { title: "Charging", link: "/" },
+    { title: "Find us", link: "/" },
+    { title: "Support", link: "/" },
   ];
   const sideBarElementsMediumScreen = [
-    "Model S",
-    "Model 3",
-    "Model X",
-    "Model Y",
-    "Solar Roof",
-    "Solar Panels",
-    "Shop",
+    { title: "Model S", link: "/model-s" },
+    { title: "Model 3", link: "/model-3" },
+    { title: "Model X", link: "/model-x" },
+    { title: "Model Y", link: "/model-y" },
+    { title: "Solar Roof", link: "/solar-roof" },
+    { title: "Solar Panels", link: "/solar-panels" },
+    { title: "Shop", link: "/shop" },
   ];
   const sidebarElementRender = () => {
     if (width > 1200) {
       return sidebarElementsBigScreen.map((el) => (
-        <SidebarElement key={el} text={el} />
+        <SidebarElement key={el.title} text={el.title} link={el.link} />
       ));
     } else if (width < 600) {
       const combined = [].concat(
@@ -65,9 +66,9 @@ export default connect(mapStateToProps)(({ active, width }) => {
       return (
         <>
           {combined.map((el) => (
-            <SidebarElement key={el} text={el} />
+            <SidebarElement key={el.title} text={el.title} link={el.link} />
           ))}
-          <SidebarElement text="Sign In" />
+          <SidebarElement text="Sign In" link="/signin" />
         </>
       );
     } else {
@@ -78,9 +79,10 @@ export default connect(mapStateToProps)(({ active, width }) => {
               click={() => setMoreActive((prevState) => !prevState)}
               moreActive={moreActive}
               text="More"
+              link="/more"
             />
             {sidebarElementsBigScreen.map((el) => (
-              <SidebarElement key={el} text={el} />
+              <SidebarElement key={el.title} text={el.title} link={el.link} />
             ))}
           </>
         );
@@ -88,12 +90,13 @@ export default connect(mapStateToProps)(({ active, width }) => {
         return (
           <>
             {sideBarElementsMediumScreen.map((el) => (
-              <SidebarElement key={el} text={el} />
+              <SidebarElement key={el.title} text={el.title} link={el.link} />
             ))}
             <SidebarElement
               click={() => setMoreActive((prevState) => !prevState)}
               moreActive={moreActive}
               text="More"
+              link="/link"
             />
           </>
         );
@@ -101,14 +104,14 @@ export default connect(mapStateToProps)(({ active, width }) => {
   };
 
   return (
-    <Transition in={active} timeout={200}>
+    <Transition in={navbarActive} timeout={200}>
       {(state) => (
         <div
           style={{ ...defaultStyle, ...transitionStyles[state] }}
           className="sidebar"
         >
           {sidebarElementRender()}
-          <SidebarElement text="United States" />
+          <SidebarElement text="United States" link="/changeCountry" />
         </div>
       )}
     </Transition>

@@ -29,6 +29,7 @@ const mapStateToProps = (state) => ({
   width: state.page.width,
   navbarActive: state.page.navbarActive,
 });
+
 export default connect(mapStateToProps)(({ navbarActive, width }) => {
   const [moreActive, setMoreActive] = useState(false);
   const sidebarElementsBigScreen = [
@@ -79,7 +80,7 @@ export default connect(mapStateToProps)(({ navbarActive, width }) => {
               click={() => setMoreActive((prevState) => !prevState)}
               moreActive={moreActive}
               text="More"
-              link="/more"
+              link="#"
             />
             {sidebarElementsBigScreen.map((el) => (
               <SidebarElement key={el.title} text={el.title} link={el.link} />
@@ -96,7 +97,7 @@ export default connect(mapStateToProps)(({ navbarActive, width }) => {
               click={() => setMoreActive((prevState) => !prevState)}
               moreActive={moreActive}
               text="More"
-              link="/link"
+              link="#"
             />
           </>
         );

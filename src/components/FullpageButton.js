@@ -16,13 +16,18 @@ export default connect(
 
   /* Change the active class when user changing the section */
   const darkAndActiveCheck = () => {
-    const index = document.querySelector("body").classList.value.split("-")[2];
-    setPageIndex(index);
-    setActive(ButtonElements[index]?.title);
-    if (ButtonElements[index]?.dark) {
-      setDark(true);
-    } else {
-      setDark(false);
+    const index = document
+      .querySelector("body")
+      .classList.value.split(" ")[0]
+      .split("-")[2];
+    if (index) {
+      setPageIndex(index);
+      setActive(ButtonElements[index]?.title);
+      if (ButtonElements[index]?.dark) {
+        setDark(true);
+      } else {
+        setDark(false);
+      }
     }
   };
   const clickHandler = (index, el) => {
@@ -32,9 +37,13 @@ export default connect(
       darkAndActiveCheck();
     }
   };
-  window.addEventListener("wheel", () => darkAndActiveCheck());
+  window.addEventListener("wheel", () => {
+    darkAndActiveCheck();
+  });
   /* For Phones */
-  window.addEventListener("touchmove", () => darkAndActiveCheck());
+  window.addEventListener("touchmove", () => {
+    darkAndActiveCheck();
+  });
 
   const elementClassNamesColor = classnames(
     dark ? "fullpage__element--dark" : "fullpage__element--light"

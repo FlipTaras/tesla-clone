@@ -70,7 +70,6 @@ export default connect(
   useEffect(() => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--height", `${vh}px`);
-
     window.addEventListener("resize", () => {
       vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--height", `${vh}px`);

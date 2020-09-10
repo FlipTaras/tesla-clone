@@ -31,7 +31,7 @@ export default connect(
       {(state) => (
         <div
           style={{ ...defaultStyle, ...transitionStyles[state] }}
-          onClick={() => setNavbar(false)}
+          onClick={() => setNavbar()}
           className="backdrop"
         ></div>
       )}

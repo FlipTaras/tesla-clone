@@ -1,12 +1,15 @@
-.safety
-    background-color: black
-    color: white
+.safety        
+    height: 220vh
+    /* Initial Element */
     &__container
         display: flex
     
     &__topContainer
         opacity: 0
         animation: translateYOpacityShow .6s .4s forwards ease
+        &--show
+            opacity: 1
+            animation: none
     
     &__left
         flex: .25
@@ -16,25 +19,6 @@
         height: 100vh
         display: flex
         flex-direction: column
-    
-    &__subtitle
-        color: #171a20
-        font-size: 1.7rem
-        font-family: 'Gotham Light'
-        font-weight: 500
-    &__title
-        color: #171a20
-        font-family: 'Gotham Medium'
-        font-size: 2.8rem
-        font-weight: 500
-    &__text
-        color: #393c41
-        font-family: 'Gotham Book'
-        font-size: 1.4rem
-        font-weight: 400
-        width: 80%
-        line-height: 1.4
-        margin-top: 1.6rem
 
     &__bottomContainer
         margin: auto 0 6rem 0
@@ -42,56 +26,9 @@
         align-items: center
         opacity: 0
         animation: translateYOpacityShow .6s .5s forwards ease
-
-    &__learn
-        background: none
-        text-transform: uppercase
-        border: none
-        margin-right: 2rem
-        display: flex
-        align-items: center
-        &:active,
-        &:focus
-            outline: none
-        
-    &__learnText
-        color: #171a20
-        font-family: 'Gotham Book'
-        font-size: 1.3rem
-        font-weight: 400
-
-    &__icon
-        cursor: pointer
-        margin-right: 1rem
-        padding: .2rem 1rem 0 .8rem
-        font-size: 3rem
-        border: 3px solid black
-        border-radius: 100%
-        transition: all .2s ease
-        font-weight: 800
-        &:hover
-            color: white
-            background-color: black
-
-    &__orderNow
-        background: none
-        border: 3px solid black
-        padding: 1rem 4rem
-        border-radius: 5rem
-        cursor: pointer
-        text-transform: uppercase
-        align-self: center
-        font-size: 1.2rem
-        font-weight: 400
-        font-family: 'Gotham Medium'
-        color: black
-        transition: all .3s ease-in-out
-        &:active,
-        &:focus
-            outline: none
-        &:hover 
-            color: white
-            background-color: black
+        &--show
+            opacity: 1
+            animation: none
 
     &__right
         flex: .75
@@ -102,7 +39,6 @@
         height: 100vh;
         position: relative
 
-
     &__list
         list-style: none
     
@@ -112,6 +48,11 @@
         font-size: 1.4rem
         font-weight: 500
         position: absolute
+        &--show
+            &::after
+            &::before        
+                opacity: 1
+                animation: none
         &--1
             top: 20%
             left: 26%
@@ -122,8 +63,8 @@
                 left: -1rem
                 width: 2px
                 background-color: black
-                transform: scaleY(0)
                 height: 23rem
+                transform: scaleY(0)
                 animation: showstick .7s .2s forwards ease-in-out
                 display: block
             &::after
@@ -139,6 +80,13 @@
                 border-radius: 50%
                 opacity: 0
                 animation: showdot .8s .8s forwards ease
+            &--show
+                &::before        
+                    transform: scaleY(1)
+                    animation: none
+                &::after
+                    opacity: 1
+                    animation: none
         &--2
             top: 11%
             left: 47%
@@ -149,8 +97,8 @@
                 left: -1rem
                 width: 2px
                 height: 12rem
-                background-color: black
                 transform: scaleY(0)
+                background-color: black
                 animation: showstick .7s .2s forwards ease-in-out
             &::after
                 content: '\A'
@@ -164,6 +112,14 @@
                 border-radius: 50%
                 opacity: 0
                 animation: showdot .8s .8s forwards ease
+            &--show
+                &::before        
+                    transform: scaleY(1)
+
+                    animation: none
+                &::after
+                    opacity: 1
+                    animation: none
         &--3
             bottom: 24%
             right: 35%
@@ -174,8 +130,8 @@
                 left: -1rem
                 width: 2px
                 height: 13rem
-                background-color: black
                 transform: scaleY(0)
+                background-color: black
                 animation: showstick .7s .5s forwards ease-in-out
             &::after
                 content: '\A'
@@ -189,36 +145,41 @@
                 border-radius: 50%
                 opacity: 0
                 animation: showdot .8s .8s forwards ease
+
+            &--show
+                &::before        
+                    animation: none
+                    transform: scaleY(1)
+
+                &::after
+                    opacity: 1
+                    animation: none
     &__listText
         position: relative
         display: block
         opacity: 0
         animation: translateYOpacityShow .8s .5s forwards ease
+        &--show
+            opacity: 1
+            animation: none
+    
+    /* LearnMore Added Element */
+    &__learnMoreContainer
+        height: 120vh
+    &__learnMoreInnerContainer
+        padding-top: 7rem
+        background: rgb(244,244,244);
+        background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 35%);
+    &__learnMoreTopContainer
+        margin: 0 auto
+        width: 55%
+    
+    &__learnMoreImage
+        object-fit: contain
+        width: 100%
+        margin-top: 7rem
 
+
+    /* Fullpage.js adjustment */
     .fp-tableCell
         vertical-align: top
-
-
-
-@keyframes showstick
-    0%
-        transform: scaleY(0)
-        
-    100%
-        transform: scaleY(1)
-
-@keyframes showdot 
-    0%
-        opacity: 0
-    100%
-        opacity: 1
-
-
-@keyframes translateYOpacityShow
-    0%
-        opacity: 0
-        transform: translateY(2rem)
-        
-    100%
-        opacity: 1
-        transform: translateY(0)

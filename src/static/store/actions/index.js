@@ -11,10 +11,9 @@ export const setPageIndex = (index) => (dispatch) => {
   });
 };
 
-export const setNavbar = (type) => (dispatch) => {
+export const setNavbar = () => (dispatch) => {
   dispatch({
     type: SET_NAVBAR,
-    payload: type,
   });
 };
 export const setWidth = (width) => (dispatch) => {
@@ -33,5 +32,24 @@ export const setLoaded = (type) => (dispatch) => {
   dispatch({
     type: SET_LOADED,
     payload: type,
+  });
+};
+
+/* Model S actions */
+
+export const SET_PAGE_TO_SHOW = "SET_PAGE_TO_SHOW";
+export const SET_SILENT_SCROLL_TO = "SET_SILENT_SCROLL_TO";
+
+export const setPageToShow = (pageToShow) => (dispatch) => {
+  dispatch({
+    type: SET_PAGE_TO_SHOW,
+    payload: pageToShow,
+  });
+};
+
+export const setSilentScrollTo = (to) => (dispatch) => {
+  dispatch({
+    type: SET_SILENT_SCROLL_TO,
+    payload: to,
   });
 };

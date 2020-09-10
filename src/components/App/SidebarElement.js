@@ -18,7 +18,7 @@ export default connect(
   );
   return (
     <NavLink
-      onClick={click ? () => click() : () => setNavbar(false)}
+      onClick={click ? () => click() : () => setNavbar()}
       className="sidebar__element"
       to={link}
     >

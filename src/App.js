@@ -3,8 +3,18 @@ import MainPage from "./pages/MainPage";
 import ModelS from "./pages/ModelS";
 import { Switch, Route } from "react-router";
 import Navbar from "./components/App/Navbar";
+import { connect } from "react-redux";
 
-function App() {
+const mapStateToProps = (state) => ({
+  navbarActive: state.page.navbarActive,
+});
+
+function App({ navbarActive }) {
+  if (navbarActive) {
+    document.querySelector("body").classList.add("overscroll-off");
+  } else {
+    document.querySelector("body").classList.remove("overscroll-off");
+  }
   return (
     <div className="app">
       <Navbar />
@@ -16,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(mapStateToProps)(App);

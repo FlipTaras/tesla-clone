@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Transition } from "react-transition-group";
 import SidebarElement from "./SidebarElement";
 import { connect } from "react-redux";
@@ -54,7 +54,9 @@ export default connect(mapStateToProps)(({ navbarActive, width }) => {
     { title: "Solar Panels", link: "/solar-panels" },
     { title: "Shop", link: "/shop" },
   ];
-  const sidebarElementRender = () => {
+
+  /* Render Functionality */
+  const sidebarElementRender = useCallback(() => {
     if (width > 1200) {
       return sidebarElementsBigScreen.map((el) => (
         <SidebarElement key={el.title} text={el.title} link={el.link} />
@@ -102,7 +104,12 @@ export default connect(mapStateToProps)(({ navbarActive, width }) => {
           </>
         );
     }
-  };
+  }, [
+    moreActive,
+    sideBarElementsMediumScreen,
+    sidebarElementsBigScreen,
+    width,
+  ]);
 
   return (
     <Transition in={navbarActive} timeout={200}>

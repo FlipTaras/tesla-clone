@@ -32,6 +32,9 @@
     &:active,
     &:focus
         outline: none
+    &:disabled
+        opacity: .3
+        pointer-events: none
         
     &__learnText
         color: #171a20
@@ -42,18 +45,60 @@
     &__learnicon
         cursor: pointer
         margin-right: 1rem
-        padding: .2rem 1rem 0 .8rem
-        font-size: 3rem
+        padding: .8rem .9rem
+        font-size: 2rem
         border: 3px solid black
         border-radius: 100%
         transition: all .2s ease
-        font-weight: 800
         &:hover
             color: white
             background-color: black
 
 /* Close Button Element */
-.closeButton
+.closeNextButton
     position: fixed
     bottom: 3%
     left: 50%
+    background: none
+    border: 2px solid black
+    padding: .6rem .9rem .5rem .9rem
+    border-radius: 100%
+    cursor: pointer
+    transition: all .1s linear
+    &--next
+        padding: .6rem .9rem .4rem .9rem
+    &__container
+        position: fixed
+        bottom: 2.7%
+        left: 49.8%
+        width: 3.6rem
+        height: 3.6rem
+        border-radius: 100%
+        background-color: rgba(244, 244, 244, .5)
+        transition: width .2s linear
+        &:hover
+            animation: expandShadowCloseButton .1s linear forwards
+
+    &__text
+        position: fixed
+        bottom: 4%
+        left: 52%
+        text-transform: uppercase
+        font-family: 'Gotham Medium'
+        font-size: 1.4rem
+        margin-left: .8rem
+        font-weight: 500
+        opacity: 0
+        cursor: pointer
+        &--hover
+            opacity: 1
+    &:hover
+        background-color: black
+        color: white
+    &:active
+    &:focus
+        outline: none
+
+
+
+

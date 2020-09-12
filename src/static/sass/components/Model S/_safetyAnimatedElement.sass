@@ -1,0 +1,57 @@
+.safetyAnimatedElement
+    color: #393c41
+    font-family: 'Gotham Medium'
+    font-size: 1.4rem
+    font-weight: 500
+    position: absolute
+
+    &__line
+        position: absolute
+        width: 2px
+        background-color: black
+        transform: scaleY(0)
+        &--show
+            transform: scaleY(1)
+            animation: none
+
+    &__dot
+        position: absolute
+        border: 2px solid black
+        background-color: white
+        width: .8rem
+        height: .8rem
+        border-radius: 50%
+        opacity: 0
+        &--show
+            opacity: 1
+            animation: none
+
+    &__infoContainer
+        padding-left: 1rem
+
+    &__title
+        position: relative
+        font-size: 1.4rem
+        font-weight: 500
+        opacity: 0
+        width: 100%
+        display: block
+        &--show
+            opacity: 1
+            animation: none
+
+    &__text
+        position: absolute
+        width: 135%
+        font-family: 'Gotham Book'
+        font-size: 1.5rem
+        color: #393c41
+        line-height: 1.5
+        margin-top: .9rem
+        font-weight: 500
+        opacity: 0
+
+
+
+
+

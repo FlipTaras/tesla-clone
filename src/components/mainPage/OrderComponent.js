@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import ExpandMoreOutlinedIcon from "@material-ui/icons/ExpandMoreOutlined";
 import { Transition } from "react-transition-group";
 import classnames from "classnames";
@@ -45,62 +45,78 @@ export default connect(mapStateToProps)(
       title === "Model Y" && "orderComponent__buttons--first"
     );
 
-    const renderSubtitle = () =>
-      subtitle ? (
-        <span>{subtitle}</span>
-      ) : (
-        <span>
-          Order Online for <a href="/">Touchless Delivery</a>
-        </span>
-      );
-    const renderButtons = () => (
-      <>
-        <a
-          style={styleLeftButton}
-          href="/"
-          className={
-            title === "Accessories"
-              ? "orderComponent__button orderComponent__button--acces"
-              : "orderComponent__button orderComponent__button--dark"
-          }
-        >
-          {title === "Accessories" ? "Shop Now" : "Custom Order"}
-        </a>
-        <a style={styleRightButton} href="/" className={lightButtonClassNames}>
-          Learn More
-        </a>
-        <div
-          style={title === "Accessories" ? { display: "none" } : styleArrowDown}
-          className="orderComponent__iconContainer"
-        >
-          {title === "Model Y" && (
-            <ExpandMoreOutlinedIcon className="orderComponent__icon" />
-          )}
-        </div>
-      </>
+    /* Render Functionality */
+    const renderSubtitle = useCallback(
+      () =>
+        subtitle ? (
+          <span>{subtitle}</span>
+        ) : (
+          <span>
+            Order Online for <a href="/">Touchless Delivery</a>
+          </span>
+        ),
+      [subtitle]
     );
-
     /* Animation Settings */
+
     let styleTitle = {};
     let styleSubtitle = {};
-    let styleLeftButton = {};
-    let styleRightButton = {};
-    let styleArrowDown = {};
     if (loaded) {
       styleTitle = { animation: "titleApper .6s .5s ease-in-out forwards" };
       styleSubtitle = {
         animation: "subTitleAppear .2s 1.1s ease-in-out forwards",
       };
-      styleLeftButton = {
-        animation: "leftButtonAppear .5s 1s ease-in-out forwards",
-      };
-      styleRightButton = {
-        animation: "rightButtonAppear .5s 1s ease-in-out forwards",
-      };
-      styleArrowDown = {
-        animation: "arrowDownApper 1s 1.4s ease forwards",
-      };
     }
+    const renderButtons = useCallback(() => {
+      /* Animation Settings */
+
+      let styleLeftButton = {};
+      let styleRightButton = {};
+      let styleArrowDown = {};
+      if (loaded) {
+        styleLeftButton = {
+          animation: "leftButtonAppear .5s 1s ease-in-out forwards",
+        };
+        styleRightButton = {
+          animation: "rightButtonAppear .5s 1s ease-in-out forwards",
+        };
+        styleArrowDown = {
+          animation: "arrowDownApper 1s 1.4s ease forwards",
+        };
+      }
+      return (
+        <>
+          <a
+            style={styleLeftButton}
+            href="/"
+            className={
+              title === "Accessories"
+                ? "orderComponent__button orderComponent__button--acces"
+                : "orderComponent__button orderComponent__button--dark"
+            }
+          >
+            {title === "Accessories" ? "Shop Now" : "Custom Order"}
+          </a>
+          <a
+            style={styleRightButton}
+            href="/"
+            className={lightButtonClassNames}
+          >
+            Learn More
+          </a>
+          <div
+            style={
+              title === "Accessories" ? { display: "none" } : styleArrowDown
+            }
+            className="orderComponent__iconContainer"
+          >
+            {title === "Model Y" && (
+              <ExpandMoreOutlinedIcon className="orderComponent__icon" />
+            )}
+          </div>
+        </>
+      );
+    }, [lightButtonClassNames, title, loaded]);
 
     return (
       <Transition in={active} timeout={200}>

@@ -34,6 +34,9 @@ code
     font-family: 'Gotham Medium'
     font-size: 2.8rem
     font-weight: 500
+    &--animated
+        opacity: 0
+        animation: translateYOpacityShow .8s .3s forwards ease
 .paragraph
     color: #393c41
     font-family: 'Gotham Book'
@@ -41,6 +44,10 @@ code
     font-weight: 400
     line-height: 1.4
     margin-top: 1.6rem
+    &--animated
+        opacity: 0
+        animation: translateYOpacityShow .8s .5s forwards ease
+
 /* FONTS */
     
 @font-face 
@@ -58,6 +65,11 @@ code
     font-style: normal
     font-weight: normal
     src: url("../../fonts/Gotham-Light-Regular.otf")
+@font-face 
+    font-family: 'Gotham Bold'
+    font-style: normal
+    font-weight: normal
+    src: url("../../fonts/Gotham-Bold.otf")
     
 
 

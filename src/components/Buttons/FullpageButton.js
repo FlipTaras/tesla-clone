@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { setPageIndex } from "../static/store/actions";
+import { setPageIndex } from "../../static/store/actions";
 
 const mapActionToProps = {
   setPageIndex,

@@ -67,7 +67,7 @@
 
 /* Safety Section Animation */
 
-@keyframes showstick
+@keyframes showstickScaleY
     0%
         transform: scaleY(0)
         
@@ -89,3 +89,30 @@
     100%
         opacity: 1
         transform: translateY(0)
+
+
+@keyframes showstickScaleYTop
+    0%
+        transform-origin: top
+        transform: scaleY(0) 
+    100%
+        transform-origin: top
+        transform: scaleY(1)
+
+@keyframes translateYOpacityShowFromTop
+    0%
+        opacity: 0
+        transform: translateY(-3rem)   
+    100%
+        opacity: 1
+        transform: translateY(0)
+
+@keyframes expandShadowCloseButton
+    0%
+        width: 3.6rem
+        border-radius: 100%
+    1%
+        border-radius: 2rem
+    100%
+        width: 10rem
+        border-radius: 2rem

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import ExpandMoreOutlinedIcon from "@material-ui/icons/ExpandMoreOutlined";
 import { connect } from "react-redux";
 import CountUp from "react-countup";
-import OrderButton from "../OrderButton";
+import OrderButton from "../Buttons/OrderButton";
 
 const mapStateToProps = (state) => ({
   loaded: state.page.loaded,
@@ -11,6 +11,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps)(
   ({ image, title, loaded, pageIndex }) => {
+    /* svgElement */
     const svgSpeed = (
       <svg
         version="1.1"
@@ -52,45 +53,46 @@ export default connect(mapStateToProps)(
         </line>
       </svg>
     );
-    /* ModelS CountUp Element */
-    const countUpElement = (
-      <CountUp
-        delay={0.5}
-        end={2.3}
-        duration={3}
-        suffix={"s"}
-        decimals={1}
-        useEasing
-      />
-    );
-    /* Animation Settings */
-    let styleTitle = {};
-    let styleFirstComponent = {};
-    let styleSecondComponent = {};
-    let styleThirdComponent = {};
-    let styleButtonComponent = {};
-    let styleIconComponent = {};
-    if (loaded) {
-      styleTitle = { animation: "titleApper .3s .1s ease-in-out forwards" };
-      styleFirstComponent = {
-        animation: "subTitleAppear .2s .2s ease-in-out forwards",
-      };
-      styleSecondComponent = {
-        animation: "subTitleAppear .2s .4s ease-in-out forwards",
-      };
-      styleThirdComponent = {
-        animation: "subTitleAppear .2s .6s ease-in-out forwards",
-      };
-      styleButtonComponent = {
-        opacity: 0,
-        animation: "subTitleAppear .2s .8s ease-in-out forwards",
-      };
-      styleIconComponent = {
-        animation: "subTitleAppear .2s 1s ease-in-out forwards",
-      };
-    }
+    /* Render functionality */
+    const renderContent = useCallback(() => {
+      /* ModelS CountUp Element */
+      const countUpElement = (
+        <CountUp
+          delay={0.5}
+          end={2.3}
+          duration={3}
+          suffix={"s"}
+          decimals={1}
+          useEasing
+        />
+      );
 
-    const renderContent = () => {
+      /* Animation Settings */
+      let styleTitle = {};
+      let styleFirstComponent = {};
+      let styleSecondComponent = {};
+      let styleThirdComponent = {};
+      let styleButtonComponent = {};
+      let styleIconComponent = {};
+      if (loaded) {
+        styleTitle = { animation: "titleApper .3s .1s ease-in-out forwards" };
+        styleFirstComponent = {
+          animation: "subTitleAppear .2s .2s ease-in-out forwards",
+        };
+        styleSecondComponent = {
+          animation: "subTitleAppear .2s .4s ease-in-out forwards",
+        };
+        styleThirdComponent = {
+          animation: "subTitleAppear .2s .6s ease-in-out forwards",
+        };
+        styleButtonComponent = {
+          opacity: 0,
+          animation: "subTitleAppear .2s .8s ease-in-out forwards",
+        };
+        styleIconComponent = {
+          animation: "subTitleAppear .2s 1s ease-in-out forwards",
+        };
+      }
       const modelSInfoElements = [
         {
           style: styleFirstComponent,
@@ -117,6 +119,7 @@ export default connect(mapStateToProps)(
       const renderInfoElement = () => {
         return modelSInfoElements.map((el) => (
           <div
+            key={el.title}
             style={el.style}
             className="firstSection__characteristicsElement"
           >
@@ -152,7 +155,7 @@ export default connect(mapStateToProps)(
       } else {
         return null;
       }
-    };
+    }, [loaded, pageIndex, svgSpeed, title]);
     return (
       <section
         className="section firstSection"

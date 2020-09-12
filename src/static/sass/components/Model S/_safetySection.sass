@@ -1,5 +1,5 @@
 .safety        
-    height: 220vh
+    height: 230vh
     /* Initial Element */
     &__container
         display: flex
@@ -38,130 +38,6 @@
         background-size: 100% !important
         height: 100vh;
         position: relative
-
-    &__list
-        list-style: none
-    
-    &__listElement
-        color: #393c41
-        font-family: 'Gotham Medium'
-        font-size: 1.4rem
-        font-weight: 500
-        position: absolute
-        &--show
-            &::after
-            &::before        
-                opacity: 1
-                animation: none
-        &--1
-            top: 20%
-            left: 26%
-            &::before
-                content: ''
-                position: absolute
-                top: 1rem
-                left: -1rem
-                width: 2px
-                background-color: black
-                height: 23rem
-                transform: scaleY(0)
-                animation: showstick .7s .2s forwards ease-in-out
-                display: block
-            &::after
-                content: '\A'
-                position: absolute
-                border: 2px solid black
-                background-color: white
-                width: 5px
-                height: 5px
-                // top: 1410%
-                top: 24rem
-                left: -1.3rem
-                border-radius: 50%
-                opacity: 0
-                animation: showdot .8s .8s forwards ease
-            &--show
-                &::before        
-                    transform: scaleY(1)
-                    animation: none
-                &::after
-                    opacity: 1
-                    animation: none
-        &--2
-            top: 11%
-            left: 47%
-            &::before
-                content: ''
-                position: absolute
-                top: 1rem
-                left: -1rem
-                width: 2px
-                height: 12rem
-                transform: scaleY(0)
-                background-color: black
-                animation: showstick .7s .2s forwards ease-in-out
-            &::after
-                content: '\A'
-                position: absolute
-                border: 2px solid black
-                background-color: white
-                width: 5px
-                height: 5px
-                top: 13rem
-                left: -1.3rem
-                border-radius: 50%
-                opacity: 0
-                animation: showdot .8s .8s forwards ease
-            &--show
-                &::before        
-                    transform: scaleY(1)
-
-                    animation: none
-                &::after
-                    opacity: 1
-                    animation: none
-        &--3
-            bottom: 24%
-            right: 35%
-            &::before
-                content: ''
-                position: absolute
-                bottom: 0
-                left: -1rem
-                width: 2px
-                height: 13rem
-                transform: scaleY(0)
-                background-color: black
-                animation: showstick .7s .5s forwards ease-in-out
-            &::after
-                content: '\A'
-                position: absolute
-                border: 2px solid black
-                background-color: white
-                width: 5px
-                height: 5px
-                top: 1rem
-                left: -1.3rem
-                border-radius: 50%
-                opacity: 0
-                animation: showdot .8s .8s forwards ease
-
-            &--show
-                &::before        
-                    animation: none
-                    transform: scaleY(1)
-
-                &::after
-                    opacity: 1
-                    animation: none
-    &__listText
-        position: relative
-        display: block
-        opacity: 0
-        animation: translateYOpacityShow .8s .5s forwards ease
-        &--show
-            opacity: 1
-            animation: none
     
     /* LearnMore Added Element */
     &__learnMoreContainer
@@ -170,6 +46,7 @@
         padding-top: 7rem
         background: rgb(244,244,244);
         background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 35%);
+        position: relative
     &__learnMoreTopContainer
         margin: 0 auto
         width: 55%

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import ModelsStructureInitial from "../../static/images/ModelS/Safety.png";
 import ModelsStructureLeanMore from "../../static/images/ModelS/model-s-supportive-structure.jpg";
 import { connect } from "react-redux";
@@ -9,7 +9,8 @@ import SafetyAnimatedElement from "./SafetyAnimatedElement";
 import CloseNextButton from "../Buttons/CloseNextButton";
 
 const mapStateToProps = (state) => ({
-  pageIndex: state.page.pageIndex,
+  pageIndex: state.models.pageIndex,
+  pageYOffset: state.page.pageYOffset,
 });
 
 const mapActionToProps = {
@@ -28,6 +29,7 @@ export default connect(
     setSilentScrollTo,
     topContainerRef,
     bottomContainerRef,
+    pageYOffset,
   }) => {
     /* Scroll Learn more page into view */
     useEffect(() => {
@@ -35,16 +37,6 @@ export default connect(
         window.scrollTo({ top: 755, behavior: "smooth" });
       }
     }, [learnMoreOn]);
-
-    /* Detect windowYOffset */
-    const [windowPageOffset, setWindowPageOffset] = useState(
-      window.pageYOffset
-    );
-    useEffect(() => {
-      window.addEventListener("scroll", () => {
-        setWindowPageOffset(window.pageYOffset);
-      });
-    }, []);
 
     /* Render functionality */
     const renderSafetyLeft = useCallback(() => {
@@ -234,18 +226,18 @@ export default connect(
               </div>
             </div>
             <CloseNextButton
-              close={windowPageOffset < 900}
-              click={windowPageOffset < 900 ? CloseHandler : NextHandler}
+              close={pageYOffset < 900}
+              click={pageYOffset < 900 ? CloseHandler : NextHandler}
             />
           </div>
         );
       } else {
         return null;
       }
-    }, [learnMoreOn, setPageToShow, setSilentScrollTo, windowPageOffset]);
+    }, [learnMoreOn, setPageToShow, setSilentScrollTo, pageYOffset]);
 
     return (
-      <div className="safety section">
+      <section className="safety section">
         <div className="safety__container">
           <div className="safety__left">{renderSafetyLeft()}</div>
           <div
@@ -256,7 +248,7 @@ export default connect(
           </div>
         </div>
         {renderLearnMoreSection()}
-      </div>
+      </section>
     );
   }
 );

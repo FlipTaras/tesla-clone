@@ -3,7 +3,14 @@ export const SET_HEIGHT = "SET_HEIGHT";
 export const SET_LOADED = "SET_LOADED";
 export const SET_NAVBAR = "SET_NAVBAR";
 export const SET_PAGEINDEX = "SET_PAGEINDEX";
+export const SET_PAGEYOFFSET = "SET_PAGEYOFFSET";
 
+export const setPageYOffSet = (offset) => (dispatch) => {
+  dispatch({
+    type: SET_PAGEYOFFSET,
+    payload: offset,
+  });
+};
 export const setPageIndex = (index) => (dispatch) => {
   dispatch({
     type: SET_PAGEINDEX,

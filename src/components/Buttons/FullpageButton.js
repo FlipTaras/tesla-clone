@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { setPageIndex } from "../../static/store/actions";
@@ -11,49 +11,8 @@ export default connect(
   null,
   mapActionToProps
 )(({ model, pageIndex, setPageIndex }) => {
-  const [active, setActive] = useState("model");
+  const [active, setActive] = useState(null);
   const [dark, setDark] = useState(true);
-
-  /* Change the active class when user changing the section */
-  const darkAndActiveCheck = () => {
-    const index = document
-      .querySelector("body")
-      .classList.value.split(" ")[0]
-      .split("-")[2];
-    if (index) {
-      setPageIndex(index);
-      setActive(ButtonElements[index]?.title);
-      if (ButtonElements[index]?.dark) {
-        setDark(true);
-      } else {
-        setDark(false);
-      }
-    }
-  };
-  const clickHandler = (index, el) => {
-    if (window.fullpage_api) {
-      setActive(el.title);
-      window.fullpage_api.moveTo(index);
-      darkAndActiveCheck();
-    }
-  };
-  window.addEventListener("wheel", () => {
-    darkAndActiveCheck();
-  });
-  /* For Phones */
-  window.addEventListener("touchmove", () => {
-    darkAndActiveCheck();
-  });
-
-  const elementClassNamesColor = classnames(
-    dark ? "fullpage__element--dark" : "fullpage__element--light"
-  );
-
-  const linkClassNames = classnames(
-    "fullpage__link",
-    dark ? "fullpage__link--dark" : "fullpage__link--light"
-  );
-
   const ButtonElements = [
     {
       link: "#model",
@@ -146,6 +105,61 @@ export default connect(
       title: "order",
     },
   ];
+
+  /* ClassNames for Elements */
+  const elementClassNamesColor = classnames(
+    dark ? "fullpage__element--dark" : "fullpage__element--light"
+  );
+
+  const linkClassNames = classnames(
+    "fullpage__link",
+    dark ? "fullpage__link--dark" : "fullpage__link--light"
+  );
+
+  /* Change the active class when user changing the section */
+  const darkAndActiveCheck = useCallback(() => {
+    const index = document
+      .querySelector("body")
+      .classList.value.split(" ")[0]
+      .split("-")[2];
+    if (index) {
+      setPageIndex(index);
+      setActive(ButtonElements[index]?.title);
+      if (ButtonElements[index]?.dark) {
+        setDark(true);
+      } else {
+        setDark(false);
+      }
+    }
+  }, [ButtonElements, setPageIndex]);
+
+  useEffect(() => {
+    const darkAndActiveTimer = () =>
+      window.setTimeout(() => {
+        darkAndActiveCheck();
+      }, 200);
+    /* For scroll navigation */
+    window.addEventListener("wheel", darkAndActiveCheck);
+
+    // /* For key navigation */
+    window.addEventListener("keydown", darkAndActiveTimer);
+
+    /* For Phones */
+    window.addEventListener("touchmove", darkAndActiveCheck);
+    return () => {
+      window.removeEventListener("touchmove", darkAndActiveCheck);
+      window.removeEventListener("wheel", darkAndActiveCheck);
+      window.removeEventListener("keydown", darkAndActiveTimer);
+    };
+  }, [darkAndActiveCheck]);
+
+  const clickHandler = (index, el) => {
+    if (window.fullpage_api) {
+      setActive(el.title);
+      window.fullpage_api.moveTo(index);
+      darkAndActiveCheck();
+    }
+  };
 
   return (
     <div id="fp-nav" className="fullpage">

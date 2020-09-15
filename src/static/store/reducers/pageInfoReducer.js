@@ -5,7 +5,7 @@ const initialState = {
   height: window.innerHeight,
   loaded: false,
   navbarActive: false,
-  pageIndex: "0",
+  pageYOffset: window.pageYOffset,
 };
 
 export default (state = initialState, action) => {
@@ -18,8 +18,8 @@ export default (state = initialState, action) => {
       return { ...state, loaded: action.payload };
     case actionType.SET_NAVBAR:
       return { ...state, navbarActive: !state.navbarActive };
-    case actionType.SET_PAGEINDEX:
-      return { ...state, pageIndex: action.payload };
+    case actionType.SET_PAGEYOFFSET:
+      return { ...state, pageYOffset: action.payload };
     default:
       return state;
   }

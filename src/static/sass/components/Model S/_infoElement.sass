@@ -1,0 +1,35 @@
+.infoElement
+    box-sizing: content-box
+    position: relative
+    padding: 0 3.5rem 0 3.5rem
+    opacity: 0
+    &--show
+        opacity: 1 !important
+        animation: none !important
+    svg
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        margin-right: 1rem
+        margin-top: -5rem
+
+    &__duration
+        display: inline-block
+        font-size: 2.8rem
+        font-weight: 500
+            
+    &__from
+        font-size: 1.2rem
+        font-family: 'Gotham Book'
+        line-height: 1.5
+
+    &__line
+        position: absolute
+        width: 1px
+        height: 7.5rem
+        background-color: black
+        top: 0
+        right: 0
+        opacity: .9
+        &--white
+            background-color: white

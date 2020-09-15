@@ -1,4 +1,10 @@
-import React, { useRef, useLayoutEffect, useEffect, useCallback } from "react";
+import React, {
+  useRef,
+  useLayoutEffect,
+  useEffect,
+  useCallback,
+  useState,
+} from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Image from "../static/images/ModelS/Model-S.jpg";
 
@@ -6,6 +12,7 @@ import Image from "../static/images/ModelS/Model-S.jpg";
 import FullpageButton from "../components/Buttons/FullpageButton";
 import FirstSection from "../components/ModelS/FirstSection";
 import SafetySection from "../components/ModelS/SafetySection";
+import PerfomanceSection from "../components/ModelS/PerfomanceSection";
 
 /* Redux */
 import {
@@ -36,20 +43,41 @@ const ModelSPage = ({
   silentScrollTo,
   setSilentScrollTo,
 }) => {
-  const topContainerRef = useRef(null);
-  const bottomContainerRef = useRef(null);
+  const topContainerSafetyRef = useRef(null);
+  const bottomContainerSafetyRef = useRef(null);
+  const [stopPerfomanceAnimation, setStopPerfomanceAnimation] = useState(false);
+  const bottomContainerPerfomanceRef = useRef(null);
+
   /* After close learn More section functionality */
   useEffect(() => {
     if (silentScrollTo === "safety") {
       window.fullpage_api.silentMoveTo(2);
       setPageIndex("1");
-      topContainerRef.current.classList.add("safety__topContainer--show");
-      bottomContainerRef.current.classList.add("safety__bottomContainer--show");
+      topContainerSafetyRef.current.classList.add("safety__topContainer--show");
+      bottomContainerSafetyRef.current.classList.add(
+        "safety__bottomContainer--show"
+      );
     } else if (silentScrollTo === "perfomance") {
       window.fullpage_api.silentMoveTo(3);
       setPageIndex("2");
+      if (bottomContainerPerfomanceRef.current) {
+        bottomContainerPerfomanceRef.current.classList.add(
+          "perfomance__bottomContainerInner--show"
+        );
+        setStopPerfomanceAnimation(true);
+      }
+    } else if (silentScrollTo === "range") {
+      window.fullpage_api.silentMoveTo(4);
+      setPageIndex("3");
+    } else {
+      window.addEventListener("wheel", () => {
+        setStopPerfomanceAnimation(false);
+      });
     }
-    return () => setSilentScrollTo(null);
+
+    return () => {
+      setSilentScrollTo(null);
+    };
   }, [silentScrollTo, setPageIndex, setSilentScrollTo]);
 
   /* Wait till page load, to load content */
@@ -84,6 +112,8 @@ const ModelSPage = ({
     if (loaded) {
       if (pagetoShow === "safety") {
         return <SafetySection learnMoreOn />;
+      } else if (pagetoShow === "perfomance") {
+        return <PerfomanceSection learnMoreOn />;
       } else {
         return (
           <>
@@ -98,10 +128,15 @@ const ModelSPage = ({
                   <ReactFullpage.Wrapper>
                     <FirstSection title="Model S" image={Image} />
                     <SafetySection
-                      topContainerRef={topContainerRef}
-                      bottomContainerRef={bottomContainerRef}
+                      topContainerRef={topContainerSafetyRef}
+                      bottomContainerRef={bottomContainerSafetyRef}
                     />
-                    <FirstSection image={Image} />
+                    <PerfomanceSection
+                      stopPerfomanceAnimation={stopPerfomanceAnimation}
+                      bottomContainerPerfomanceRef={
+                        bottomContainerPerfomanceRef
+                      }
+                    />
                     <FirstSection image={Image} />
                     <FirstSection image={Image} />
                     <FirstSection image={Image} />
@@ -118,7 +153,7 @@ const ModelSPage = ({
     } else {
       return null;
     }
-  }, [ImageComponent, pagetoShow, loaded]);
+  }, [ImageComponent, pagetoShow, loaded, stopPerfomanceAnimation]);
 
   return renderModelSPage();
 };

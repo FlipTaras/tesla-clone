@@ -3,10 +3,11 @@ import ExpandMoreOutlinedIcon from "@material-ui/icons/ExpandMoreOutlined";
 import { connect } from "react-redux";
 import CountUp from "react-countup";
 import OrderButton from "../Buttons/OrderButton";
+import InfoElement from "./InfoElement";
 
 const mapStateToProps = (state) => ({
   loaded: state.page.loaded,
-  pageIndex: state.page.pageIndex,
+  pageIndex: state.models.pageIndex,
 });
 
 export default connect(mapStateToProps)(
@@ -17,7 +18,7 @@ export default connect(mapStateToProps)(
         version="1.1"
         id="L2"
         xmlns="http://www.w3.org/2000/svg"
-        xmlnXlink="http://www.w3.org/1999/xlink"
+        // xmlnXlink="http://www.w3.org/1999/xlink"
         x="0px"
         y="0px"
         viewBox="0 -1 50 40"
@@ -100,6 +101,8 @@ export default connect(mapStateToProps)(
           title: countUpElement,
           firstText: "From 0-60 mph",
           secondText: null,
+          width: "13rem",
+          showLine: true,
         },
         {
           style: styleSecondComponent,
@@ -107,6 +110,7 @@ export default connect(mapStateToProps)(
           title: "28 cu ft",
           firstText: "Best in Class",
           secondText: "Storage",
+          showLine: true,
         },
         {
           style: styleThirdComponent,
@@ -118,22 +122,16 @@ export default connect(mapStateToProps)(
       ];
       const renderInfoElement = () => {
         return modelSInfoElements.map((el) => (
-          <div
+          <InfoElement
             key={el.title}
+            title={el.title}
             style={el.style}
-            className="firstSection__characteristicsElement"
-          >
-            {el.svg && el.svg}
-            <div className="firstSection__duration">{el.title}</div>
-            <p className="firstSection__from">
-              {el.firstText}
-              {el.secondText && (
-                <>
-                  <br /> {el.secondText}
-                </>
-              )}
-            </p>
-          </div>
+            svg={el.svg}
+            firstText={el.firstText}
+            secondText={el.secondText}
+            width={el.width}
+            showLine={el.showLine}
+          />
         ));
       };
       if (pageIndex === "0") {

@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainPage from "./pages/MainPage";
 import ModelS from "./pages/ModelS";
 import { Switch, Route } from "react-router";
 import Navbar from "./components/App/Navbar";
 import { connect } from "react-redux";
+import { setPageYOffSet } from "./static/store/actions";
 
 const mapStateToProps = (state) => ({
   navbarActive: state.page.navbarActive,
 });
 
-function App({ navbarActive }) {
+const mapActionToProps = {
+  setPageYOffSet,
+};
+
+function App({ navbarActive, setPageYOffSet }) {
+  /* Detect windowYOffset */
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setPageYOffSet(window.pageYOffset);
+    });
+  }, [setPageYOffSet]);
   if (navbarActive) {
     document.querySelector("body").classList.add("overscroll-off");
   } else {
@@ -26,4 +37,4 @@ function App({ navbarActive }) {
   );
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapActionToProps)(App);

@@ -63,7 +63,7 @@ export default connect(
     } else {
       window.addEventListener("load", () => setLoaded(true));
     }
-    //return () => setLoaded(false);
+    return () => setLoaded(false);
   }, [setLoaded]);
 
   /* Detect width and height change */

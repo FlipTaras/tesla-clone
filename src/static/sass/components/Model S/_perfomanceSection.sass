@@ -1,0 +1,53 @@
+.perfomance
+    /* Initial Element */
+    // height: 100vh
+    &__topContainer
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-size: 100% !important
+        height: 70vh
+        position: relative
+
+    &__bottomContainerInner
+        width: 65%
+        margin: 0 auto
+        margin-top: 4rem
+        display: flex
+        align-items: flex-start
+        animation: translateYOpacityShow .6s .3s forwards ease;
+        opacity: 0
+        &--show
+            opacity: 1
+            animation: none
+
+    &__buttons
+        display: flex
+        margin-top: 2rem
+
+    &__leftContainer
+        flex: .35
+        
+    &__rightContainer
+        flex: .65
+
+    &__text
+        margin-top: -.1rem
+
+    &__infoElements 
+        display: flex
+        width: 100%
+        justify-content: center
+        position: absolute
+        bottom: 17%
+        right: 4%
+        flex-wrap: wrap
+        color: white !important
+
+    /* LearnMore Added Element */
+    &__learnMoreContainer
+        height: 300vh
+
+    /* Fullpage.js adjustment */
+    .fp-tableCell
+        vertical-align: top
+

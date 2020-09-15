@@ -7,7 +7,6 @@ export default ({ click, close }) => {
   );
   const changeTooltipClassName = () => {
     if (toolTipClassNames === "closeNextButton__text") {
-      console.log("here");
       setToolTipClassNames(
         classnames("closeNextButton__text closeNextButton__text--hover")
       );

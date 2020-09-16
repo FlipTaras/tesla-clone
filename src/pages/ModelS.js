@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useLayoutEffect,
-  useEffect,
-  useCallback,
-  useState,
-} from "react";
+import React, { useRef, useLayoutEffect, useEffect, useCallback } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Image from "../static/images/ModelS/Model-S.jpg";
 
@@ -19,6 +13,7 @@ import {
   setLoaded,
   setPageIndex,
   setSilentScrollTo,
+  setStopAnimation,
 } from "../static/store/actions";
 import { connect } from "react-redux";
 
@@ -32,6 +27,7 @@ const mapActionToProps = {
   setLoaded,
   setPageIndex,
   setSilentScrollTo,
+  setStopAnimation,
 };
 
 const ModelSPage = ({
@@ -42,10 +38,10 @@ const ModelSPage = ({
   setPageIndex,
   silentScrollTo,
   setSilentScrollTo,
+  setStopAnimation,
 }) => {
   const topContainerSafetyRef = useRef(null);
   const bottomContainerSafetyRef = useRef(null);
-  const [stopPerfomanceAnimation, setStopPerfomanceAnimation] = useState(false);
   const bottomContainerPerfomanceRef = useRef(null);
 
   /* After close learn More section functionality */
@@ -64,21 +60,19 @@ const ModelSPage = ({
         bottomContainerPerfomanceRef.current.classList.add(
           "perfomance__bottomContainerInner--show"
         );
-        setStopPerfomanceAnimation(true);
+        setStopAnimation(true);
       }
     } else if (silentScrollTo === "range") {
       window.fullpage_api.silentMoveTo(4);
       setPageIndex("3");
     } else {
-      window.addEventListener("wheel", () => {
-        setStopPerfomanceAnimation(false);
-      });
+      window.addEventListener("wheel", () => setStopAnimation(false));
     }
 
     return () => {
       setSilentScrollTo(null);
     };
-  }, [silentScrollTo, setPageIndex, setSilentScrollTo]);
+  }, [silentScrollTo, setPageIndex, setSilentScrollTo, setStopAnimation]);
 
   /* Wait till page load, to load content */
   const imageRef = useRef(null);
@@ -132,7 +126,7 @@ const ModelSPage = ({
                       bottomContainerRef={bottomContainerSafetyRef}
                     />
                     <PerfomanceSection
-                      stopPerfomanceAnimation={stopPerfomanceAnimation}
+                      // stopPerfomanceAnimation={stopPerfomanceAnimation}
                       bottomContainerPerfomanceRef={
                         bottomContainerPerfomanceRef
                       }
@@ -153,7 +147,7 @@ const ModelSPage = ({
     } else {
       return null;
     }
-  }, [ImageComponent, pagetoShow, loaded, stopPerfomanceAnimation]);
+  }, [ImageComponent, pagetoShow, loaded]);
 
   return renderModelSPage();
 };

@@ -1,16 +1,28 @@
-import React, { useCallback, useEffect } from "react";
-import Image from "../../static/images/ModelS/model-s-performance.jpg";
+import React, { useCallback, useEffect, useState } from "react";
 import LearnMoreButton from "../Buttons/LearnMoreButton";
 import OrderButton from "../Buttons/OrderButton";
 import InfoElement from "./InfoElement";
 import CountUp from "react-countup";
+import CloseNextButton from "../Buttons/CloseNextButton";
+import VideoButton from "./VideoButton";
+
+/* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
-import CloseNextButton from "../Buttons/CloseNextButton";
+
+/* Videos and Posters Imports */
+import Image from "../../static/images/ModelS/model-s-performance.jpg";
+import Video1 from "../../static/videos/ModelS/dualmotor_desktop.mp4";
+import Poster1 from "../../static/images/ModelS/dualmotor_desktop_poster.png";
+import Video2 from "../../static/videos/ModelS/performancemotor_desktop.mp4";
+import Poster2 from "../../static/images/ModelS/performancemotor_desktop_poster.png";
+import Video3 from "../../static/videos/ModelS/KD8BAH_total-control-s_0.mp4-2000_M3C5DL.mp4";
+import Poster3 from "../../static/images/ModelS/total-control-s-poster.png";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
   pageYOffset: state.page.pageYOffset,
+  stopAnimation: state.models.stopAnimation,
 });
 
 const mapActionToProps = {
@@ -28,14 +40,17 @@ export default connect(
     setSilentScrollTo,
     pageYOffset,
     bottomContainerPerfomanceRef,
-    stopPerfomanceAnimation,
+    stopAnimation,
   }) => {
+    const [activeButton, setActiveButton] = useState(1);
+
     /* Scroll Learn more page into view */
     useEffect(() => {
       if (learnMoreOn) {
-        window.scrollTo({ top: 755, behavior: "smooth" });
+        window.scrollTo({ top: 760, behavior: "smooth" });
       }
     }, [learnMoreOn]);
+    console.log(pageYOffset);
 
     /* Render functionality */
     const renderTopContainer = useCallback(() => {
@@ -71,12 +86,12 @@ export default connect(
             transform={
               learnMoreOn
                 ? "rotate(170 30 40)"
-                : stopPerfomanceAnimation
+                : stopAnimation
                 ? "rotate(170 30 40)"
                 : ""
             }
           >
-            {learnMoreOn ? null : stopPerfomanceAnimation ? null : (
+            {learnMoreOn ? null : stopAnimation ? null : (
               <animateTransform
                 attributeName="transform"
                 dur="1s"
@@ -90,10 +105,11 @@ export default connect(
           </line>
         </svg>
       );
+      /* CountUp Element */
       const countUpElement = (
         <CountUp
-          delay={learnMoreOn ? 0 : stopPerfomanceAnimation ? 0 : 1}
-          start={learnMoreOn ? 2.3 : stopPerfomanceAnimation ? 2.3 : 0}
+          delay={learnMoreOn ? 0 : stopAnimation ? 0 : 1}
+          start={learnMoreOn ? 2.3 : stopAnimation ? 2.3 : 0}
           end={2.3}
           duration={3}
           suffix={"s"}
@@ -118,7 +134,6 @@ export default connect(
               }
               showLine
               white
-              stopPerfomanceAnimation={stopPerfomanceAnimation}
             />
             <InfoElement
               title={countUpElement}
@@ -135,7 +150,6 @@ export default connect(
               }
               showLine
               white
-              stopPerfomanceAnimation={stopPerfomanceAnimation}
             />
             <InfoElement
               title="163mph"
@@ -149,14 +163,13 @@ export default connect(
                       animation: "translateYOpacityShow .6s 1s forwards ease",
                     }
               }
-              stopPerfomanceAnimation={stopPerfomanceAnimation}
             />
           </div>
         );
       } else {
         return null;
       }
-    }, [pageIndex, learnMoreOn, stopPerfomanceAnimation]);
+    }, [pageIndex, learnMoreOn, stopAnimation]);
 
     const renderBottomContainer = useCallback(() => {
       const LearnMoreHandler = () => {
@@ -176,7 +189,10 @@ export default connect(
               <h2 className="subtitle">Performance</h2>
               <h1 className="title">Quickest Acceleration</h1>
               <div className="perfomance__buttons">
-                <LearnMoreButton click={LearnMoreHandler} />
+                <LearnMoreButton
+                  disabled={learnMoreOn}
+                  click={LearnMoreHandler}
+                />
                 <OrderButton />
               </div>
             </div>
@@ -197,6 +213,32 @@ export default connect(
     }, [pageIndex, setPageToShow, learnMoreOn, bottomContainerPerfomanceRef]);
 
     const renderLearnMoreSection = useCallback(() => {
+      const buttons1 = [
+        {
+          buttonTitle: "3.7s",
+          buttonFirstText: "0-60",
+          buttonSecondtext: "mph",
+        },
+        {
+          buttonTitle: "402",
+          buttonFirstText: "mile",
+          buttonSecondtext: "range",
+        },
+      ];
+
+      const buttons2 = [
+        {
+          buttonTitle: "2.3s",
+          buttonFirstText: "0-60",
+          buttonSecondtext: "mph",
+        },
+        {
+          buttonTitle: "348",
+          buttonFirstText: "mile",
+          buttonSecondtext: "range",
+        },
+      ];
+
       const CloseHandler = () => {
         setPageToShow(null);
         setSilentScrollTo("perfomance");
@@ -205,20 +247,130 @@ export default connect(
         setPageToShow(null);
         setSilentScrollTo("range");
       };
+
       if (learnMoreOn) {
         return (
           <div className="perfomance__learnMoreContainer">
-            <h1>Learn More Section</h1>
+            <div className="perfomance__learnMoreInner">
+              <div className="perfomance__info">
+                <h1 className="perfomance__learnMoreTitle title">
+                  Electric Powertrain
+                </h1>
+                <p className="perfomance__learnMoreParagraph paragraph">
+                  The all-electric powertrain and low center of gravity provide
+                  the best performance, range and efficiency.
+                </p>
+              </div>
+              <div className="perfomance__videosContainer">
+                <video
+                  playsInline
+                  className={
+                    activeButton === 1
+                      ? "perfomance__video perfomance__video--active perfomance__video--1"
+                      : "perfomance__video perfomance__video--1"
+                  }
+                  preload="auto"
+                  loop
+                  muted
+                  src={Video1}
+                  poster={Poster1}
+                  autoPlay
+                ></video>
+                <video
+                  playsInline
+                  className={
+                    activeButton === 2
+                      ? "perfomance__video perfomance__video--active perfomance__video--1"
+                      : "perfomance__video perfomance__video--2"
+                  }
+                  preload="auto"
+                  loop
+                  muted
+                  src={Video2}
+                  poster={Poster2}
+                  autoPlay
+                ></video>
+              </div>
+              <div className="perfomance__videoButtons">
+                <VideoButton
+                  title="Long Range Plus"
+                  text="Premium option with all-wheel drive and longest range"
+                  buttons={buttons1}
+                  showBorder
+                  click={() => setActiveButton(1)}
+                  active={activeButton === 1}
+                  activeButton={activeButton}
+                  topBorderPosition={{ top: "0" }}
+                />
+                <VideoButton
+                  title="Perfomance"
+                  text="Perfomance option with all-wheel drive and ludicrous acceleration"
+                  buttons={buttons2}
+                  topBorderPosition={{ top: ".8rem", left: "2px" }}
+                  click={() => setActiveButton(2)}
+                  active={activeButton === 2}
+                  activeButton={activeButton}
+                />
+              </div>
+            </div>
+            <div className="perfomance__learnMoreDualMotorSection">
+              <div className="perfomance__learnMoreDualMotorVideoContainer">
+                <div
+                  className={
+                    pageYOffset > 1000
+                      ? "perfomance__learnMoreDualMotorVideoInner perfomance__learnMoreDualMotorVideoInner--show"
+                      : "perfomance__learnMoreDualMotorVideoInner"
+                  }
+                >
+                  <video
+                    playsInline
+                    preload="auto"
+                    loop
+                    muted
+                    className="perfomance__learnMoreDualMotorVideo"
+                    src={Video3}
+                    poster={Poster3}
+                    autoPlay
+                  ></video>
+                </div>
+              </div>
+              <div
+                className={
+                  pageYOffset > 1000
+                    ? "perfomance__learnMoreDualMotorInfo perfomance__learnMoreDualMotorInfo--show"
+                    : "perfomance__learnMoreDualMotorInfo"
+                }
+              >
+                <h1 className="title">
+                  Dual Motor <br />
+                  All-Wheel Drive
+                </h1>
+                <p className="perfomance__dualParagraph paragraph">
+                  Only Tesla has the technology that provides dual motors with
+                  independent traction to both front and rear wheels for
+                  unparalleled control, in all weather conditions. As a result,
+                  Model S instantly controls traction and torque to every wheel,
+                  with a unique and superior all-wheel drive system.
+                </p>
+              </div>
+            </div>
+
             <CloseNextButton
-              close={pageYOffset < 900}
-              click={pageYOffset < 900 ? CloseHandler : NextHandler}
+              close={pageYOffset < 1550}
+              click={pageYOffset < 1550 ? CloseHandler : NextHandler}
             />
           </div>
         );
       } else {
         return null;
       }
-    }, [setPageToShow, setSilentScrollTo, learnMoreOn, pageYOffset]);
+    }, [
+      setPageToShow,
+      setSilentScrollTo,
+      learnMoreOn,
+      pageYOffset,
+      activeButton,
+    ]);
 
     return (
       <section className="section perfomance">

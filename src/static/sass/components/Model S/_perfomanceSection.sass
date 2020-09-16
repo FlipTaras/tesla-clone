@@ -45,7 +45,76 @@
 
     /* LearnMore Added Element */
     &__learnMoreContainer
-        height: 300vh
+        // height: 300vh
+        overflow: hidden
+    
+    &__learnMoreInner
+        padding: 8rem 0 3rem 
+        background: linear-gradient(180deg, rgba(244,244,244,1) 40%, rgba(255,255,255,1) 90%);
+        margin: 8rem auto 0
+    &__info
+        width: 55%
+        margin: 0 auto
+
+    &__learnMoreTitle
+        opacity: 0
+        animation: translateYOpacityShow 1s .5s forwards ease
+    &__learnMoreParagraph
+        width: 55%
+        opacity: 0
+        animation: translateYOpacityShow 1s .6s forwards ease
+
+    &__videosContainer
+        height: 50rem
+        position: relative
+        width: 82%
+        margin: 3rem auto 0 auto
+    &__video
+        position: absolute
+        top: 0
+        left: 0
+        object-fit: cover
+        height: 50rem
+        opacity: 0
+        width: 100%
+        transition: opacity 1.1s ease-in-out
+        &--active
+            opacity: 1
+
+    &__videoButtons
+        display: flex
+        align-items: center
+        justify-content: center
+
+    &__learnMoreDualMotorSection
+        padding: 6rem 0 10rem 0
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 85%
+        margin: 0 auto
+    
+    &__learnMoreDualMotorVideoInner
+        height: 49rem
+        margin-right: 4rem
+        opacity: 0
+        &--show
+            animation: translateYOpacityShow .8s ease forwards  
+
+    &__learnMoreDualMotorVideoContainer
+        flex: .8
+
+    &__learnMoreDualMotorVideo
+        object-fit: contain
+        height: 49rem
+
+    &__learnMoreDualMotorInfo
+        opacity: 0
+        &--show
+            animation: translateYOpacityShow .8s .3s ease forwards  
+    &__dualParagraph
+        width: 93%
+
 
     /* Fullpage.js adjustment */
     .fp-tableCell

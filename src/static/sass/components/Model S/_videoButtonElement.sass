@@ -1,0 +1,75 @@
+.videoButtonElement
+    margin-top: 3rem
+    position: relative
+    width: 40rem
+
+    &__videoButtonContentContainer
+        opacity: .4
+        cursor: pointer
+        position: relative
+        &--active
+            opacity: 1
+        &:hover
+            animation: opacityButton 1s ease forwards
+
+    &__videoButtonContainerTopBorder
+        position: absolute
+        top: 0
+        left: 0
+        background-color: black
+        height: 1px
+        width: 100%
+        
+
+    &__videoButtonTitle
+        color: #171a20
+        font-size: 1.8rem
+        font-family: 'Gotham Medium'
+        font-weight: 500
+        padding: 1.5rem 0 1.5rem 2rem
+        &:last-child
+            margin-top: -2rem
+
+
+    &__videoButtonText
+        color: #5c5e62
+        font-family: 'Gotham Book'
+        font-size: 1.2rem
+        font-weight: 400
+        padding: 0 3rem 0 2rem
+        line-height: 1.4
+
+    &__videoButtonInfoContainers
+        margin-top: 3rem
+        display: flex
+
+    &__videoButtonInfoInner
+        display: flex
+        flex: .5
+        padding: 0 0 2rem 2rem
+
+    &__videoButtonInfoTitle
+        color: #171a20
+        font-size: 2.4rem
+        font-family: 'Gotham Medium'
+        font-weight: 500
+
+    &__videoButtonInfoTextContainer
+        display: flex
+        flex-direction: column
+        margin-left: .7rem
+        
+    &__videoButtonInfoText
+        font-size: 1.2rem
+        font-family: 'Gotham Book'
+        font-weight: 400
+        color: #5c5e62
+        &:not(:first-child)
+            margin-top: .4rem
+        
+    &__videoButtonActiveBorder
+        position: absolute
+        left: 0
+        height: 100%
+        width: 100%
+        border: 2px solid rgba(1,1,1,1);

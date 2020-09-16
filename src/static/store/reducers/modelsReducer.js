@@ -4,6 +4,7 @@ const initialState = {
   pagetoShow: null,
   silentScrollTo: null,
   pageIndex: "0",
+  stopAnimation: false,
 };
 
 export default (state = initialState, action) => {
@@ -14,6 +15,8 @@ export default (state = initialState, action) => {
       return { ...state, silentScrollTo: action.payload };
     case actionType.SET_PAGEINDEX:
       return { ...state, pageIndex: action.payload };
+    case actionType.SET_STOP_ANIMATION:
+      return { ...state, stopAnimation: action.payload };
     default:
       return state;
   }

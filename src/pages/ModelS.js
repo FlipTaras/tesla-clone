@@ -1,6 +1,8 @@
 import React, { useRef, useLayoutEffect, useEffect, useCallback } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Image from "../static/images/ModelS/Model-S.jpg";
+import ImagePhone from "../static/images/ModelS/model-s@2x.jpg";
+import ImageLand from "../static/images/ModelS/640.jpg";
 
 /* Components */
 import FullpageButton from "../components/Buttons/FullpageButton";
@@ -120,7 +122,12 @@ const ModelSPage = ({
               render={({ state, fullpageApi }) => {
                 return (
                   <ReactFullpage.Wrapper>
-                    <FirstSection title="Model S" image={Image} />
+                    <FirstSection
+                      title="Model S"
+                      image={Image}
+                      imagePhone={ImagePhone}
+                      imageLand={ImageLand}
+                    />
                     <SafetySection
                       topContainerRef={topContainerSafetyRef}
                       bottomContainerRef={bottomContainerSafetyRef}

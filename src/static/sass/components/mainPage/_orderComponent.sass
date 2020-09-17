@@ -26,7 +26,7 @@
         font-weight: 500
         opacity: 0
         &--big
-            @include responsive(tablet)
+            @include responsive(tablet-portrait)
                 font-size: 2.7rem
 
     &__subtitle
@@ -55,15 +55,9 @@
             margin-bottom: 0
         @include responsive(phone)
             margin-left: -3rem
-        @include responsive(phone-high)
-            margin-left: -1.5rem
 
         &--acces
             @include responsive(phone)
-                margin-bottom: 2rem
-                margin-left: 0
-
-            @include responsive(phone-high)
                 margin-bottom: 2rem
                 margin-left: 0
             
@@ -82,25 +76,15 @@
         
         @include responsive(phone)
             display: block
-            width: 70%
-            &:not(:last-child)
-                margin-bottom: 1rem
-        @include responsive(phone-high)
-            display: block
             width: 40%
             &:not(:last-child)
                 margin-bottom: 1rem
-        @include responsive(smallphone)
-            width: 40%
 
         &--acces
             padding: 1.3rem 9.2rem
             background-color: #171A20
             color: white
             @include responsive (phone)
-                margin-bottom: 3rem !important
-                width: 30%
-            @include responsive (phone-high)
                 margin-bottom: 3rem !important
                 width: 30%
             
@@ -120,8 +104,6 @@
             display: block
             @include responsive (phone)
                 margin-right: 0
-            @include responsive (phone-high)
-                margin-right: 0
 
             @include responsive(phone)
                 margin: 1rem 0 1rem 2rem
@@ -136,6 +118,4 @@
         animation: arrowAnimation 2s infinite
 
         @include responsive(phone)
-            margin-top: 0
-        @include responsive(phone-high)
             margin-top: 0

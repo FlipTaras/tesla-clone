@@ -7,6 +7,30 @@
         background-size: 100% !important
         height: 70vh
         position: relative
+        @include responsive(2560)
+            background-size: 110% !important
+
+        @include responsive(1366)
+            background-size: 100% !important
+            height: 77vh
+
+        @include responsive(ipadPro)
+            height: 75vh
+
+        @include responsive(tablet)
+            height: 80vh
+
+        @include responsive(tablet-portrait)
+            background-size: 110% !important
+            background-position: -4rem -6rem !important
+            height: 80vh
+
+    &__bottomContainer
+        @include responsive(1280)
+            height: 24vh
+        @include responsive(1280)
+            height: 20vh
+
 
     &__bottomContainerInner
         width: 65%
@@ -20,15 +44,34 @@
             opacity: 1
             animation: none
 
+        @include responsive(2560)
+            width: 45%
+        @include responsive(1920)
+            width: 55%
+        @include responsive(1600)
+            width: 63%
+        @include responsive(1366)
+            width: 72%
+        @include responsive(1280)
+            width: 80%
+        @include responsive(1280)
+            width: 98%
+        @include responsive(tablet-portrait)
+            width: 95%
+
     &__buttons
         display: flex
         margin-top: 2rem
 
     &__leftContainer
         flex: .35
-        
+        @include responsive(tablet-portrait)
+            flex: .5
+
     &__rightContainer
         flex: .65
+        @include responsive(tablet-portrait)
+            flex: .5
 
     &__text
         margin-top: -.1rem
@@ -42,19 +85,35 @@
         right: 4%
         flex-wrap: wrap
         color: white !important
+        @include responsive(1920)
+            bottom: 14%
+        @include responsive(1366)
+            bottom: 12%
+        @include responsive(1280)
+            bottom: 10%
+        @include responsive(1000)
+            text-align: center
+
 
     /* LearnMore Added Element */
     &__learnMoreContainer
-        // height: 300vh
         overflow: hidden
     
     &__learnMoreInner
         padding: 8rem 0 3rem 
-        background: linear-gradient(180deg, rgba(244,244,244,1) 40%, rgba(255,255,255,1) 90%);
+        background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 30%);
         margin: 8rem auto 0
     &__info
         width: 55%
         margin: 0 auto
+        @include responsive(2560)
+            width: 35%
+        @include responsive(1600)
+            width: 50%
+        @include responsive(1366)
+            width: 60%
+        @include responsive(1280)
+            width: 65%
 
     &__learnMoreTitle
         opacity: 0
@@ -69,6 +128,17 @@
         position: relative
         width: 82%
         margin: 3rem auto 0 auto
+        @include responsive(2560)
+            width: 50%
+        @include responsive(1920)
+            width: 60%
+        @include responsive(1600)
+            width: 75%
+        @include responsive(1366)
+            width: 85%
+        @include responsive(1280)
+            width: 100%
+
     &__video
         position: absolute
         top: 0
@@ -93,7 +163,23 @@
         justify-content: center
         width: 85%
         margin: 0 auto
-    
+        @include responsive(2560)
+            width: 50%
+        @include responsive(1920)
+            width: 70%
+        @include responsive(1600)
+            width: 78%
+        @include responsive(1366)
+            width: 90%
+        @include responsive(1280)
+            width: 95%
+        @include responsive(tablet-portrait)
+            flex-direction: column
+        @include responsive(ipadPro-portrait)
+            flex-direction: row
+        @include responsive(tablet)
+            width: 85%
+        
     &__learnMoreDualMotorVideoInner
         height: 49rem
         margin-right: 4rem
@@ -101,19 +187,63 @@
         &--show
             animation: translateYOpacityShow .8s ease forwards  
 
+        @include responsive(ipadPro)
+            height: 32.7rem
+        @include responsive(tablet)
+            height: 32.7rem
+        @include responsive(tablet-portrait)
+            height: 41.2rem
+
+
     &__learnMoreDualMotorVideoContainer
-        flex: .8
+        @include responsive(tablet-portrait)
+            order: 2
+            width: 100%
+        @include responsive(ipadPro-portrait)
+            order: 0
+            width: auto
+            margin-left: 0
 
     &__learnMoreDualMotorVideo
         object-fit: contain
         height: 49rem
+        @include responsive(ipadPro)
+            height: 32.7rem
+        @include responsive(tablet)
+            height: 32.7rem
+        @include responsive(tablet-portrait)
+            width: 100%
+            height: 41.2rem
+        @include responsive(ipadPro-portrait)
+            width: auto
+            height: 32.7rem
 
     &__learnMoreDualMotorInfo
         opacity: 0
         &--show
             animation: translateYOpacityShow .8s .3s ease forwards  
+
+        @include responsive(tablet-portrait)
+            width: 80%
+            margin: 0 auto 2rem
+        @include responsive(ipadPro-portrait)
+            margin: 0
+            width: auto
+            align-self: flex-start
+
     &__dualParagraph
         width: 93%
+        @include responsive(1600)
+            width: 100%
+        @include responsive(ipadPro)
+            width: 62%
+        @include responsive(tablet-portrait)
+            order: 1
+        @include responsive(ipadPro-portrait)
+            order: 2
+        @include responsive(tablet)
+            width: 85%
+
 
 
     /* Fullpage.js adjustment */

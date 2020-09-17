@@ -12,15 +12,13 @@
     overflow-y: scroll
     @include responsive(lg_desktop)
         width: 30%
-    @include responsive(desktop)
-        width: 35%
-    @include responsive(laptop)
+    @include responsive(1200)
         width: 35%
     @include responsive(tablet)
+        width: 35%
+    @include responsive(tablet-portrait)
         width: 40%
     @include responsive(phone)
-        width: 80%
-    @include responsive(phone-high)
         width: 80%
         
     &::-webkit-scrollbar
@@ -32,7 +30,7 @@
         text-transform: uppercase
         font-size: 1.4rem
         font-weight: 400
-        padding: 2rem 1rem
+        padding: 3rem 1rem
         border-bottom: 1px solid lightgrey
         width: 80%
         margin-left: 2rem

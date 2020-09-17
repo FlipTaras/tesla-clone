@@ -2,6 +2,10 @@
     margin-top: 3rem
     position: relative
     width: 40rem
+    @include responsive(tablet-portrait)
+        width: 20rem
+    @include responsive(ipadPro-portrait)
+        width: 40rem
 
     &__videoButtonContentContainer
         opacity: .4
@@ -19,7 +23,6 @@
         background-color: black
         height: 1px
         width: 100%
-        
 
     &__videoButtonTitle
         color: #171a20
@@ -29,7 +32,6 @@
         padding: 1.5rem 0 1.5rem 2rem
         &:last-child
             margin-top: -2rem
-
 
     &__videoButtonText
         color: #5c5e62
@@ -42,6 +44,8 @@
     &__videoButtonInfoContainers
         margin-top: 3rem
         display: flex
+        @include responsive(tablet-portrait)
+            flex-direction: column
 
     &__videoButtonInfoInner
         display: flex
@@ -73,3 +77,15 @@
         height: 100%
         width: 100%
         border: 2px solid rgba(1,1,1,1);
+
+@keyframes moveContainerLeft
+    0%
+        transform: translateX(-4rem)  
+    100%
+        transform: translateX(4rem)
+
+@keyframes moveContainerRight
+    0%
+        transform: translateX(4rem)    
+    100%
+        transform: translateX(-4rem)

@@ -12,6 +12,8 @@ import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 
 /* Videos and Posters Imports */
 import Image from "../../static/images/ModelS/model-s-performance.jpg";
+import ImageLand from "../../static/images/ModelS/model-s-performance-portrait.jpg";
+import imagePhone from "../../static/images/ModelS/model-s-performance-mobile.jpg";
 import Video1 from "../../static/videos/ModelS/dualmotor_desktop.mp4";
 import Poster1 from "../../static/images/ModelS/dualmotor_desktop_poster.png";
 import Video2 from "../../static/videos/ModelS/performancemotor_desktop.mp4";
@@ -23,6 +25,8 @@ const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
   pageYOffset: state.page.pageYOffset,
   stopAnimation: state.models.stopAnimation,
+  width: state.page.width,
+  height: state.page.height,
 });
 
 const mapActionToProps = {
@@ -41,16 +45,17 @@ export default connect(
     pageYOffset,
     bottomContainerPerfomanceRef,
     stopAnimation,
+    width,
+    height,
   }) => {
     const [activeButton, setActiveButton] = useState(1);
-
+    const checkIpad = height <= 1366 && width <= 1024;
     /* Scroll Learn more page into view */
     useEffect(() => {
       if (learnMoreOn) {
         window.scrollTo({ top: 760, behavior: "smooth" });
       }
     }, [learnMoreOn]);
-    console.log(pageYOffset);
 
     /* Render functionality */
     const renderTopContainer = useCallback(() => {
@@ -122,8 +127,16 @@ export default connect(
           <div className="perfomance__infoElements">
             <InfoElement
               title="AWD"
-              firstText="Dual Motor All-Wheel Drive instantly controls"
-              secondText="traction and torque, in all weather conditions"
+              firstText={
+                width >= 1024
+                  ? "Dual Motor All-Wheel Drive instantly controls"
+                  : "Standart"
+              }
+              secondText={
+                width >= 1024
+                  ? "traction and torque, in all weather conditions"
+                  : "All-Wheel Drive"
+              }
               style={
                 learnMoreOn
                   ? { animation: "none", opacity: "1" }
@@ -137,9 +150,18 @@ export default connect(
             />
             <InfoElement
               title={countUpElement}
-              firstText="The quickest acceleration on earth—from"
-              secondText="zero to 60 mph in as little as 2.3 seconds"
+              firstText={
+                width >= 1024
+                  ? "The quickest acceleration on earth—from"
+                  : "0-60mph in"
+              }
+              secondText={
+                width >= 1024
+                  ? "zero to 60 mph in as little as 2.3 seconds"
+                  : "2.3 secs"
+              }
               svg={svgSpeed}
+              width={width < 1024 && "13rem"}
               style={
                 learnMoreOn
                   ? { animation: "none", opacity: "1" }
@@ -153,8 +175,12 @@ export default connect(
             />
             <InfoElement
               title="163mph"
-              firstText="Improved handling and aerodynamics"
-              secondText="allow for a top speed of 163 mph"
+              firstText={
+                width >= 1024 ? "Improved handling and aerodynamics" : "Top"
+              }
+              secondText={
+                width >= 1024 ? "allow for a top speed of 163 mph" : "Speed"
+              }
               style={
                 learnMoreOn
                   ? { animation: "none", opacity: "1" }
@@ -169,7 +195,7 @@ export default connect(
       } else {
         return null;
       }
-    }, [pageIndex, learnMoreOn, stopAnimation]);
+    }, [pageIndex, learnMoreOn, stopAnimation, width]);
 
     const renderBottomContainer = useCallback(() => {
       const LearnMoreHandler = () => {
@@ -306,7 +332,11 @@ export default connect(
                   title="Perfomance"
                   text="Perfomance option with all-wheel drive and ludicrous acceleration"
                   buttons={buttons2}
-                  topBorderPosition={{ top: ".8rem", left: "2px" }}
+                  topBorderPosition={
+                    width <= 768
+                      ? { top: "0", left: "-1rem" }
+                      : { top: ".8rem", left: "2px" }
+                  }
                   click={() => setActiveButton(2)}
                   active={activeButton === 2}
                   activeButton={activeButton}
@@ -370,13 +400,18 @@ export default connect(
       learnMoreOn,
       pageYOffset,
       activeButton,
+      width,
     ]);
 
     return (
       <section className="section perfomance">
         <div
           className="perfomance__topContainer"
-          style={{ background: `url(${Image})` }}
+          style={{
+            background: `url(${
+              width < 639 ? imagePhone : checkIpad ? ImageLand : Image
+            })`,
+          }}
         >
           {renderTopContainer()}
         </div>

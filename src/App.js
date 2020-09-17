@@ -4,7 +4,7 @@ import ModelS from "./pages/ModelS";
 import { Switch, Route } from "react-router";
 import Navbar from "./components/App/Navbar";
 import { connect } from "react-redux";
-import { setPageYOffSet } from "./static/store/actions";
+import { setPageYOffSet, setWidth, setHeight } from "./static/store/actions";
 
 const mapStateToProps = (state) => ({
   navbarActive: state.page.navbarActive,
@@ -12,15 +12,30 @@ const mapStateToProps = (state) => ({
 
 const mapActionToProps = {
   setPageYOffSet,
+  setWidth,
+  setHeight,
 };
 
-function App({ navbarActive, setPageYOffSet }) {
+function App({ navbarActive, setPageYOffSet, setWidth, setHeight }) {
   /* Detect windowYOffset */
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setPageYOffSet(window.pageYOffset);
     });
   }, [setPageYOffSet]);
+
+  /* Detect width and height change */
+  useEffect(() => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--height", `${vh}px`);
+    window.addEventListener("resize", () => {
+      vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--height", `${vh}px`);
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    });
+  }, [setWidth, setHeight]);
+
   if (navbarActive) {
     document.querySelector("body").classList.add("overscroll-off");
   } else {

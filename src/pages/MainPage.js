@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 
 /* Redux */
 import { connect } from "react-redux";
-import { setWidth, setHeight, setLoaded } from "../static/store/actions";
+import { setLoaded } from "../static/store/actions";
 
 /* Components */
 import SectionElement from "../components/mainPage/SectionElement";
@@ -34,15 +34,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionToProps = {
-  setWidth,
-  setHeight,
   setLoaded,
 };
 
 export default connect(
   mapStateToProps,
   mapActionToProps
-)(({ setWidth, setHeight, width, height, setLoaded, loaded }) => {
+)(({ width, height, setLoaded, loaded }) => {
   const [activeFooter, setActiveFooter] = useState(false);
   const [activeComponent, setActiveComponent] = useState(true);
   const [title, setTitle] = useState("Model Y");
@@ -65,18 +63,6 @@ export default connect(
     }
     return () => setLoaded(false);
   }, [setLoaded]);
-
-  /* Detect width and height change */
-  useEffect(() => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--height", `${vh}px`);
-    window.addEventListener("resize", () => {
-      vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--height", `${vh}px`);
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    });
-  }, [setWidth, setHeight]);
 
   /* Fix IOS Scrolling Bug */
   window.addEventListener("touchmove", (e) => {

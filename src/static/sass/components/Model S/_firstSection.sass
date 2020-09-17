@@ -18,6 +18,8 @@
         flex-direction: column
         align-items: center
         justify-content: space-between
+        @include responsive(phone)
+            margin-top: 10%
 
     &__characteristics
         display: flex
@@ -25,14 +27,21 @@
         align-items: baseline
         position: relative
         flex-wrap: wrap
+        justify-content: center
+        @include responsive(tablet-portrait)
+            margin-bottom: 5rem
+        @include responsive(phone)
+            margin-bottom: 10rem
+        @include responsive(smallphone)
+            margin-bottom: 5rem
+        @include responsive(smallphone-landscape)
+            margin-bottom: 1rem
 
     &__title
         font-size: 4rem
         color: white
         font-weight: 500
         opacity: 0
-
-
 
     &__button
         background: none

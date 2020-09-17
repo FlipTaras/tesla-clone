@@ -2,14 +2,25 @@
     /* Initial Element */
     &__container
         display: flex
-    
+        @include responsive(ipadPro)
+            flex-wrap: wrap
+            flex-direction: column
+        @include responsive(1000)
+            flex-wrap: wrap
+            flex-direction: column
+
     &__topContainer
         opacity: 0
         animation: translateYOpacityShow .6s .4s forwards ease
         &--show
             opacity: 1
             animation: none
-    
+
+        @include responsive(ipadPro)
+            display: flex
+        @include responsive(1000)
+            display: flex
+
     &__left
         flex: .25
         background-color: white
@@ -18,6 +29,52 @@
         height: 100vh
         display: flex
         flex-direction: column
+        @include responsive(2560)
+            flex: .15
+            padding: 5rem 0 0 5rem
+        @include responsive(1920)
+            flex: .2
+        @include responsive(1600)
+            flex: .25
+        @include responsive(1366)
+            flex: .3
+            padding: 8rem 0 0 5rem
+        @include responsive(1280)
+            flex: .3
+        @include responsive(tablet)
+            flex: .4
+            padding: 4% 0 0 5%
+        @include responsive(ipadPro)
+            flex: 1
+            background-size: 150% !important
+            height: 20vh
+            order: 2
+        @include responsive(1000)
+            flex: 1
+            background-size: 150% !important
+            height: 20vh
+            order: 2
+
+    &__titleContainer
+        @include responsive(ipadPro)
+            flex: .4
+        @include responsive(1000)
+            flex: .5
+
+    &__paragraphContainer
+        @include responsive(ipadPro)
+            flex: .6
+        @include responsive(1000)
+            flex: .5
+
+    &__paragraph
+        width: 80%
+        @include responsive(1366)
+            margin-top: 9rem
+        @include responsive(ipadPro)
+            margin-top: 1rem
+        @include responsive(1000)
+            margin-top: 1rem
 
     &__bottomContainer
         margin: auto 0 6rem 0
@@ -29,6 +86,12 @@
             opacity: 1
             animation: none
 
+        @include responsive(ipadPro)
+            margin-top: 0
+        @include responsive(1000)
+            margin-top: -3rem
+
+
     &__right
         flex: .75
         background-color: #F4F4F4 !important
@@ -37,14 +100,65 @@
         background-size: 100% !important
         height: 100vh;
         position: relative
+        @include responsive(2560)
+            flex: .85
+            background-size: 120% !important
+        @include responsive(1920)
+            flex: .8
+        @include responsive(1600)
+            flex: .75
+        @include responsive(1366)
+            flex: .7
+        @include responsive(1280)
+            flex: .7
+            background-size: 120% !important
+        @include responsive(1200)
+            background-size: 100% !important
+        @include responsive(tablet)
+            flex: .6
+            background-size: 130% !important
+        @include responsive(ipadPro)
+            flex: 1
+            order: 1
+            width: 100%
+            object-fit: contain
+            height: 75vh
+        @include responsive(1000)
+            flex: 1
+            order: 1
+            width: 100%
+            object-fit: contain
+            height: 75vh
+
+    &__backgroundImage
+        object-fit: contain
+        height: 75vh
+        max-width: 100%
+        @include responsive(phone)
+            height: 62rem
+            width: 150%
     
     /* LearnMore Added Element */
     &__learnMoreContainer
         height: 130vh
+        @include responsive(2560)
+            height: 90vh
+        @include responsive(1600)
+            height: 110vh
+        @include responsive(1366)
+            height: 90vh
+        @include responsive(tablet)
+            height: 120vh
+        @include responsive(tablet-portrait)
+            height: 98vh
+        @include responsive(ipadPro-portrait)
+            height: 75vh
+
     &__learnMoreInnerContainer
         padding-top: 7rem
         background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 35%);
         position: relative
+
     &__learnMoreTopContainer
         margin: 0 auto
         width: 55%
@@ -53,6 +167,65 @@
         object-fit: contain
         width: 100%
         margin-top: 7rem
+        @include responsive(tablet)
+            width: 150%
+            margin-left: -25rem
+        @include responsive(tablet-portrait)
+            width: 100%
+            margin-left: 0
+        @include responsive(ipadPro-portrait)
+            width: 100%
+            margin-left: 0
+
+    &__learnMoreParagraph
+        width: 40%
+
+    /* Small screens only */
+    &__numbersContainer
+        position: relative
+    &__numberDescriptionContainer
+        width: 50%
+        margin: 0 auto
+        position: relative
+        margin-bottom: 4rem
+    &__numberDescriptionNumber
+        display: flex
+        align-items: center
+        justify-content: center
+        position: absolute
+        top: 0
+        left: -2.5rem
+        font-family: 'Gotham Book'
+        font-size: 1.4rem
+        font-weight: 400
+        background-color: #393c41
+        width: 2rem
+        height: 2rem
+        border-radius: 100%
+        color: white
+        &--1
+            left: 20%
+            top: -15rem
+        &--2
+            top: -23rem
+            left: 43%
+        &--3
+            top: -6rem
+            left: 60%
+    &__numberDescriptionTitle
+        font-size: 1.4rem
+        font-weight: 500
+        color: #393c41
+        font-family: 'Gotham Bold'
+        font-weight: 700
+
+    &__numberDescriptionText
+        margin-top: .5rem
+        font-family: 'Gotham Book'
+        font-size: 1.5rem
+        color: #393c41
+        line-height: 1.5
+        font-weight: 500
 
     /* Fullpage.js adjustment */
     .fp-tableCell

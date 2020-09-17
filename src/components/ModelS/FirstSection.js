@@ -8,10 +8,23 @@ import InfoElement from "./InfoElement";
 const mapStateToProps = (state) => ({
   loaded: state.page.loaded,
   pageIndex: state.models.pageIndex,
+  width: state.page.width,
+  height: state.page.height,
 });
 
 export default connect(mapStateToProps)(
-  ({ image, title, loaded, pageIndex }) => {
+  ({
+    image,
+    imagePhone,
+    title,
+    loaded,
+    pageIndex,
+    width,
+    imageLand,
+    height,
+  }) => {
+    const checkIpad = height <= 1366 && width <= 1024;
+
     /* svgElement */
     const svgSpeed = (
       <svg
@@ -101,7 +114,7 @@ export default connect(mapStateToProps)(
           title: countUpElement,
           firstText: "From 0-60 mph",
           secondText: null,
-          width: "13rem",
+          width: width <= 600 ? "10rem" : "13rem",
           showLine: true,
         },
         {
@@ -142,7 +155,10 @@ export default connect(mapStateToProps)(
             </h1>
             <div className="firstSection__characteristics">
               {renderInfoElement()}
-              <OrderButton userStyles={styleButtonComponent} />
+              <OrderButton
+                fullWidth={width <= 700 && true}
+                userStyles={styleButtonComponent}
+              />
             </div>
             <ExpandMoreOutlinedIcon
               style={styleIconComponent}
@@ -153,11 +169,15 @@ export default connect(mapStateToProps)(
       } else {
         return null;
       }
-    }, [loaded, pageIndex, svgSpeed, title]);
+    }, [loaded, pageIndex, svgSpeed, title, width]);
     return (
       <section
         className="section firstSection"
-        style={{ background: `url(${image})` }}
+        style={{
+          background: `url(${
+            width < 639 ? imagePhone : checkIpad ? imageLand : image
+          })`,
+        }}
       >
         <div className="firstSection__content">{renderContent()}</div>
       </section>

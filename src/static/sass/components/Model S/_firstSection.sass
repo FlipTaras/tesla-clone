@@ -3,6 +3,14 @@
     background-repeat: no-repeat !important;
     background-size: cover !important;
     height: 100vh;
+    @include responsive(tablet)
+        background-position: center -20rem !important
+    @include responsive(tablet-portrait)
+        background-position: center !important;
+    @include responsive(320-landscape)
+        height: 120vh
+        background-position: center -30rem !important;
+
 
     .fp-tableCell
         vertical-align: top
@@ -20,10 +28,11 @@
         justify-content: space-between
         @include responsive(phone)
             margin-top: 10%
+        @include responsive(smallphone)
+            margin-top: 20%
 
     &__characteristics
         display: flex
-        align-items: center
         align-items: baseline
         position: relative
         flex-wrap: wrap
@@ -34,6 +43,7 @@
             margin-bottom: 10rem
         @include responsive(smallphone)
             margin-bottom: 5rem
+            justify-content: unset
         @include responsive(smallphone-landscape)
             margin-bottom: 1rem
 
@@ -42,6 +52,7 @@
         color: white
         font-weight: 500
         opacity: 0
+        
 
     &__button
         background: none
@@ -73,3 +84,6 @@
         bottom: 2%
         left: 49%
         opacity: 0
+        @include responsive(tablet)
+            left: unset
+

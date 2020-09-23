@@ -30,7 +30,11 @@ export default connect(mapStateToProps)(
         setAnimationBorder({
           animation: "moveBoxRight .4s ease-in-out forwards",
         });
-        if (width <= 768) {
+        if (width <= 600) {
+          setAnimationElement({
+            animation: "moveContainerRightMedium .4s ease-in-out forwards",
+          });
+        } else if (width <= 812) {
           setAnimationElement({
             animation: "moveContainerRight .4s ease-in-out forwards",
           });
@@ -39,7 +43,11 @@ export default connect(mapStateToProps)(
         setAnimationBorder({
           animation: "moveBoxLeft .4s ease-in-out forwards",
         });
-        if (width <= 768) {
+        if (width <= 600) {
+          setAnimationElement({
+            animation: "moveContainerLeftMedium .4s ease-in-out forwards",
+          });
+        } else if (width <= 812) {
           setAnimationElement({
             animation: "moveContainerLeft .4s ease-in-out forwards",
           });
@@ -67,7 +75,10 @@ export default connect(mapStateToProps)(
           <p className="videoButtonElement__videoButtonText">{text}</p>
           <div className="videoButtonElement__videoButtonInfoContainers">
             {buttons.map((el) => (
-              <div className="videoButtonElement__videoButtonInfoInner">
+              <div
+                key={el.buttonTitle}
+                className="videoButtonElement__videoButtonInfoInner"
+              >
                 <h2 className="videoButtonElement__videoButtonInfoTitle">
                   {el.buttonTitle}
                 </h2>

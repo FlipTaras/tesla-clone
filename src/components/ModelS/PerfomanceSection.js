@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import LearnMoreButton from "../Buttons/LearnMoreButton";
 import OrderButton from "../Buttons/OrderButton";
 import InfoElement from "./InfoElement";
@@ -47,16 +47,49 @@ export default connect(
     stopAnimation,
     width,
     height,
+    phoneLayout,
   }) => {
+    const [showLearnMore, setShowLearnMore] = useState(false);
     const [activeButton, setActiveButton] = useState(1);
     const checkIpad = height <= 1366 && width <= 1024;
+    const dualMotorRef = useRef(null);
+
+    /* Get section offset, used for Animation on small screens  */
+    const sectionRef = useRef(null);
+    const learnMoreSectionRef = useRef(null);
+    const [sectionTop, setSectionTop] = useState(null);
+    const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
+    const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
+
+    useEffect(() => {
+      const getAndShowTop = () => {
+        const rectSection = sectionRef.current.getBoundingClientRect();
+        const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
+        setSectionTop(rectSection.top);
+        setLearnMoreSectionTop(rectLearnMoreSection.top);
+        setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
+      };
+      if (sectionRef.current) {
+        window.addEventListener("wheel", getAndShowTop);
+        window.addEventListener("scroll", getAndShowTop);
+        window.addEventListener("touchmove", getAndShowTop);
+      }
+      return () => {
+        window.removeEventListener("wheel", getAndShowTop);
+        window.removeEventListener("scroll", getAndShowTop);
+        window.removeEventListener("touchmove", getAndShowTop);
+      };
+    }, []);
+
     /* Scroll Learn more page into view */
     useEffect(() => {
       if (learnMoreOn) {
-        window.scrollTo({ top: 760, behavior: "smooth" });
+        window.scrollTo({
+          top: learnMoreSectionRef.current?.offsetTop,
+          behavior: "smooth",
+        });
       }
-    }, [learnMoreOn]);
-
+    }, [learnMoreOn, height]);
     /* Render functionality */
     const renderTopContainer = useCallback(() => {
       /* svgElement */
@@ -122,10 +155,11 @@ export default connect(
           useEasing
         />
       );
-      if (pageIndex === "2") {
+      if (pageIndex === "2" || (phoneLayout && sectionTop <= 600)) {
         return (
           <div className="perfomance__infoElements">
             <InfoElement
+              smaller
               title="AWD"
               firstText={
                 width >= 1024
@@ -149,6 +183,7 @@ export default connect(
               white
             />
             <InfoElement
+              smaller
               title={countUpElement}
               firstText={
                 width >= 1024
@@ -161,7 +196,7 @@ export default connect(
                   : "2.3 secs"
               }
               svg={svgSpeed}
-              width={width < 1024 && "13rem"}
+              width={width < 600 ? "9rem" : width < 1024 && "13rem"}
               style={
                 learnMoreOn
                   ? { animation: "none", opacity: "1" }
@@ -174,6 +209,7 @@ export default connect(
               white
             />
             <InfoElement
+              smaller
               title="163mph"
               firstText={
                 width >= 1024 ? "Improved handling and aerodynamics" : "Top"
@@ -195,13 +231,32 @@ export default connect(
       } else {
         return null;
       }
-    }, [pageIndex, learnMoreOn, stopAnimation, width]);
-
+    }, [pageIndex, learnMoreOn, stopAnimation, width, phoneLayout, sectionTop]);
     const renderBottomContainer = useCallback(() => {
       const LearnMoreHandler = () => {
-        setPageToShow("perfomance");
+        if (!phoneLayout) {
+          setPageToShow("perfomance");
+        } else {
+          setShowLearnMore(true);
+          window.scrollTo({
+            top: learnMoreSectionRef.current?.offsetTop,
+            behavior: "smooth",
+          });
+        }
       };
-      if (pageIndex === "2") {
+
+      const buttonContainer = (
+        <div className="perfomance__buttons">
+          <LearnMoreButton
+            classNames="perfomance__learnMoreButton"
+            disabled={learnMoreOn || showLearnMore}
+            click={LearnMoreHandler}
+          />
+          <OrderButton classNames="perfomance__orderButton" />
+        </div>
+      );
+
+      if (pageIndex === "2" || (phoneLayout && sectionTop <= 550)) {
         return (
           <div
             ref={bottomContainerPerfomanceRef}
@@ -213,14 +268,11 @@ export default connect(
           >
             <div className="perfomance__leftContainer">
               <h2 className="subtitle">Performance</h2>
-              <h1 className="title">Quickest Acceleration</h1>
-              <div className="perfomance__buttons">
-                <LearnMoreButton
-                  disabled={learnMoreOn}
-                  click={LearnMoreHandler}
-                />
-                <OrderButton />
-              </div>
+              <h1 className="perfomance__title  title">
+                Quickest Acceleration
+              </h1>
+
+              {height <= 416 ? null : width > 600 && buttonContainer}
             </div>
             <div className="perfomance__rightContainer">
               <p className="paragraph perfomance__text">
@@ -231,14 +283,68 @@ export default connect(
                 acceleration.
               </p>
             </div>
+            {height <= 416 ? buttonContainer : width <= 600 && buttonContainer}
           </div>
         );
       } else {
         return null;
       }
-    }, [pageIndex, setPageToShow, learnMoreOn, bottomContainerPerfomanceRef]);
+    }, [
+      pageIndex,
+      setPageToShow,
+      learnMoreOn,
+      bottomContainerPerfomanceRef,
+      phoneLayout,
+      sectionTop,
+      showLearnMore,
+      width,
+      height,
+    ]);
 
     const renderLearnMoreSection = useCallback(() => {
+      /* Figure out when dualMotor come into view to play animation */
+      const dualMotorTop = dualMotorRef.current?.getBoundingClientRect().top;
+
+      const CloseHandler = () => {
+        if (!phoneLayout) {
+          setPageToShow(null);
+          setSilentScrollTo("perfomance");
+        } else {
+          setShowLearnMore(false);
+          window.scrollTo({
+            top: sectionRef.current?.offsetTop,
+            behavior: "smooth",
+          });
+        }
+      };
+
+      const NextHandler = () => {
+        setPageToShow(null);
+        setSilentScrollTo("range");
+      };
+      const closeButtonElement = (
+        <CloseNextButton
+          close={phoneLayout ? true : pageYOffset < 1550}
+          click={
+            phoneLayout
+              ? CloseHandler
+              : pageYOffset < 1550
+              ? CloseHandler
+              : NextHandler
+          }
+        />
+      );
+      const renderCloseButton = () => {
+        if (
+          learnMoreSectionTop < height - 20 &&
+          learnMoreSectionBottom >= height
+        ) {
+          return closeButtonElement;
+        } else {
+          return null;
+        }
+      };
+
       const buttons1 = [
         {
           buttonTitle: "3.7s",
@@ -265,18 +371,9 @@ export default connect(
         },
       ];
 
-      const CloseHandler = () => {
-        setPageToShow(null);
-        setSilentScrollTo("perfomance");
-      };
-      const NextHandler = () => {
-        setPageToShow(null);
-        setSilentScrollTo("range");
-      };
-
-      if (learnMoreOn) {
+      if (learnMoreOn || showLearnMore) {
         return (
-          <div className="perfomance__learnMoreContainer">
+          <>
             <div className="perfomance__learnMoreInner">
               <div className="perfomance__info">
                 <h1 className="perfomance__learnMoreTitle title">
@@ -326,28 +423,25 @@ export default connect(
                   click={() => setActiveButton(1)}
                   active={activeButton === 1}
                   activeButton={activeButton}
-                  topBorderPosition={{ top: "0" }}
                 />
                 <VideoButton
                   title="Perfomance"
                   text="Perfomance option with all-wheel drive and ludicrous acceleration"
                   buttons={buttons2}
-                  topBorderPosition={
-                    width <= 768
-                      ? { top: "0", left: "-1rem" }
-                      : { top: ".8rem", left: "2px" }
-                  }
                   click={() => setActiveButton(2)}
                   active={activeButton === 2}
                   activeButton={activeButton}
                 />
               </div>
             </div>
-            <div className="perfomance__learnMoreDualMotorSection">
+            <div
+              ref={dualMotorRef}
+              className="perfomance__learnMoreDualMotorSection"
+            >
               <div className="perfomance__learnMoreDualMotorVideoContainer">
                 <div
                   className={
-                    pageYOffset > 1000
+                    dualMotorTop < 700
                       ? "perfomance__learnMoreDualMotorVideoInner perfomance__learnMoreDualMotorVideoInner--show"
                       : "perfomance__learnMoreDualMotorVideoInner"
                   }
@@ -366,12 +460,12 @@ export default connect(
               </div>
               <div
                 className={
-                  pageYOffset > 1000
+                  dualMotorTop < 700
                     ? "perfomance__learnMoreDualMotorInfo perfomance__learnMoreDualMotorInfo--show"
                     : "perfomance__learnMoreDualMotorInfo"
                 }
               >
-                <h1 className="title">
+                <h1 className="perfomance__dualTitle title">
                   Dual Motor <br />
                   All-Wheel Drive
                 </h1>
@@ -384,12 +478,8 @@ export default connect(
                 </p>
               </div>
             </div>
-
-            <CloseNextButton
-              close={pageYOffset < 1550}
-              click={pageYOffset < 1550 ? CloseHandler : NextHandler}
-            />
-          </div>
+            {renderCloseButton()}
+          </>
         );
       } else {
         return null;
@@ -400,25 +490,53 @@ export default connect(
       learnMoreOn,
       pageYOffset,
       activeButton,
-      width,
+      // width,
+      phoneLayout,
+      showLearnMore,
+      // sectionTop,
+      height,
+      learnMoreSectionBottom,
+      learnMoreSectionTop,
     ]);
 
+    const renderSection = useCallback(() => {
+      return (
+        <>
+          <div
+            className="perfomance__topContainer"
+            style={{
+              background: `url(${
+                width < 639 ? imagePhone : checkIpad ? ImageLand : Image
+              })`,
+            }}
+          >
+            {renderTopContainer()}
+          </div>
+          <div className="perfomance__bottomContainer">
+            {renderBottomContainer()}
+          </div>
+          <div
+            ref={learnMoreSectionRef}
+            className="perfomance__learnMoreContainer"
+          >
+            {renderLearnMoreSection()}
+          </div>
+        </>
+      );
+    }, [
+      checkIpad,
+      renderBottomContainer,
+      renderLearnMoreSection,
+      renderTopContainer,
+      width,
+    ]);
     return (
-      <section className="section perfomance">
-        <div
-          className="perfomance__topContainer"
-          style={{
-            background: `url(${
-              width < 639 ? imagePhone : checkIpad ? ImageLand : Image
-            })`,
-          }}
-        >
-          {renderTopContainer()}
-        </div>
-        <div className="perfomance__bottomContainer">
-          {renderBottomContainer()}
-        </div>
-        {renderLearnMoreSection()}
+      <section ref={sectionRef} className="section perfomance">
+        {phoneLayout ? (
+          <div className="fp-tableCell">{renderSection()}</div>
+        ) : (
+          <>{renderSection()}</>
+        )}
       </section>
     );
   }

@@ -33,7 +33,7 @@
         position: relative
         font-size: 1.4rem
         font-weight: 500
-        opacity: 0
+        opacity: 0 
         width: 100%
         display: block
         &--show
@@ -45,6 +45,11 @@
         @include responsive(ipadPro-portrait)
             font-size: 1.4rem
             width: 100%
+        @include responsive(phone)
+            font-size: .9rem
+            width: 90%
+            &:not(:first-child)
+                width: 80%
 
     &__text
         position: absolute

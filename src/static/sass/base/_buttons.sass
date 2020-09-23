@@ -23,6 +23,8 @@
     &--full
         width: 70%
         margin: 3rem auto 0
+    &--animated
+        opacity: 0
     
 /* Learn Button Component */    
 
@@ -69,6 +71,16 @@
     border-radius: 100%
     cursor: pointer
     transition: all .1s linear
+    &:hover
+        background-color: black
+        color: white
+    &:focus
+    &:active
+        outline: none
+    @include responsive(phone)
+        left: 45%
+        bottom: 5%
+
     &--next
         padding: .6rem .9rem .4rem .9rem
     &__container
@@ -82,6 +94,11 @@
         transition: width .2s linear
         &:hover
             animation: expandShadowCloseButton .1s linear forwards
+        @include responsive(phone)
+            left: 44.4%
+            bottom: 4.7%
+        @include responsive(smallphone)
+            left: 44.2%
 
     &__text
         position: fixed
@@ -96,12 +113,16 @@
         cursor: pointer
         &--hover
             opacity: 1
-    &:hover
-        background-color: black
-        color: white
-    &:active
-    &:focus
-        outline: none
+        &:active
+        &:focus
+            outline: none
+        
+        @include responsive(phone)
+            left: 52%
+            opacity: 1
+            bottom: 6%
+        @include responsive(smallphone)
+            left: 54%
 
 
 

@@ -18,12 +18,17 @@ export default connect(mapStateToProps)(
     width,
     showLine,
     white,
-    // stopPerfomanceAnimation,
     stopAnimation,
+    smaller,
   }) => {
     const infoElementClassNames = classnames(
       "infoElement",
-      stopAnimation && "infoElement--show"
+      stopAnimation && "infoElement--show",
+      smaller && "infoElement--smaller"
+    );
+    const infoElementFromClassNames = classnames(
+      "infoElement__from",
+      smaller && "infoElement__from--smaller"
     );
     return (
       <div
@@ -33,7 +38,7 @@ export default connect(mapStateToProps)(
       >
         {svg && svg}
         <div className="infoElement__duration">{title}</div>
-        <p className="infoElement__from">
+        <p className={infoElementFromClassNames}>
           {firstText}
           {secondText && (
             <>

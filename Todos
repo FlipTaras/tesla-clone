@@ -3,3 +3,9 @@ Change the nav functionality, white for Model S, black for main page, hide on Mo
 Add visual buttons when learn More section is open, open to them functionality of closeButton
 
 Remember add posters to every single video for different screen sizes
+
+Perfomance section play with the flex box order instead of re rendering depending on width of the screen
+
+Turn off close button while user scrolling on phone 
+
+Make something with responsive images so they appear properly ???

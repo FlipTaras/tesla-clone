@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback } from "react";
-
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import OrderButton from "../Buttons/OrderButton";
@@ -38,23 +37,66 @@ export default connect(
     pageYOffset,
     width,
     height,
+    phoneLayout,
   }) => {
     const checkIpadAndWidthSmaller1024 =
       (width === 1024 && height === 1366) || width < 1024;
     const checkIpad = width === 1024 && height === 1366;
+    const checkIpadPortrait = width === 1366 && height === 1024;
+    const [showLearnMore, setShowLearnMore] = useState(false);
+
+    /* Get section offset, used for Animation on small screens  */
+    const sectionRef = useRef(null);
+    const learnMoreSectionRef = useRef(null);
+    const [sectionTop, setSectionTop] = useState(null);
+    const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
+    const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
+
+    useEffect(() => {
+      const getAndShowTop = () => {
+        const rectSection = sectionRef.current.getBoundingClientRect();
+        const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
+        setSectionTop(rectSection.top);
+        setLearnMoreSectionTop(rectLearnMoreSection.top);
+        setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
+      };
+      if (sectionRef.current) {
+        window.addEventListener("wheel", getAndShowTop);
+        window.addEventListener("scroll", getAndShowTop);
+        window.addEventListener("touchmove", getAndShowTop);
+      }
+      return () => {
+        window.removeEventListener("wheel", getAndShowTop);
+        window.removeEventListener("scroll", getAndShowTop);
+        window.removeEventListener("touchmove", getAndShowTop);
+      };
+    }, []);
+
     /* Scroll Learn more page into view */
     useEffect(() => {
       if (learnMoreOn) {
-        window.scrollTo({ top: 755, behavior: "smooth" });
+        window.scrollTo({
+          top: learnMoreSectionRef.current?.offsetTop,
+          behavior: "smooth",
+        });
       }
-    }, [learnMoreOn]);
+    }, [learnMoreOn, height]);
 
     /* Render functionality */
+
     const renderSafetyLeft = useCallback(() => {
       const LearnMoreHandler = () => {
-        setPageToShow("safety");
+        if (!phoneLayout) {
+          setPageToShow("safety");
+        } else {
+          setShowLearnMore(true);
+          window.scrollTo({
+            top: learnMoreSectionRef.current?.offsetTop,
+            behavior: "smooth",
+          });
+        }
       };
-      if (pageIndex === "1") {
+      if (pageIndex === "1" || (phoneLayout && sectionTop <= 500)) {
         return (
           <>
             <div
@@ -86,10 +128,11 @@ export default connect(
               }
             >
               <LearnMoreButton
-                disabled={learnMoreOn}
+                classNames="safety__learnMoreButton"
+                disabled={learnMoreOn || showLearnMore}
                 click={LearnMoreHandler}
               />
-              <OrderButton />
+              <OrderButton classNames="safety__orderButton" />
             </div>
           </>
         );
@@ -102,10 +145,13 @@ export default connect(
       setPageToShow,
       bottomContainerRef,
       topContainerRef,
+      phoneLayout,
+      sectionTop,
+      showLearnMore,
     ]);
 
     const renderSaferyRight = useCallback(() => {
-      if (pageIndex === "1") {
+      if (pageIndex === "1" || (phoneLayout && sectionTop <= 700)) {
         return (
           <>
             <div className="safety__AnimatedElements">
@@ -114,13 +160,21 @@ export default connect(
                 title="Front-Impact Protection"
                 titleAnimation="translateYOpacityShow .8s .5s forwards ease"
                 elementTop={checkIpad ? "25%" : "20%"}
-                elementLeft="26%"
+                elementLeft={
+                  height <= 414 ? "31%" : width <= 600 ? "30%" : "26%"
+                }
                 lineTop="1rem"
-                lineLeft="-1rem"
-                lineHeight="23rem"
+                lineLeft={width <= 600 ? "unset" : "-1rem"}
+                lineRight={width <= 600 ? "4rem" : "unset"}
+                lineHeight={
+                  height <= 414 ? "11rem" : width <= 600 ? "12rem" : "23rem"
+                }
                 lineAnimation="showstickScaleY .7s .2s forwards ease-in-out"
-                dotTop="24rem"
-                dotLeft="-1.3rem"
+                dotTop={
+                  height <= 414 ? "12rem" : width <= 600 ? "13rem" : "24rem"
+                }
+                dotLeft={width <= 600 ? "unset" : "-1.3rem"}
+                dotRight={width <= 600 ? "3.7rem" : "unset"}
                 dotAnimation="showdot .8s .8s forwards ease"
               />
               <SafetyAnimatedElement
@@ -128,19 +182,39 @@ export default connect(
                 title="Side-Impact Protection"
                 titleAnimation="translateYOpacityShow .8s .5s forwards ease"
                 elementTop={
-                  checkIpad
+                  height <= 414
+                    ? "5%"
+                    : width <= 600
+                    ? "7%"
+                    : width >= 1600
+                    ? "11%"
+                    : checkIpadPortrait
+                    ? "23%"
+                    : width >= 1366
+                    ? "11%"
+                    : checkIpad
                     ? "22%"
+                    : width >= 1280
+                    ? "11%"
                     : width >= 1024
                     ? "19%"
                     : width >= 768
                     ? "23%"
                     : "11%"
                 }
-                elementLeft={width >= 1280 ? "52%" : "47%"}
+                elementLeft={
+                  width <= 600 ? "unset" : width >= 1280 ? "52%" : "47%"
+                }
+                elementRight={width <= 600 ? "8%" : "unset"}
                 lineTop="1rem"
-                lineLeft="-1rem"
+                lineLeft={width <= 600 ? "unset" : "-1rem"}
+                lineRight={width <= 600 ? "4rem" : "unset"}
                 lineHeight={
-                  width >= 2560
+                  height <= 414
+                    ? "8rem"
+                    : width <= 600
+                    ? "5rem"
+                    : width >= 2560
                     ? "16rem"
                     : width >= 1920
                     ? "25rem"
@@ -154,7 +228,11 @@ export default connect(
                 }
                 lineAnimation="showstickScaleY .7s .2s forwards ease-in-out"
                 dotTop={
-                  width >= 2560
+                  height <= 414
+                    ? "9rem"
+                    : width <= 600
+                    ? "6rem"
+                    : width >= 2560
                     ? "17rem"
                     : width >= 1920
                     ? "26rem"
@@ -166,16 +244,29 @@ export default connect(
                     ? "26rem"
                     : "13rem"
                 }
-                dotLeft="-1.3rem"
+                dotLeft={width <= 600 ? "unset" : "-1.3rem"}
+                dotRight={width <= 600 ? "3.7rem" : "unset"}
                 dotAnimation="showdot .8s .8s forwards ease"
               />
               <SafetyAnimatedElement
                 show={learnMoreOn}
                 title="Very Low Rollover Risk"
                 titleAnimation="translateYOpacityShow .8s .5s forwards ease"
-                elementBottom={checkIpad ? "30%" : "24%"}
+                elementBottom={
+                  height <= 414
+                    ? "15%"
+                    : width <= 600
+                    ? "10%"
+                    : checkIpad
+                    ? "30%"
+                    : "24%"
+                }
                 elementRight={
-                  width >= 1920
+                  height <= 414
+                    ? "30%"
+                    : width <= 600
+                    ? "10%"
+                    : width >= 1920
                     ? "40%"
                     : checkIpad
                     ? "30%"
@@ -186,9 +277,12 @@ export default connect(
                     : "35%"
                 }
                 lineBottom="0"
-                lineLeft="-1rem"
+                lineLeft={width <= 600 ? "unset" : "-1rem"}
+                lineRight={width <= 600 ? "1rem" : "unset"}
                 lineHeight={
-                  width >= 1920
+                  height <= 414
+                    ? "10rem"
+                    : width >= 1920
                     ? "25rem"
                     : width >= 1600
                     ? "15rem"
@@ -200,7 +294,9 @@ export default connect(
                 }
                 lineAnimation="showstickScaleY .7s .2s forwards ease-in-out"
                 dotBottom={
-                  width >= 1920
+                  height <= 414
+                    ? "10rem"
+                    : width >= 1920
                     ? "24rem"
                     : width >= 1600
                     ? "15rem"
@@ -210,7 +306,8 @@ export default connect(
                     ? "25rem"
                     : "13rem"
                 }
-                dotLeft="-1.3rem"
+                dotLeft={width <= 600 ? "unset" : "-1.3rem"}
+                dotRight={width <= 600 ? ".7rem" : "unset"}
                 dotAnimation="showdot .8s .8s forwards ease"
               />
             </div>
@@ -219,24 +316,73 @@ export default connect(
       } else {
         return null;
       }
-    }, [learnMoreOn, pageIndex, width, checkIpad]);
+    }, [
+      learnMoreOn,
+      pageIndex,
+      width,
+      checkIpad,
+      checkIpadPortrait,
+      phoneLayout,
+      sectionTop,
+      height,
+    ]);
 
     const renderLearnMoreSection = useCallback(() => {
       const CloseHandler = () => {
-        setPageToShow(null);
-        setSilentScrollTo("safety");
+        if (!phoneLayout) {
+          setPageToShow(null);
+          setSilentScrollTo("safety");
+        } else {
+          setShowLearnMore(false);
+          window.scrollTo({
+            top: sectionRef.current?.offsetTop,
+            behavior: "smooth",
+          });
+        }
       };
+
       const NextHandler = () => {
         setPageToShow(null);
         setSilentScrollTo("perfomance");
       };
-      if (learnMoreOn) {
+      const closeButtonElement = (
+        <CloseNextButton
+          close={
+            phoneLayout
+              ? true
+              : learnMoreSectionBottom - 200 > height
+              ? true
+              : false
+          }
+          click={
+            phoneLayout
+              ? CloseHandler
+              : learnMoreSectionBottom - 200 > height
+              ? CloseHandler
+              : NextHandler
+          }
+        />
+      );
+      const renderCloseButton = () => {
+        if (
+          learnMoreSectionTop < height - 20 &&
+          learnMoreSectionBottom >= height
+        ) {
+          return closeButtonElement;
+        } else {
+          return null;
+        }
+      };
+
+      if (learnMoreOn || showLearnMore) {
         return (
-          <div className="safety__learnMoreContainer">
+          <>
             <div className="safety__learnMoreInnerContainer">
               <div className="safety__learnMoreTopContainer">
-                <h1 className="title title--animated">Built for Safety</h1>
-                <p className="paragraph paragraph--animated">
+                <h1 className="safety__learnMoreTitle title title--animated">
+                  Built for Safety
+                </h1>
+                <p className="safety__learnMoreParagraph paragraph paragraph--animated">
                   Model S is built for safety, with all-electric architecture
                   designed to provide protection from every side—and one of the
                   lowest rollover risks of any car on the road.
@@ -298,7 +444,7 @@ export default connect(
               ) : (
                 <div className="safety__AnimatedElements">
                   <SafetyAnimatedElement
-                    show={!learnMoreOn}
+                    show={phoneLayout ? false : !learnMoreOn}
                     title="Front-Impact Protection"
                     titleFont="Gotham Bold"
                     titleAnimation="translateYOpacityShowFromTop .8s .8s forwards ease"
@@ -327,7 +473,7 @@ export default connect(
                     dotAnimation="showdot .8s .2s forwards ease"
                   />
                   <SafetyAnimatedElement
-                    show={!learnMoreOn}
+                    show={phoneLayout ? false : !learnMoreOn}
                     title="Side-Impact Protection"
                     titleFont="Gotham Bold"
                     titleAnimation="translateYOpacityShowFromTop .8s 1s forwards ease"
@@ -344,7 +490,7 @@ export default connect(
                     dotAnimation="showdot .8s .2s forwards ease"
                   />
                   <SafetyAnimatedElement
-                    show={!learnMoreOn}
+                    show={phoneLayout ? false : !learnMoreOn}
                     title="Very Low Rollover Risk"
                     titleFont="Gotham Bold"
                     titleAnimation="translateYOpacityShowFromTop .8s 1.2s forwards ease"
@@ -371,11 +517,8 @@ export default connect(
                 </div>
               )}
             </div>
-            <CloseNextButton
-              close={pageYOffset < 900}
-              click={pageYOffset < 900 ? CloseHandler : NextHandler}
-            />
-          </div>
+            {renderCloseButton()}
+          </>
         );
       } else {
         return null;
@@ -384,46 +527,76 @@ export default connect(
       learnMoreOn,
       setPageToShow,
       setSilentScrollTo,
-      pageYOffset,
       width,
       checkIpadAndWidthSmaller1024,
+      showLearnMore,
+      phoneLayout,
+      height,
+      learnMoreSectionBottom,
+      learnMoreSectionTop,
     ]);
 
-    return (
-      <section className="safety section">
-        <div className="safety__container">
-          <div className="safety__left">{renderSafetyLeft()}</div>
-          <div
-            style={
-              checkIpad
-                ? { background: "none" }
-                : width >= 1024
-                ? { background: `url(${ModelsStructureInitial})` }
-                : { background: "none" }
-            }
-            className="safety__right"
-          >
-            {checkIpad ? (
-              <img
-                className="safety__backgroundImage"
-                src={width <= 640 ? ModelsImageMobile : ModelsStructureInitial}
-                alt="car"
-              />
-            ) : (
-              width < 1024 && (
+    const renderSafetySection = useCallback(() => {
+      return (
+        <>
+          <div className="safety__container">
+            <div className="safety__left">{renderSafetyLeft()}</div>
+            <div
+              style={
+                checkIpad
+                  ? { background: "none" }
+                  : width >= 1024
+                  ? { background: `url(${ModelsStructureInitial})` }
+                  : { background: "none" }
+              }
+              className="safety__right"
+            >
+              {checkIpad ? (
                 <img
                   className="safety__backgroundImage"
-                  src={
-                    width <= 640 ? ModelsImageMobile : ModelsStructureInitial
-                  }
+                  src={width < 640 ? ModelsImageMobile : ModelsStructureInitial}
                   alt="car"
                 />
-              )
-            )}
-            {renderSaferyRight()}
+              ) : (
+                width < 1024 && (
+                  <img
+                    className="safety__backgroundImage"
+                    src={
+                      width < 640 ? ModelsImageMobile : ModelsStructureInitial
+                    }
+                    alt="car"
+                  />
+                )
+              )}
+              {renderSaferyRight()}
+            </div>
           </div>
-        </div>
-        {renderLearnMoreSection()}
+          <div
+            ref={learnMoreSectionRef}
+            className={
+              learnMoreOn || showLearnMore ? "safety__learnMoreContainer" : ""
+            }
+          >
+            {renderLearnMoreSection()}
+          </div>
+        </>
+      );
+    }, [
+      checkIpad,
+      renderLearnMoreSection,
+      renderSaferyRight,
+      renderSafetyLeft,
+      width,
+      learnMoreOn,
+      showLearnMore,
+    ]);
+    return (
+      <section ref={sectionRef} className="safety section">
+        {phoneLayout ? (
+          <div className="fp-tableCell">{renderSafetySection()}</div>
+        ) : (
+          <>{renderSafetySection()}</>
+        )}
       </section>
     );
   }

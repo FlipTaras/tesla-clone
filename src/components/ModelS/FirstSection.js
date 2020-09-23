@@ -22,6 +22,7 @@ export default connect(mapStateToProps)(
     width,
     imageLand,
     height,
+    phoneLayout,
   }) => {
     const checkIpad = height <= 1366 && width <= 1024;
 
@@ -100,7 +101,6 @@ export default connect(mapStateToProps)(
           animation: "subTitleAppear .2s .6s ease-in-out forwards",
         };
         styleButtonComponent = {
-          opacity: 0,
           animation: "subTitleAppear .2s .8s ease-in-out forwards",
         };
         styleIconComponent = {
@@ -133,6 +133,7 @@ export default connect(mapStateToProps)(
           secondText: "(EPA est.)",
         },
       ];
+
       const renderInfoElement = () => {
         return modelSInfoElements.map((el) => (
           <InfoElement
@@ -147,7 +148,7 @@ export default connect(mapStateToProps)(
           />
         ));
       };
-      if (pageIndex === "0") {
+      if (pageIndex === "0" || phoneLayout) {
         return (
           <>
             <h1 style={styleTitle} className="firstSection__title">
@@ -158,6 +159,7 @@ export default connect(mapStateToProps)(
               <OrderButton
                 fullWidth={width <= 700 && true}
                 userStyles={styleButtonComponent}
+                animated
               />
             </div>
             <ExpandMoreOutlinedIcon
@@ -169,7 +171,7 @@ export default connect(mapStateToProps)(
       } else {
         return null;
       }
-    }, [loaded, pageIndex, svgSpeed, title, width]);
+    }, [loaded, pageIndex, svgSpeed, title, width, phoneLayout]);
     return (
       <section
         className="section firstSection"
@@ -179,7 +181,13 @@ export default connect(mapStateToProps)(
           })`,
         }}
       >
-        <div className="firstSection__content">{renderContent()}</div>
+        {phoneLayout ? (
+          <div className="fp-tableCell">
+            <div className="firstSection__content">{renderContent()}</div>
+          </div>
+        ) : (
+          <div className="firstSection__content">{renderContent()}</div>
+        )}
       </section>
     );
   }

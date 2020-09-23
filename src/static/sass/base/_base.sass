@@ -12,6 +12,8 @@ body
     sans-serif
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
+    @include responsive(tablet)
+        // overflow: scroll !important
 
 .overscroll-off
     overflow: hidden !important
@@ -34,6 +36,10 @@ code
     font-family: 'Gotham Medium'
     font-size: 2.8rem
     font-weight: 500
+    @include responsive(414-landscape)
+        font-size: 2.1rem
+    @include responsive(phone)
+        font-size: 2.3rem
     &--animated
         opacity: 0
         animation: translateYOpacityShow .8s .3s forwards ease

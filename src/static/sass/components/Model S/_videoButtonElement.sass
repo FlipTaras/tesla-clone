@@ -2,10 +2,23 @@
     margin-top: 3rem
     position: relative
     width: 40rem
+    height: 20rem
+    @include responsive(1280)
+        height: 16rem
+
     @include responsive(tablet-portrait)
         width: 20rem
+        height: 25rem
+
     @include responsive(ipadPro-portrait)
         width: 40rem
+    @include responsive(414-landscape)
+        width: 20rem
+        height: 25rem
+        margin-top: 7rem
+
+    @include responsive(smallphone)
+        width: 20rem
 
     &__videoButtonContentContainer
         opacity: .4
@@ -15,6 +28,12 @@
             opacity: 1
         &:hover
             animation: opacityButton 1s ease forwards
+        @include responsive(phone)
+            padding-top: 1rem
+        @include responsive(414-landscape)
+            width: 20rem
+        @include responsive(smallphone)
+            width: 20rem
 
     &__videoButtonContainerTopBorder
         position: absolute
@@ -22,7 +41,7 @@
         left: 0
         background-color: black
         height: 1px
-        width: 100%
+        width: 90%
 
     &__videoButtonTitle
         color: #171a20
@@ -32,6 +51,10 @@
         padding: 1.5rem 0 1.5rem 2rem
         &:last-child
             margin-top: -2rem
+        @include responsive(414-landscape)
+            font-size: 1.3rem
+        @include responsive(phone)
+            font-size: 1.3rem
 
     &__videoButtonText
         color: #5c5e62
@@ -46,6 +69,9 @@
         display: flex
         @include responsive(tablet-portrait)
             flex-direction: column
+        @include responsive(414-landscape)
+            flex-direction: column
+    
 
     &__videoButtonInfoInner
         display: flex
@@ -57,6 +83,12 @@
         font-size: 2.4rem
         font-family: 'Gotham Medium'
         font-weight: 500
+        @include responsive(414-landscape)
+            font-size: 2rem
+            margin-right: 1.8rem
+        @include responsive(phone)
+            font-size: 2rem
+            margin-right: 1.8rem
 
     &__videoButtonInfoTextContainer
         display: flex
@@ -78,14 +110,4 @@
         width: 100%
         border: 2px solid rgba(1,1,1,1);
 
-@keyframes moveContainerLeft
-    0%
-        transform: translateX(-4rem)  
-    100%
-        transform: translateX(4rem)
 
-@keyframes moveContainerRight
-    0%
-        transform: translateX(4rem)    
-    100%
-        transform: translateX(-4rem)

@@ -24,6 +24,8 @@ const mapStateToProps = (state) => ({
   loaded: state.page.loaded,
   pagetoShow: state.models.pagetoShow,
   silentScrollTo: state.models.silentScrollTo,
+  width: state.page.width,
+  height: state.page.height,
 });
 const mapActionToProps = {
   setLoaded,
@@ -41,6 +43,8 @@ const ModelSPage = ({
   silentScrollTo,
   setSilentScrollTo,
   setStopAnimation,
+  width,
+  height,
 }) => {
   const topContainerSafetyRef = useRef(null);
   const bottomContainerSafetyRef = useRef(null);
@@ -48,27 +52,31 @@ const ModelSPage = ({
 
   /* After close learn More section functionality */
   useEffect(() => {
-    if (silentScrollTo === "safety") {
-      window.fullpage_api.silentMoveTo(2);
-      setPageIndex("1");
-      topContainerSafetyRef.current.classList.add("safety__topContainer--show");
-      bottomContainerSafetyRef.current.classList.add(
-        "safety__bottomContainer--show"
-      );
-    } else if (silentScrollTo === "perfomance") {
-      window.fullpage_api.silentMoveTo(3);
-      setPageIndex("2");
-      if (bottomContainerPerfomanceRef.current) {
-        bottomContainerPerfomanceRef.current.classList.add(
-          "perfomance__bottomContainerInner--show"
+    if (window.fullpage_api) {
+      if (silentScrollTo === "safety") {
+        window.fullpage_api.silentMoveTo(2);
+        setPageIndex("1");
+        topContainerSafetyRef.current.classList.add(
+          "safety__topContainer--show"
         );
-        setStopAnimation(true);
+        bottomContainerSafetyRef.current.classList.add(
+          "safety__bottomContainer--show"
+        );
+      } else if (silentScrollTo === "perfomance") {
+        window.fullpage_api.silentMoveTo(3);
+        setPageIndex("2");
+        if (bottomContainerPerfomanceRef.current) {
+          bottomContainerPerfomanceRef.current.classList.add(
+            "perfomance__bottomContainerInner--show"
+          );
+          setStopAnimation(true);
+        }
+      } else if (silentScrollTo === "range") {
+        window.fullpage_api.silentMoveTo(4);
+        setPageIndex("3");
+      } else {
+        window.addEventListener("wheel", () => setStopAnimation(false));
       }
-    } else if (silentScrollTo === "range") {
-      window.fullpage_api.silentMoveTo(4);
-      setPageIndex("3");
-    } else {
-      window.addEventListener("wheel", () => setStopAnimation(false));
     }
 
     return () => {
@@ -95,68 +103,103 @@ const ModelSPage = ({
   }, [setLoaded]);
 
   /* Fixing  Sidebar bug */
-  if (sideActive) {
-    window.fullpage_api.setAutoScrolling(false);
-  } else {
-    if (window.fullpage_api) {
-      window.fullpage_api.setAutoScrolling(true);
+  if (window.fullpage_api) {
+    if (sideActive) {
+      window.fullpage_api.setAutoScrolling(false);
+    } else {
+      if (window.fullpage_api) {
+        window.fullpage_api.setAutoScrolling(true);
+      }
     }
   }
 
   /* Render functionality */
   const renderModelSPage = useCallback(() => {
-    if (loaded) {
-      if (pagetoShow === "safety") {
-        return <SafetySection learnMoreOn />;
-      } else if (pagetoShow === "perfomance") {
-        return <PerfomanceSection learnMoreOn />;
-      } else {
-        return (
-          <>
-            {ImageComponent}
-            <FullpageButton />
-            <ReactFullpage
-              //fullpage options
-              licenseKey={process.env.REACT_APP_FULLPAGE}
-              scrollingSpeed={400} /* Options here */
-              render={({ state, fullpageApi }) => {
-                return (
-                  <ReactFullpage.Wrapper>
-                    <FirstSection
-                      title="Model S"
-                      image={Image}
-                      imagePhone={ImagePhone}
-                      imageLand={ImageLand}
-                    />
-                    <SafetySection
-                      topContainerRef={topContainerSafetyRef}
-                      bottomContainerRef={bottomContainerSafetyRef}
-                    />
-                    <PerfomanceSection
-                      // stopPerfomanceAnimation={stopPerfomanceAnimation}
-                      bottomContainerPerfomanceRef={
-                        bottomContainerPerfomanceRef
-                      }
-                    />
-                    <FirstSection image={Image} />
-                    <FirstSection image={Image} />
-                    <FirstSection image={Image} />
-                    <FirstSection image={Image} />
-                    <FirstSection image={Image} />
-                    <FirstSection image={Image} />
-                  </ReactFullpage.Wrapper>
-                );
-              }}
-            />
-          </>
-        );
-      }
+    if ((width <= 768 && height <= 1024) || (height <= 768 && width <= 1024)) {
+      return (
+        <>
+          {ImageComponent}
+          <FirstSection
+            title="Model S"
+            image={Image}
+            imagePhone={ImagePhone}
+            imageLand={ImageLand}
+            phoneLayout={true}
+          />
+          <SafetySection
+            topContainerRef={topContainerSafetyRef}
+            bottomContainerRef={bottomContainerSafetyRef}
+            phoneLayout={true}
+          />
+          <PerfomanceSection
+            phoneLayout={true}
+            bottomContainerPerfomanceRef={bottomContainerPerfomanceRef}
+          />
+          <FirstSection
+            title="Model S"
+            image={Image}
+            imagePhone={ImagePhone}
+            imageLand={ImageLand}
+            phoneLayout={true}
+          />
+        </>
+      );
     } else {
-      return null;
+      if (loaded) {
+        if (pagetoShow === "safety") {
+          return <SafetySection learnMoreOn />;
+        } else if (pagetoShow === "perfomance") {
+          return <PerfomanceSection learnMoreOn />;
+        } else {
+          return (
+            <>
+              {ImageComponent}
+              <FullpageButton />
+              <ReactFullpage
+                //fullpage options
+                licenseKey={process.env.REACT_APP_FULLPAGE}
+                scrollingSpeed={400} /* Options here */
+                render={({ state, fullpageApi }) => {
+                  return (
+                    <ReactFullpage.Wrapper>
+                      <FirstSection
+                        title="Model S"
+                        image={Image}
+                        imagePhone={ImagePhone}
+                        imageLand={ImageLand}
+                        phoneLayout={false}
+                      />
+                      <SafetySection
+                        topContainerRef={topContainerSafetyRef}
+                        bottomContainerRef={bottomContainerSafetyRef}
+                        phoneLayout={false}
+                      />
+                      <PerfomanceSection
+                        phoneLayout={false}
+                        bottomContainerPerfomanceRef={
+                          bottomContainerPerfomanceRef
+                        }
+                      />
+                      <FirstSection phoneLayout={false} image={Image} />
+                      <FirstSection phoneLayout={false} image={Image} />
+                      <FirstSection phoneLayout={false} image={Image} />
+                      <FirstSection phoneLayout={false} image={Image} />
+                      <FirstSection phoneLayout={false} image={Image} />
+                      <FirstSection phoneLayout={false} image={Image} />
+                    </ReactFullpage.Wrapper>
+                  );
+                }}
+              />
+            </>
+          );
+        }
+      } else {
+        return null;
+      }
     }
-  }, [ImageComponent, pagetoShow, loaded]);
+  }, [ImageComponent, pagetoShow, loaded, width, height]);
 
-  return renderModelSPage();
+  return <>{renderModelSPage()}</>;
 };
 
 export default connect(mapStateToProps, mapActionToProps)(ModelSPage);

@@ -4,9 +4,17 @@
     padding: 0 3.5rem 0 3.5rem
     opacity: 0
     @include responsive(phone)
-        padding: 0 2rem 0 2rem
+        padding: 0 1.5rem 0 1.5rem
     @include responsive(smallphone)
-        padding: 0 1rem 0 1rem
+        padding: 1rem 1rem 0 1rem
+    @include responsive(320-landscape)
+        padding: 1rem 4.2rem
+
+    &--smaller
+        @include responsive(smallphone)
+            padding: .8rem .8rem 0
+            &:last-child
+                padding-right: 0
 
     &--show
         opacity: 1 !important
@@ -34,6 +42,13 @@
         line-height: 1.5
         @include responsive(phone)
             font-size: 1rem
+        @include responsive(smallphone)
+            width: 60%
+            font-size: 1.2rem
+            margin: 0 auto
+        &--smaller
+            @include responsive(smallphone)
+                width: 100%
 
     &__line
         position: absolute
@@ -45,5 +60,7 @@
         opacity: .9
         @include responsive(phone)
             height: 6rem
+        @include responsive(smallphone)
+            height: 9rem
         &--white
             background-color: white

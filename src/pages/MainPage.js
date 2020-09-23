@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 
 /* Redux */
 import { connect } from "react-redux";
@@ -65,9 +65,13 @@ export default connect(
   }, [setLoaded]);
 
   /* Fix IOS Scrolling Bug */
-  window.addEventListener("touchmove", (e) => {
-    window.scrollTo(0, 0);
-  });
+  useEffect(() => {
+    const scrollFix = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("touchmove", scrollFix);
+    return () => window.removeEventListener("touchmove", scrollFix);
+  }, []);
 
   const onScroll = (e) => {
     /* OrderComponent */

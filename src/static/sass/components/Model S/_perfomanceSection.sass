@@ -9,33 +9,58 @@
         position: relative
         @include responsive(2560)
             background-size: 110% !important
-
         @include responsive(1366)
             background-size: 100% !important
             height: 77vh
-
         @include responsive(ipadPro)
             height: 75vh
-
         @include responsive(tablet)
-            height: 80vh
-
+            height: 77vh
         @include responsive(tablet-portrait)
             background-size: 110% !important
             background-position: -4rem -6rem !important
             height: 80vh
+        @include responsive(phone)
+            background-position: center !important
+            height: 60vh
+        @include responsive(414-landscape)
+            height: 100vh
+        @include responsive(smallphone)
+            height: 80vh
+        @include responsive(320-landscape)
+            height: 100vh
+
 
     &__bottomContainer
-        @include responsive(1280)
-            height: 24vh
-        @include responsive(1280)
+        height: 30vh
+        // margin-bottom: 2rem
+        @include responsive(1366)
+            height: 23vh
+        @include responsive(ipadPro)
+            height: 25vh
+        @include responsive(tablet)
+            height: 23vh
+        @include responsive(tablet-portrait)
             height: 20vh
-
+        @include responsive(phone)
+            height: 40vh
+        @include responsive(414-landscape)
+            height: 80vh
+            padding: 0 0 4rem 1.5rem
+        @include responsive(375-portrait)
+            height: 40vh
+        @include responsive(375-665)
+            height: 50vh
+        @include responsive(smallphone)
+            height: 68vh
+        @include responsive(320-landscape)
+            height: 100vh
 
     &__bottomContainerInner
+        box-sizing: border-box
         width: 65%
         margin: 0 auto
-        margin-top: 4rem
+        padding-top: 4rem
         display: flex
         align-items: flex-start
         animation: translateYOpacityShow .6s .3s forwards ease;
@@ -58,23 +83,53 @@
             width: 98%
         @include responsive(tablet-portrait)
             width: 95%
+        @include responsive(phone)
+            flex-wrap: wrap
+            padding: 2.5rem 1.5rem
+        @include responsive(414-landscape)
+            flex-wrap: wrap
+            // padding: 2.5rem 0 4rem
+            
 
     &__buttons
         display: flex
         margin-top: 2rem
+        @include responsive(smallphone)
+            flex-wrap: wrap
+        @include responsive(320-landscape)
+            width: 100%
 
     &__leftContainer
         flex: .35
         @include responsive(tablet-portrait)
             flex: .5
+        @include responsive(414-landscape)
+            flex-basis: 100%
+        @include responsive(phone)
+            flex-basis: 100%
 
     &__rightContainer
         flex: .65
         @include responsive(tablet-portrait)
             flex: .5
+        @include responsive(414-landscape)
+            flex-basis: 100%
+        @include responsive(phone)
+            flex-basis: 100%
+
+    &__title
+        @include responsive(414-landscape)
+            font-size: 2.7rem
 
     &__text
         margin-top: -.1rem
+        @include responsive(phone)
+            margin-top: 2rem
+        @include responsive(414-landscape)
+            width: 90%
+            margin: 3rem 0 2rem
+        @include responsive(320-landscape)
+            margin: 1rem 0
 
     &__infoElements 
         display: flex
@@ -93,7 +148,28 @@
             bottom: 10%
         @include responsive(1000)
             text-align: center
+        @include responsive(414-landscape)
+            padding-left: 5rem
+        @include responsive(phone)
+            width: 90%
+        @include responsive(smallphone)
+            width: 100%
+            padding-left: 1rem
+        @include responsive(320-landscape)
+            padding-left: 0
 
+
+    &__learnMoreButton
+        @include responsive(smallphone)
+            flex-basis: 100%
+            margin-bottom: 1rem
+    &__orderButton
+        @include responsive(smallphone)
+            flex-basis: 100%
+            max-width: 90%
+        @include responsive(320-landscape)
+            width: 100% !important
+            flex-basis: 65%
 
     /* LearnMore Added Element */
     &__learnMoreContainer
@@ -103,6 +179,13 @@
         padding: 8rem 0 3rem 
         background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 30%);
         margin: 8rem auto 0
+        @include responsive(414-landscape)
+            margin-top: 0
+            padding-top: 7rem
+        @include responsive(phone)
+            margin-top: 0
+        @include responsive(smallphone)
+            padding-top: 5rem
     &__info
         width: 55%
         margin: 0 auto
@@ -114,14 +197,30 @@
             width: 60%
         @include responsive(1280)
             width: 65%
+        @include responsive(414-landscape)
+            width: 60%
+        @include responsive(phone)
+            width: 90%
+        @include responsive(smallphone)
+            width: 95%
+        @include responsive(320-landscape)
+            width: 80%
+
 
     &__learnMoreTitle
         opacity: 0
         animation: translateYOpacityShow 1s .5s forwards ease
+        @include responsive(414-landscape)
+            font-size: 3rem
+
     &__learnMoreParagraph
         width: 55%
         opacity: 0
         animation: translateYOpacityShow 1s .6s forwards ease
+        @include responsive(414-landscape)
+            width: 90%
+        @include responsive(phone)
+            width: 95%
 
     &__videosContainer
         height: 50rem
@@ -138,6 +237,16 @@
             width: 85%
         @include responsive(1280)
             width: 100%
+        @include responsive(414-landscape)
+            width: 90%
+            height: 25rem
+        @include responsive(phone)
+            height: 13rem
+            margin: 4rem 0
+        @include responsive(320-landscape)
+            width: 100%
+            height: 17rem
+
 
     &__video
         position: absolute
@@ -150,6 +259,16 @@
         transition: opacity 1.1s ease-in-out
         &--active
             opacity: 1
+        @include responsive(414-landscape)
+            height: 25rem
+            transform: scale(1.2)
+            margin: 2rem 0
+
+        @include responsive(phone)
+            height: 13rem
+        @include responsive(320-landscape)
+            transform: scale(1)
+            height: 17rem
 
     &__videoButtons
         display: flex
@@ -179,6 +298,10 @@
             flex-direction: row
         @include responsive(tablet)
             width: 85%
+        @include responsive(414-landscape)
+            flex-direction: column
+        @include responsive(phone)
+            padding-bottom: 8rem
         
     &__learnMoreDualMotorVideoInner
         height: 49rem
@@ -193,6 +316,11 @@
             height: 32.7rem
         @include responsive(tablet-portrait)
             height: 41.2rem
+        @include responsive(phone)
+            height: 20rem
+            margin: 2rem 0 0 
+        @include responsive(320-landscape)
+            height: 32.7rem
 
 
     &__learnMoreDualMotorVideoContainer
@@ -203,6 +331,9 @@
             order: 0
             width: auto
             margin-left: 0
+        @include responsive(414-landscape)
+            order: 2
+            margin-top: 2rem
 
     &__learnMoreDualMotorVideo
         object-fit: contain
@@ -215,8 +346,14 @@
             width: 100%
             height: 41.2rem
         @include responsive(ipadPro-portrait)
-            width: auto
+            // width: 40rem
+            width: 45rem
             height: 32.7rem
+        @include responsive(phone)
+            height: 20rem
+        @include responsive(320-landscape)
+            height: 32.7rem
+
 
     &__learnMoreDualMotorInfo
         opacity: 0
@@ -230,6 +367,15 @@
             margin: 0
             width: auto
             align-self: flex-start
+        @include responsive(414-landscape)
+            width: 75%
+        @include responsive(phone)
+            width: 95%
+            margin: 0 auto
+
+    &__dualTitle
+        @include responsive(414-landscape)
+            font-size: 3rem
 
     &__dualParagraph
         width: 93%
@@ -243,10 +389,13 @@
             order: 2
         @include responsive(tablet)
             width: 85%
-
-
+        @include responsive(414-landscape)
+            width: 100%
+        @include responsive(phone)
+            width: 100%
 
     /* Fullpage.js adjustment */
     .fp-tableCell
         vertical-align: top
+        display: block
 

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import CountUp from "react-countup";
 import OrderButton from "../Buttons/OrderButton";
 import InfoElement from "./InfoElement";
+import Navbar from "../App/Navbar";
 
 const mapStateToProps = (state) => ({
   loaded: state.page.loaded,
@@ -173,22 +174,25 @@ export default connect(mapStateToProps)(
       }
     }, [loaded, pageIndex, svgSpeed, title, width, phoneLayout]);
     return (
-      <section
-        className="section firstSection"
-        style={{
-          background: `url(${
-            width < 639 ? imagePhone : checkIpad ? imageLand : image
-          })`,
-        }}
-      >
-        {phoneLayout ? (
-          <div className="fp-tableCell">
+      <>
+        <section
+          className="section firstSection"
+          style={{
+            background: `url(${
+              width < 639 ? imagePhone : checkIpad ? imageLand : image
+            })`,
+          }}
+        >
+          <Navbar />
+          {phoneLayout ? (
+            <div className="fp-tableCell">
+              <div className="firstSection__content">{renderContent()}</div>
+            </div>
+          ) : (
             <div className="firstSection__content">{renderContent()}</div>
-          </div>
-        ) : (
-          <div className="firstSection__content">{renderContent()}</div>
-        )}
-      </section>
+          )}
+        </section>
+      </>
     );
   }
 );

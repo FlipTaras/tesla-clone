@@ -35,12 +35,18 @@
     margin-right: 2rem
     display: flex
     align-items: center
+    cursor: pointer
     &:active,
     &:focus
         outline: none
     &:disabled
         opacity: .3
         pointer-events: none
+    &:hover
+        .learnButton__learnicon
+            color: white
+            background-color: black
+        
         
     &__learnText
         color: #171a20
@@ -49,7 +55,7 @@
         font-weight: 400
 
     &__learnicon
-        cursor: pointer
+        // cursor: pointer
         margin-right: 1rem
         padding: .8rem .9rem
         font-size: 2rem
@@ -94,11 +100,8 @@
         transition: width .2s linear
         &:hover
             animation: expandShadowCloseButton .1s linear forwards
-        @include responsive(phone)
-            left: 44.4%
-            bottom: 4.7%
-        @include responsive(smallphone)
-            left: 44.2%
+        @include responsive(tablet)
+            background: none
 
     &__text
         position: fixed
@@ -111,18 +114,14 @@
         font-weight: 500
         opacity: 0
         cursor: pointer
+        @include responsive(tablet)
+            display: none
         &--hover
             opacity: 1
         &:active
         &:focus
             outline: none
-        
-        @include responsive(phone)
-            left: 52%
-            opacity: 1
-            bottom: 6%
-        @include responsive(smallphone)
-            left: 54%
+
 
 
 

@@ -17,7 +17,7 @@ import ModelSImage from "../static/images/MainPage/Desktop-ModelS.jpg";
 import SolarRoofImage from "../static/images/MainPage/Desktop-SolarRoof.jpg";
 import SolarPanelsImage from "../static/images/MainPage/Desktop-SolarPanels.jpg";
 import AccessoriesImage from "../static/images/MainPage/Desktop-Accessories.jpg";
-import Image from "../static/images/ModelS/Model-S.jpg";
+import Image from "../static/images/ModelS/FirstSection/Model-S.jpg";
 
 import ModelYImageMobile from "../static/images/MainPage/Mobile-ModelY.jpg";
 import ModelXImageMobile from "../static/images/MainPage/Mobile-ModelX.jpg";
@@ -26,6 +26,7 @@ import ModelSImageMobile from "../static/images/MainPage/Mobile-ModelS.jpg";
 import SolarRoofImageMobile from "../static/images/MainPage/Mobile-SolarRoof.jpg";
 import SolarPanelsImageMobile from "../static/images/MainPage/Mobile-SolarPanels.jpg";
 import AccessoriesImageMobile from "../static/images/MainPage/Mobile-Accessories.jpg";
+import Navbar from "../components/App/Navbar";
 
 const mapStateToProps = (state) => ({
   width: state.page.width,
@@ -102,6 +103,7 @@ export default connect(
 
   return (
     <>
+      <Navbar />
       {ImageComponent}
       <div onScroll={onScroll} className="mainPage">
         <Footer active={activeFooter} />

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import MainPage from "./pages/MainPage";
 import ModelS from "./pages/ModelS";
 import { Switch, Route } from "react-router";
-import Navbar from "./components/App/Navbar";
 import { connect } from "react-redux";
 import { setPageYOffSet, setWidth, setHeight } from "./static/store/actions";
 
@@ -43,7 +42,6 @@ function App({ navbarActive, setPageYOffSet, setWidth, setHeight }) {
   }
   return (
     <div className="app">
-      <Navbar />
       <Switch>
         <Route path="/" exact component={MainPage} />
         <Route path="/model-s" component={ModelS} />

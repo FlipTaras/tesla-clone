@@ -7,9 +7,9 @@ import SafetyAnimatedElement from "./SafetyAnimatedElement";
 import CloseNextButton from "../Buttons/CloseNextButton";
 
 /* Images */
-import ModelsStructureInitial from "../../static/images/ModelS/Safety.png";
-import ModelsStructureLeanMore from "../../static/images/ModelS/model-s-supportive-structure.jpg";
-import ModelsImageMobile from "../../static/images/ModelS/Safety-mobile.jpg";
+import ModelsStructureInitial from "../../static/images/ModelS/Safety/Safety.png";
+import ModelsStructureLeanMore from "../../static/images/ModelS/Safety/model-s-supportive-structure.jpg";
+import ModelsImageMobile from "../../static/images/ModelS/Safety/Safety-mobile.jpg";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -34,7 +34,6 @@ export default connect(
     setSilentScrollTo,
     topContainerRef,
     bottomContainerRef,
-    pageYOffset,
     width,
     height,
     phoneLayout,

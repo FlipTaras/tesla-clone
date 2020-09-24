@@ -11,15 +11,16 @@ import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 
 /* Videos and Posters Imports */
-import Image from "../../static/images/ModelS/model-s-performance.jpg";
-import ImageLand from "../../static/images/ModelS/model-s-performance-portrait.jpg";
-import imagePhone from "../../static/images/ModelS/model-s-performance-mobile.jpg";
-import Video1 from "../../static/videos/ModelS/dualmotor_desktop.mp4";
-import Poster1 from "../../static/images/ModelS/dualmotor_desktop_poster.png";
-import Video2 from "../../static/videos/ModelS/performancemotor_desktop.mp4";
-import Poster2 from "../../static/images/ModelS/performancemotor_desktop_poster.png";
+import Image from "../../static/images/ModelS/Perfomance/model-s-performance.jpg";
+import ImageLand from "../../static/images/ModelS/Perfomance/model-s-performance-portrait.jpg";
+import imagePhone from "../../static/images/ModelS/Perfomance/model-s-performance-mobile.jpg";
+import Poster1 from "../../static/images/ModelS/Perfomance/dualmotor_desktop_poster.png";
+import Poster2 from "../../static/images/ModelS/Perfomance/performancemotor_desktop_poster.png";
+import Poster3 from "../../static/images/ModelS/Perfomance/total-control-s-poster.png";
+
 import Video3 from "../../static/videos/ModelS/KD8BAH_total-control-s_0.mp4-2000_M3C5DL.mp4";
-import Poster3 from "../../static/images/ModelS/total-control-s-poster.png";
+import Video2 from "../../static/videos/ModelS/performancemotor_desktop.mp4";
+import Video1 from "../../static/videos/ModelS/dualmotor_desktop.mp4";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,

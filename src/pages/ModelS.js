@@ -63,7 +63,7 @@ const ModelSPage = ({
   const bottomContainerPerfomanceRef = useRef(null);
 
   const [indexPage, setIndex] = useState("0");
-  const [showLogo, setShowLogo] = useState(false);
+  const logoref = useRef(null);
 
   /* After close learn More section functionality */
   useEffect(() => {
@@ -80,9 +80,9 @@ const ModelSPage = ({
           }, 450);
           setTimeout(() => {
             if (index === "0") {
-              setShowLogo(false);
+              logoref.current.classList.remove("show");
             } else {
-              setShowLogo(true);
+              logoref.current.classList.add("show");
             }
           }, 450);
         }
@@ -295,6 +295,7 @@ const ModelSPage = ({
     return (
       <NavLink to="/">
         <img
+          ref={logoref}
           className="modelS__logo"
           src={
             indexPage === "5"
@@ -310,7 +311,7 @@ const ModelSPage = ({
   }, [indexPage]);
   return (
     <>
-      {showLogo && renderLogoElement()}
+      {renderLogoElement()}
       {ImageComponent}
       {renderModelSPage()}
     </>

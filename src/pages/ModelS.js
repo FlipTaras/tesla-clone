@@ -133,7 +133,6 @@ const ModelSPage = ({
     setPageIndex,
     setSilentScrollTo,
     setStopAnimation,
-    // setPageToShow,
     loaded,
     height,
     width,
@@ -167,38 +166,11 @@ const ModelSPage = ({
       }
     }
   }
+  const checkIpad = width >= 1024 && height >= 1366;
+
   /* Render functionality */
   const renderModelSPage = useCallback(() => {
-    if ((width <= 768 && height <= 1024) || (height <= 768 && width <= 1024)) {
-      return (
-        <>
-          {ImageComponent}
-          <FirstSection
-            title="Model S"
-            image={Image}
-            imagePhone={ImagePhone}
-            imageLand={ImageLand}
-            phoneLayout={true}
-          />
-          <SafetySection
-            topContainerRef={topContainerSafetyRef}
-            bottomContainerRef={bottomContainerSafetyRef}
-            phoneLayout={true}
-          />
-          <PerfomanceSection
-            phoneLayout={true}
-            bottomContainerPerfomanceRef={bottomContainerPerfomanceRef}
-          />
-          <FirstSection
-            title="Model S"
-            image={Image}
-            imagePhone={ImagePhone}
-            imageLand={ImageLand}
-            phoneLayout={true}
-          />
-        </>
-      );
-    } else {
+    if (checkIpad || width > 1025) {
       if (loaded) {
         if (pagetoShow === "safety") {
           return <SafetySection learnMoreOn />;
@@ -285,11 +257,38 @@ const ModelSPage = ({
             </>
           );
         }
-      } else {
-        return null;
       }
+    } else {
+      return (
+        <>
+          {ImageComponent}
+          <FirstSection
+            title="Model S"
+            image={Image}
+            imagePhone={ImagePhone}
+            imageLand={ImageLand}
+            phoneLayout={true}
+          />
+          <SafetySection
+            topContainerRef={topContainerSafetyRef}
+            bottomContainerRef={bottomContainerSafetyRef}
+            phoneLayout={true}
+          />
+          <PerfomanceSection
+            phoneLayout={true}
+            bottomContainerPerfomanceRef={bottomContainerPerfomanceRef}
+          />
+          <FirstSection
+            title="Model S"
+            image={Image}
+            imagePhone={ImagePhone}
+            imageLand={ImageLand}
+            phoneLayout={true}
+          />
+        </>
+      );
     }
-  }, [ImageComponent, pagetoShow, loaded, width, height]);
+  }, [ImageComponent, pagetoShow, loaded, width, checkIpad]);
 
   const renderLogoElement = useCallback(() => {
     return (

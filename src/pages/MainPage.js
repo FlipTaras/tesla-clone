@@ -70,8 +70,8 @@ export default connect(
     const scrollFix = () => {
       window.scrollTo(0, 0);
     };
-    window.addEventListener("touchmove", scrollFix);
-    return () => window.removeEventListener("touchmove", scrollFix);
+    window.addEventListener("touchend", scrollFix);
+    return () => window.removeEventListener("touchend", scrollFix);
   }, []);
 
   const onScroll = (e) => {

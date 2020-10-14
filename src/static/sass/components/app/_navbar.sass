@@ -31,8 +31,12 @@
         list-style: none
         display: flex
         align-items: center
-        flex: .7
+        flex: .6
         margin-left: 1rem
+        @include responsive(2200)
+            flex: .65
+        @include responsive(1600)
+            flex: .7
 
     &__element
         white-space: nowrap
@@ -41,7 +45,7 @@
             display: none
         &:last-child
             margin-right: 0
-            
+
     &__link
         color: black
         text-decoration: none
@@ -51,9 +55,9 @@
             color: white
 
     &__hamburger
-        margin-right: 2rem  
+        margin-right: 2rem
         z-index: 151
         &--light
             color: white
-        &--active 
+        &--active
             color: black

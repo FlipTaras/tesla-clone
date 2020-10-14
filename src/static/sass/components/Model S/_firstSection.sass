@@ -1,23 +1,31 @@
 .firstSection
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    height: 100vh;
-    @include responsive(tablet)
-        background-position: center -20rem !important
-    @include responsive(tablet-portrait)
-        background-position: center !important;
-    @include responsive(320-landscape)
-        height: 120vh
-        background-position: center -30rem !important;
+    background-position: center !important
+    background-repeat: no-repeat !important
+    background-size: cover !important
+    height: 100vh
+    @include responsive(1366)
+        background-position: center -70rem !important
+    @include responsive(1200)
+        background-position: center -40rem !important
 
+    @include responsive(tablet-landscape)
+        background-position: center -50rem !important
+    @include responsive(tablet-portrait)
+        background-position: center -20rem !important
+
+    @include responsive(phone)
+        background-position: center !important
+
+    @include responsive(smallphone-landscape)
+        height: 120vh
+        background-position: center -30rem !important
 
     .fp-tableCell
         vertical-align: top
         display: flex
         justify-content: center
 
-    &__content 
+    &__content
         text-align: center
         margin-top: 8%
         margin-bottom: 5.5%
@@ -28,7 +36,7 @@
         justify-content: space-between
         @include responsive(phone)
             margin-top: 10%
-        @include responsive(smallphone)
+        @include responsive(smallphone-portrait)
             margin-top: 20%
 
     &__characteristics
@@ -41,7 +49,7 @@
             margin-bottom: 5rem
         @include responsive(phone)
             margin-bottom: 10rem
-        @include responsive(smallphone)
+        @include responsive(smallphone-portrait)
             margin-bottom: 5rem
             justify-content: unset
         @include responsive(smallphone-landscape)
@@ -52,7 +60,6 @@
         color: white
         font-weight: 500
         opacity: 0
-        
 
     &__button
         background: none
@@ -71,7 +78,7 @@
         &:active,
         &:focus
             outline: none
-        &:hover 
+        &:hover
             color: white
             background-color: black
 
@@ -86,4 +93,3 @@
         opacity: 0
         @include responsive(tablet)
             left: unset
-

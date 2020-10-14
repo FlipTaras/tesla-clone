@@ -179,7 +179,7 @@ export default connect(mapStateToProps)(
           className="section firstSection"
           style={{
             background: `url(${
-              width < 639 ? imagePhone : checkIpad ? imageLand : image
+              width <= 1366 ? imagePhone : checkIpad ? imageLand : image
             })`,
           }}
         >

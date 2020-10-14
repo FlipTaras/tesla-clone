@@ -28,23 +28,31 @@
 
     &__infoContainer
         padding-left: 1rem
+        @include responsive(phone-landscape)
+            text-align: left
+        @include responsive(phone)
+            text-align: left
 
     &__title
         position: relative
         font-size: 1.4rem
         font-weight: 500
-        opacity: 0 
+        opacity: 0
         width: 100%
         display: block
         &--show
             opacity: 1
             animation: none
-        @include responsive(tablet)
+        @include responsive(1366)
             width: 60%
+
+        @include responsive(tablet)
             font-size: 1.2rem
         @include responsive(ipadPro-portrait)
             font-size: 1.4rem
             width: 100%
+        @include responsive(800)
+            width: 80%
         @include responsive(phone)
             font-size: .9rem
             width: 90%
@@ -61,8 +69,3 @@
         font-weight: 500
         margin-top: .9rem
         opacity: 0
-
-
-
-
-

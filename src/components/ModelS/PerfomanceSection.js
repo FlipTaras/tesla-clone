@@ -156,6 +156,7 @@ export default connect(
           useEasing
         />
       );
+
       if (pageIndex === "2" || (phoneLayout && sectionTop <= 600)) {
         return (
           <div className="perfomance__infoElements">
@@ -273,7 +274,7 @@ export default connect(
                 Quickest Acceleration
               </h1>
 
-              {height <= 416 ? null : width > 600 && buttonContainer}
+              {height <= 416 ? null : width > 700 && buttonContainer}
             </div>
             <div className="perfomance__rightContainer">
               <p className="paragraph perfomance__text">
@@ -284,7 +285,7 @@ export default connect(
                 acceleration.
               </p>
             </div>
-            {height <= 416 ? buttonContainer : width <= 600 && buttonContainer}
+            {height <= 416 ? buttonContainer : width <= 700 && buttonContainer}
           </div>
         );
       } else {
@@ -491,10 +492,8 @@ export default connect(
       learnMoreOn,
       pageYOffset,
       activeButton,
-      // width,
       phoneLayout,
       showLearnMore,
-      // sectionTop,
       height,
       learnMoreSectionBottom,
       learnMoreSectionTop,

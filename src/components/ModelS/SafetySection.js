@@ -41,7 +41,6 @@ export default connect(
     const checkIpadAndWidthSmaller1024 =
       (width === 1024 && height === 1366) || width < 1024;
     const checkIpad = width === 1024 && height === 1366;
-    const checkIpadPortrait = width === 1366 && height === 1024;
     const [showLearnMore, setShowLearnMore] = useState(false);
 
     /* Get section offset, used for Animation on small screens  */
@@ -153,161 +152,30 @@ export default connect(
       if (pageIndex === "1" || (phoneLayout && sectionTop <= 700)) {
         return (
           <>
-            <div className="safety__AnimatedElements">
+            <div className="safety__animatedElements">
               <SafetyAnimatedElement
                 show={learnMoreOn}
                 title="Front-Impact Protection"
-                titleAnimation="translateYOpacityShow .8s .5s forwards ease"
-                elementTop={checkIpad ? "25%" : "20%"}
-                elementLeft={
-                  height <= 414 ? "31%" : width <= 600 ? "30%" : "26%"
-                }
-                lineTop="1rem"
-                lineLeft={width <= 600 ? "unset" : "-1rem"}
-                lineRight={width <= 600 ? "4rem" : "unset"}
-                lineHeight={
-                  height <= 414 ? "11rem" : width <= 600 ? "12rem" : "23rem"
-                }
-                lineAnimation="showstickScaleY .7s .2s forwards ease-in-out"
-                dotTop={
-                  height <= 414 ? "12rem" : width <= 600 ? "13rem" : "24rem"
-                }
-                dotLeft={width <= 600 ? "unset" : "-1.3rem"}
-                dotRight={width <= 600 ? "3.7rem" : "unset"}
-                dotAnimation="showdot .8s .8s forwards ease"
+                customTitleClassNames="safety__safetyanimatedElements__title--1"
+                elementClassNames="safety__safetyanimatedElements__element--1"
+                customLineClassNames="safety__safetyanimatedElements__line--1"
+                customDotClassNames="safety__safetyanimatedElements__dot--1"
               />
               <SafetyAnimatedElement
                 show={learnMoreOn}
                 title="Side-Impact Protection"
-                titleAnimation="translateYOpacityShow .8s .5s forwards ease"
-                elementTop={
-                  height <= 414
-                    ? "5%"
-                    : width <= 600
-                    ? "7%"
-                    : width >= 1600
-                    ? "11%"
-                    : checkIpadPortrait
-                    ? "23%"
-                    : width >= 1366
-                    ? "11%"
-                    : checkIpad
-                    ? "22%"
-                    : width >= 1280
-                    ? "11%"
-                    : width >= 1024
-                    ? "19%"
-                    : width >= 768
-                    ? "23%"
-                    : "11%"
-                }
-                elementLeft={
-                  width <= 600 ? "unset" : width >= 1280 ? "52%" : "47%"
-                }
-                elementRight={width <= 600 ? "8%" : "unset"}
-                lineTop="1rem"
-                lineLeft={width <= 600 ? "unset" : "-1rem"}
-                lineRight={width <= 600 ? "4rem" : "unset"}
-                lineHeight={
-                  height <= 414
-                    ? "8rem"
-                    : width <= 600
-                    ? "5rem"
-                    : width >= 2560
-                    ? "16rem"
-                    : width >= 1920
-                    ? "25rem"
-                    : width >= 1600
-                    ? "14rem"
-                    : width >= 1336
-                    ? "11rem"
-                    : width >= 1280
-                    ? "25rem"
-                    : "12rem"
-                }
-                lineAnimation="showstickScaleY .7s .2s forwards ease-in-out"
-                dotTop={
-                  height <= 414
-                    ? "9rem"
-                    : width <= 600
-                    ? "6rem"
-                    : width >= 2560
-                    ? "17rem"
-                    : width >= 1920
-                    ? "26rem"
-                    : width >= 1600
-                    ? "15rem"
-                    : width >= 1336
-                    ? "12rem"
-                    : width >= 1280
-                    ? "26rem"
-                    : "13rem"
-                }
-                dotLeft={width <= 600 ? "unset" : "-1.3rem"}
-                dotRight={width <= 600 ? "3.7rem" : "unset"}
-                dotAnimation="showdot .8s .8s forwards ease"
+                customTitleClassNames="safety__safetyanimatedElements__title--2"
+                elementClassNames="safety__safetyanimatedElements__element--2"
+                customLineClassNames="safety__safetyanimatedElements__line--2"
+                customDotClassNames="safety__safetyanimatedElements__dot--2"
               />
               <SafetyAnimatedElement
                 show={learnMoreOn}
                 title="Very Low Rollover Risk"
-                titleAnimation="translateYOpacityShow .8s .5s forwards ease"
-                elementBottom={
-                  height <= 414
-                    ? "15%"
-                    : width <= 600
-                    ? "10%"
-                    : checkIpad
-                    ? "30%"
-                    : "24%"
-                }
-                elementRight={
-                  height <= 414
-                    ? "30%"
-                    : width <= 600
-                    ? "10%"
-                    : width >= 1920
-                    ? "40%"
-                    : checkIpad
-                    ? "30%"
-                    : width >= 1280
-                    ? "30%"
-                    : width >= 1024
-                    ? "20%"
-                    : "35%"
-                }
-                lineBottom="0"
-                lineLeft={width <= 600 ? "unset" : "-1rem"}
-                lineRight={width <= 600 ? "1rem" : "unset"}
-                lineHeight={
-                  height <= 414
-                    ? "10rem"
-                    : width >= 1920
-                    ? "25rem"
-                    : width >= 1600
-                    ? "15rem"
-                    : width >= 1336
-                    ? "12rem"
-                    : width >= 1280
-                    ? "25rem"
-                    : "13rem"
-                }
-                lineAnimation="showstickScaleY .7s .2s forwards ease-in-out"
-                dotBottom={
-                  height <= 414
-                    ? "10rem"
-                    : width >= 1920
-                    ? "24rem"
-                    : width >= 1600
-                    ? "15rem"
-                    : width >= 1336
-                    ? "12rem"
-                    : width >= 1280
-                    ? "25rem"
-                    : "13rem"
-                }
-                dotLeft={width <= 600 ? "unset" : "-1.3rem"}
-                dotRight={width <= 600 ? ".7rem" : "unset"}
-                dotAnimation="showdot .8s .8s forwards ease"
+                customTitleClassNames="safety__safetyanimatedElements__title--3"
+                elementClassNames="safety__safetyanimatedElements__element--3"
+                customLineClassNames="safety__safetyanimatedElements__line--3"
+                customDotClassNames="safety__safetyanimatedElements__dot--3"
               />
             </div>
           </>
@@ -315,16 +183,7 @@ export default connect(
       } else {
         return null;
       }
-    }, [
-      learnMoreOn,
-      pageIndex,
-      width,
-      checkIpad,
-      checkIpadPortrait,
-      phoneLayout,
-      sectionTop,
-      height,
-    ]);
+    }, [learnMoreOn, pageIndex, phoneLayout, sectionTop]);
 
     const renderLearnMoreSection = useCallback(() => {
       const CloseHandler = () => {
@@ -441,7 +300,7 @@ export default connect(
                   </div>
                 </>
               ) : (
-                <div className="safety__AnimatedElements">
+                <div className="safety__learnMoreAnimatedElements">
                   <SafetyAnimatedElement
                     show={phoneLayout ? false : !learnMoreOn}
                     title="Front-Impact Protection"
@@ -449,27 +308,9 @@ export default connect(
                     titleAnimation="translateYOpacityShowFromTop .8s .8s forwards ease"
                     text="There is no internal combustion engine in Model S, so the crumple zone has greater opportunity to minimize occupant deceleration in the event of frontal impact."
                     textAnimation="translateYOpacityShowFromTop .8s .6s forwards ease"
-                    elementBottom="0"
-                    elementLeft={width === 1024 ? "15%" : "22%"}
-                    lineBottom="-17rem"
-                    lineLeft="-1rem"
-                    lineHeight={
-                      width >= 1366
-                        ? "43rem"
-                        : width >= 1280
-                        ? "40rem"
-                        : "45rem"
-                    }
-                    lineAnimation="showstickScaleYTop .7s .4s forwards ease-in-out"
-                    dotBottom={
-                      width >= 1366
-                        ? "26rem"
-                        : width >= 1280
-                        ? "23rem"
-                        : "28rem"
-                    }
-                    dotLeft="-1.3rem"
-                    dotAnimation="showdot .8s .2s forwards ease"
+                    elementClassNames="safety__learnMoreAnimatedElements__element--1"
+                    customLineClassNames="safety__learnMoreAnimatedElements__line--1"
+                    customDotClassNames="safety__learnMoreAnimatedElements__dot--1"
                   />
                   <SafetyAnimatedElement
                     show={phoneLayout ? false : !learnMoreOn}
@@ -478,15 +319,9 @@ export default connect(
                     titleAnimation="translateYOpacityShowFromTop .8s 1s forwards ease"
                     text="The combination of a high-strength central pillar and an energy-absorbing sill structure provides exceptional protection to both the occupant and the under-floor mounted battery pack."
                     textAnimation="translateYOpacityShowFromTop .8s .8s forwards ease"
-                    elementBottom="0"
-                    elementLeft={width >= 1280 ? "44%" : "41%"}
-                    lineBottom="-17rem"
-                    lineLeft="-1rem"
-                    lineHeight={width >= 1280 ? "52rem" : "54rem"}
-                    lineAnimation="showstickScaleYTop .7s .6s forwards ease-in-out"
-                    dotBottom={width >= 1280 ? "35rem" : "37rem"}
-                    dotLeft="-1.3rem"
-                    dotAnimation="showdot .8s .2s forwards ease"
+                    elementClassNames="safety__learnMoreAnimatedElements__element--2"
+                    customLineClassNames="safety__learnMoreAnimatedElements__line--2"
+                    customDotClassNames="safety__learnMoreAnimatedElements__dot--2"
                   />
                   <SafetyAnimatedElement
                     show={phoneLayout ? false : !learnMoreOn}
@@ -495,23 +330,9 @@ export default connect(
                     titleAnimation="translateYOpacityShowFromTop .8s 1.2s forwards ease"
                     text="The position and weight of the floor-mounted battery pack provides a very low center of gravity—allowing for a very low rollover risk."
                     textAnimation="translateYOpacityShowFromTop .8s 1s forwards ease"
-                    elementBottom="0"
-                    elementRight={
-                      width >= 1366
-                        ? "20%"
-                        : width >= 1280
-                        ? "18%"
-                        : width >= 1024
-                        ? "10%"
-                        : "30%"
-                    }
-                    lineBottom="-17rem"
-                    lineLeft="-1rem"
-                    lineHeight="45rem"
-                    lineAnimation="showstickScaleYTop .7s .8s forwards ease-in-out"
-                    dotBottom="28rem"
-                    dotLeft="-1.3rem"
-                    dotAnimation="showdot .8s .2s forwards ease"
+                    elementClassNames="safety__learnMoreAnimatedElements__element--3"
+                    customLineClassNames="safety__learnMoreAnimatedElements__line--3"
+                    customDotClassNames="safety__learnMoreAnimatedElements__dot--3"
                   />
                 </div>
               )}
@@ -526,7 +347,6 @@ export default connect(
       learnMoreOn,
       setPageToShow,
       setSilentScrollTo,
-      width,
       checkIpadAndWidthSmaller1024,
       showLearnMore,
       phoneLayout,
@@ -544,7 +364,7 @@ export default connect(
               style={
                 checkIpad
                   ? { background: "none" }
-                  : width >= 1024
+                  : width > 1024
                   ? { background: `url(${ModelsStructureInitial})` }
                   : { background: "none" }
               }
@@ -553,15 +373,15 @@ export default connect(
               {checkIpad ? (
                 <img
                   className="safety__backgroundImage"
-                  src={width < 640 ? ModelsImageMobile : ModelsStructureInitial}
+                  src={ModelsStructureInitial}
                   alt="car"
                 />
               ) : (
-                width < 1024 && (
+                width <= 1024 && (
                   <img
                     className="safety__backgroundImage"
                     src={
-                      width < 640 ? ModelsImageMobile : ModelsStructureInitial
+                      width <= 600 ? ModelsImageMobile : ModelsStructureInitial
                     }
                     alt="car"
                   />

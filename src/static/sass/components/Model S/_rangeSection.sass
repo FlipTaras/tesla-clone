@@ -1,0 +1,233 @@
+.range
+    &__leftContainer
+        flex: .85
+        position: relative
+        height: 100vh
+        @include responsive(2200)
+            flex: .83
+        @include responsive(1920)
+            flex: .8
+        @include responsive(1700)
+            flex: .78
+        @include responsive(1600)
+            flex: .76
+        @include responsive(1450)
+            flex: .74
+        @include responsive(1366)
+            flex: .72
+        @include responsive(1200)
+            flex-basis: 100%
+            height: 74vh
+        @include responsive(tablet)
+            height: 80vh
+        @include responsive(ipadPro-portrait)
+            height: 85vh
+            margin-top: 0
+        @include responsive(900)
+            height: 82vh
+        @include responsive(smallphone-portrait)
+            height: 70vh
+
+    &__video
+        height: 100vh
+        width: 100%
+        object-fit: cover
+        @include responsive(1200)
+            height: 76vh
+        @include responsive(tablet)
+            height: 80vh
+        @include responsive(ipadPro-portrait)
+            height: 85vh
+        @include responsive(900)
+            height: 82vh
+        @include responsive(smallphone-portrait)
+            height: 70vh
+
+    &__infoElements
+        position: absolute
+        bottom: 10%
+        left: 30%
+        display: flex
+        color: white !important
+        @include responsive(2200)
+            left: 25%
+        @include responsive(1920)
+            left: 20%
+        @include responsive(1600)
+            left: 10%
+        @include responsive(1366)
+            left: 5%
+        @include responsive(1200)
+            left: 15%
+        @include responsive(1100)
+            left: 10%
+        @include responsive(tablet)
+            text-align: center
+            left: 5%
+        @include responsive(800)
+            left: 8%
+        @include responsive(700)
+            left: 12%
+        @include responsive(phone)
+            left: 8%
+        @include responsive(500)
+            left: 12%
+        @include responsive(414-portrait)
+            left: 7%
+        @include responsive(375-portrait)
+            left: 2%
+        @include responsive(smallphone-portrait)
+            left: 0
+
+    &__infoElement
+        opacity: 0
+        @include responsive(tablet)
+            padding: 0 8rem
+        @include responsive(800)
+            padding: 0 6rem
+        @include responsive(700)
+            padding: 0 4rem
+        @include responsive(500)
+            padding: 0 2.5rem
+        @include responsive(smallphone-portrait)
+            padding: 0 2rem
+        &--1
+            animation: translateYOpacityShow .6s .5s forwards ease
+        &--2
+            animation: translateYOpacityShow .6s .8s forwards ease
+
+        &--3
+            animation: translateYOpacityShow .6s 1s forwards ease
+
+    &__rightContainer
+        height: 100vh
+        flex: .15
+        background-color: #fff
+        padding: 4rem 2rem 6rem 2rem
+        position: relative
+        display: flex
+        flex-direction: column
+        @include responsive(2200)
+            flex: .17
+        @include responsive(1920)
+            flex: .2
+        @include responsive(1700)
+            flex: .22
+        @include responsive(1600)
+            flex: .24
+        @include responsive(1450)
+            flex: .26
+        @include responsive(1366)
+            flex: .28
+        @include responsive(1200)
+            flex-basis: 100%
+            height: 26vh
+            flex-direction: row
+            flex-wrap: wrap
+            align-items: baseline
+        @include responsive(tablet)
+            height: 20vh
+            padding: 2rem
+        @include responsive(tablet-landscape)
+            height: unset
+
+        @include responsive(ipadPro-portrait)
+            height: 15vh
+        @include responsive(700)
+            height: unset
+        @include responsive(500)
+            padding: 3rem 1rem 0 1rem
+
+    &__title
+        opacity: 0
+        animation: translateYOpacityShow 1s .5s forwards ease
+        @include responsive(1200)
+            flex-basis: 100%
+            order: 3
+            margin-top: -3rem
+        @include responsive(tablet)
+            position: absolute
+            top: 5rem
+            left: 2rem
+            margin: 0
+        @include responsive(phone-landscape)
+            top: 6rem
+            position: relative
+            top: unset
+            left: unset
+            flex-basis: 100%
+            order: 2
+        @include responsive(700)
+            position: relative
+            top: unset
+            left: unset
+            flex-basis: 100%
+            order: 2
+    &__subtitle
+        opacity: 0
+        animation: translateYOpacityShow 1s .5s forwards ease
+        @include responsive(1200)
+            flex-basis: 40%
+            order: 1
+        @include responsive(900)
+            flex-basis: 50%
+        @include responsive(700)
+            flex-basis: 100%
+
+    &__buttons
+        display: flex
+        margin-top: auto
+        margin-bottom: 2rem
+        opacity: 0
+        animation: translateYOpacityShow 1s 1s forwards ease
+
+        @include responsive(1200)
+            flex-basis: 100%
+            order: 4
+            margin-top: 3rem
+        @include responsive(900)
+            margin-top: 0
+        @include responsive(phone-landscape)
+            flex-basis: 100%
+            margin-top: 2rem
+        @include responsive(700)
+            flex-basis: 100%
+            margin-top: 2rem
+        @include responsive(smallphone-portrait)
+            flex-wrap: wrap
+        &--show
+            opacity: 1
+            animation: 0
+
+    &__orderButton
+        @include responsive(700)
+            flex: 1
+        @include responsive(smallphone-portrait)
+            flex-basis: 100%
+            margin: 1rem 0
+
+    &__paragraph
+        opacity: 0
+        animation: translateYOpacityShow 1s .5s forwards ease
+        width: 90%
+        line-height: 1.5
+        @include responsive(2200)
+            width: 80%
+        @include responsive(1200)
+            flex-basis: 60%
+            order: 2
+            width: 100%
+        @include responsive(900)
+            flex-basis: 40%
+        @include responsive(800)
+            flex-basis: 50%
+        @include responsive(phone-landscape)
+            flex-basis: 100%
+        @include responsive(700)
+            flex-basis: 100%
+
+    .fp-tableCell
+        display: flex
+        height: unset
+        @include responsive(1200)
+            flex-wrap: wrap

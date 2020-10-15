@@ -391,30 +391,32 @@ export default connect(
                   playsInline
                   className={
                     activeButton === 1
-                      ? "perfomance__video perfomance__video--active perfomance__video--1"
-                      : "perfomance__video perfomance__video--1"
+                      ? "perfomance__video perfomance__video--active"
+                      : "perfomance__video"
                   }
                   preload="auto"
                   loop
                   muted
-                  src={Video1}
                   poster={Poster1}
                   autoPlay
-                ></video>
+                >
+                  {activeButton === 1 && <source src={Video1} />}
+                </video>
                 <video
                   playsInline
                   className={
                     activeButton === 2
-                      ? "perfomance__video perfomance__video--active perfomance__video--1"
-                      : "perfomance__video perfomance__video--2"
+                      ? "perfomance__video perfomance__video--active"
+                      : "perfomance__video"
                   }
                   preload="auto"
                   loop
                   muted
-                  src={Video2}
                   poster={Poster2}
                   autoPlay
-                ></video>
+                >
+                  {activeButton === 2 && <source src={Video2} />}
+                </video>
               </div>
               <div className="perfomance__videoButtons">
                 <VideoButton

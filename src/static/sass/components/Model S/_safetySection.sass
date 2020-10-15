@@ -50,14 +50,12 @@
         @include responsive(tablet)
             flex: 1
             order: 2
-            padding: 4% 0 0 3%
+            // padding: 4% 0 0 3%
+            padding: 2rem
         @include responsive(phone)
-            height: 40vh
-            padding: 2rem  0 0 2rem
+            padding: 1rem
         @include responsive(phone-landscape)
             height: 70vh
-        @include responsive(375-portrait)
-            height: 40vh
         @include responsive(375-665)
             height: 50vh
         @include responsive(smallphone-landscape)
@@ -127,6 +125,7 @@
         @include responsive(smallphone-portrait)
             flex-wrap: wrap
             margin-bottom: 3rem
+            margin: 0
 
     &__right
         flex: .85
@@ -213,10 +212,13 @@
             height: 200vh
 
     &__learnMoreButton
+
         @include responsive(smallphone-portrait)
             flex-basis: 100%
             margin-bottom: 1rem
     &__orderButton
+        @include responsive(700)
+            flex: 1
         @include responsive(smallphone-portrait)
             flex-basis: 100%
             max-width: 90%

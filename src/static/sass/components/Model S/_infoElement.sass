@@ -10,6 +10,10 @@
     @include responsive(smallphone-landscape)
         padding: 1rem 4.2rem
 
+    &--animationOff
+        animation: none !important
+        opacity: 1 !important
+
     &--smaller
         @include responsive(smallphone-portrait)
             padding: .8rem .8rem 0
@@ -43,7 +47,7 @@
         @include responsive(phone)
             font-size: 1rem
         @include responsive(smallphone-portrait)
-            width: 60%
+            width: 100%
             font-size: 1.2rem
             margin: 0 auto
         &--smaller
@@ -61,6 +65,6 @@
         @include responsive(phone)
             height: 6rem
         @include responsive(smallphone-portrait)
-            height: 9rem
+            height: 7rem
         &--white
             background-color: white

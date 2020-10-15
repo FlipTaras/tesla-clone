@@ -112,11 +112,15 @@
             @content
 
     @if $breakpoint == 1450  // 1450 px
-        @media only screen and (max-width: 90.625em) and (min-height: 65em ) and (orientation: portrait)
+        @media only screen and (max-width: 90.62em)
             @content
 
     @if $breakpoint == 1600  // 1600 px
         @media only screen and (max-width: 100em)
+            @content
+
+    @if $breakpoint == 1700  // 1700 px
+        @media only screen and (max-width: 106.25em)
             @content
 
     @if $breakpoint == 1920  // 1930 px

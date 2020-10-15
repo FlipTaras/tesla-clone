@@ -20,11 +20,15 @@ export default connect(mapStateToProps)(
     white,
     stopAnimation,
     smaller,
+    learnMoreOn,
+    customInfoElementClassNames,
   }) => {
     const infoElementClassNames = classnames(
       "infoElement",
       stopAnimation && "infoElement--show",
-      smaller && "infoElement--smaller"
+      smaller && "infoElement--smaller",
+      learnMoreOn && "infoElement--animationOff",
+      customInfoElementClassNames
     );
     const infoElementFromClassNames = classnames(
       "infoElement__from",

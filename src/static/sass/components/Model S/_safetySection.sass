@@ -1,6 +1,5 @@
 .safety
     /* Initial Element */
-    // height: 200vh
     &__container
         display: flex
         @include responsive(ipadPro-portrait)
@@ -50,7 +49,6 @@
         @include responsive(tablet)
             flex: 1
             order: 2
-            // padding: 4% 0 0 3%
             padding: 2rem
         @include responsive(phone)
             padding: 1rem
@@ -402,6 +400,7 @@
                 animation: translateYOpacityShow .8s .5s forwards ease
             &--3
                 animation: translateYOpacityShow .8s .5s forwards ease
+
     /* LearnMore Added Element */
     &__learnMoreContainer
         height: 75vh
@@ -468,7 +467,6 @@
             margin-top: 3rem
 
     &__learnMoreParagraph
-        // width: 100%
         width: 40%
         @include responsive(2200)
             width: 70%

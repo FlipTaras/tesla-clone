@@ -91,6 +91,7 @@ export default connect(
         });
       }
     }, [learnMoreOn, height]);
+
     /* Render functionality */
     const renderTopContainer = useCallback(() => {
       /* svgElement */
@@ -234,6 +235,7 @@ export default connect(
         return null;
       }
     }, [pageIndex, learnMoreOn, stopAnimation, width, phoneLayout, sectionTop]);
+
     const renderBottomContainer = useCallback(() => {
       const LearnMoreHandler = () => {
         if (!phoneLayout) {
@@ -284,8 +286,10 @@ export default connect(
                 All-Wheel Drive, adaptive air suspension and ludicrous
                 acceleration.
               </p>
+              {height <= 416
+                ? buttonContainer
+                : width <= 700 && buttonContainer}
             </div>
-            {height <= 416 ? buttonContainer : width <= 700 && buttonContainer}
           </div>
         );
       } else {
@@ -324,6 +328,7 @@ export default connect(
         setPageToShow(null);
         setSilentScrollTo("range");
       };
+
       const closeButtonElement = (
         <CloseNextButton
           close={phoneLayout ? true : pageYOffset < 1550}

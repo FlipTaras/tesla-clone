@@ -24,10 +24,10 @@ import {
   setPageIndex,
   setSilentScrollTo,
   setStopAnimation,
-  setPageToShow,
 } from "../static/store/actions";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import RangeSection from "../components/ModelS/RangeSection";
 
 const mapStateToProps = (state) => ({
   sideActive: state.page.navbarActive,
@@ -42,7 +42,6 @@ const mapActionToProps = {
   setPageIndex,
   setSilentScrollTo,
   setStopAnimation,
-  setPageToShow,
 };
 
 const ModelSPage = ({
@@ -56,11 +55,11 @@ const ModelSPage = ({
   setStopAnimation,
   width,
   height,
-  // setPageToShow,
 }) => {
   const topContainerSafetyRef = useRef(null);
   const bottomContainerSafetyRef = useRef(null);
   const bottomContainerPerfomanceRef = useRef(null);
+  const rightContainerRangeRef = useRef(null);
 
   const [indexPage, setIndex] = useState("0");
   const logoref = useRef(null);
@@ -117,6 +116,14 @@ const ModelSPage = ({
       } else if (silentScrollTo === "range") {
         window.fullpage_api.silentMoveTo(4);
         setPageIndex("3");
+        if (rightContainerRangeRef.current) {
+          rightContainerRangeRef.current.classList.add(
+            "range__rightContainer--show"
+          );
+        }
+      } else if (silentScrollTo === "autopilot") {
+        window.fullpage_api.silentMoveTo(5);
+        setPageIndex("4");
       } else {
         window.addEventListener("wheel", () => setStopAnimation(false));
       }
@@ -206,12 +213,10 @@ const ModelSPage = ({
                           bottomContainerPerfomanceRef
                         }
                       />
-                      <section
-                        style={{ textAlign: "center" }}
-                        className="section"
-                      >
-                        Range
-                      </section>
+                      <RangeSection
+                        phoneLayout={false}
+                        rightContainerRangeRef={rightContainerRangeRef}
+                      />
                       <section
                         style={{ textAlign: "center" }}
                         className="section"
@@ -277,6 +282,10 @@ const ModelSPage = ({
           <PerfomanceSection
             phoneLayout={true}
             bottomContainerPerfomanceRef={bottomContainerPerfomanceRef}
+          />
+          <RangeSection
+            phoneLayout={true}
+            rightContainerRangeRef={rightContainerRangeRef}
           />
           <FirstSection
             title="Model S"

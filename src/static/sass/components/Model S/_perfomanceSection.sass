@@ -1,6 +1,5 @@
 .perfomance
     /* Initial Element */
-    // height: 100vh
     &__topContainer
         background-position: center !important
         background-repeat: no-repeat !important
@@ -48,9 +47,8 @@
             height: 25vh
         @include responsive(tablet)
             height: unset
-            // padding-bottom: 4rem
-        @include responsive(phone)
-            // padding-bottom: 3rem
+        @include responsive(500)
+            padding-bottom: 2rem
 
     &__bottomContainerInner
         box-sizing: border-box
@@ -83,7 +81,7 @@
             width: 95%
             align-items: center
         @include responsive(tablet)
-            padding-bottom: 4rem
+            padding-bottom: 3rem
         @include responsive(tablet-portrait)
             width: 95%
         @include responsive(700)
@@ -91,6 +89,8 @@
             padding-top: 2rem
         @include responsive(phone-landscape)
             flex-wrap: wrap
+        @include responsive(500)
+            padding-bottom: 0
 
     &__buttons
         display: flex
@@ -197,10 +197,6 @@
         @include responsive(tablet)
             padding-bottom: 0
 
-        // height: 130vh
-        // @include responsive(2200)
-            // height: unset
-
     &__learnMoreInner
         padding: 8rem 0 3rem
         background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 30%)
@@ -213,7 +209,6 @@
         @include responsive(smallphone-portrait)
             padding-top: 5rem
     &__info
-        // width: 55%
         width: 30%
         margin: 0 auto
         @include responsive(2560)
@@ -358,7 +353,11 @@
         @include responsive(tablet-portrait)
             height: 41.2rem
         @include responsive(1000)
-            height: 25rem
+            height: 30rem
+            margin-left: -2rem
+        @include responsive(800)
+            margin-left: 0
+
         @include responsive(phone)
             height: 20rem
             margin: 2rem 0 0
@@ -394,11 +393,10 @@
             width: 100%
             height: 41.2rem
         @include responsive(ipadPro-portrait)
-            // width: 40rem
             width: 45rem
             height: 32.7rem
         @include responsive(1000)
-            height: 25rem
+            height: 30rem
         @include responsive(phone)
             height: 20rem
         @include responsive(smallphone-landscape)
@@ -430,8 +428,6 @@
         width: 93%
         @include responsive(1600)
             width: 100%
-        // @include responsive(ipadPro)
-            // width: 62%
         @include responsive(tablet-portrait)
             order: 1
         @include responsive(ipadPro-portrait)

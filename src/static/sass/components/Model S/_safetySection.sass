@@ -23,107 +23,34 @@
         @include responsive(phone)
             flex-wrap: wrap
 
-    &__left
-        flex: .15
-        background-color: white
-        box-sizing: border-box
-        padding: 3% 0 0 3.5%
-        display: flex
-        flex-direction: column
+    &__sideComponent
+        padding: 7rem 2rem 7rem 5rem
         @include responsive(2560)
-            flex: .15
-            padding: 5rem 0 0 5rem
+            padding: 6rem 2rem 6rem 5rem
         @include responsive(2200)
-            flex: .20
-        @include responsive(1920)
-            flex: .2
+            padding: 5rem 2rem 5rem 4rem
         @include responsive(1600)
-            flex: .25
-        @include responsive(1366)
-            flex: .3
-            padding: 8rem 0 0 5rem
-        @include responsive(1280)
-            flex: .3
-        @include responsive(1200)
-            flex: .4
+            padding: 5rem 0 5rem 5rem
+        @include responsive(1600)
+            padding: 6rem 0 5rem 6rem
+        @include responsive(1100)
+            // padding: 5rem 1rem 5rem 4rem
         @include responsive(tablet)
-            flex: 1
             order: 2
-            padding: 2rem
-        @include responsive(phone)
-            padding: 1rem
-        @include responsive(phone-landscape)
-            height: 70vh
-        @include responsive(375-665)
-            height: 50vh
-        @include responsive(smallphone-landscape)
-            height: 80vh
+            // flex: unset
+        // @include responsive(900)
+            // padding: 3rem
 
-    &__titleContainer
-        @include responsive(ipadPro-portrait)
-            flex: .4
-        @include responsive(tablet)
-            flex: .5
-        @include responsive(phone-landscape)
-            flex-basis: 100%
-        @include responsive(phone)
-            flex-basis: 100%
-
-    &__paragraphContainer
-        @include responsive(ipadPro-portrait)
-            flex: .6
-        @include responsive(tablet)
-            flex: .5
-
-        @include responsive(phone-landscape)
-            flex-basis: 100%
-            margin: 1rem 0 3rem
-        @include responsive(800)
-            margin: 1rem 0 2rem
-        @include responsive(phone)
-            flex-basis: 100%
-        @include responsive(smallphone-landscape)
-            margin: 2rem 0
+        // @include responsive(500)
+            // padding: 3rem 2rem
 
     &__paragraph
-        width: 80%
         @include responsive(1366)
-            margin-top: 9rem
-        @include responsive(ipadPro-portrait)
-            margin-top: 1rem
+            margin-top: 8rem !important
         @include responsive(tablet)
-            margin-top: 1rem
-        @include responsive(phone-landscape)
-            width: 90%
-        @include responsive(phone)
-            width: 90%
-            margin-top: 2rem
-            line-height: 1.6
-
-    &__bottomContainer
-        margin: auto 0 6rem 0
-        display: flex
-        align-items: center
-        opacity: 0
-        animation: translateYOpacityShow .6s .5s forwards ease
-        &--show
-            opacity: 1
-            animation: none
-        @include responsive(ipadPro-portrait)
-            margin-top: 0
-        @include responsive(tablet)
-            margin: 0
-            padding-bottom: 5%
-        @include responsive(phone)
-            margin-top: 2rem
-        @include responsive(phone-landscape)
-            margin-bottom: 1rem
-        @include responsive(375-portrait)
-            margin-top: 4rem
-        @include responsive(smallphone-portrait)
-            flex-wrap: wrap
-            margin-bottom: 3rem
-            margin: 0
+            margin-top: 0 !important
+        @include responsive(700)
+            margin-top: 1rem !important
 
     &__right
         flex: .85
@@ -134,36 +61,36 @@
         height: 100vh
         position: relative
         @include responsive(2560)
-            flex: .85
             background-size: 120% !important
         @include responsive(2200)
-            flex: .8
+            flex: .82
         @include responsive(1920)
             background-size: 135% !important
-
+            flex: .8
+        @include responsive(1700)
+            flex: .78
         @include responsive(1600)
-            flex: .75
+            flex: .76
             background-size: 100% !important
-        @include responsive(1366)
-            flex: .7
+        @include responsive(1450)
+            flex: .74
         @include responsive(1280)
-            flex: .7
+            flex: .71
         @include responsive(1200)
-            flex: .6
+            flex: .67
         @include responsive(1100)
+            flex: .65
             background-size: 120% !important
         @include responsive(tablet)
             flex: 1
             order: 1
             object-fit: contain
-            height: 55vh
+            height: 80vh
             text-align: center
-            padding-top: 10%
         @include responsive(ipadPro-portrait)
             height: 75vh
-        @include responsive(800)
-            height: 100vh
         @include responsive(phone)
+            height: 100vh
             text-align: right
         @include responsive(500)
             height: 75vh
@@ -180,12 +107,12 @@
         height: 75vh
         max-width: 100%
         @include responsive(tablet)
-            height: 55vh
-            transform: scale(1.4)
+            height: 80vh
+            transform: scale(1.3)
         @include responsive(ipadPro-portrait)
             height: 75vh
             transform: scale(1.2)
-        @include responsive(800)
+        @include responsive(phone)
             transform: scale(1)
             height: 100vh
         @include responsive(phone-landscape)
@@ -234,8 +161,11 @@
                     top: 24%
                 @include responsive(1366)
                     top: 30%
+                @include responsive(tablet)
+                    top: 10%
+
                 @include responsive(800)
-                    top: 35%
+                    top: 15%
                 @include responsive(phone)
                     top: 20%
                 @include responsive(375-portrait)
@@ -261,9 +191,9 @@
                 @include responsive(phone-landscape)
                     top: 24%
                 @include responsive(800)
-                    top: 30%
+                    top: 10%
                 @include responsive(phone-landscape)
-                    top: 18%
+                    top: 10%
                 @include responsive(phone)
                     top: 10%
                     left: unset
@@ -284,11 +214,11 @@
                 @include responsive(1280)
                     bottom: 27%
                 @include responsive(tablet)
-                    bottom: 5%
+                    bottom: 15%
                 @include responsive(ipadPro-portrait)
                     bottom: 23%
                 @include responsive(800)
-                    bottom: 28%
+                    bottom: 15%
                 @include responsive(phone-landscape)
                     bottom: 5%
 

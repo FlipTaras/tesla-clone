@@ -41,6 +41,7 @@ export const SET_PAGE_TO_SHOW = "SET_PAGE_TO_SHOW";
 export const SET_SILENT_SCROLL_TO = "SET_SILENT_SCROLL_TO";
 export const SET_STOP_ANIMATION = "SET__STOP_ANIMATION";
 export const SET_PAGEINDEX = "SET_PAGEINDEX";
+export const SET_SHOWLEARNMORE = "";
 
 export const setPageIndex = (index) => (dispatch) => {
   dispatch({

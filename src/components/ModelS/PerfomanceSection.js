@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import LearnMoreButton from "../Buttons/LearnMoreButton";
-import OrderButton from "../Buttons/OrderButton";
 import InfoElement from "./InfoElement";
 import CountUp from "react-countup";
 import CloseNextButton from "../Buttons/CloseNextButton";
@@ -21,6 +19,7 @@ import Poster3 from "../../static/images/ModelS/Perfomance/total-control-s-poste
 import Video3 from "../../static/videos/ModelS/KD8BAH_total-control-s_0.mp4-2000_M3C5DL.mp4";
 import Video2 from "../../static/videos/ModelS/performancemotor_desktop.mp4";
 import Video1 from "../../static/videos/ModelS/dualmotor_desktop.mp4";
+import SideComponents from "./SideComponents";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -44,7 +43,8 @@ export default connect(
     setPageToShow,
     setSilentScrollTo,
     pageYOffset,
-    bottomContainerPerfomanceRef,
+    // bottomContainerPerfomanceRef,
+    showSection,
     stopAnimation,
     width,
     height,
@@ -235,77 +235,6 @@ export default connect(
         return null;
       }
     }, [pageIndex, learnMoreOn, stopAnimation, width, phoneLayout, sectionTop]);
-
-    const renderBottomContainer = useCallback(() => {
-      const LearnMoreHandler = () => {
-        if (!phoneLayout) {
-          setPageToShow("perfomance");
-        } else {
-          setShowLearnMore(true);
-          window.scrollTo({
-            top: learnMoreSectionRef.current?.offsetTop,
-            behavior: "smooth",
-          });
-        }
-      };
-
-      const buttonContainer = (
-        <div className="perfomance__buttons">
-          <LearnMoreButton
-            classNames="perfomance__learnMoreButton"
-            disabled={learnMoreOn || showLearnMore}
-            click={LearnMoreHandler}
-          />
-          <OrderButton classNames="perfomance__orderButton" />
-        </div>
-      );
-
-      if (pageIndex === "2" || (phoneLayout && sectionTop <= 550)) {
-        return (
-          <div
-            ref={bottomContainerPerfomanceRef}
-            className={
-              learnMoreOn
-                ? "perfomance__bottomContainerInner perfomance__bottomContainerInner--show"
-                : "perfomance__bottomContainerInner"
-            }
-          >
-            <div className="perfomance__leftContainer">
-              <h2 className="subtitle">Performance</h2>
-              <h1 className="perfomance__title  title">
-                Quickest Acceleration
-              </h1>
-
-              {height <= 416 ? null : width > 700 && buttonContainer}
-            </div>
-            <div className="perfomance__rightContainer">
-              <p className="paragraph perfomance__text">
-                Model S sets an industry standard for performance and safety.
-                Tesla’s all-electric powertrain delivers unparalleled
-                performance in all weather conditions – with Dual Motor
-                All-Wheel Drive, adaptive air suspension and ludicrous
-                acceleration.
-              </p>
-              {height <= 416
-                ? buttonContainer
-                : width <= 700 && buttonContainer}
-            </div>
-          </div>
-        );
-      } else {
-        return null;
-      }
-    }, [
-      pageIndex,
-      setPageToShow,
-      learnMoreOn,
-      bottomContainerPerfomanceRef,
-      phoneLayout,
-      sectionTop,
-      showLearnMore,
-      width,
-      height,
-    ]);
 
     const renderLearnMoreSection = useCallback(() => {
       /* Figure out when dualMotor come into view to play animation */
@@ -507,6 +436,20 @@ export default connect(
     ]);
 
     const renderSection = useCallback(() => {
+      const learnMoreHandler = () => {
+        if (!phoneLayout) {
+          setPageToShow("perfomance");
+        } else {
+          setShowLearnMore(true);
+          window.scrollTo({
+            top: learnMoreSectionRef.current?.offsetTop,
+            behavior: "smooth",
+          });
+        }
+      };
+      const checkRenderInfo =
+        pageIndex === "2" || (phoneLayout && sectionTop <= 550);
+
       return (
         <>
           <div
@@ -519,9 +462,18 @@ export default connect(
           >
             {renderTopContainer()}
           </div>
-          <div className="perfomance__bottomContainer">
-            {renderBottomContainer()}
-          </div>
+          <SideComponents
+            title="Quickest Acceleration"
+            subtitle="Performance"
+            paragraph="Model S sets an industry standard for performance and safety.Tesla’s all-electric powertrain delivers unparalleledperformance in all weather conditions – with Dual MotorAll-Wheel Drive, adaptive air suspension and ludicrousacceleration."
+            customInnerContainerClassNames="perfomance__sideInnerContainer"
+            horizontal={true}
+            checkRenderInfo={checkRenderInfo}
+            learnMoreOn={learnMoreOn}
+            showLearnMore={showLearnMore}
+            learnMoreHandle={learnMoreHandler}
+            showSection={showSection}
+          />
           <div
             ref={learnMoreSectionRef}
             className="perfomance__learnMoreContainer"
@@ -532,10 +484,17 @@ export default connect(
       );
     }, [
       checkIpad,
-      renderBottomContainer,
+      sectionTop,
+      setPageToShow,
+      showLearnMore,
+      // renderBottomContainer,
+      showSection,
       renderLearnMoreSection,
       renderTopContainer,
       width,
+      learnMoreOn,
+      pageIndex,
+      phoneLayout,
     ]);
     return (
       <section ref={sectionRef} className="section perfomance">

@@ -1,8 +1,6 @@
 import React, { useEffect, useCallback, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
-import OrderButton from "../Buttons/OrderButton";
-import LearnMoreButton from "../Buttons/LearnMoreButton";
 import SafetyAnimatedElement from "./SafetyAnimatedElement";
 import CloseNextButton from "../Buttons/CloseNextButton";
 
@@ -10,6 +8,7 @@ import CloseNextButton from "../Buttons/CloseNextButton";
 import ModelsStructureInitial from "../../static/images/ModelS/Safety/Safety.png";
 import ModelsStructureLeanMore from "../../static/images/ModelS/Safety/model-s-supportive-structure.jpg";
 import ModelsImageMobile from "../../static/images/ModelS/Safety/Safety-mobile.jpg";
+import SideComponents from "./SideComponents";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -32,8 +31,7 @@ export default connect(
     learnMoreOn,
     setPageToShow,
     setSilentScrollTo,
-    topContainerRef,
-    bottomContainerRef,
+    showSection,
     width,
     height,
     phoneLayout,
@@ -81,73 +79,6 @@ export default connect(
     }, [learnMoreOn, height]);
 
     /* Render functionality */
-
-    const renderSafetyLeft = useCallback(() => {
-      const LearnMoreHandler = () => {
-        if (!phoneLayout) {
-          setPageToShow("safety");
-        } else {
-          setShowLearnMore(true);
-          window.scrollTo({
-            top: learnMoreSectionRef.current?.offsetTop,
-            behavior: "smooth",
-          });
-        }
-      };
-      if (pageIndex === "1" || (phoneLayout && sectionTop <= 500)) {
-        return (
-          <>
-            <div
-              ref={topContainerRef}
-              className={
-                learnMoreOn
-                  ? "safety__topContainer safety__topContainer--show "
-                  : "safety__topContainer"
-              }
-            >
-              <div className="safety__titleContainer">
-                <h2 className="subtitle">Safety</h2>
-                <h1 className="title">High Impact Protection</h1>
-              </div>
-              <div className="safety__paragraphContainer">
-                <p className="safety__paragraph paragraph">
-                  Model S is built from the ground up as an electric vehicle,
-                  with high-strength architecture and a floor-mounted battery
-                  pack allowing for incredible impact protection.
-                </p>
-              </div>
-            </div>
-            <div
-              ref={bottomContainerRef}
-              className={
-                learnMoreOn
-                  ? "safety__bottomContainer safety__bottomContainer--show"
-                  : "safety__bottomContainer"
-              }
-            >
-              <LearnMoreButton
-                classNames="safety__learnMoreButton"
-                disabled={learnMoreOn || showLearnMore}
-                click={LearnMoreHandler}
-              />
-              <OrderButton classNames="safety__orderButton" />
-            </div>
-          </>
-        );
-      } else {
-        return null;
-      }
-    }, [
-      learnMoreOn,
-      pageIndex,
-      setPageToShow,
-      bottomContainerRef,
-      topContainerRef,
-      phoneLayout,
-      sectionTop,
-      showLearnMore,
-    ]);
-
     const renderSaferyRight = useCallback(() => {
       if (pageIndex === "1" || (phoneLayout && sectionTop <= 700)) {
         return (
@@ -356,10 +287,36 @@ export default connect(
     ]);
 
     const renderSafetySection = useCallback(() => {
+      const checkRenderInfo =
+        pageIndex === "1" || (phoneLayout && sectionTop <= 500);
+
+      const LearnMoreHandler = () => {
+        if (!phoneLayout) {
+          setPageToShow("safety");
+        } else {
+          setShowLearnMore(true);
+          window.scrollTo({
+            top: learnMoreSectionRef.current?.offsetTop,
+            behavior: "smooth",
+          });
+        }
+      };
       return (
         <>
           <div className="safety__container">
-            <div className="safety__left">{renderSafetyLeft()}</div>
+            <SideComponents
+              title="High Impact Protection"
+              subtitle="Safety"
+              paragraph="Model S is built from the ground up as an electric vehicle,with high-strength architecture and a floor-mounted batterypack allowing for incredible impact protection."
+              customClassNames="safety__sideComponent"
+              customParagraphClassNames="safety__paragraph"
+              horizontal={width <= 1024}
+              checkRenderInfo={checkRenderInfo}
+              learnMoreOn={learnMoreOn}
+              showLearnMore={showLearnMore}
+              learnMoreHandle={LearnMoreHandler}
+              showSection={showSection}
+            />
             <div
               style={
                 checkIpad
@@ -404,9 +361,13 @@ export default connect(
       checkIpad,
       renderLearnMoreSection,
       renderSaferyRight,
-      renderSafetyLeft,
+      pageIndex,
+      phoneLayout,
+      sectionTop,
       width,
+      showSection,
       learnMoreOn,
+      setPageToShow,
       showLearnMore,
     ]);
     return (

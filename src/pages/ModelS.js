@@ -28,6 +28,7 @@ import {
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import RangeSection from "../components/ModelS/RangeSection";
+import AutopilotSection from "../components/ModelS/AutopilotSection";
 
 const mapStateToProps = (state) => ({
   sideActive: state.page.navbarActive,
@@ -56,10 +57,11 @@ const ModelSPage = ({
   width,
   height,
 }) => {
-  const topContainerSafetyRef = useRef(null);
-  const bottomContainerSafetyRef = useRef(null);
+  const [showSection, setShowSection] = useState(false);
+
   const bottomContainerPerfomanceRef = useRef(null);
   const rightContainerRangeRef = useRef(null);
+  const bottomContainerAutopilotRef = useRef(null);
 
   const [indexPage, setIndex] = useState("0");
   const logoref = useRef(null);
@@ -68,6 +70,8 @@ const ModelSPage = ({
   useEffect(() => {
     /* Set logo appear only on big screens */
     const setShow = () => {
+      // setShowSection(false);
+
       const index = document
         .querySelector("body")
         .classList.value.split(" ")[0]
@@ -87,6 +91,7 @@ const ModelSPage = ({
         }
       }
     };
+
     if (width > 1024) {
       window.addEventListener("wheel", setShow);
       window.addEventListener("touchmove", setShow);
@@ -98,21 +103,17 @@ const ModelSPage = ({
       if (silentScrollTo === "safety") {
         window.fullpage_api.silentMoveTo(2);
         setPageIndex("1");
-        topContainerSafetyRef.current.classList.add(
-          "safety__topContainer--show"
-        );
-        bottomContainerSafetyRef.current.classList.add(
-          "safety__bottomContainer--show"
-        );
+        setShowSection(true);
       } else if (silentScrollTo === "perfomance") {
         window.fullpage_api.silentMoveTo(3);
         setPageIndex("2");
-        if (bottomContainerPerfomanceRef.current) {
-          bottomContainerPerfomanceRef.current.classList.add(
-            "perfomance__bottomContainerInner--show"
-          );
-          setStopAnimation(true);
-        }
+        setShowSection(true);
+        // if (bottomContainerPerfomanceRef.current) {
+        //   bottomContainerPerfomanceRef.current.classList.add(
+        //     "perfomance__bottomContainerInner--show"
+        //   );
+        //   setStopAnimation(true);
+        // }
       } else if (silentScrollTo === "range") {
         window.fullpage_api.silentMoveTo(4);
         setPageIndex("3");
@@ -125,7 +126,13 @@ const ModelSPage = ({
         window.fullpage_api.silentMoveTo(5);
         setPageIndex("4");
       } else {
-        window.addEventListener("wheel", () => setStopAnimation(false));
+        // setShowSection(false);
+        window.addEventListener("wheel", () => {
+          if (showSection) {
+            setShowSection(false);
+          }
+          setStopAnimation(false);
+        });
       }
     }
 
@@ -141,6 +148,7 @@ const ModelSPage = ({
     setSilentScrollTo,
     setStopAnimation,
     loaded,
+    showSection,
     height,
     width,
   ]);
@@ -203,26 +211,28 @@ const ModelSPage = ({
                         phoneLayout={false}
                       />
                       <SafetySection
-                        topContainerRef={topContainerSafetyRef}
-                        bottomContainerRef={bottomContainerSafetyRef}
+                        showSection={showSection}
                         phoneLayout={false}
                       />
                       <PerfomanceSection
+                        showSection={showSection}
                         phoneLayout={false}
-                        bottomContainerPerfomanceRef={
-                          bottomContainerPerfomanceRef
-                        }
+                        // bottomContainerPerfomanceRef={
+                        //   bottomContainerPerfomanceRef
+                        // }
                       />
                       <RangeSection
+                        showSection={showSection}
                         phoneLayout={false}
                         rightContainerRangeRef={rightContainerRangeRef}
                       />
-                      <section
-                        style={{ textAlign: "center" }}
-                        className="section"
-                      >
-                        Autopilot
-                      </section>
+                      <AutopilotSection
+                        phoneLayout={false}
+                        bottomContainerAutopilotRef={
+                          bottomContainerAutopilotRef
+                        }
+                      />
+
                       <section
                         style={{
                           textAlign: "center",
@@ -275,17 +285,22 @@ const ModelSPage = ({
             phoneLayout={true}
           />
           <SafetySection
-            topContainerRef={topContainerSafetyRef}
-            bottomContainerRef={bottomContainerSafetyRef}
+            // showSection={showSection}
             phoneLayout={true}
           />
           <PerfomanceSection
+            // showSection={showSection}
             phoneLayout={true}
-            bottomContainerPerfomanceRef={bottomContainerPerfomanceRef}
+            // bottomContainerPerfomanceRef={bottomContainerPerfomanceRef}
           />
           <RangeSection
+            showSection={showSection}
             phoneLayout={true}
             rightContainerRangeRef={rightContainerRangeRef}
+          />
+          <AutopilotSection
+            phoneLayout={true}
+            bottomContainerAutopilotRef={bottomContainerAutopilotRef}
           />
           <FirstSection
             title="Model S"
@@ -297,7 +312,7 @@ const ModelSPage = ({
         </>
       );
     }
-  }, [ImageComponent, pagetoShow, loaded, width, checkIpad]);
+  }, [ImageComponent, pagetoShow, loaded, width, checkIpad, showSection]);
 
   const renderLogoElement = useCallback(() => {
     return (

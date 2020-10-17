@@ -1,8 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import LearnMoreButton from "../Buttons/LearnMoreButton";
-import OrderButton from "../Buttons/OrderButton";
-import CloseNextButton from "../Buttons/CloseNextButton";
-import classnames from "classnames";
 
 import Video from "../../static/videos/ModelS/Range.mp4";
 import VideoMobile from "../../static/videos/ModelS/RangeMobile.mp4";
@@ -11,6 +7,7 @@ import VideoMobile from "../../static/videos/ModelS/RangeMobile.mp4";
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import InfoElement from "./InfoElement";
+import SideComponents from "./SideComponents";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -24,6 +21,7 @@ const mapActionToProps = {
   setPageToShow,
   setSilentScrollTo,
 };
+
 export default connect(
   mapStateToProps,
   mapActionToProps
@@ -39,24 +37,26 @@ export default connect(
     width,
     height,
     phoneLayout,
+    showSection,
   }) => {
-    const [showLearnMore, setShowLearnMore] = useState(false);
+    // const [showLearnMore, setShowLearnMore] = useState(false);
     const videoRef = useRef(null);
+    const [showLearnMore, setShowLearnMore] = useState(false);
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
     const learnMoreSectionRef = useRef(null);
     const [sectionTop, setSectionTop] = useState(null);
-    const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
-    const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
+    // const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
+    // const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
 
     useEffect(() => {
       const getAndShowTop = () => {
         const rectSection = sectionRef.current.getBoundingClientRect();
-        const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
+        // const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
         setSectionTop(rectSection.top);
-        setLearnMoreSectionTop(rectLearnMoreSection.top);
-        setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
+        // setLearnMoreSectionTop(rectLearnMoreSection.top);
+        // setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
       };
       if (sectionRef.current) {
         window.addEventListener("wheel", getAndShowTop);
@@ -103,7 +103,7 @@ export default connect(
       const checkRenderInfo =
         pageIndex === "3" || (phoneLayout && sectionTop <= 600);
 
-      const LearnMoreHandler = () => {
+      const learnMoreHandler = () => {
         if (!phoneLayout) {
           setPageToShow("range");
         } else {
@@ -174,29 +174,20 @@ export default connect(
             </div>
             {phoneLayout ? videoElement : pageIndex === "3" && videoElement}
           </div>
-          <div className="range__rightContainer">
-            {checkRenderInfo && (
-              <>
-                {/* <div className="range__sectionInfo"> */}
-                <h2 className="subtitle range__subtitle">Range</h2>
-                <h1 className="title range__title"> Go Anywhere</h1>
-                <p className="paragraph range__paragraph">
-                  Model S can get you anywhere you want to go—with
-                  industry-leading range and convenient charging options, all
-                  over the world.
-                </p>
-                {/* </div> */}
-                <div className="range__buttons">
-                  <LearnMoreButton
-                    classNames="range__learnMoreButton"
-                    disabled={learnMoreOn || showLearnMore}
-                    click={LearnMoreHandler}
-                  />
-                  <OrderButton classNames="range__orderButton" />
-                </div>
-              </>
-            )}
-          </div>
+          {/* <div className="range__rightContainer"> */}
+          <SideComponents
+            title="Go Anywhere"
+            subtitle="Range"
+            paragraph="Model S can get you anywhere you want to go—withindustry-leading range and convenient charging options, allover the world."
+            customClassNames="range__sideComponent"
+            customInnerContainerClassNames="range__sideInnerContainer"
+            horizontal={width <= 1200}
+            checkRenderInfo={checkRenderInfo}
+            learnMoreOn={learnMoreOn}
+            showLearnMore={showLearnMore}
+            learnMoreHandle={learnMoreHandler}
+            showSection={showSection}
+          />
           <div
             className="range__learnMoreContainer"
             ref={learnMoreSectionRef}
@@ -211,7 +202,9 @@ export default connect(
       pageIndex,
       sectionTop,
       width,
+      showSection,
     ]);
+
     return (
       <section ref={sectionRef} className="section range">
         {phoneLayout ? (

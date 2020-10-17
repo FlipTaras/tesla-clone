@@ -63,10 +63,3 @@ export const setSilentScrollTo = (to) => (dispatch) => {
     payload: to,
   });
 };
-
-export const setStopAnimation = (show) => (dispatch) => {
-  dispatch({
-    type: SET_STOP_ANIMATION,
-    payload: show,
-  });
-};

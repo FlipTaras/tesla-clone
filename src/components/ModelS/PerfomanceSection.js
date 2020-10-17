@@ -20,11 +20,11 @@ import Video3 from "../../static/videos/ModelS/KD8BAH_total-control-s_0.mp4-2000
 import Video2 from "../../static/videos/ModelS/performancemotor_desktop.mp4";
 import Video1 from "../../static/videos/ModelS/dualmotor_desktop.mp4";
 import SideComponents from "./SideComponents";
+import ContentElement from "./ContentElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
   pageYOffset: state.page.pageYOffset,
-  stopAnimation: state.models.stopAnimation,
   width: state.page.width,
   height: state.page.height,
 });
@@ -43,9 +43,7 @@ export default connect(
     setPageToShow,
     setSilentScrollTo,
     pageYOffset,
-    // bottomContainerPerfomanceRef,
     showSection,
-    stopAnimation,
     width,
     height,
     phoneLayout,
@@ -126,12 +124,12 @@ export default connect(
             transform={
               learnMoreOn
                 ? "rotate(170 30 40)"
-                : stopAnimation
+                : showSection
                 ? "rotate(170 30 40)"
                 : ""
             }
           >
-            {learnMoreOn ? null : stopAnimation ? null : (
+            {learnMoreOn ? null : showSection ? null : (
               <animateTransform
                 attributeName="transform"
                 dur="1s"
@@ -148,8 +146,8 @@ export default connect(
       /* CountUp Element */
       const countUpElement = (
         <CountUp
-          delay={learnMoreOn ? 0 : stopAnimation ? 0 : 1}
-          start={learnMoreOn ? 2.3 : stopAnimation ? 2.3 : 0}
+          delay={learnMoreOn ? 0 : showSection ? 0 : 1}
+          start={learnMoreOn ? 2.3 : showSection ? 2.3 : 0}
           end={2.3}
           duration={3}
           suffix={"s"}
@@ -162,6 +160,7 @@ export default connect(
         return (
           <div className="perfomance__infoElements">
             <InfoElement
+              showSection={showSection}
               smaller
               title="AWD"
               firstText={
@@ -187,6 +186,7 @@ export default connect(
             />
             <InfoElement
               smaller
+              showSection={showSection}
               title={countUpElement}
               firstText={
                 width >= 1024
@@ -212,6 +212,7 @@ export default connect(
               white
             />
             <InfoElement
+              showSection={showSection}
               smaller
               title="163mph"
               firstText={
@@ -234,7 +235,7 @@ export default connect(
       } else {
         return null;
       }
-    }, [pageIndex, learnMoreOn, stopAnimation, width, phoneLayout, sectionTop]);
+    }, [pageIndex, learnMoreOn, showSection, width, phoneLayout, sectionTop]);
 
     const renderLearnMoreSection = useCallback(() => {
       /* Figure out when dualMotor come into view to play animation */
@@ -452,16 +453,14 @@ export default connect(
 
       return (
         <>
-          <div
-            className="perfomance__topContainer"
-            style={{
-              background: `url(${
-                width < 639 ? imagePhone : checkIpad ? ImageLand : Image
-              })`,
-            }}
-          >
+          <ContentElement horizontal={true}>
+            <img
+              className="perfomance__backgroundImage"
+              src={width < 639 ? imagePhone : checkIpad ? ImageLand : Image}
+              alt="modelS"
+            />
             {renderTopContainer()}
-          </div>
+          </ContentElement>
           <SideComponents
             title="Quickest Acceleration"
             subtitle="Performance"
@@ -487,7 +486,6 @@ export default connect(
       sectionTop,
       setPageToShow,
       showLearnMore,
-      // renderBottomContainer,
       showSection,
       renderLearnMoreSection,
       renderTopContainer,

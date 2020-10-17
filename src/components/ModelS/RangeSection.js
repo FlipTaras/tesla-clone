@@ -8,11 +8,11 @@ import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import InfoElement from "./InfoElement";
 import SideComponents from "./SideComponents";
+import ContentElement from "./ContentElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
   pageYOffset: state.page.pageYOffset,
-  stopAnimation: state.models.stopAnimation,
   width: state.page.width,
   height: state.page.height,
 });
@@ -33,7 +33,6 @@ export default connect(
     setSilentScrollTo,
     rightContainerRangeRef,
     pageYOffset,
-    stopAnimation,
     width,
     height,
     phoneLayout,
@@ -117,7 +116,7 @@ export default connect(
 
       return (
         <>
-          <div className="range__leftContainer">
+          <ContentElement horizontal={width <= 1200}>
             <div className="range__infoElements">
               {checkRenderInfo && (
                 <>
@@ -173,8 +172,8 @@ export default connect(
               )}
             </div>
             {phoneLayout ? videoElement : pageIndex === "3" && videoElement}
-          </div>
-          {/* <div className="range__rightContainer"> */}
+          </ContentElement>
+
           <SideComponents
             title="Go Anywhere"
             subtitle="Range"

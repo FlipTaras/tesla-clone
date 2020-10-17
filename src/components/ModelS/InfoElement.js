@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
   silentScrollTo: state.models.silentScrollTo,
-  stopAnimation: state.models.stopAnimation,
 });
 
 export default connect(mapStateToProps)(
@@ -18,14 +17,14 @@ export default connect(mapStateToProps)(
     width,
     showLine,
     white,
-    stopAnimation,
+    showSection,
     smaller,
     learnMoreOn,
     customInfoElementClassNames,
   }) => {
     const infoElementClassNames = classnames(
       "infoElement",
-      stopAnimation && "infoElement--show",
+      showSection && "infoElement--show",
       smaller && "infoElement--smaller",
       learnMoreOn && "infoElement--animationOff",
       customInfoElementClassNames

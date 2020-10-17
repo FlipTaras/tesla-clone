@@ -23,7 +23,6 @@ import {
   setLoaded,
   setPageIndex,
   setSilentScrollTo,
-  setStopAnimation,
 } from "../static/store/actions";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -42,7 +41,6 @@ const mapActionToProps = {
   setLoaded,
   setPageIndex,
   setSilentScrollTo,
-  setStopAnimation,
 };
 
 const ModelSPage = ({
@@ -53,13 +51,11 @@ const ModelSPage = ({
   setPageIndex,
   silentScrollTo,
   setSilentScrollTo,
-  setStopAnimation,
   width,
   height,
 }) => {
   const [showSection, setShowSection] = useState(false);
 
-  const bottomContainerPerfomanceRef = useRef(null);
   const rightContainerRangeRef = useRef(null);
   const bottomContainerAutopilotRef = useRef(null);
 
@@ -70,8 +66,6 @@ const ModelSPage = ({
   useEffect(() => {
     /* Set logo appear only on big screens */
     const setShow = () => {
-      // setShowSection(false);
-
       const index = document
         .querySelector("body")
         .classList.value.split(" ")[0]
@@ -108,30 +102,25 @@ const ModelSPage = ({
         window.fullpage_api.silentMoveTo(3);
         setPageIndex("2");
         setShowSection(true);
-        // if (bottomContainerPerfomanceRef.current) {
-        //   bottomContainerPerfomanceRef.current.classList.add(
-        //     "perfomance__bottomContainerInner--show"
-        //   );
-        //   setStopAnimation(true);
-        // }
       } else if (silentScrollTo === "range") {
         window.fullpage_api.silentMoveTo(4);
         setPageIndex("3");
-        if (rightContainerRangeRef.current) {
-          rightContainerRangeRef.current.classList.add(
-            "range__rightContainer--show"
-          );
-        }
+        // if (rightContainerRangeRef.current) {
+        //   rightContainerRangeRef.current.classList.add(
+        //     "range__rightContainer--show"
+        //   );
+        // }
+        setShowSection(true);
       } else if (silentScrollTo === "autopilot") {
         window.fullpage_api.silentMoveTo(5);
         setPageIndex("4");
+        setShowSection(true);
       } else {
         // setShowSection(false);
         window.addEventListener("wheel", () => {
           if (showSection) {
             setShowSection(false);
           }
-          setStopAnimation(false);
         });
       }
     }
@@ -146,7 +135,6 @@ const ModelSPage = ({
     silentScrollTo,
     setPageIndex,
     setSilentScrollTo,
-    setStopAnimation,
     loaded,
     showSection,
     height,
@@ -224,13 +212,14 @@ const ModelSPage = ({
                       <RangeSection
                         showSection={showSection}
                         phoneLayout={false}
-                        rightContainerRangeRef={rightContainerRangeRef}
+                        // rightContainerRangeRef={rightContainerRangeRef}
                       />
                       <AutopilotSection
+                        showSection={showSection}
                         phoneLayout={false}
-                        bottomContainerAutopilotRef={
-                          bottomContainerAutopilotRef
-                        }
+                        // bottomContainerAutopilotRef={
+                        //   bottomContainerAutopilotRef
+                        // }
                       />
 
                       <section
@@ -294,13 +283,13 @@ const ModelSPage = ({
             // bottomContainerPerfomanceRef={bottomContainerPerfomanceRef}
           />
           <RangeSection
-            showSection={showSection}
+            // showSection={showSection}
             phoneLayout={true}
-            rightContainerRangeRef={rightContainerRangeRef}
+            // rightContainerRangeRef={rightContainerRangeRef}
           />
           <AutopilotSection
             phoneLayout={true}
-            bottomContainerAutopilotRef={bottomContainerAutopilotRef}
+            // bottomContainerAutopilotRef={bottomContainerAutopilotRef}
           />
           <FirstSection
             title="Model S"

@@ -9,6 +9,7 @@ import ModelsStructureInitial from "../../static/images/ModelS/Safety/Safety.png
 import ModelsStructureLeanMore from "../../static/images/ModelS/Safety/model-s-supportive-structure.jpg";
 import ModelsImageMobile from "../../static/images/ModelS/Safety/Safety-mobile.jpg";
 import SideComponents from "./SideComponents";
+import ContentElement from "./ContentElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -317,35 +318,23 @@ export default connect(
               learnMoreHandle={LearnMoreHandler}
               showSection={showSection}
             />
-            <div
-              style={
-                checkIpad
-                  ? { background: "none" }
-                  : width > 1024
-                  ? { background: `url(${ModelsStructureInitial})` }
-                  : { background: "none" }
-              }
-              className="safety__right"
+            <ContentElement
+              horizontal={width <= 1024}
+              customContentElementClassNames="safety__contentElement"
             >
-              {checkIpad ? (
-                <img
-                  className="safety__backgroundImage"
-                  src={ModelsStructureInitial}
-                  alt="car"
-                />
-              ) : (
-                width <= 1024 && (
-                  <img
-                    className="safety__backgroundImage"
-                    src={
-                      width <= 600 ? ModelsImageMobile : ModelsStructureInitial
-                    }
-                    alt="car"
-                  />
-                )
-              )}
+              <img
+                src={
+                  checkIpad
+                    ? ModelsStructureInitial
+                    : width <= 600
+                    ? ModelsImageMobile
+                    : ModelsStructureInitial
+                }
+                alt="Model S Structure"
+                className="safety__image"
+              />
               {renderSaferyRight()}
-            </div>
+            </ContentElement>
           </div>
           <div
             ref={learnMoreSectionRef}

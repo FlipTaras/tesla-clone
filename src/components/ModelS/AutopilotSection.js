@@ -9,12 +9,12 @@ import VideoMobile from "../../static/videos/ModelS/autopilot mobile.mp4";
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import SideComponents from "./SideComponents";
+import ContentElement from "./ContentElement";
 // import InfoElement from "./InfoElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
   pageYOffset: state.page.pageYOffset,
-  stopAnimation: state.models.stopAnimation,
   width: state.page.width,
   height: state.page.height,
 });
@@ -35,10 +35,10 @@ export default connect(
     setSilentScrollTo,
     rightContainerRangeRef,
     pageYOffset,
-    stopAnimation,
     width,
     height,
     phoneLayout,
+    showSection,
   }) => {
     const [showLearnMore, setShowLearnMore] = useState(false);
     const videoRef = useRef(null);
@@ -95,35 +95,37 @@ export default connect(
           });
         }
       };
+      const videoElement = (
+        <video
+          preload="auto"
+          muted
+          autoPlay
+          playsInline
+          loop
+          className="autopilot__video"
+          ref={videoRef}
+        >
+          <source
+            src={width > 800 ? Video : VideoMobile}
+            type="video/mp4"
+          ></source>
+        </video>
+      );
       return (
         <>
-          <div className="autopilot__topContainer">
-            <video
-              preload="auto"
-              muted
-              autoPlay
-              playsInline
-              loop
-              className="autopilot__video"
-              ref={videoRef}
-            >
-              <source
-                src={width > 800 ? Video : VideoMobile}
-                type="video/mp4"
-              ></source>
-            </video>
-          </div>
+          <ContentElement horizontal={true}>
+            {phoneLayout ? videoElement : pageIndex === "4" && videoElement}
+          </ContentElement>
           <SideComponents
             title="Future of Driving"
             subtitle="Autopilot"
             paragraph="Autopilot advanced safety and convenience features aredesigned to assist you with the most burdensome parts ofdriving."
-            // customClassNames="range__sideComponent"
             horizontal={true}
             checkRenderInfo={checkRenderInfo}
             learnMoreOn={learnMoreOn}
             showLearnMore={showLearnMore}
             learnMoreHandle={learnMoreHandler}
-            // showSection={showSection}
+            showSection={showSection}
           />
           <div
             ref={learnMoreSectionRef}
@@ -139,6 +141,7 @@ export default connect(
       learnMoreOn,
       setPageToShow,
       showLearnMore,
+      showSection,
     ]);
     return (
       <section ref={sectionRef} className="section">

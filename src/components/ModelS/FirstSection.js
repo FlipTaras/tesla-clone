@@ -109,8 +109,7 @@ export default connect(mapStateToProps)(
         {
           infoElementClassNames: "firstSection__infoElements--2",
           subtitleClassNames: "firstSection__subtitle--2",
-
-          svg: null,
+          // svg: null,
           title: "28 cu ft",
           subtitle: "Best in Class Storage",
           showLine: true,
@@ -118,8 +117,7 @@ export default connect(mapStateToProps)(
         {
           infoElementClassNames: "firstSection__infoElements--3",
           subtitleClassNames: "firstSection__subtitle--3",
-
-          svg: null,
+          // svg: null,
           title: "402 mi",
           subtitle: "Range (EPA est.)",
         },

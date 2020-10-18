@@ -24,16 +24,16 @@
         @media only screen and (max-width: 23.5em) and (max-height: 42em) // 375
             @content
 
-    @if $breakpoint == phone
-        @media only screen and (max-width: 37.5em)  // 600px
-            @content
-
     @if $breakpoint == 500 // 500px
         @media only screen and (max-width: 31.25em)
             @content
 
     @if $breakpoint == 550 // 550px
         @media only screen and (max-width: 34.375em)
+            @content
+
+    @if $breakpoint == phone
+        @media only screen and (max-width: 37.5em)  // 600px
             @content
 
     @if $breakpoint == phone-landscape

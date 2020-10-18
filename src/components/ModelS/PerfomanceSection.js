@@ -159,81 +159,64 @@ export default connect(
           useEasing
         />
       );
+      const infoElements = [
+        {
+          infoElementClassNames:
+            "perfomance__infoElements perfomance__infoElements--1",
+          titleClassNames: "perfomance__title--1",
+          subtitleClassNames: "perfomance__subtitle--1",
+          title: "AWD",
+          subtitle:
+            width >= 1024
+              ? "Dual Motor All-Wheel Drive instantly controls traction and torque, in all weather conditions"
+              : "Standart All-Wheel Drive",
+          showLine: true,
+        },
+        {
+          infoElementClassNames:
+            "perfomance__infoElements perfomance__infoElements--2",
+          titleClassNames: "perfomance__title--2",
+          subtitleClassNames: "perfomance__subtitle--2",
+          svg: svgSpeed,
+          title: countUpElement,
+          subtitle:
+            width >= 1024
+              ? "The quickest acceleration on earth—from zero to 60 mph in as little as 2.3 seconds"
+              : "From 0-60mph",
+          showLine: true,
+        },
+        {
+          infoElementClassNames:
+            "perfomance__infoElements perfomance__infoElements--3",
+          titleClassNames: "perfomance__title--3",
+          subtitleClassNames: "perfomance__subtitle--3",
+          title: "163mph",
+          subtitle:
+            width >= 1024
+              ? "Improved handling and aerodynamics allow for a top speed of 163 mph"
+              : "Top Speed",
+        },
+      ];
+      const renderInfoElement = () => {
+        return infoElements.map((el) => (
+          <InfoElement
+            customInfoElementClassNames={el.infoElementClassNames}
+            customTitleClassNames={el.titleClassNames}
+            customSubtitleClassNames={el.subtitleClassNames}
+            key={el.title}
+            title={el.title}
+            svg={el.svg}
+            subtitle={el.subtitle}
+            showLine={el.showLine}
+            white
+          />
+        ));
+      };
 
       if (pageIndex === "2" || (phoneLayout && sectionTop <= 600)) {
         return (
-          <div className="perfomance__infoElements">
-            <InfoElement
-              showSection={showSection}
-              smaller
-              title="AWD"
-              firstText={
-                width >= 1024
-                  ? "Dual Motor All-Wheel Drive instantly controls"
-                  : "Standart"
-              }
-              secondText={
-                width >= 1024
-                  ? "traction and torque, in all weather conditions"
-                  : "All-Wheel Drive"
-              }
-              style={
-                learnMoreOn
-                  ? { animation: "none", opacity: "1" }
-                  : {
-                      opacity: "0",
-                      animation: "translateYOpacityShow .6s .6s forwards ease",
-                    }
-              }
-              showLine
-              white
-            />
-            <InfoElement
-              smaller
-              showSection={showSection}
-              title={countUpElement}
-              firstText={
-                width >= 1024
-                  ? "The quickest acceleration on earth—from"
-                  : "0-60mph in"
-              }
-              secondText={
-                width >= 1024
-                  ? "zero to 60 mph in as little as 2.3 seconds"
-                  : "2.3 secs"
-              }
-              svg={svgSpeed}
-              width={width < 600 ? "9rem" : width < 1024 && "13rem"}
-              style={
-                learnMoreOn
-                  ? { animation: "none", opacity: "1" }
-                  : {
-                      opacity: "0",
-                      animation: "translateYOpacityShow .6s .8s forwards ease",
-                    }
-              }
-              showLine
-              white
-            />
-            <InfoElement
-              showSection={showSection}
-              smaller
-              title="163mph"
-              firstText={
-                width >= 1024 ? "Improved handling and aerodynamics" : "Top"
-              }
-              secondText={
-                width >= 1024 ? "allow for a top speed of 163 mph" : "Speed"
-              }
-              style={
-                learnMoreOn
-                  ? { animation: "none", opacity: "1" }
-                  : {
-                      opacity: "0",
-                      animation: "translateYOpacityShow .6s 1s forwards ease",
-                    }
-              }
-            />
+          <div className="perfomance__infoElementsContainer">
+            {renderInfoElement()}
           </div>
         );
       } else {
@@ -329,7 +312,7 @@ export default connect(
           showBorder: false,
         },
       ];
-      
+
       /* Render Video Elements */
       const renderVideoElement = () => {
         return (
@@ -479,7 +462,10 @@ export default connect(
       /* Render */
       return (
         <>
-          <ContentElement horizontal={true}>
+          <ContentElement
+            customContentElementClassNames="perfomance__contentElement"
+            horizontal={true}
+          >
             <img
               className="perfomance__backgroundImage"
               src={width < 639 ? imagePhone : checkIpad ? ImageLand : Image}

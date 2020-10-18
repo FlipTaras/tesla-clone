@@ -5,46 +5,115 @@
         object-fit: cover
         object-position: center
         min-width: 100%
-        @include responsive(1366)
+        @include responsive(1600)
             min-height: 100%
             max-width: 100%
 
-    &__infoElements
+    &__infoElementsContainer
         display: flex
-        width: 92%
+        width: 42%
         justify-content: center
         position: absolute
-        bottom: 17%
+        bottom: 8%
+        left: 50%
+        transform: translateX(-50%)
         right: 4%
-        flex-wrap: wrap
         color: white !important
+        @include responsive(2200)
+            width: 53%
         @include responsive(1920)
-            bottom: 14%
+            width: 64%
         @include responsive(1366)
-            bottom: 12%
+            width: 70%
         @include responsive(1280)
-            bottom: 10%
+            width: 80%
         @include responsive(1000)
-            text-align: center
-        @include responsive(phone-landscape)
-            padding-left: 5rem
-        @include responsive(phone)
-            width: 90%
-        @include responsive(smallphone-portrait)
             width: 100%
-            padding-left: 1rem
+            bottom: 15%
+            text-align: center
+        @include responsive(500)
+            bottom: 5%
+            left: 47%
+        @include responsive(smallphone-portrait)
+            bottom: 10%
+            left: 48%
+            flex-wrap: wrap
+
         @include responsive(smallphone-landscape)
             padding-left: 0
 
+    &__contentElement
+        @include responsive(phone)
+            height: 60vh !important
+        @include responsive(smallphone-landscape)
+            height: 100vh !important
+
     &__sideInnerContainer
         @include responsive(1200)
-            width: 100% !important
+            width: 85% !important
             padding-top: 3rem
         @include responsive(tablet)
             padding-top: unset
+            width: 100% !important
+
     &__title
         @include responsive(1366)
             width: 80%
+
+    &__subtitle
+        &--1
+            @include responsive(1000)
+                width: 52%
+            @include responsive(900)
+                width: 100%
+            @include responsive(phone)
+                width: 60%
+            @include responsive(smallphone-portrait)
+                width: 100%
+        &--2
+            width: 100% !important
+            padding-left: 1.5rem
+            @include responsive(phone)
+                padding-left: 0
+        &--3
+            @include responsive(1000)
+                width: 50%
+
+    &__title
+        &--1
+            @include responsive(1000)
+                margin: 0 auto
+        &--2
+            @include responsive(1000)
+                margin: 0 auto
+                width: 5rem
+            @include responsive(phone)
+                width: 6rem
+            @include responsive(smallphone-portrait)
+                width: 3rem
+                margin-right: 1rem
+        &--3
+            @include responsive(1000)
+                margin: 0 auto
+
+    &__infoElements
+        @include responsive(1000)
+            padding: 0 9rem !important
+        @include responsive(900)
+            padding: 0 5rem !important
+        @include responsive(phone)
+            padding: 0 4rem !important
+        @include responsive(500)
+            padding: 0 2.5rem !important
+        @include responsive(414-portrait)
+            padding: 0 1rem !important
+
+        &--1
+            animation: translateYOpacityShow .6s .6s forwards ease
+        &--2
+            animation: translateYOpacityShow .6s .8s forwards ease
+        &--3
+            animation: translateYOpacityShow .6s 1s forwards ease
 
     /* LearnMore Added Element */
     &__learnMoreContainer

@@ -109,6 +109,7 @@ export default connect(
             <div className="safety__animatedElements">
               {safetyInfoContent.map((el, i) => (
                 <SafetyAnimatedElement
+                  key={i}
                   show={learnMoreOn}
                   title="Front-Impact Protection"
                   customTitleClassNames={`safety__safetyanimatedElements__title--${
@@ -202,6 +203,7 @@ export default connect(
                   <ul className="safety__numbersContainer">
                     {safetyInfoContent.map((el, i) => (
                       <li
+                        key={i}
                         className={`safety__numberDescriptionNumber safety__numberDescriptionNumber--${
                           i + 1
                         }`}
@@ -211,7 +213,7 @@ export default connect(
                     ))}
                   </ul>
                   {safetyInfoContent.map((el, i) => (
-                    <div className="safety__numberDescriptionContainer">
+                    <div key={i} className="safety__numberDescriptionContainer">
                       <span className="safety__numberDescriptionNumber">
                         {i + 1}
                       </span>
@@ -228,6 +230,7 @@ export default connect(
                 <div className="safety__learnMoreAnimatedElements">
                   {safetyInfoContent.map((el, i) => (
                     <SafetyAnimatedElement
+                      key={i}
                       show={phoneLayout ? false : !learnMoreOn}
                       title={el.title}
                       paragraph={el.paragraph}

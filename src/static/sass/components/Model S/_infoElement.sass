@@ -1,58 +1,62 @@
 .infoElement
-    box-sizing: content-box
     position: relative
-    padding: 0 3.5rem 0 3.5rem
     opacity: 0
+    padding: 0 3rem
+    display: flex
+    flex-direction: column
+    @include responsive(700)
+        padding: 0 5rem
+    @include responsive(650)
+        padding: 0 4rem
     @include responsive(phone)
-        padding: 0 1.5rem 0 1.5rem
+        padding: 0 3rem
+        margin-bottom: 2rem
+    @include responsive(500)
+        padding: 0 2rem
+    @include responsive(414-portrait)
+        padding: 0 1.5rem
+    @include responsive(375-portrait)
+        margin-bottom: 0
+        padding: 0 .5rem
     @include responsive(smallphone-portrait)
-        padding: 1rem 1rem 0 1rem
-    @include responsive(smallphone-landscape)
-        padding: 1rem 4.2rem
-
-    &--animationOff
-        animation: none !important
-        opacity: 1 !important
-
-    &--smaller
-        @include responsive(smallphone-portrait)
-            padding: .8rem .8rem 0
-            &:last-child
-                padding-right: 0
+        padding: 0
+        flex: .33
 
     &--show
         opacity: 1 !important
         animation: none !important
-    svg
-        width: 50px
-        height: 50px
-        display: inline-block
-        margin-right: 1rem
-        margin-top: -5rem
-        @include responsive(phone)
-            width: 35px
-            height: 35px
 
-    &__duration
-        display: inline-block
+    &__titleContainer
+        display: flex
+        @include responsive(phone)
+            align-self: center
+
+    svg
+        width: 5rem
+        height: 5rem
+        margin-top: -2rem
+        margin-right: 1rem
+        @include responsive(phone)
+            width: 3.5rem
+            height: 3.5rem
+            margin-right: 0
+            margin-top: -1.5rem
+
+    &__title
         font-size: 2.8rem
         font-weight: 500
         @include responsive(phone)
             font-size: 2rem
 
-    &__from
+    &__subtitle
         font-size: 1.2rem
         font-family: 'Gotham Book'
         line-height: 1.5
+        margin: 0 auto
         @include responsive(phone)
             font-size: 1rem
         @include responsive(smallphone-portrait)
-            width: 100%
             font-size: 1.2rem
-            margin: 0 auto
-        &--smaller
-            @include responsive(smallphone-portrait)
-                width: 100%
 
     &__line
         position: absolute
@@ -64,7 +68,8 @@
         opacity: .9
         @include responsive(phone)
             height: 6rem
+            top: -20%
         @include responsive(smallphone-portrait)
-            height: 7rem
+            height: 9rem
         &--white
             background-color: white

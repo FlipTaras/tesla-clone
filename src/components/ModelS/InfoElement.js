@@ -10,45 +10,40 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(
   ({
     title,
-    style,
     svg,
-    firstText,
-    secondText,
-    width,
+    subtitle,
     showLine,
     white,
     showSection,
-    smaller,
-    learnMoreOn,
+    // smaller,
+    // learnMoreOn,
     customInfoElementClassNames,
+    customTitleClassNames,
+    customSubtitleClassNames,
   }) => {
     const infoElementClassNames = classnames(
       "infoElement",
       showSection && "infoElement--show",
-      smaller && "infoElement--smaller",
-      learnMoreOn && "infoElement--animationOff",
-      customInfoElementClassNames
+      // smaller && "infoElement--smaller",
+      // learnMoreOn && "infoElement--animationOff",
+      customInfoElementClassNames && customInfoElementClassNames
     );
-    const infoElementFromClassNames = classnames(
-      "infoElement__from",
-      smaller && "infoElement__from--smaller"
+    const titleClassNames = classnames(
+      "infoElement__title",
+      customTitleClassNames && customTitleClassNames
     );
+    const subtitleClassNames = classnames(
+      "infoElement__subtitle",
+      customSubtitleClassNames && customSubtitleClassNames
+    );
+
     return (
-      <div
-        key={title}
-        style={{ ...style, width: width && width }}
-        className={infoElementClassNames}
-      >
-        {svg && svg}
-        <div className="infoElement__duration">{title}</div>
-        <p className={infoElementFromClassNames}>
-          {firstText}
-          {secondText && (
-            <>
-              <br /> {secondText}
-            </>
-          )}
-        </p>
+      <div key={title} className={infoElementClassNames}>
+        <div className="infoElement__titleContainer">
+          {svg && svg}
+          <div className={titleClassNames}>{title}</div>
+        </div>
+        <p className={subtitleClassNames}>{subtitle}</p>
         {showLine && (
           <div
             className={

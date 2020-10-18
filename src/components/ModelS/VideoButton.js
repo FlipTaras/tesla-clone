@@ -17,14 +17,16 @@ export default connect(mapStateToProps)(
     activeButton,
     width,
   }) => {
-    const ContentContainerClassNames = classnames(
-      "videoButtonElement__videoButtonContentContainer",
-      active && "videoButtonElement__videoButtonContentContainer--active"
-    );
     const [animationBorder, setAnimationBorder] = useState(null);
     const [animationElement, setAnimationElement] = useState({
       animation: "none",
     });
+
+    const ContentContainerClassNames = classnames(
+      "videoButtonElement__videoButtonContentContainer",
+      active && "videoButtonElement__videoButtonContentContainer--active"
+    );
+
     useEffect(() => {
       if (activeButton === 2) {
         setAnimationBorder({

@@ -28,7 +28,6 @@ export default connect(
     customInnerContainerClassNames,
     titleCustomClassNames,
   }) => {
-    console.log(showSection);
     const sideComponentClassNames = classnames(
       "sideComponent",
       horizontal && "sideComponent--horizontal",

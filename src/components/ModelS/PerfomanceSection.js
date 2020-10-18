@@ -21,6 +21,7 @@ import Video2 from "../../static/videos/ModelS/performancemotor_desktop.mp4";
 import Video1 from "../../static/videos/ModelS/dualmotor_desktop.mp4";
 import SideComponents from "./SideComponents";
 import ContentElement from "./ContentElement";
+import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -33,6 +34,7 @@ const mapActionToProps = {
   setPageToShow,
   setSilentScrollTo,
 };
+
 export default connect(
   mapStateToProps,
   mapActionToProps
@@ -50,6 +52,8 @@ export default connect(
   }) => {
     const [showLearnMore, setShowLearnMore] = useState(false);
     const [activeButton, setActiveButton] = useState(1);
+
+    /* Different Checks of screen size */
     const checkIpad = height <= 1366 && width <= 1024;
     const dualMotorRef = useRef(null);
 
@@ -241,6 +245,7 @@ export default connect(
       /* Figure out when dualMotor come into view to play animation */
       const dualMotorTop = dualMotorRef.current?.getBoundingClientRect().top;
 
+      /* Buttons Logic */
       const CloseHandler = () => {
         if (!phoneLayout) {
           setPageToShow(null);
@@ -282,6 +287,7 @@ export default connect(
         }
       };
 
+      /* Video Buttons Content */
       const buttons1 = [
         {
           buttonTitle: "3.7s",
@@ -308,69 +314,86 @@ export default connect(
         },
       ];
 
+      const videoButtons = [
+        {
+          title: "Long Range Plus",
+          text: "Premium option with all-wheel drive and longest range",
+          buttons: buttons1,
+          showBorder: true,
+        },
+        {
+          title: "Perfomance",
+          text:
+            "Perfomance option with all-wheel drive and ludicrous acceleration",
+          buttons: buttons2,
+          showBorder: false,
+        },
+      ];
+      
+      /* Render Video Elements */
+      const renderVideoElement = () => {
+        return (
+          <>
+            <video
+              playsInline
+              className={
+                activeButton === 1
+                  ? "perfomance__video perfomance__video--active"
+                  : "perfomance__video "
+              }
+              preload="auto"
+              loop
+              muted
+              poster={Poster1}
+              autoPlay
+            >
+              <source src={Video1} type="video/mp4" />
+            </video>
+            );
+            <video
+              playsInline
+              className={
+                activeButton === 2
+                  ? "perfomance__video perfomance__video--active"
+                  : "perfomance__video "
+              }
+              preload="auto"
+              loop
+              muted
+              poster={Poster2}
+              autoPlay
+            >
+              <source src={Video2} type="video/mp4" />
+            </video>
+          </>
+        );
+      };
+
+      /* Render */
       if (learnMoreOn || showLearnMore) {
         return (
           <>
             <div className="perfomance__learnMoreInner">
-              <div className="perfomance__info">
-                <h1 className="perfomance__learnMoreTitle title">
-                  Electric Powertrain
-                </h1>
-                <p className="perfomance__learnMoreParagraph paragraph">
-                  The all-electric powertrain and low center of gravity provide
-                  the best performance, range and efficiency.
-                </p>
-              </div>
+              <LearnMoreTitleContainer
+                title="Electric Powertrain"
+                paragraph="The all-electric powertrain and low center of gravity providethe best performance, range and efficiency."
+              />
               <div className="perfomance__videosContainer">
-                <video
-                  playsInline
-                  className={
-                    activeButton === 1
-                      ? "perfomance__video perfomance__video--active"
-                      : "perfomance__video"
-                  }
-                  preload="auto"
-                  loop
-                  muted
-                  poster={Poster1}
-                  autoPlay
-                >
-                  {activeButton === 1 && <source src={Video1} />}
-                </video>
-                <video
-                  playsInline
-                  className={
-                    activeButton === 2
-                      ? "perfomance__video perfomance__video--active"
-                      : "perfomance__video"
-                  }
-                  preload="auto"
-                  loop
-                  muted
-                  poster={Poster2}
-                  autoPlay
-                >
-                  {activeButton === 2 && <source src={Video2} />}
-                </video>
+                {renderVideoElement()}
               </div>
               <div className="perfomance__videoButtons">
-                <VideoButton
-                  title="Long Range Plus"
-                  text="Premium option with all-wheel drive and longest range"
-                  buttons={buttons1}
-                  showBorder
-                  click={() => setActiveButton(1)}
-                  active={activeButton === 1}
-                  activeButton={activeButton}
-                />
-                <VideoButton
-                  title="Perfomance"
-                  text="Perfomance option with all-wheel drive and ludicrous acceleration"
-                  buttons={buttons2}
-                  click={() => setActiveButton(2)}
-                  active={activeButton === 2}
-                  activeButton={activeButton}
-                />
+                {videoButtons.map((el, i) => (
+                  <VideoButton
+                    key={i}
+                    title={el.title}
+                    text={el.text}
+                    buttons={el.buttons}
+                    showBorder={el.showBorder}
+                    click={() => setActiveButton(i + 1)}
+                    active={activeButton === i + 1}
+                    activeButton={activeButton}
+                  />
+                ))}
               </div>
             </div>
             <div
@@ -437,6 +460,10 @@ export default connect(
     ]);
 
     const renderSection = useCallback(() => {
+      const checkRenderInfo =
+        pageIndex === "2" || (phoneLayout && sectionTop <= 550);
+
+      /* Button logic */
       const learnMoreHandler = () => {
         if (!phoneLayout) {
           setPageToShow("perfomance");
@@ -448,9 +475,8 @@ export default connect(
           });
         }
       };
-      const checkRenderInfo =
-        pageIndex === "2" || (phoneLayout && sectionTop <= 550);
 
+      /* Render */
       return (
         <>
           <ContentElement horizontal={true}>
@@ -495,13 +521,15 @@ export default connect(
       pageIndex,
       phoneLayout,
     ]);
+
+    /* Final Render */
     return (
       <section ref={sectionRef} className="section perfomance">
-        {phoneLayout ? (
+        {/* {phoneLayout ? (
           <div className="fp-tableCell">{renderSection()}</div>
-        ) : (
-          <>{renderSection()}</>
-        )}
+        ) : ( */}
+        <>{renderSection()}</>
+        {/* )} */}
       </section>
     );
   }

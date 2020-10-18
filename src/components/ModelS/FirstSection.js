@@ -5,6 +5,11 @@ import CountUp from "react-countup";
 import OrderButton from "../Buttons/OrderButton";
 import InfoElement from "./InfoElement";
 import Navbar from "../App/Navbar";
+import classnames from "classnames";
+
+import Image from "../../static/images/ModelS/FirstSection/Model-S.jpg";
+import ImagePhone from "../../static/images/ModelS/FirstSection/model-s@2x.jpg";
+import Image1150 from "../../static/images/ModelS/FirstSection/640.jpg";
 
 const mapStateToProps = (state) => ({
   loaded: state.page.loaded,
@@ -14,18 +19,11 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(
-  ({
-    image,
-    imagePhone,
-    title,
-    loaded,
-    pageIndex,
-    width,
-    imageLand,
-    height,
-    phoneLayout,
-  }) => {
-    const checkIpad = height <= 1366 && width <= 1024;
+  ({ title, loaded, pageIndex, width, height, phoneLayout }) => {
+    // const checkIpad = height >= 1366 && width >= 1024;
+
+    /* Screen size check */
+    const portraitImageCheck = height >= 1150 && width <= 1500;
 
     /* svgElement */
     const svgSpeed = (
@@ -83,68 +81,60 @@ export default connect(mapStateToProps)(
         />
       );
 
-      /* Animation Settings */
-      let styleTitle = {};
-      let styleFirstComponent = {};
-      let styleSecondComponent = {};
-      let styleThirdComponent = {};
-      let styleButtonComponent = {};
-      let styleIconComponent = {};
-      if (loaded) {
-        styleTitle = { animation: "titleApper .3s .1s ease-in-out forwards" };
-        styleFirstComponent = {
-          animation: "subTitleAppear .2s .2s ease-in-out forwards",
-        };
-        styleSecondComponent = {
-          animation: "subTitleAppear .2s .4s ease-in-out forwards",
-        };
-        styleThirdComponent = {
-          animation: "subTitleAppear .2s .6s ease-in-out forwards",
-        };
-        styleButtonComponent = {
-          animation: "subTitleAppear .2s .8s ease-in-out forwards",
-        };
-        styleIconComponent = {
-          animation: "subTitleAppear .2s 1s ease-in-out forwards",
-        };
-      }
+      const titleClassNames = classnames(
+        "firstSection__title",
+        loaded && "firstSection__title--animated"
+      );
+
+      const iconClassNames = classnames(
+        "firstSection__icon",
+        loaded && "firstSection__icon--animated"
+      );
+
+      const buttonClassNames = classnames(
+        loaded && "firstSection__button--animated"
+      );
+
       const modelSInfoElements = [
         {
-          style: styleFirstComponent,
           svg: svgSpeed,
+          infoElementClassNames: "firstSection__infoElements--1",
+          titleClassNames: "firstSection__title--1",
+          subtitleClassNames: "firstSection__subtitle--1",
           title: countUpElement,
-          firstText: "From 0-60 mph",
-          secondText: null,
-          width: width <= 600 ? "10rem" : "13rem",
+          subtitle: "From 0-60 mph",
           showLine: true,
         },
+
         {
-          style: styleSecondComponent,
+          infoElementClassNames: "firstSection__infoElements--2",
+          subtitleClassNames: "firstSection__subtitle--2",
+
           svg: null,
           title: "28 cu ft",
-          firstText: "Best in Class",
-          secondText: "Storage",
+          subtitle: "Best in Class Storage",
           showLine: true,
         },
         {
-          style: styleThirdComponent,
+          infoElementClassNames: "firstSection__infoElements--3",
+          subtitleClassNames: "firstSection__subtitle--3",
+
           svg: null,
           title: "402 mi",
-          firstText: "Range",
-          secondText: "(EPA est.)",
+          subtitle: "Range (EPA est.)",
         },
       ];
 
       const renderInfoElement = () => {
         return modelSInfoElements.map((el) => (
           <InfoElement
+            customInfoElementClassNames={el.infoElementClassNames}
+            customTitleClassNames={el.titleClassNames}
+            customSubtitleClassNames={el.subtitleClassNames}
             key={el.title}
             title={el.title}
-            style={el.style}
             svg={el.svg}
-            firstText={el.firstText}
-            secondText={el.secondText}
-            width={el.width}
+            subtitle={el.subtitle}
             showLine={el.showLine}
           />
         ));
@@ -152,21 +142,16 @@ export default connect(mapStateToProps)(
       if (pageIndex === "0" || phoneLayout) {
         return (
           <>
-            <h1 style={styleTitle} className="firstSection__title">
-              {title}
-            </h1>
+            <h1 className={titleClassNames}>{title}</h1>
             <div className="firstSection__characteristics">
               {renderInfoElement()}
               <OrderButton
                 fullWidth={width <= 700 && true}
-                userStyles={styleButtonComponent}
+                classNames={buttonClassNames}
                 animated
               />
             </div>
-            <ExpandMoreOutlinedIcon
-              style={styleIconComponent}
-              className="firstSection__icon"
-            />
+            <ExpandMoreOutlinedIcon className={iconClassNames} />
           </>
         );
       } else {
@@ -175,22 +160,23 @@ export default connect(mapStateToProps)(
     }, [loaded, pageIndex, svgSpeed, title, width, phoneLayout]);
     return (
       <>
-        <section
-          className="section firstSection"
-          style={{
-            background: `url(${
-              width <= 1366 ? imagePhone : checkIpad ? imageLand : image
-            })`,
-          }}
-        >
+        <section className="section firstSection">
+          <img
+            className="firstSection__backgroundImage"
+            src={
+              portraitImageCheck ? Image1150 : width < 900 ? ImagePhone : Image
+            }
+            alt="ModelS"
+          />
           <Navbar />
-          {phoneLayout ? (
+          <div className="firstSection__content">{renderContent()}</div>
+          {/* {phoneLayout ? (
             <div className="fp-tableCell">
               <div className="firstSection__content">{renderContent()}</div>
             </div>
           ) : (
             <div className="firstSection__content">{renderContent()}</div>
-          )}
+          )} */}
         </section>
       </>
     );

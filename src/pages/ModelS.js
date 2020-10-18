@@ -7,8 +7,8 @@ import React, {
 } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Image from "../static/images/ModelS/FirstSection/Model-S.jpg";
-import ImagePhone from "../static/images/ModelS/FirstSection/model-s@2x.jpg";
-import ImageLand from "../static/images/ModelS/FirstSection/640.jpg";
+// import ImagePhone from "../static/images/ModelS/FirstSection/model-s@2x.jpg";
+// import ImageLand from "../static/images/ModelS/FirstSection/640.jpg";
 import TeslaLogo from "../static/images/Teslalogo.svg";
 import TeslaLogoWhite from "../static/images/TeslalogoWhite.svg";
 
@@ -191,13 +191,7 @@ const ModelSPage = ({
                 render={({ state, fullpageApi }) => {
                   return (
                     <ReactFullpage.Wrapper>
-                      <FirstSection
-                        title="Model S"
-                        image={Image}
-                        imagePhone={ImagePhone}
-                        imageLand={ImageLand}
-                        phoneLayout={false}
-                      />
+                      <FirstSection title="Model S" phoneLayout={false} />
                       <SafetySection
                         showSection={showSection}
                         phoneLayout={false}
@@ -266,13 +260,7 @@ const ModelSPage = ({
       return (
         <>
           {ImageComponent}
-          <FirstSection
-            title="Model S"
-            image={Image}
-            imagePhone={ImagePhone}
-            imageLand={ImageLand}
-            phoneLayout={true}
-          />
+          <FirstSection title="Model S" phoneLayout={true} />
           <SafetySection
             // showSection={showSection}
             phoneLayout={true}
@@ -291,13 +279,7 @@ const ModelSPage = ({
             phoneLayout={true}
             // bottomContainerAutopilotRef={bottomContainerAutopilotRef}
           />
-          <FirstSection
-            title="Model S"
-            image={Image}
-            imagePhone={ImagePhone}
-            imageLand={ImageLand}
-            phoneLayout={true}
-          />
+          <FirstSection title="Model S" phoneLayout={true} />
         </>
       );
     }

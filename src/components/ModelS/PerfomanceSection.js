@@ -466,6 +466,7 @@ export default connect(
             subtitle="Performance"
             paragraph="Model S sets an industry standard for performance and safety.Tesla’s all-electric powertrain delivers unparalleledperformance in all weather conditions – with Dual MotorAll-Wheel Drive, adaptive air suspension and ludicrousacceleration."
             customInnerContainerClassNames="perfomance__sideInnerContainer"
+            titleCustomClassNames="perfomance__title"
             horizontal={true}
             checkRenderInfo={checkRenderInfo}
             learnMoreOn={learnMoreOn}

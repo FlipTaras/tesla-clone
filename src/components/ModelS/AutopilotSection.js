@@ -144,7 +144,7 @@ export default connect(
       showSection,
     ]);
     return (
-      <section ref={sectionRef} className="section">
+      <section ref={sectionRef} className="section autopilot">
         {phoneLayout ? (
           <div className="fp-tableCell">{renderSection()}</div>
         ) : (

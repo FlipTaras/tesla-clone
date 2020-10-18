@@ -20,6 +20,10 @@
         @include responsive(tablet)
             order: 2
 
+    &__sideInnerContainer
+        @include responsive(1200)
+            width: 100% !important
+
     &__paragraph
         @include responsive(1366)
             margin-top: 8rem !important
@@ -27,6 +31,10 @@
             margin-top: 0 !important
         @include responsive(700)
             margin-top: 1rem !important
+
+    &__title
+        @include responsive(1366)
+            width: 80%
 
     &__image
         min-height: 100%
@@ -42,80 +50,97 @@
             &--1
                 top: 20%
                 left: 18%
+                @include responsive(2200)
+                    left: 30%
+                    top: 10%
                 @include responsive(1600)
                     left: 30%
                     top: 24%
                 @include responsive(1366)
-                    top: 30%
-                @include responsive(tablet)
-                    top: 10%
-
-                @include responsive(800)
-                    top: 15%
-                @include responsive(phone)
                     top: 20%
+                @include responsive(1366)
+                    top: 30%
+                @include responsive(1100)
+                    top: 20%
+                @include responsive(tablet)
+                    top: 15%
+                @include responsive(ipadPro-portrait)
+                    top: 30%
+                    left: 25%
+                @include responsive(800)
+                    top: 20%
+                @include responsive(414-portrait)
+                    top: 10%
                 @include responsive(375-portrait)
                     left: 40%
             &--2
                 top: 8%
-                left: 40%
+                left: 50%
                 right: unset
                 @include responsive(2200)
-                    top: 14%
+                    top: 7%
                 @include responsive(1600)
                     left: 50%
-                @include responsive(1366)
-                    top: 10%
                 @include responsive(ipadPro-landscape)
                     top: 20%
+                @include responsive(1366)
+                    top: 10%
                 @include responsive(1280)
                     top: 22%
+                @include responsive(1100)
+                    top: 15%
                 @include responsive(tablet)
                     top: 10%
                 @include responsive(ipadPro-portrait)
                     top: 25%
-                @include responsive(phone-landscape)
-                    top: 24%
                 @include responsive(800)
-                    top: 10%
+                    top: 15%
                 @include responsive(phone-landscape)
                     top: 10%
                 @include responsive(phone)
                     top: 10%
                     left: unset
                     right: 10%
+                @include responsive(414-portrait)
+                    right: 5%
+                    top: 8%
                 @include responsive(375-portrait)
                     right: -5%
-                    top: 15%
+                    top: 5%
             &--3
                 bottom: 20%
                 right: unset
                 left: 50%
                 @include responsive(1600)
                     bottom: 12%
-                @include responsive(1366)
-                    bottom: 20%
                 @include responsive(ipadPro-landscape)
                     bottom: 30%
+                @include responsive(1366)
+                    bottom: 20%
                 @include responsive(1280)
                     bottom: 27%
+                @include responsive(1100)
+                    bottom: 20%
                 @include responsive(tablet)
                     bottom: 15%
                 @include responsive(ipadPro-portrait)
-                    bottom: 23%
+                    bottom: 27%
                 @include responsive(800)
-                    bottom: 15%
+                    bottom: 20%
                 @include responsive(phone-landscape)
                     bottom: 5%
-
                 @include responsive(phone)
                     bottom: 15%
                     left: unset
+                    right: 5%
+                @include responsive(414-portrait)
+                    right: 0
+                    left: unset
+                @include responsive(375-portrait)
                     right: 15%
 
         &__line
             &--1
-                width: 4px
                 top: 1rem
                 left: -1rem
                 right: unset
@@ -123,14 +148,14 @@
                 animation: showstickScaleY .7s .2s forwards ease-in-out
                 @include responsive(1600)
                     height: 25rem
-                    width: 2px
                 @include responsive(1366)
                     height: 20rem
                 @include responsive(phone-landscape)
                     height: 14rem
+                @include responsive(smallphone-portrait)
+                    height: 10rem
 
             &--2
-                width: 4px
                 top: 1rem
                 left: -1rem
                 height: 30rem
@@ -138,74 +163,67 @@
                 animation: showstickScaleY .7s .2s forwards ease-in-out
                 @include responsive(1600)
                     height: 15rem
-                    width: 2px
                 @include responsive(phone-landscape)
                     height: 10rem
+                @include responsive(414-portrait)
+                    height: 7rem
 
             &--3
-                width: 4px
                 bottom: 0
                 left: -1rem
                 right: unset
                 height: 25rem
                 animation: showstickScaleY .7s .2s forwards ease-in-out
-                @include responsive(1600)
-                    width: 2px
                 @include responsive(1366)
                     height: 15rem
                 @include responsive(phone-landscape)
                     height: 12rem
+                @include responsive(414-portrait)
+                    height: 10rem
                 @include responsive(375-portrait)
                     right: 1rem
                     left: unset
 
         &__dot
             &--1
-                width: 1.1rem
-                height: 1.1rem
                 top: 50rem
                 right: unset
                 left: -1.3rem
                 animation: showdot .8s .8s forwards ease
                 @include responsive(1600)
                     top: 26rem
-                    width: .8rem
-                    height: .8rem
                 @include responsive(1366)
                     top: 20.2rem
                 @include responsive(phone-landscape)
                     top: 15rem
+                @include responsive(smallphone-portrait)
+                    top: 11rem
 
             &--2
-                width: 1.1rem
-                height: 1.1rem
                 top: 30rem
                 left: -1.3rem
                 right: unset
                 animation: showdot .8s .8s forwards ease
                 @include responsive(1600)
                     top: 15.2rem
-                    width: .8rem
-                    height: .8rem
                 @include responsive(1366)
                     top: 15.2rem
                 @include responsive(phone-landscape)
                     top: 10.2rem
+                @include responsive(414-portrait)
+                    top: 7.2rem
 
             &--3
-                width: 1.1rem
-                height: 1.1rem
                 bottom: 25rem
                 left: -1.3rem
                 right: unset
                 animation: showdot .8s .8s forwards ease
-                @include responsive(1600)
-                    width: .8rem
-                    height: .8rem
                 @include responsive(1366)
                     bottom: 15rem
                 @include responsive(phone-landscape)
                     bottom: 12rem
+                @include responsive(414-portrait)
+                    bottom: 10rem
                 @include responsive(375-portrait)
                     right: .7rem
                     left: unset
@@ -232,26 +250,12 @@
             height: unset
             padding-bottom: 5rem
 
-    &__learnMoreTitle
-        @include responsive(phone-landscape)
-            font-size: 3rem
-
     &__learnMoreInnerContainer
         padding: 7rem 0
         background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 35%)
         position: relative
         @include responsive(950)
             padding: 3rem 0
-
-    &__learnMoreTopContainer
-        margin: 0 auto
-        width: 30%
-        @include responsive(1280)
-            width: 40%
-        @include responsive(phone-landscape)
-            width: 65%
-        @include responsive(phone)
-            width: 80%
 
     &__learnMoreImage
         object-fit: contain
@@ -280,15 +284,6 @@
             margin-left: 0
         @include responsive(414-portrait)
             margin-top: 3rem
-
-    &__learnMoreParagraph
-        width: 40%
-        @include responsive(2200)
-            width: 70%
-        @include responsive(1600)
-            width: 100%
-        @include responsive(phone-landscape)
-            width: 90%
 
     /* Small screens only */
     &__numbersContainer
@@ -458,7 +453,7 @@
 
         &__dot
             &--1
-                bottom: 17rem
+                bottom: 18rem
                 left: -1.3rem
                 animation: showdot .8s .2s forwards ease
                 @include responsive(1366)
@@ -480,9 +475,24 @@
                 left: -1.3rem
                 animation: showdot .8s .2s forwards ease
 
+        &__title
+            &--1
+                animation: translateYOpacityShowFromTop .8s .5s forwards ease
+            &--2
+                animation: translateYOpacityShowFromTop .8s .5s forwards ease
+            &--3
+                animation: translateYOpacityShowFromTop .8s .5s forwards ease
+        &__paragraph
+            &--1
+                animation: translateYOpacityShowFromTop .8s .6s forwards ease
+            &--2
+                animation: translateYOpacityShowFromTop .8s .8s forwards ease
+            &--3
+                animation: translateYOpacityShowFromTop .8s .1s forwards ease
+
     /* Fullpage.js adjustment */
-    .fp-tableCell
-        vertical-align: top
-        height: 100vh
-        @include responsive(tablet)
-            height: unset
+    // .fp-tableCell
+    //     vertical-align: top
+    //     height: 100vh
+    //     @include responsive(tablet)
+    //         height: unset

@@ -48,8 +48,11 @@ code
     font-family: 'Gotham Book'
     font-size: 1.4rem
     font-weight: 400
-    line-height: 1.4
+    line-height: 1.5
     margin-top: 1.6rem
+    width: 90%
+    @include responsive(2200)
+        width: 80%
     &--animated
         opacity: 0
         animation: translateYOpacityShow .8s .5s forwards ease

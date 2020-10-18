@@ -38,10 +38,13 @@
 
     &__sideInnerContainer
         @include responsive(1200)
-            width: 95% !important
+            width: 100% !important
             padding-top: 3rem
         @include responsive(tablet)
             padding-top: unset
+    &__title
+        @include responsive(1366)
+            width: 80%
 
     /* LearnMore Added Element */
     &__learnMoreContainer

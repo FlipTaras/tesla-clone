@@ -1,0 +1,24 @@
+.learnMoreTitleContainer
+    margin: 0 auto
+    width: 30%
+    opacity: 0
+    animation: translateYOpacityShow 1s .5s forwards ease
+    @include responsive(1280)
+        width: 40%
+    @include responsive(phone-landscape)
+        width: 65%
+    @include responsive(phone)
+        width: 80%
+
+    &__title
+        @include responsive(phone-landscape)
+            font-size: 3rem
+
+    &__paragraph
+        width: 40%
+        @include responsive(2200)
+            width: 70%
+        @include responsive(1600)
+            width: 100%
+        @include responsive(phone-landscape)
+            width: 90%

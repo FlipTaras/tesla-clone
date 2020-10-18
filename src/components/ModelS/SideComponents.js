@@ -26,6 +26,7 @@ export default connect(
     learnMoreHandle,
     showLearnMore,
     customInnerContainerClassNames,
+    titleCustomClassNames,
   }) => {
     console.log(showSection);
     const sideComponentClassNames = classnames(
@@ -46,8 +47,13 @@ export default connect(
       showSection && "sideComponent__titleSubtitleContainer--noAnimation"
     );
 
+    const titleClassNames = classnames(
+      "sideComponent__title title",
+      titleCustomClassNames && titleCustomClassNames
+    );
+
     const paragraphClassNames = classnames(
-      "sideComponent__paragraph",
+      "sideComponent__paragraph paragraph",
       horizontal && "sideComponent__paragraph--horizontal",
       customParagraphClassNames && customParagraphClassNames,
       showSection && "sideComponent__paragraph--noAnimation"
@@ -64,8 +70,8 @@ export default connect(
         {checkRenderInfo && (
           <div className={innerContainerClassNames}>
             <div className={titleSubtitleContainerClassNames}>
-              <h2 className="sideComponent__subtitle">{subtitle}</h2>
-              <h1 className="sideComponent__title">{title}</h1>
+              <h2 className="sideComponent__subtitle subtitle">{subtitle}</h2>
+              <h1 className={titleClassNames}>{title}</h1>
             </div>
             <p className={paragraphClassNames}>{paragraph}</p>
             <div className={buttonsClassNames}>

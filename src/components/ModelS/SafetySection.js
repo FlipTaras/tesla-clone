@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import SafetyAnimatedElement from "./SafetyAnimatedElement";
 import CloseNextButton from "../Buttons/CloseNextButton";
+import LearnMoreTitleContainer from "../ModelS/LearnMoreTitleContainer";
 
 /* Images */
 import ModelsStructureInitial from "../../static/images/ModelS/Safety/Safety.png";
@@ -37,10 +38,31 @@ export default connect(
     height,
     phoneLayout,
   }) => {
-    const checkIpadAndWidthSmaller1024 =
-      (width === 1024 && height === 1366) || width < 1024;
-    const checkIpad = width === 1024 && height === 1366;
     const [showLearnMore, setShowLearnMore] = useState(false);
+
+    /* Content used in Animated Elements */
+    const safetyInfoContent = [
+      {
+        title: "Front-Impact Protection",
+        paragraph:
+          "There is no internal combustion engine in Model S, so thecrumple zone has greater opportunity to minimize occupantdeceleration in the event of frontal impact.",
+      },
+      {
+        title: "Side-Impact Protection",
+        paragraph:
+          "The combination of a high-strength central pillar and anenergy-absorbing sill structure provides exceptionalprotection to both the occupant and the under-floormounted battery pack.",
+      },
+      {
+        title: "Very Low Rollover Risk",
+        paragraph:
+          "The position and weight of the floor-mounted battery packprovides a very low center of gravity—allowing for a verylow rollover risk.",
+      },
+    ];
+
+    /* Different width and height checks */
+    const checkIpadAndWidthSmaller1024 =
+      (width >= 1024 && height >= 1366) || width < 1024;
+    const checkIpad = width >= 1024 && height >= 1366;
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
@@ -81,43 +103,38 @@ export default connect(
 
     /* Render functionality */
     const renderSaferyRight = useCallback(() => {
-      if (pageIndex === "1" || (phoneLayout && sectionTop <= 700)) {
+      if (pageIndex === "1" || (phoneLayout && sectionTop <= 400)) {
         return (
           <>
             <div className="safety__animatedElements">
-              <SafetyAnimatedElement
-                show={learnMoreOn}
-                title="Front-Impact Protection"
-                customTitleClassNames="safety__safetyanimatedElements__title--1"
-                elementClassNames="safety__safetyanimatedElements__element--1"
-                customLineClassNames="safety__safetyanimatedElements__line--1"
-                customDotClassNames="safety__safetyanimatedElements__dot--1"
-              />
-              <SafetyAnimatedElement
-                show={learnMoreOn}
-                title="Side-Impact Protection"
-                customTitleClassNames="safety__safetyanimatedElements__title--2"
-                elementClassNames="safety__safetyanimatedElements__element--2"
-                customLineClassNames="safety__safetyanimatedElements__line--2"
-                customDotClassNames="safety__safetyanimatedElements__dot--2"
-              />
-              <SafetyAnimatedElement
-                show={learnMoreOn}
-                title="Very Low Rollover Risk"
-                customTitleClassNames="safety__safetyanimatedElements__title--3"
-                elementClassNames="safety__safetyanimatedElements__element--3"
-                customLineClassNames="safety__safetyanimatedElements__line--3"
-                customDotClassNames="safety__safetyanimatedElements__dot--3"
-              />
+              {safetyInfoContent.map((el, i) => (
+                <SafetyAnimatedElement
+                  show={learnMoreOn}
+                  title="Front-Impact Protection"
+                  customTitleClassNames={`safety__safetyanimatedElements__title--${
+                    i + 1
+                  }`}
+                  elementClassNames={`safety__safetyanimatedElements__element--${
+                    i + 1
+                  }`}
+                  customLineClassNames={`safety__safetyanimatedElements__line--${
+                    i + 1
+                  }`}
+                  customDotClassNames={`safety__safetyanimatedElements__dot--${
+                    i + 1
+                  }`}
+                />
+              ))}
             </div>
           </>
         );
       } else {
         return null;
       }
-    }, [learnMoreOn, pageIndex, phoneLayout, sectionTop]);
+    }, [learnMoreOn, pageIndex, phoneLayout, sectionTop, safetyInfoContent]);
 
     const renderLearnMoreSection = useCallback(() => {
+      /* Buttons logic */
       const CloseHandler = () => {
         if (!phoneLayout) {
           setPageToShow(null);
@@ -135,6 +152,7 @@ export default connect(
         setPageToShow(null);
         setSilentScrollTo("perfomance");
       };
+
       const closeButtonElement = (
         <CloseNextButton
           close={
@@ -153,6 +171,7 @@ export default connect(
           }
         />
       );
+
       const renderCloseButton = () => {
         if (
           learnMoreSectionTop < height - 20 &&
@@ -164,20 +183,15 @@ export default connect(
         }
       };
 
+      /* Render */
       if (learnMoreOn || showLearnMore) {
         return (
           <>
             <div className="safety__learnMoreInnerContainer">
-              <div className="safety__learnMoreTopContainer">
-                <h1 className="safety__learnMoreTitle title title--animated">
-                  Built for Safety
-                </h1>
-                <p className="safety__learnMoreParagraph paragraph paragraph--animated">
-                  Model S is built for safety, with all-electric architecture
-                  designed to provide protection from every side—and one of the
-                  lowest rollover risks of any car on the road.
-                </p>
-              </div>
+              <LearnMoreTitleContainer
+                title="Built for Safety"
+                paragraph="Model S is built for safety, with all-electric architecture designed toprovide protection from every side—and one of the lowest rollover risksof any car on the road."
+              />
               <img
                 className="safety__learnMoreImage"
                 src={ModelsStructureLeanMore}
@@ -186,86 +200,54 @@ export default connect(
               {checkIpadAndWidthSmaller1024 ? (
                 <>
                   <ul className="safety__numbersContainer">
-                    <li className="safety__numberDescriptionNumber safety__numberDescriptionNumber--1">
-                      1
-                    </li>
-                    <li className="safety__numberDescriptionNumber safety__numberDescriptionNumber--2">
-                      2
-                    </li>
-                    <li className="safety__numberDescriptionNumber safety__numberDescriptionNumber--3">
-                      3
-                    </li>
+                    {safetyInfoContent.map((el, i) => (
+                      <li
+                        className={`safety__numberDescriptionNumber safety__numberDescriptionNumber--${
+                          i + 1
+                        }`}
+                      >
+                        {i + 1}
+                      </li>
+                    ))}
                   </ul>
-                  <div className="safety__numberDescriptionContainer">
-                    <span className="safety__numberDescriptionNumber">1</span>
-                    <h2 className="safety__numberDescriptionTitle">
-                      Front-Impact Protection
-                    </h2>
-                    <p className="safety__numberDescriptionText">
-                      There is no internal combustion engine in Model S, so the
-                      crumple zone has greater opportunity to minimize occupant
-                      deceleration in the event of frontal impact.
-                    </p>
-                  </div>
-                  <div className="safety__numberDescriptionContainer">
-                    <span className="safety__numberDescriptionNumber">2</span>
-                    <h2 className="safety__numberDescriptionTitle">
-                      Side-Impact Protection
-                    </h2>
-                    <p className="safety__numberDescriptionText">
-                      The combination of a high-strength central pillar and an
-                      energy-absorbing sill structure provides exceptional
-                      protection to both the occupant and the under-floor
-                      mounted battery pack.
-                    </p>
-                  </div>
-                  <div className="safety__numberDescriptionContainer">
-                    <span className="safety__numberDescriptionNumber">3</span>
-                    <h2 className="safety__numberDescriptionTitle">
-                      Very Low Rollover Risk
-                    </h2>
-                    <p className="safety__numberDescriptionText">
-                      The position and weight of the floor-mounted battery pack
-                      provides a very low center of gravity—allowing for a very
-                      low rollover risk.
-                    </p>
-                  </div>
+                  {safetyInfoContent.map((el, i) => (
+                    <div className="safety__numberDescriptionContainer">
+                      <span className="safety__numberDescriptionNumber">
+                        {i + 1}
+                      </span>
+                      <h2 className="safety__numberDescriptionTitle">
+                        {el.title}
+                      </h2>
+                      <p className="safety__numberDescriptionText">
+                        {el.paragraph}
+                      </p>
+                    </div>
+                  ))}
                 </>
               ) : (
                 <div className="safety__learnMoreAnimatedElements">
-                  <SafetyAnimatedElement
-                    show={phoneLayout ? false : !learnMoreOn}
-                    title="Front-Impact Protection"
-                    titleFont="Gotham Bold"
-                    titleAnimation="translateYOpacityShowFromTop .8s .8s forwards ease"
-                    text="There is no internal combustion engine in Model S, so the crumple zone has greater opportunity to minimize occupant deceleration in the event of frontal impact."
-                    textAnimation="translateYOpacityShowFromTop .8s .6s forwards ease"
-                    elementClassNames="safety__learnMoreAnimatedElements__element--1"
-                    customLineClassNames="safety__learnMoreAnimatedElements__line--1"
-                    customDotClassNames="safety__learnMoreAnimatedElements__dot--1"
-                  />
-                  <SafetyAnimatedElement
-                    show={phoneLayout ? false : !learnMoreOn}
-                    title="Side-Impact Protection"
-                    titleFont="Gotham Bold"
-                    titleAnimation="translateYOpacityShowFromTop .8s 1s forwards ease"
-                    text="The combination of a high-strength central pillar and an energy-absorbing sill structure provides exceptional protection to both the occupant and the under-floor mounted battery pack."
-                    textAnimation="translateYOpacityShowFromTop .8s .8s forwards ease"
-                    elementClassNames="safety__learnMoreAnimatedElements__element--2"
-                    customLineClassNames="safety__learnMoreAnimatedElements__line--2"
-                    customDotClassNames="safety__learnMoreAnimatedElements__dot--2"
-                  />
-                  <SafetyAnimatedElement
-                    show={phoneLayout ? false : !learnMoreOn}
-                    title="Very Low Rollover Risk"
-                    titleFont="Gotham Bold"
-                    titleAnimation="translateYOpacityShowFromTop .8s 1.2s forwards ease"
-                    text="The position and weight of the floor-mounted battery pack provides a very low center of gravity—allowing for a very low rollover risk."
-                    textAnimation="translateYOpacityShowFromTop .8s 1s forwards ease"
-                    elementClassNames="safety__learnMoreAnimatedElements__element--3"
-                    customLineClassNames="safety__learnMoreAnimatedElements__line--3"
-                    customDotClassNames="safety__learnMoreAnimatedElements__dot--3"
-                  />
+                  {safetyInfoContent.map((el, i) => (
+                    <SafetyAnimatedElement
+                      show={phoneLayout ? false : !learnMoreOn}
+                      title={el.title}
+                      paragraph={el.paragraph}
+                      elementClassNames={`safety__learnMoreAnimatedElements__element--${
+                        i + 1
+                      }`}
+                      customLineClassNames={`safety__learnMoreAnimatedElements__line--${
+                        i + 1
+                      }`}
+                      customParagraphClassNames={`safety__learnMoreAnimatedElements__paragraph--${
+                        i + 1
+                      }`}
+                      customDotClassNames={`safety__learnMoreAnimatedElements__dot--${
+                        i + 1
+                      }`}
+                      customTitleClassNames={`safety__learnMoreAnimatedElements__title--${
+                        i + 1
+                      }`}
+                    />
+                  ))}
                 </div>
               )}
             </div>
@@ -285,12 +267,14 @@ export default connect(
       height,
       learnMoreSectionBottom,
       learnMoreSectionTop,
+      safetyInfoContent,
     ]);
 
     const renderSafetySection = useCallback(() => {
       const checkRenderInfo =
-        pageIndex === "1" || (phoneLayout && sectionTop <= 500);
+        pageIndex === "1" || (phoneLayout && sectionTop <= 300);
 
+      /* Button logic */
       const LearnMoreHandler = () => {
         if (!phoneLayout) {
           setPageToShow("safety");
@@ -302,6 +286,8 @@ export default connect(
           });
         }
       };
+
+      /* Render */
       return (
         <>
           <div className="safety__container">
@@ -311,6 +297,8 @@ export default connect(
               paragraph="Model S is built from the ground up as an electric vehicle,with high-strength architecture and a floor-mounted batterypack allowing for incredible impact protection."
               customClassNames="safety__sideComponent"
               customParagraphClassNames="safety__paragraph"
+              customInnerContainerClassNames="safety__sideInnerContainer"
+              titleCustomClassNames="safety__title"
               horizontal={width <= 1024}
               checkRenderInfo={checkRenderInfo}
               learnMoreOn={learnMoreOn}
@@ -359,13 +347,15 @@ export default connect(
       setPageToShow,
       showLearnMore,
     ]);
+
+    /* Final Render of the section */
     return (
       <section ref={sectionRef} className="safety section">
-        {phoneLayout ? (
+        {/* {phoneLayout ? (
           <div className="fp-tableCell">{renderSafetySection()}</div>
-        ) : (
-          <>{renderSafetySection()}</>
-        )}
+        ) : ( */}
+        <>{renderSafetySection()}</>
+        {/* )} */}
       </section>
     );
   }

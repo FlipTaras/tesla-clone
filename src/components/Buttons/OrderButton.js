@@ -1,6 +1,13 @@
 import React from "react";
 import classnames from "classnames";
-export default ({ click, userStyles, fullWidth, animated, classNames }) => {
+export default ({
+  click,
+  userStyles,
+  fullWidth,
+  animated,
+  classNames,
+  customText,
+}) => {
   const orderButtonClassNames = classnames(
     "orderButton",
     fullWidth && "orderButton--full",
@@ -13,7 +20,7 @@ export default ({ click, userStyles, fullWidth, animated, classNames }) => {
       onClick={click ? () => click() : () => {}}
       className={orderButtonClassNames}
     >
-      Order Now
+      {customText ? customText : "Order Now"}
     </button>
   );
 };

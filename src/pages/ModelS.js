@@ -30,6 +30,7 @@ import RangeSection from "../components/ModelS/RangeSection";
 import AutopilotSection from "../components/ModelS/AutopilotSection";
 import InteriorSection from "../components/ModelS/InteriorSection";
 import ExtreriorSection from "../components/ModelS/ExtreriorSection";
+import SpecsSection from "../components/ModelS/SpecsSection";
 
 const mapStateToProps = (state) => ({
   sideActive: state.page.navbarActive,
@@ -115,6 +116,14 @@ const ModelSPage = ({
       } else if (silentScrollTo === "exterior") {
         window.fullpage_api.silentMoveTo(7);
         setPageIndex("6");
+        setShowSection(true);
+      } else if (silentScrollTo === "specs") {
+        window.fullpage_api.silentMoveTo(8);
+        setPageIndex("7");
+        setShowSection(true);
+      } else if (silentScrollTo === "order") {
+        window.fullpage_api.silentMoveTo(9);
+        setPageIndex("8");
         setShowSection(true);
       } else {
         window.addEventListener("wheel", () => {
@@ -217,16 +226,10 @@ const ModelSPage = ({
                         showSection={showSection}
                         phoneLayout={false}
                       />
-                      <section
-                        style={{
-                          textAlign: "center",
-                          background: "black",
-                          color: "white",
-                        }}
-                        className="section"
-                      >
-                        Specs
-                      </section>
+                      <SpecsSection
+                        showSection={showSection}
+                        phoneLayout={false}
+                      />
                       <section
                         style={{ textAlign: "center" }}
                         className="section"
@@ -252,6 +255,7 @@ const ModelSPage = ({
           <AutopilotSection phoneLayout={true} />
           <InteriorSection phoneLayout={true} />
           <ExtreriorSection phoneLayout={true} />
+          <SpecsSection phoneLayout={true} />
           <FirstSection title="Model S" phoneLayout={true} />
         </>
       );

@@ -209,6 +209,7 @@ export default connect(
             subtitle={el.subtitle}
             showLine={el.showLine}
             white
+            showSection={showSection}
           />
         ));
       };

@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import InfoElement from "./InfoElement";
+import ContentElement from "./ContentElement";
+import SideComponents from "./SideComponents";
+
 import Icon5 from "../../static/images/ModelS/Exterior/5Icon.png";
 import cdIcon from "../../static/images/ModelS/Exterior/cdIcon.png";
 import carIcon from "../../static/images/ModelS/Exterior/carIcon.png";
@@ -11,9 +14,6 @@ import ImageMobile from "../../static/images/ModelS/Exterior/exterior-mobile.jpg
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
-import SideComponents from "./SideComponents";
-import ContentElement from "./ContentElement";
-// import ContentElement from "./ContentElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,

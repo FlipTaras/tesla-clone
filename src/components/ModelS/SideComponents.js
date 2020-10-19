@@ -21,12 +21,17 @@ export default connect(
     checkRenderInfo,
     customClassNames,
     horizontal,
+    noOrder,
     showSection,
     learnMoreHandle,
     showLearnMore,
     customInnerContainerClassNames,
     customParagraphClassNames,
     titleCustomClassNames,
+    customLearnMoreText,
+    children,
+    white,
+    noLearnMore,
   }) => {
     const sideComponentClassNames = classnames(
       "sideComponent",
@@ -73,13 +78,20 @@ export default connect(
               <h1 className={titleClassNames}>{title}</h1>
             </div>
             <p className={paragraphClassNames}>{paragraph}</p>
+            {children}
             <div className={buttonsClassNames}>
-              <LearnMoreButton
-                classNames="sideComponent__learnMoreButton"
-                disabled={learnMoreOn || showLearnMore}
-                click={learnMoreHandle}
-              />
-              <OrderButton classNames="sideComponent__orderButton" />
+              {!noLearnMore && (
+                <LearnMoreButton
+                  classNames="sideComponent__learnMoreButton"
+                  disabled={learnMoreOn || showLearnMore}
+                  click={learnMoreHandle}
+                  customLearnMoreText={customLearnMoreText}
+                  white={white}
+                />
+              )}
+              {!noOrder && (
+                <OrderButton classNames="sideComponent__orderButton" />
+              )}
             </div>
           </div>
         )}

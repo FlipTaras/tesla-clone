@@ -26,8 +26,8 @@ export default connect(mapStateToProps)(
   }) => {
     const infoElementClassNames = classnames(
       "infoElement",
-      showSection && "infoElement--show",
       // learnMoreOn && "infoElement--animationOff",
+      showSection && "infoElement--show",
       customInfoElementClassNames && customInfoElementClassNames,
       white && "infoElement--white"
     );

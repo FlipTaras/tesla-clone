@@ -31,6 +31,7 @@ import AutopilotSection from "../components/ModelS/AutopilotSection";
 import InteriorSection from "../components/ModelS/InteriorSection";
 import ExtreriorSection from "../components/ModelS/ExtreriorSection";
 import SpecsSection from "../components/ModelS/SpecsSection";
+import OrderSection from "../components/ModelS/OrderSection";
 
 const mapStateToProps = (state) => ({
   sideActive: state.page.navbarActive,
@@ -230,12 +231,10 @@ const ModelSPage = ({
                         showSection={showSection}
                         phoneLayout={false}
                       />
-                      <section
-                        style={{ textAlign: "center" }}
-                        className="section"
-                      >
-                        Order
-                      </section>
+                      <OrderSection
+                        showSection={showSection}
+                        phoneLayout={false}
+                      />
                     </ReactFullpage.Wrapper>
                   );
                 }}
@@ -256,7 +255,7 @@ const ModelSPage = ({
           <InteriorSection phoneLayout={true} />
           <ExtreriorSection phoneLayout={true} />
           <SpecsSection phoneLayout={true} />
-          <FirstSection title="Model S" phoneLayout={true} />
+          <OrderSection phoneLayout={true} />
         </>
       );
     }

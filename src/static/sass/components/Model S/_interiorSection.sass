@@ -1,6 +1,7 @@
 .interior
     &__contentElement
-        height: 60vh
+        @include responsive(phone)
+            height: 60vh
         @include responsive(phone-landscape)
             height: 100vh
 
@@ -81,18 +82,3 @@
         @include responsive(1600)
             min-height: 100%
             max-width: 100%
-
-        // @include responsive(800)
-        //     max-width: 100%
-        // @include responsive(500)
-        //     max-width: 200%
-        //     left: -25%
-        // @include responsive(414-portrait)
-        //     max-width: 150%
-        //     left: -10%
-        // @include responsive(375-portrait)
-            // object-fit: contain
-            // object-position: center
-
-    // &__buttonsContainer
-        // margin-top: 0

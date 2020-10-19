@@ -31,9 +31,6 @@
         left: 50%
         transform: translateX(-50%) translateY(-50%)
         position: absolute
-        // pointer-events: none
-        // top: 0
-        // left: 0
 
     &__characteristics
         display: flex
@@ -53,9 +50,7 @@
                 width: 80%
         &--2
             width: 60%
-            @include responsive(phone)
-                width: 100%
-            @include responsive(500)
+            @include responsive(tablet)
                 width: 60%
         &--3
             width: 60%

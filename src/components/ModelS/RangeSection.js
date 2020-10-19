@@ -86,6 +86,11 @@ export default connect(
     }, [learnMoreOn, height]);
 
     const renderSection = useCallback(() => {
+      /* Screen size check */
+      const checkRenderInfo =
+        pageIndex === "3" || (phoneLayout && sectionTop <= 600);
+
+      /* Video Element */
       const videoElement = (
         <video
           preload="auto"
@@ -99,9 +104,8 @@ export default connect(
           <source src={width > 800 ? Video : VideoMobile} type="video/mp4" />
         </video>
       );
-      const checkRenderInfo =
-        pageIndex === "3" || (phoneLayout && sectionTop <= 600);
 
+      /* Button logic */
       const learnMoreHandler = () => {
         if (!phoneLayout) {
           setPageToShow("range");
@@ -114,62 +118,62 @@ export default connect(
         }
       };
 
+      const infoElements = [
+        {
+          infoElementClassNames: "range__infoElements range__infoElements--1",
+          subtitleClassNames: "range__subtitle--1",
+          title: "402mi",
+          subtitle:
+            width >= 1024
+              ? "Go anywhere with up to 402 miles of range on a single charge"
+              : "Range",
+          showLine: true,
+        },
+        {
+          infoElementClassNames: "range__infoElements range__infoElements--2",
+          subtitleClassNames: "range__subtitle--2",
+          title: "15min",
+          subtitle:
+            width >= 1024
+              ? "Recharge up to 163 miles in 15 minutes of range on a single charge"
+              : "Recharge 163 miles",
+          showLine: true,
+        },
+        {
+          infoElementClassNames: "range__infoElements range__infoElements--3",
+          subtitleClassNames: "range__subtitle--1",
+          title: "18,000+",
+          subtitle:
+            width >= 1024
+              ? "Superchargers placed along well-traveled routes around the world"
+              : "Superchargers",
+          showLine: false,
+        },
+      ];
+
+      const renderInfoElement = () => {
+        return infoElements.map((el) => (
+          <InfoElement
+            customInfoElementClassNames={el.infoElementClassNames}
+            customTitleClassNames={el.titleClassNames}
+            customSubtitleClassNames={el.subtitleClassNames}
+            key={el.title}
+            title={el.title}
+            svg={el.svg}
+            subtitle={el.subtitle}
+            showLine={el.showLine}
+            bigger
+            white
+          />
+        ));
+      };
+
+      /* Render */
       return (
         <>
           <ContentElement horizontal={width <= 1200}>
-            <div className="range__infoElements">
-              {checkRenderInfo && (
-                <>
-                  <InfoElement
-                    // smaller
-                    title="402mi"
-                    learnMoreOn={learnMoreOn}
-                    customInfoElementClassNames="range__infoElement range__infoElement--1"
-                    firstText={
-                      width >= 1024
-                        ? "Go anywhere with up to 402 miles"
-                        : "Range"
-                    }
-                    secondText={
-                      width >= 1024 ? "of range on a single charge" : ""
-                    }
-                    showLine
-                    white
-                  />
-                  <InfoElement
-                    // smaller
-                    title="15min"
-                    customInfoElementClassNames="range__infoElement range__infoElement--2"
-                    firstText={
-                      width >= 1024
-                        ? "Recharge up to 163 miles in 15 minutes "
-                        : "Recharge"
-                    }
-                    secondText={
-                      width >= 1024
-                        ? "at any Supercharger location"
-                        : "163 Miles"
-                    }
-                    showLine
-                    white
-                  />
-                  <InfoElement
-                    // smaller
-                    title="18,000+"
-                    firstText={
-                      width >= 1024
-                        ? "Superchargers placed along well-"
-                        : "Superchargers"
-                    }
-                    secondText={
-                      width >= 1024 ? "traveled routes around the world" : ""
-                    }
-                    infoCustomClassNames
-                    customInfoElementClassNames=" range__infoElement range__infoElement--3"
-                    white
-                  />
-                </>
-              )}
+            <div className="range__infoElementsContainer">
+              {checkRenderInfo && renderInfoElement()}
             </div>
             {phoneLayout ? videoElement : pageIndex === "3" && videoElement}
           </ContentElement>
@@ -206,11 +210,12 @@ export default connect(
 
     return (
       <section ref={sectionRef} className="section range">
-        {phoneLayout ? (
+        <div className="range__container">{renderSection()}</div>
+        {/* {phoneLayout ? (
           <div className="fp-tableCell">{renderSection()}</div>
         ) : (
           <>{renderSection()}</>
-        )}
+        )} */}
       </section>
     );
   }

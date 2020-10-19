@@ -1,64 +1,60 @@
 .range
+    &__container
+        display: flex
+        @include responsive(1200)
+            flex-wrap: wrap
     &__video
         height: 100%
         width: 100%
         object-fit: cover
 
-    &__infoElements
+    &__infoElementsContainer
         position: absolute
-        bottom: 10%
+        bottom: 7%
         left: 30%
         display: flex
         color: white !important
+        width: 38%
         @include responsive(2200)
             left: 25%
+            width: 48%
         @include responsive(1920)
             left: 20%
-        @include responsive(1600)
-            left: 10%
+            width: 60%
+        @include responsive(1700)
+            width: 75%
+            left: 15%
         @include responsive(1366)
             left: 5%
+            width: 90%
+            bottom: 10%
+        @include responsive(1280)
+            width: 100%
+            left: 2%
         @include responsive(1200)
-            left: 15%
-        @include responsive(1100)
-            left: 10%
+            width: 75%
+            left: 13%
         @include responsive(tablet)
             text-align: center
-            left: 5%
-        @include responsive(800)
-            left: 8%
-        @include responsive(700)
-            left: 12%
-        @include responsive(phone)
-            left: 8%
-        @include responsive(500)
-            left: 12%
-        @include responsive(414-portrait)
-            left: 7%
-        @include responsive(375-portrait)
-            left: 2%
-        @include responsive(smallphone-portrait)
             left: 0
+            width: 100%
 
-    &__infoElement
-        opacity: 0
-        @include responsive(tablet)
-            padding: 0 8rem
-        @include responsive(800)
-            padding: 0 6rem
-        @include responsive(700)
-            padding: 0 4rem
-        @include responsive(500)
-            padding: 0 2.5rem
-        @include responsive(smallphone-portrait)
-            padding: 0 2rem
-        &--1
-            animation: translateYOpacityShow .6s .5s forwards ease
+    &__subtitle
         &--2
-            animation: translateYOpacityShow .6s .8s forwards ease
-
-        &--3
-            animation: translateYOpacityShow .6s 1s forwards ease
+            @include responsive(tablet)
+                width: 20%
+            @include responsive(1000)
+                width: 25%
+            @include responsive(900)
+                width: 30%
+            @include responsive(800)
+                width: 40%
+            @include responsive(phone)
+                width: 45%
+            @include responsive(500)
+                width: 48%
+            @include responsive(smallphone-portrait)
+                width: 55%
 
     &__sideComponent
         padding: 4rem 2rem 6rem 2rem
@@ -67,9 +63,20 @@
         @include responsive(1200)
             width: 100% !important
 
+    &__infoElements
+        @include responsive(tablet)
+            flex: .33 !important
+            align-items: center !important
+        &--1
+            animation: translateYOpacityShow .6s .6s forwards ease
+        &--2
+            animation: translateYOpacityShow .6s .8s forwards ease
+        &--3
+            animation: translateYOpacityShow .6s 1s forwards ease
+
     /* Full Page Container */
     .fp-tableCell
-        display: flex
-        height: unset
-        @include responsive(1200)
-            flex-wrap: wrap
+        // display: flex
+        // height: unset
+        // @include responsive(1200)
+            // flex-wrap: wrap

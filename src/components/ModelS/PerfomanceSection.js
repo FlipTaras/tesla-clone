@@ -147,6 +147,7 @@ export default connect(
           </line>
         </svg>
       );
+
       /* CountUp Element */
       const countUpElement = (
         <CountUp
@@ -159,11 +160,12 @@ export default connect(
           useEasing
         />
       );
+
+      /* Info Elements Settings */
       const infoElements = [
         {
           infoElementClassNames:
             "perfomance__infoElements perfomance__infoElements--1",
-          titleClassNames: "perfomance__title--1",
           subtitleClassNames: "perfomance__subtitle--1",
           title: "AWD",
           subtitle:
@@ -175,7 +177,6 @@ export default connect(
         {
           infoElementClassNames:
             "perfomance__infoElements perfomance__infoElements--2",
-          titleClassNames: "perfomance__title--2",
           subtitleClassNames: "perfomance__subtitle--2",
           svg: svgSpeed,
           title: countUpElement,
@@ -188,7 +189,6 @@ export default connect(
         {
           infoElementClassNames:
             "perfomance__infoElements perfomance__infoElements--3",
-          titleClassNames: "perfomance__title--3",
           subtitleClassNames: "perfomance__subtitle--3",
           title: "163mph",
           subtitle:
@@ -197,11 +197,11 @@ export default connect(
               : "Top Speed",
         },
       ];
+
       const renderInfoElement = () => {
         return infoElements.map((el) => (
           <InfoElement
             customInfoElementClassNames={el.infoElementClassNames}
-            customTitleClassNames={el.titleClassNames}
             customSubtitleClassNames={el.subtitleClassNames}
             key={el.title}
             title={el.title}
@@ -213,6 +213,7 @@ export default connect(
         ));
       };
 
+      /* Render */
       if (pageIndex === "2" || (phoneLayout && sectionTop <= 600)) {
         return (
           <div className="perfomance__infoElementsContainer">

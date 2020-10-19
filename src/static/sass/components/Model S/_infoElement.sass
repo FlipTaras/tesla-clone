@@ -4,15 +4,14 @@
     padding: 0 3rem
     display: flex
     flex-direction: column
-    @include responsive(700)
-        padding: 0 5rem
-    @include responsive(650)
-        padding: 0 4rem
+    @include responsive(tablet)
+        flex: .33
+        align-items: center
     @include responsive(phone)
-        padding: 0 3rem
         margin-bottom: 2rem
     @include responsive(500)
         padding: 0 2rem
+        flex: unset
     @include responsive(414-portrait)
         padding: 0 1.5rem
     @include responsive(375-portrait)

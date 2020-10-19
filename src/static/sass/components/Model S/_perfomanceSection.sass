@@ -27,7 +27,7 @@
             width: 70%
         @include responsive(1280)
             width: 80%
-        @include responsive(1000)
+        @include responsive(tablet)
             width: 100%
             bottom: 15%
             text-align: center
@@ -62,52 +62,25 @@
 
     &__subtitle
         &--1
-            @include responsive(1000)
-                width: 52%
-            @include responsive(900)
-                width: 100%
-            @include responsive(phone)
+            @include responsive(tablet)
+                width: 41%
+            @include responsive(800)
+                width: 50%
+            @include responsive(700)
                 width: 60%
-            @include responsive(smallphone-portrait)
-                width: 100%
         &--2
             width: 100% !important
             padding-left: 1.5rem
             @include responsive(phone)
                 padding-left: 0
         &--3
-            @include responsive(1000)
+            @include responsive(tablet)
                 width: 50%
 
-    &__title
-        &--1
-            @include responsive(1000)
-                margin: 0 auto
-        &--2
-            @include responsive(1000)
-                margin: 0 auto
-                width: 5rem
-            @include responsive(phone)
-                width: 6rem
-            @include responsive(smallphone-portrait)
-                width: 3rem
-                margin-right: 1rem
-        &--3
-            @include responsive(1000)
-                margin: 0 auto
-
     &__infoElements
-        @include responsive(1000)
-            padding: 0 9rem !important
-        @include responsive(900)
-            padding: 0 5rem !important
-        @include responsive(phone)
-            padding: 0 4rem !important
-        @include responsive(500)
-            padding: 0 2.5rem !important
-        @include responsive(414-portrait)
-            padding: 0 1rem !important
-
+        @include responsive(tablet)
+            flex: .33 !important
+            align-items: center !important
         &--1
             animation: translateYOpacityShow .6s .6s forwards ease
         &--2

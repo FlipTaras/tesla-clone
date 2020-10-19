@@ -124,7 +124,7 @@ export default connect(
           subtitleClassNames: "range__subtitle--1",
           title: "402mi",
           subtitle:
-            width >= 1024
+            width > 1024
               ? "Go anywhere with up to 402 miles of range on a single charge"
               : "Range",
           showLine: true,
@@ -134,7 +134,7 @@ export default connect(
           subtitleClassNames: "range__subtitle--2",
           title: "15min",
           subtitle:
-            width >= 1024
+            width > 1024
               ? "Recharge up to 163 miles in 15 minutes of range on a single charge"
               : "Recharge 163 miles",
           showLine: true,
@@ -144,7 +144,7 @@ export default connect(
           subtitleClassNames: "range__subtitle--1",
           title: "18,000+",
           subtitle:
-            width >= 1024
+            width > 1024
               ? "Superchargers placed along well-traveled routes around the world"
               : "Superchargers",
           showLine: false,
@@ -162,7 +162,6 @@ export default connect(
             svg={el.svg}
             subtitle={el.subtitle}
             showLine={el.showLine}
-            bigger
             white
           />
         ));

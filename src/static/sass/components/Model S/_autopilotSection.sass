@@ -4,14 +4,56 @@
         width: 100%
         object-fit: cover
 
-    /* Full Page Container */
-    // .fp-tableCell
-    //     display: flex
-    //     height: unset
-    //     vertical-align: unset
-    .fp-tableCell
-        // display: flex
-        // flex-direction: column
-        // height: unset
-        // @include responsive(1200)
-            // flex-wrap: wrap
+    &__contentElement
+        @include responsive(phone)
+            height: 60vh !important
+
+    &__infoElementsContainer
+        display: flex
+        flex-direction: column
+        position: absolute
+        top: 25%
+        left: 8%
+        height: 55%
+        justify-content: space-between
+        @include responsive(tablet)
+            flex-direction: row
+            text-align: center
+            height: unset
+            width: 60%
+            margin: 0 auto
+            top: unset
+            bottom: 10%
+            left: 50%
+            transform: translateX(-50%)
+        @include responsive(800)
+            width: 70%
+        @include responsive(800)
+            width: 80%
+        @include responsive(phone)
+            width: 100%
+
+    &__smallTitle
+        &--3
+            width: 20%
+
+    &__subtitle
+        margin-top: 1rem
+        width: 70%
+        margin: 0
+        &--1
+        &--2
+        &--3
+
+    &__infoElements
+        @include responsive(tablet)
+            flex: unset !important
+        @include responsive(phone)
+            flex: .33 !important
+
+        &--1
+            animation: translateYOpacityShow .6s .6s forwards ease
+        &--2
+            animation: translateYOpacityShow .6s .8s forwards ease
+        &--3
+            animation: translateYOpacityShow .6s 1s forwards ease

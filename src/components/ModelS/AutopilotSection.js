@@ -4,13 +4,14 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 
 import Video from "../../static/videos/ModelS/autopilot.mp4";
 import VideoMobile from "../../static/videos/ModelS/autopilot mobile.mp4";
+import Icon from "../../static/images/ModelS/Autopilot/12Icon.png";
 
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import SideComponents from "./SideComponents";
 import ContentElement from "./ContentElement";
-// import InfoElement from "./InfoElement";
+import InfoElement from "./InfoElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -81,9 +82,11 @@ export default connect(
     }, [learnMoreOn, height]);
 
     const renderSection = useCallback(() => {
+      /* Check when section to show up */
       const checkRenderInfo =
         pageIndex === "4" || (phoneLayout && sectionTop <= 600);
 
+      /* Button logic */
       const learnMoreHandler = () => {
         if (!phoneLayout) {
           setPageToShow("autopilot");
@@ -95,6 +98,8 @@ export default connect(
           });
         }
       };
+
+      /* Video Element */
       const videoElement = (
         <video
           preload="auto"
@@ -111,9 +116,76 @@ export default connect(
           ></source>
         </video>
       );
+
+      /* Info Elements */
+      const infoElements = [
+        {
+          infoElementClassNames:
+            "autopilot__infoElements autopilot__infoElements--1",
+          title: "360°",
+          subtitleClassNames: "autopilot__subtitle autopilot__subtitle--1",
+          subtitle:
+            width > 1024
+              ? "Rear, side and forward-facing cameras provide maximum visibility"
+              : "Degrees of Visibility",
+          showLine: true,
+        },
+        {
+          infoElementClassNames:
+            "autopilot__infoElements autopilot__infoElements--2",
+          title: "160m",
+          subtitleClassNames: "autopilot__subtitle autopilot__subtitle--2",
+
+          subtitle:
+            width > 1024
+              ? "Forward-facing radar provides a long-range view of distant objects"
+              : "Of forward protection",
+          showLine: true,
+        },
+        {
+          infoElementClassNames:
+            "autopilot__infoElements autopilot__infoElements--3",
+          smallTitleClassNames: "autopilot__smallTitle--3",
+          image: Icon,
+          titleSmall: "Ultrasonic Sensors",
+          subtitleClassNames: "autopilot__subtitle autopilot__subtitle--3",
+
+          subtitle:
+            width > 1024
+              ? "Detects nearby cars, prevents potential collisions and assists with parking"
+              : "Ultrasonic Sensors",
+          showLine: false,
+        },
+      ];
+
+      const renderInfoElement = () => {
+        return infoElements.map((el) => (
+          <InfoElement
+            customInfoElementClassNames={el.infoElementClassNames}
+            customTitleClassNames={el.titleClassNames}
+            customSubtitleClassNames={el.subtitleClassNames}
+            customTitleSmallClassNames={el.smallTitleClassNames}
+            key={el.title}
+            title={el.title}
+            svg={el.svg}
+            subtitle={el.subtitle}
+            image={el.image}
+            titleSmall={width > 1024 && el.titleSmall}
+            showLine={el.showLine}
+            lineBottom={width > 1024}
+          />
+        ));
+      };
+      /* Render */
       return (
         <>
-          <ContentElement horizontal={true}>
+          <ContentElement
+            customContentElementClassNames="autopilot__contentElement"
+            horizontal={true}
+          >
+            <div className="autopilot__infoElementsContainer">
+              {checkRenderInfo && renderInfoElement()}
+            </div>
             {phoneLayout ? videoElement : pageIndex === "4" && videoElement}
           </ContentElement>
           <SideComponents
@@ -145,11 +217,7 @@ export default connect(
     ]);
     return (
       <section ref={sectionRef} className="section autopilot">
-        {phoneLayout ? (
-          <div className="fp-tableCell">{renderSection()}</div>
-        ) : (
-          <>{renderSection()}</>
-        )}
+        <div className="autopilot__container">{renderSection()}</div>
       </section>
     );
   }

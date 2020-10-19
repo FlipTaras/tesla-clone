@@ -19,6 +19,10 @@ export default connect(mapStateToProps)(
     customInfoElementClassNames,
     customTitleClassNames,
     customSubtitleClassNames,
+    customTitleSmallClassNames,
+    image,
+    titleSmall,
+    lineBottom,
   }) => {
     const infoElementClassNames = classnames(
       "infoElement",
@@ -26,31 +30,47 @@ export default connect(mapStateToProps)(
       // learnMoreOn && "infoElement--animationOff",
       customInfoElementClassNames && customInfoElementClassNames
     );
+
+    const titleContainerClassNames = classnames(
+      "infoElement__titleContainer",
+      image && "infoElement__titleContainer--align"
+    );
+
     const titleClassNames = classnames(
       "infoElement__title",
       customTitleClassNames && customTitleClassNames
     );
+
     const subtitleClassNames = classnames(
       "infoElement__subtitle",
       customSubtitleClassNames && customSubtitleClassNames
     );
 
+    const smallTitleClassNames = classnames(
+      "paragraph",
+      customTitleSmallClassNames && customTitleSmallClassNames
+    );
+
+    const lineClassNames = classnames(
+      "infoElement__line",
+      white && "infoElement__line--white",
+      lineBottom && "infoElement__line--bottom"
+    );
+
     return (
       <div key={title} className={infoElementClassNames}>
-        <div className="infoElement__titleContainer">
+        <div className={titleContainerClassNames}>
           {svg && svg}
+          {image && (
+            <img className="infoElement__icon" src={image} alt="icon" />
+          )}
+          {titleSmall && (
+            <span className={smallTitleClassNames}>{titleSmall}</span>
+          )}
           <div className={titleClassNames}>{title}</div>
         </div>
         <p className={subtitleClassNames}>{subtitle}</p>
-        {showLine && (
-          <div
-            className={
-              white
-                ? "infoElement__line infoElement__line--white"
-                : "infoElement__line"
-            }
-          ></div>
-        )}
+        {showLine && <div className={lineClassNames}></div>}
       </div>
     );
   }

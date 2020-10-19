@@ -166,10 +166,9 @@ export default connect(
         {
           infoElementClassNames:
             "perfomance__infoElements perfomance__infoElements--1",
-          subtitleClassNames: "perfomance__subtitle--1",
           title: "AWD",
           subtitle:
-            width >= 1024
+            width > 1024
               ? "Dual Motor All-Wheel Drive instantly controls traction and torque, in all weather conditions"
               : "Standart All-Wheel Drive",
           showLine: true,
@@ -178,10 +177,11 @@ export default connect(
           infoElementClassNames:
             "perfomance__infoElements perfomance__infoElements--2",
           subtitleClassNames: "perfomance__subtitle--2",
+          titleClassNames: "perfomance__infoTitle--2",
           svg: svgSpeed,
           title: countUpElement,
           subtitle:
-            width >= 1024
+            width > 1024
               ? "The quickest acceleration on earth—from zero to 60 mph in as little as 2.3 seconds"
               : "From 0-60mph",
           showLine: true,
@@ -189,10 +189,9 @@ export default connect(
         {
           infoElementClassNames:
             "perfomance__infoElements perfomance__infoElements--3",
-          subtitleClassNames: "perfomance__subtitle--3",
           title: "163mph",
           subtitle:
-            width >= 1024
+            width > 1024
               ? "Improved handling and aerodynamics allow for a top speed of 163 mph"
               : "Top Speed",
         },
@@ -203,6 +202,7 @@ export default connect(
           <InfoElement
             customInfoElementClassNames={el.infoElementClassNames}
             customSubtitleClassNames={el.subtitleClassNames}
+            customTitleClassNames={el.titleClassNames}
             key={el.title}
             title={el.title}
             svg={el.svg}

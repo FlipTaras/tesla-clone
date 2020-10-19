@@ -1,6 +1,7 @@
 .perfomance
     /* Initial Element */
     &__backgroundImage
+        position: absolute
         max-height: 100%
         object-fit: cover
         object-position: center
@@ -87,6 +88,13 @@
             animation: translateYOpacityShow .6s .8s forwards ease
         &--3
             animation: translateYOpacityShow .6s 1s forwards ease
+
+    &__infoTitle
+        &--2
+            width: 1rem
+            margin-right: 4rem
+            @include responsive(phone)
+                margin-left: 1rem
 
     /* LearnMore Added Element */
     &__learnMoreContainer

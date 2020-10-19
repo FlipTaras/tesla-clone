@@ -1,0 +1,107 @@
+.exterior
+
+    &__contentElement
+        position: absolute
+        top: 0
+        height: 100vh
+        width: 100vw
+        &--small
+            @include responsive(phone-landscape)
+                height: 100vh
+            @include responsive(phone)
+                height: 65vh
+            @include responsive(414-portrait)
+                height: 50vh
+            @include responsive(375-portrait)
+                height: 70vh
+            @include responsive(smallphone-portrait)
+                height: 80vh
+
+    &__container
+        display: flex
+        height: 100vh
+        align-items: flex-end
+        position: relative
+
+        @include responsive(phone-landscape)
+            flex-direction: column
+            height: unset
+
+        @include responsive(800)
+            flex-direction: column
+
+        @include responsive(phone)
+            height: unset
+
+    &__infoElementsContainer
+        display: flex
+        z-index: 1000
+        position: absolute
+        justify-content: space-between
+        top: 5%
+        left: 50%
+        transform: translateX(-50%)
+        width: 40%
+        @include responsive(2200)
+            width: 50%
+        @include responsive(1700)
+            width: 60%
+        @include responsive(1600)
+            width: 70%
+        @include responsive(1280)
+            width: 80%
+        @include responsive(1200)
+            width: 85%
+            top: 8%
+        @include responsive(1100)
+            width: 90%
+        @include responsive(tablet)
+            width: 60%
+            text-align: center
+        @include responsive(900)
+            width: 70%
+        @include responsive(800)
+            width: 80%
+        @include responsive(700)
+            width: 90%
+        @include responsive(500)
+            width: 100%
+
+    &__backgroundImage
+        position: absolute
+        object-fit: cover
+        width: 100%
+        height: 100vh
+        top: 0
+        @include responsive(phone-landscape)
+            position: relative
+            height: 100%
+        @include responsive(800)
+            position: relative
+            height: 100%
+
+    &__smallTitle
+        margin-bottom: 1rem
+
+    &__subtitle
+        width: 100%
+        margin-top: 1rem
+        @include responsive(tablet)
+            width: 60%
+        &--2
+            @include responsive(800)
+                width: 80%
+            @include responsive(700)
+
+    &__infoElements
+        flex: .33 !important
+        &--1
+            animation: translateYOpacityShow .6s .6s forwards ease
+        &--2
+            animation: translateYOpacityShow .6s .8s forwards ease
+        &--3
+            animation: translateYOpacityShow .6s 1s forwards ease
+
+    &__sideComponentTitle
+        @include responsive(1100)
+            width: 80% !important

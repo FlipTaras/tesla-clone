@@ -1,13 +1,19 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import InfoElement from "./InfoElement";
-import Image from "../../static/images/ModelS/Interior/interior.jpg";
-import Icon from "../../static/images/ModelS/Interior/wifi-icon.png";
+import Icon5 from "../../static/images/ModelS/Exterior/5Icon.png";
+import cdIcon from "../../static/images/ModelS/Exterior/cdIcon.png";
+import carIcon from "../../static/images/ModelS/Exterior/carIcon.png";
+
+import Image from "../../static/images/ModelS/Exterior/extrerior.jpg";
+import ImagePortrait from "../../static/images/ModelS/Exterior/exterior-portrait.jpg";
+import ImageMobile from "../../static/images/ModelS/Exterior/exterior-mobile.jpg";
 
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import SideComponents from "./SideComponents";
 import ContentElement from "./ContentElement";
+// import ContentElement from "./ContentElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -79,7 +85,10 @@ export default connect(
     const renderSection = useCallback(() => {
       /* Check when section to show up */
       const checkRenderInfo =
-        pageIndex === "5" || (phoneLayout && sectionTop <= 600);
+        pageIndex === "6" || (phoneLayout && sectionTop <= 600);
+
+      /* Screen size check */
+      const portraitImageCheck = height >= 1150 && width <= 1500;
 
       /* Button logic */
       const learnMoreHandler = () => {
@@ -98,38 +107,43 @@ export default connect(
       const infoElements = [
         {
           infoElementClassNames:
-            "autopilot__infoElements autopilot__infoElements--1",
-          title: "17inch",
-          subtitleClassNames: "autopilot__subtitle autopilot__subtitle--1",
+            "exterior__infoElements exterior__infoElements--1",
+          titleSmall: "Signature Colors",
+          smallTitleClassNames: "exterior__smallTitle",
+
+          image: Icon5,
+          subtitleClassNames: "exterior__subtitle exterior__subtitle--1",
           subtitle:
             width > 1024
-              ? "An expansive touchscreen display designed to improve over time"
-              : "Touchscreen Display",
+              ? "Customize Model S with signature, multi-layered paint"
+              : "Signature Colors",
           showLine: true,
         },
         {
           infoElementClassNames:
-            "autopilot__infoElements autopilot__infoElements--2",
-          subtitleClassNames: "autopilot__subtitle autopilot__subtitle--2",
-          image: Icon,
+            "exterior__infoElements exterior__infoElements--2",
+          subtitleClassNames: "exterior__subtitle exterior__subtitle--2",
+          smallTitleClassNames: "exterior__smallTitle",
 
+          image: cdIcon,
+          title: "0.23",
           subtitle:
             width > 1024
-              ? "Over-the-air software updates introduce new features, functionality and performance"
-              : "Over-the-air Software Updates",
+              ? "The most aerodynamic car in its class with the lowest drag coefficient on earth"
+              : "Lowest Drag Coefficient",
           showLine: true,
         },
         {
           infoElementClassNames:
-            "autopilot__infoElements autopilot__infoElements--3",
-          smallTitleClassNames: "autopilot__smallTitle--3",
-          title: "28cu ft",
-          subtitleClassNames: "autopilot__subtitle autopilot__subtitle--3",
-
+            "exterior__infoElements exterior__infoElements--3",
+          smallTitleClassNames: "exterior__smallTitle",
+          titleSmall: "Roof Rack Compatible",
+          subtitleClassNames: "exterior__subtitle exterior__subtitle--3",
+          image: carIcon,
           subtitle:
             width > 1024
-              ? "Best in class storage, with more cargo room than most SUVs"
-              : "Best in Class Storage",
+              ? "A standard, expansive Glass Roof provides more headroom and UV protection"
+              : "Roof Pack Compatible",
           showLine: false,
         },
       ];
@@ -148,8 +162,6 @@ export default connect(
             image={el.image}
             titleSmall={width > 1024 && el.titleSmall}
             showLine={el.showLine}
-            lineBottom={width > 1024}
-            white
           />
         ));
       };
@@ -158,22 +170,33 @@ export default connect(
       return (
         <>
           <ContentElement
-            customContentElementClassNames="interior__contentElement"
             horizontal={true}
+            customContentElementClassNames={
+              width > 815
+                ? "exterior__contentElement"
+                : "exterior__contentElement--small"
+            }
           >
-            <div className="interior__infoElementsContainer">
+            <div className="exterior__infoElementsContainer">
               {checkRenderInfo && renderInfoElement()}
             </div>
             <img
-              className="interior__backgroundImage"
-              src={Image}
+              className="exterior__backgroundImage"
+              src={
+                portraitImageCheck
+                  ? ImagePortrait
+                  : width <= 1024
+                  ? ImageMobile
+                  : Image
+              }
               alt="interior"
             />
           </ContentElement>
           <SideComponents
-            title="Built Around the Driver"
-            subtitle="Interior"
-            paragraph="Model S is built with best in class storage, seating for up to five adults and an expansive 17-inch touchscreen. Advanced noise engineering creates sound dynamics comparable to a recording studio, while the standard Glass Roof provides a spacious interior experience for every passenger."
+            title="Designed for Efficiency"
+            subtitle="Exterior"
+            paragraph="Model S was designed for speed and endurance—with incredible aerodynamics, ludicrous performance and uncompromised aesthetics. Automatic door handles auto-present upon approach and withdraw when closed."
+            titleCustomClassNames="exterior__sideComponentTitle"
             horizontal={true}
             checkRenderInfo={checkRenderInfo}
             learnMoreOn={learnMoreOn}
@@ -183,12 +206,10 @@ export default connect(
           />
           <div
             ref={learnMoreSectionRef}
-            className="interior__learnMoreContainer"
+            className="exterior__learnMoreContainer"
           ></div>
         </>
       );
-
-      /* Render */
     }, [
       pageIndex,
       phoneLayout,
@@ -196,12 +217,14 @@ export default connect(
       setPageToShow,
       width,
       learnMoreOn,
-      showSection,
       showLearnMore,
+      showSection,
+      height,
     ]);
+
     return (
-      <section className="section interior">
-        <div className="interior__container">{renderSection()}</div>
+      <section className="section exterior">
+        <div className="exterior__container">{renderSection()}</div>
       </section>
     );
   }

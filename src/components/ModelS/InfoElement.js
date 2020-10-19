@@ -63,13 +63,13 @@ export default connect(mapStateToProps)(
       <div key={title} className={infoElementClassNames}>
         <div className={titleContainerClassNames}>
           {svg && svg}
+          <div className={titleClassNames}>{title}</div>
           {image && (
             <img className="infoElement__icon" src={image} alt="icon" />
           )}
           {titleSmall && (
             <span className={smallTitleClassNames}>{titleSmall}</span>
           )}
-          <div className={titleClassNames}>{title}</div>
         </div>
         <p className={subtitleClassNames}>{subtitle}</p>
         {showLine && <div className={lineClassNames}></div>}

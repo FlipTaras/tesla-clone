@@ -48,11 +48,11 @@
             margin-top: -1.5rem
 
     &__icon
-        width: 4rem
         height: 4rem
         margin-right: 1rem
+        @include responsive(tablet)
+            margin-right: 0
         @include responsive(phone)
-            width: 3rem
             height: 3rem
 
     &__title

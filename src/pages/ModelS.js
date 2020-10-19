@@ -29,6 +29,7 @@ import { NavLink } from "react-router-dom";
 import RangeSection from "../components/ModelS/RangeSection";
 import AutopilotSection from "../components/ModelS/AutopilotSection";
 import InteriorSection from "../components/ModelS/InteriorSection";
+import ExtreriorSection from "../components/ModelS/ExtreriorSection";
 
 const mapStateToProps = (state) => ({
   sideActive: state.page.navbarActive,
@@ -107,6 +108,14 @@ const ModelSPage = ({
         window.fullpage_api.silentMoveTo(5);
         setPageIndex("4");
         setShowSection(true);
+      } else if (silentScrollTo === "interior") {
+        window.fullpage_api.silentMoveTo(6);
+        setPageIndex("5");
+        setShowSection(true);
+      } else if (silentScrollTo === "exterior") {
+        window.fullpage_api.silentMoveTo(7);
+        setPageIndex("6");
+        setShowSection(true);
       } else {
         window.addEventListener("wheel", () => {
           if (showSection) {
@@ -137,6 +146,7 @@ const ModelSPage = ({
   const ImageComponent = (
     <img style={{ display: "none" }} ref={imageRef} src={Image} alt="" />
   );
+
   useLayoutEffect(() => {
     if (imageRef.current && imageRef.current.addEventListener) {
       imageRef.current.addEventListener("load", () => {
@@ -203,12 +213,10 @@ const ModelSPage = ({
                         showSection={showSection}
                         phoneLayout={false}
                       />
-                      <section
-                        style={{ textAlign: "center" }}
-                        className="section"
-                      >
-                        Exterior
-                      </section>
+                      <ExtreriorSection
+                        showSection={showSection}
+                        phoneLayout={false}
+                      />
                       <section
                         style={{
                           textAlign: "center",
@@ -243,6 +251,7 @@ const ModelSPage = ({
           <RangeSection phoneLayout={true} />
           <AutopilotSection phoneLayout={true} />
           <InteriorSection phoneLayout={true} />
+          <ExtreriorSection phoneLayout={true} />
           <FirstSection title="Model S" phoneLayout={true} />
         </>
       );

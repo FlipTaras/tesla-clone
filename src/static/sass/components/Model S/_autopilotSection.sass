@@ -7,6 +7,8 @@
     &__contentElement
         @include responsive(phone)
             height: 60vh !important
+        @include responsive(phone-landscape)
+            height: 100vh !important
 
     &__infoElementsContainer
         display: flex
@@ -50,7 +52,6 @@
             flex: unset !important
         @include responsive(phone)
             flex: .33 !important
-
         &--1
             animation: translateYOpacityShow .6s .6s forwards ease
         &--2

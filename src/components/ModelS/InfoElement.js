@@ -28,7 +28,8 @@ export default connect(mapStateToProps)(
       "infoElement",
       showSection && "infoElement--show",
       // learnMoreOn && "infoElement--animationOff",
-      customInfoElementClassNames && customInfoElementClassNames
+      customInfoElementClassNames && customInfoElementClassNames,
+      white && "infoElement--white"
     );
 
     const titleContainerClassNames = classnames(
@@ -48,6 +49,7 @@ export default connect(mapStateToProps)(
 
     const smallTitleClassNames = classnames(
       "paragraph",
+      white && "infoElement__smallTitle--white",
       customTitleSmallClassNames && customTitleSmallClassNames
     );
 

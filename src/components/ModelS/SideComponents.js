@@ -20,12 +20,12 @@ export default connect(
     learnMoreOn,
     checkRenderInfo,
     customClassNames,
-    customParagraphClassNames,
     horizontal,
     showSection,
     learnMoreHandle,
     showLearnMore,
     customInnerContainerClassNames,
+    customParagraphClassNames,
     titleCustomClassNames,
   }) => {
     const sideComponentClassNames = classnames(

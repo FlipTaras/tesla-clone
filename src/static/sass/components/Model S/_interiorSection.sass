@@ -1,0 +1,98 @@
+.interior
+    &__contentElement
+        height: 60vh
+        @include responsive(phone-landscape)
+            height: 100vh
+
+    &__infoElementsContainer
+        z-index: 1000
+        display: flex
+        flex-direction: column
+        position: absolute
+        top: 35%
+        line-height: 1.5
+        right: -2%
+        width: 15%
+        height: 33%
+        justify-content: space-between
+        @include responsive(2200)
+            width: 20%
+            height: 40%
+        @include responsive(1920)
+            top: 28%
+        @include responsive(1700)
+            width: 25%
+            height: 45%
+            top: 25%
+        @include responsive(1600)
+            height: 70%
+            top: 15%
+        @include responsive(1366)
+            width: 30%
+            right: -5%
+            height: 80%
+            top: 10%
+        @include responsive(1280)
+            top: 25%
+            right: -2%
+            height: 55%
+        @include responsive(1100)
+            width: 35%
+
+        @include responsive(tablet)
+            flex-direction: row
+            text-align: center
+            height: unset
+            width: 60%
+            margin: 0 auto
+            top: unset
+            bottom: 10%
+            left: 50%
+            transform: translateX(-50%)
+        @include responsive(900)
+            width: 70%
+        @include responsive(800)
+            width: 80%
+        @include responsive(700)
+            width: 90%
+        @include responsive(500)
+            bottom: 5%
+        @include responsive(phone)
+            width: 100%
+
+    &__infoElements
+        @include responsive(tablet)
+            flex: unset !important
+        @include responsive(phone)
+            flex: .33 !important
+        &--1
+            animation: translateYOpacityShow .6s .6s forwards ease
+        &--2
+            animation: translateYOpacityShow .6s .8s forwards ease
+        &--3
+            animation: translateYOpacityShow .6s 1s forwards ease
+
+    &__backgroundImage
+        position: absolute
+        max-height: 100%
+        object-fit: cover
+        object-position: center
+        min-width: 100%
+        @include responsive(1600)
+            min-height: 100%
+            max-width: 100%
+
+        // @include responsive(800)
+        //     max-width: 100%
+        // @include responsive(500)
+        //     max-width: 200%
+        //     left: -25%
+        // @include responsive(414-portrait)
+        //     max-width: 150%
+        //     left: -10%
+        // @include responsive(375-portrait)
+            // object-fit: contain
+            // object-position: center
+
+    // &__buttonsContainer
+        // margin-top: 0

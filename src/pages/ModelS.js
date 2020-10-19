@@ -28,6 +28,7 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import RangeSection from "../components/ModelS/RangeSection";
 import AutopilotSection from "../components/ModelS/AutopilotSection";
+import InteriorSection from "../components/ModelS/InteriorSection";
 
 const mapStateToProps = (state) => ({
   sideActive: state.page.navbarActive,
@@ -55,10 +56,6 @@ const ModelSPage = ({
   height,
 }) => {
   const [showSection, setShowSection] = useState(false);
-
-  const rightContainerRangeRef = useRef(null);
-  const bottomContainerAutopilotRef = useRef(null);
-
   const [indexPage, setIndex] = useState("0");
   const logoref = useRef(null);
 
@@ -105,18 +102,12 @@ const ModelSPage = ({
       } else if (silentScrollTo === "range") {
         window.fullpage_api.silentMoveTo(4);
         setPageIndex("3");
-        // if (rightContainerRangeRef.current) {
-        //   rightContainerRangeRef.current.classList.add(
-        //     "range__rightContainer--show"
-        //   );
-        // }
         setShowSection(true);
       } else if (silentScrollTo === "autopilot") {
         window.fullpage_api.silentMoveTo(5);
         setPageIndex("4");
         setShowSection(true);
       } else {
-        // setShowSection(false);
         window.addEventListener("wheel", () => {
           if (showSection) {
             setShowSection(false);
@@ -199,33 +190,19 @@ const ModelSPage = ({
                       <PerfomanceSection
                         showSection={showSection}
                         phoneLayout={false}
-                        // bottomContainerPerfomanceRef={
-                        //   bottomContainerPerfomanceRef
-                        // }
                       />
                       <RangeSection
                         showSection={showSection}
                         phoneLayout={false}
-                        // rightContainerRangeRef={rightContainerRangeRef}
                       />
                       <AutopilotSection
                         showSection={showSection}
                         phoneLayout={false}
-                        // bottomContainerAutopilotRef={
-                        //   bottomContainerAutopilotRef
-                        // }
                       />
-
-                      <section
-                        style={{
-                          textAlign: "center",
-                          background: "black",
-                          color: "white",
-                        }}
-                        className="section"
-                      >
-                        Interior
-                      </section>
+                      <InteriorSection
+                        showSection={showSection}
+                        phoneLayout={false}
+                      />
                       <section
                         style={{ textAlign: "center" }}
                         className="section"
@@ -261,24 +238,11 @@ const ModelSPage = ({
         <>
           {ImageComponent}
           <FirstSection title="Model S" phoneLayout={true} />
-          <SafetySection
-            // showSection={showSection}
-            phoneLayout={true}
-          />
-          <PerfomanceSection
-            // showSection={showSection}
-            phoneLayout={true}
-            // bottomContainerPerfomanceRef={bottomContainerPerfomanceRef}
-          />
-          <RangeSection
-            // showSection={showSection}
-            phoneLayout={true}
-            // rightContainerRangeRef={rightContainerRangeRef}
-          />
-          <AutopilotSection
-            phoneLayout={true}
-            // bottomContainerAutopilotRef={bottomContainerAutopilotRef}
-          />
+          <SafetySection phoneLayout={true} />
+          <PerfomanceSection phoneLayout={true} />
+          <RangeSection phoneLayout={true} />
+          <AutopilotSection phoneLayout={true} />
+          <InteriorSection phoneLayout={true} />
           <FirstSection title="Model S" phoneLayout={true} />
         </>
       );

@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-// import CloseNextButton from "../Buttons/CloseNextButton";
-// import classnames from "classnames";
-
-import Video from "../../static/videos/ModelS/autopilot.mp4";
-import VideoMobile from "../../static/videos/ModelS/autopilot mobile.mp4";
-import Icon from "../../static/images/ModelS/Autopilot/12Icon.png";
 import InfoElement from "./InfoElement";
-
+import Image from "../../static/images/ModelS/Interior/interior.jpg";
+import Icon from "../../static/images/ModelS/Interior/wifi-icon.png";
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
@@ -41,7 +36,6 @@ export default connect(
     showSection,
   }) => {
     const [showLearnMore, setShowLearnMore] = useState(false);
-    const videoRef = useRef(null);
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
@@ -84,12 +78,12 @@ export default connect(
     const renderSection = useCallback(() => {
       /* Check when section to show up */
       const checkRenderInfo =
-        pageIndex === "4" || (phoneLayout && sectionTop <= 600);
+        pageIndex === "5" || (phoneLayout && sectionTop <= 600);
 
       /* Button logic */
       const learnMoreHandler = () => {
         if (!phoneLayout) {
-          setPageToShow("autopilot");
+          setPageToShow("interior");
         } else {
           setShowLearnMore(true);
           window.scrollTo({
@@ -99,61 +93,42 @@ export default connect(
         }
       };
 
-      /* Video Element */
-      const videoElement = (
-        <video
-          preload="auto"
-          muted
-          autoPlay
-          playsInline
-          loop
-          className="autopilot__video"
-          ref={videoRef}
-        >
-          <source
-            src={width > 800 ? Video : VideoMobile}
-            type="video/mp4"
-          ></source>
-        </video>
-      );
-
       /* Info Elements */
       const infoElements = [
         {
           infoElementClassNames:
             "autopilot__infoElements autopilot__infoElements--1",
-          title: "360°",
+          title: "17inch",
           subtitleClassNames: "autopilot__subtitle autopilot__subtitle--1",
           subtitle:
             width > 1024
-              ? "Rear, side and forward-facing cameras provide maximum visibility"
-              : "Degrees of Visibility",
+              ? "An expansive touchscreen display designed to improve over time"
+              : "Touchscreen Display",
           showLine: true,
         },
         {
           infoElementClassNames:
             "autopilot__infoElements autopilot__infoElements--2",
-          title: "160m",
           subtitleClassNames: "autopilot__subtitle autopilot__subtitle--2",
+          image: Icon,
 
           subtitle:
             width > 1024
-              ? "Forward-facing radar provides a long-range view of distant objects"
-              : "Of forward protection",
+              ? "Over-the-air software updates introduce new features, functionality and performance"
+              : "Over-the-air Software Updates",
           showLine: true,
         },
         {
           infoElementClassNames:
             "autopilot__infoElements autopilot__infoElements--3",
           smallTitleClassNames: "autopilot__smallTitle--3",
-          image: Icon,
-          titleSmall: "Ultrasonic Sensors",
+          title: "28cu ft",
           subtitleClassNames: "autopilot__subtitle autopilot__subtitle--3",
 
           subtitle:
             width > 1024
-              ? "Detects nearby cars, prevents potential collisions and assists with parking"
-              : "Ultrasonic Sensors",
+              ? "Best in class storage, with more cargo room than most SUVs"
+              : "Best in Class Storage",
           showLine: false,
         },
       ];
@@ -173,26 +148,29 @@ export default connect(
             titleSmall={width > 1024 && el.titleSmall}
             showLine={el.showLine}
             lineBottom={width > 1024}
+            white
           />
         ));
       };
-
-      /* Render */
       return (
         <>
           <ContentElement
-            customContentElementClassNames="autopilot__contentElement"
+            customContentElementClassNames="interior__contentElement"
             horizontal={true}
           >
-            <div className="autopilot__infoElementsContainer">
+            <div className="interior__infoElementsContainer">
               {checkRenderInfo && renderInfoElement()}
             </div>
-            {phoneLayout ? videoElement : pageIndex === "4" && videoElement}
+            <img
+              className="interior__backgroundImage"
+              src={Image}
+              alt="interior"
+            />
           </ContentElement>
           <SideComponents
-            title="Future of Driving"
-            subtitle="Autopilot"
-            paragraph="Autopilot advanced safety and convenience features aredesigned to assist you with the most burdensome parts ofdriving."
+            title="Built Around the Driver"
+            subtitle="Interior"
+            paragraph="Model S is built with best in class storage, seating for up to five adults and an expansive 17-inch touchscreen. Advanced noise engineering creates sound dynamics comparable to a recording studio, while the standard Glass Roof provides a spacious interior experience for every passenger."
             horizontal={true}
             checkRenderInfo={checkRenderInfo}
             learnMoreOn={learnMoreOn}
@@ -202,23 +180,25 @@ export default connect(
           />
           <div
             ref={learnMoreSectionRef}
-            className="autopilot__learnMoreContainer"
+            className="interior__learnMoreContainer"
           ></div>
         </>
       );
+
+      /* Render */
     }, [
-      width,
       pageIndex,
       phoneLayout,
       sectionTop,
-      learnMoreOn,
       setPageToShow,
-      showLearnMore,
+      width,
+      learnMoreOn,
       showSection,
+      showLearnMore,
     ]);
     return (
-      <section ref={sectionRef} className="section autopilot">
-        <div className="autopilot__container">{renderSection()}</div>
+      <section className="section interior">
+        <div className="interior__container">{renderSection()}</div>
       </section>
     );
   }

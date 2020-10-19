@@ -9,9 +9,8 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(({ pageIndex, phoneLayout }) => {
-  const [sectionTop, setSectionTop] = useState(null);
+  const [sectionTop, setSectionTop] = useState(NaN);
   const sectionRef = useRef(null);
-  console.log(sectionTop);
 
   /* Get section offset, used for Animation on small screens  */
   useEffect(() => {
@@ -33,6 +32,7 @@ export default connect(mapStateToProps)(({ pageIndex, phoneLayout }) => {
 
   const checkRenderInfo =
     pageIndex === "8" || (phoneLayout && sectionTop <= 700);
+
   return (
     <section ref={sectionRef} className="section order">
       <div className="order__container">
@@ -45,7 +45,7 @@ export default connect(mapStateToProps)(({ pageIndex, phoneLayout }) => {
         <div className="order__right">
           <img className="order__backgroundImage" src={Image} alt="Model S" />
         </div>
-        <Footer active={checkRenderInfo} />
+        {checkRenderInfo && <Footer active={checkRenderInfo} />}
       </div>
     </section>
   );

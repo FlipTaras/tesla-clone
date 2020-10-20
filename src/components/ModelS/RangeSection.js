@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import SideComponents from "./SideComponents";
+import ContentElement from "./ContentElement";
+import InfoElement from "./InfoElement";
+import RangeMap from "./RangeMap";
+import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
 
 import Video from "../../static/videos/ModelS/Range.mp4";
 import VideoMobile from "../../static/videos/ModelS/RangeMobile.mp4";
@@ -6,9 +11,6 @@ import VideoMobile from "../../static/videos/ModelS/RangeMobile.mp4";
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
-import InfoElement from "./InfoElement";
-import SideComponents from "./SideComponents";
-import ContentElement from "./ContentElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -21,7 +23,6 @@ const mapActionToProps = {
   setPageToShow,
   setSilentScrollTo,
 };
-
 export default connect(
   mapStateToProps,
   mapActionToProps
@@ -38,9 +39,9 @@ export default connect(
     phoneLayout,
     showSection,
   }) => {
-    // const [showLearnMore, setShowLearnMore] = useState(false);
     const videoRef = useRef(null);
     const [showLearnMore, setShowLearnMore] = useState(false);
+    const checkLearnMore = showLearnMore || learnMoreOn;
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
@@ -91,7 +92,7 @@ export default connect(
         pageIndex === "3" || (phoneLayout && sectionTop <= 600);
 
       /* Video Element */
-      const videoElement = (
+      const videoElement = () => (
         <video
           preload="auto"
           muted
@@ -174,7 +175,7 @@ export default connect(
             <div className="range__infoElementsContainer">
               {checkRenderInfo && renderInfoElement()}
             </div>
-            {phoneLayout ? videoElement : pageIndex === "3" && videoElement}
+            {phoneLayout ? videoElement() : pageIndex === "3" && videoElement()}
           </ContentElement>
 
           <SideComponents
@@ -190,10 +191,6 @@ export default connect(
             learnMoreHandle={learnMoreHandler}
             showSection={showSection}
           />
-          <div
-            className="range__learnMoreContainer"
-            ref={learnMoreSectionRef}
-          ></div>
         </>
       );
     }, [
@@ -210,11 +207,25 @@ export default connect(
     return (
       <section ref={sectionRef} className="section range">
         <div className="range__container">{renderSection()}</div>
-        {/* {phoneLayout ? (
-          <div className="fp-tableCell">{renderSection()}</div>
-        ) : (
-          <>{renderSection()}</>
-        )} */}
+        <div
+          className={checkLearnMore ? "range__learnMoreContainer" : ""}
+          ref={learnMoreSectionRef}
+        >
+          {checkLearnMore && (
+            <div className="range__learnMoreInnerContainer">
+              <LearnMoreTitleContainer
+                customClassNames="range__learnMoreTitleContainer"
+                title="Go Anywhere"
+                paragraph="Experience the freedom of long-distance travel with convenient access to the Tesla global charging network."
+              />
+              <div className="range__learnMoreMapContainer">
+                <>
+                  <RangeMap />
+                </>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
     );
   }

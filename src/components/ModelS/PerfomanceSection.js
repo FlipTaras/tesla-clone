@@ -513,11 +513,7 @@ export default connect(
     /* Final Render */
     return (
       <section ref={sectionRef} className="section perfomance">
-        {/* {phoneLayout ? (
-          <div className="fp-tableCell">{renderSection()}</div>
-        ) : ( */}
         <>{renderSection()}</>
-        {/* )} */}
       </section>
     );
   }

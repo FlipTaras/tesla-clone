@@ -190,6 +190,8 @@ const ModelSPage = ({
           return <SafetySection learnMoreOn />;
         } else if (pagetoShow === "perfomance") {
           return <PerfomanceSection learnMoreOn />;
+        } else if (pagetoShow === "range") {
+          return <RangeSection learnMoreOn />;
         } else {
           return (
             <>

@@ -354,11 +354,7 @@ export default connect(
     /* Final Render of the section */
     return (
       <section ref={sectionRef} className="safety section">
-        {/* {phoneLayout ? (
-          <div className="fp-tableCell">{renderSafetySection()}</div>
-        ) : ( */}
         <>{renderSafetySection()}</>
-        {/* )} */}
       </section>
     );
   }

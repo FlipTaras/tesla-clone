@@ -83,6 +83,29 @@
         padding-top: 8rem
         background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 30%)
 
+    &__containerAnimation
+        position: relative
+        height: 80vh
+        width: 80%
+        opacity: 0
+        margin: 0 auto
+        animation: subTitleAppear 1s 2s ease forwards
+
+    &__image
+        max-height: 100%
+        width: 100%
+        object-fit: contain
+    &__svg
+        position: absolute
+        top: 0
+        left: 0
+
+    &__animationElement
+        &--active
+            animation: opacity1 .5s ease forwards
+        &--finished
+            animation: opacity0 .5s ease forwards
+
     &__learnMoreTitleContainer
         width: 80%
 
@@ -91,3 +114,33 @@
         width: 60vw
         margin: 7rem auto 0
         pointer-events: none
+
+@keyframes dash
+    0%
+        stroke-dashoffset: 530.603
+
+    100%
+        stroke-dashoffset: 0
+
+@keyframes moveTextContainer
+    0%
+        transform: translate(297.1px , 150.1px)
+    15%
+        transform: translate(370px , 140.1px)
+
+    100%
+        transform: translateX(618.5px) translateY(466.784px)
+
+@keyframes opacity0
+    0%
+        opacity: 1
+
+    100%
+        opacity: 0
+
+@keyframes opacity1
+    0%
+        opacity: 0
+
+    100%
+        opacity: 1

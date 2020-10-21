@@ -3,6 +3,14 @@ export const SET_HEIGHT = "SET_HEIGHT";
 export const SET_LOADED = "SET_LOADED";
 export const SET_NAVBAR = "SET_NAVBAR";
 export const SET_PAGEYOFFSET = "SET_PAGEYOFFSET";
+export const SET_RANGE_ACTIVE_BUTTON = "SET_RANGE_ACTIVE_BUTTON";
+
+export const setRangeActiveButton = (payload) => (dispatch) => {
+  dispatch({
+    type: SET_RANGE_ACTIVE_BUTTON,
+    payload,
+  });
+};
 
 export const setPageYOffSet = (offset) => (dispatch) => {
   dispatch({

@@ -4,24 +4,31 @@ import ContentElement from "./ContentElement";
 import InfoElement from "./InfoElement";
 import RangeMap from "./RangeMap";
 import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
+import RangeAnimationEement from "./RangeAnimationElement";
 
 import Video from "../../static/videos/ModelS/Range.mp4";
 import VideoMobile from "../../static/videos/ModelS/RangeMobile.mp4";
 
 /* Redux */
 import { connect } from "react-redux";
-import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
+import {
+  setPageToShow,
+  setSilentScrollTo,
+  setRangeActiveButton,
+} from "../../static/store/actions";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
   pageYOffset: state.page.pageYOffset,
   width: state.page.width,
   height: state.page.height,
+  rangeButtonActive: state.models.rangeButtonActive,
 });
 
 const mapActionToProps = {
   setPageToShow,
   setSilentScrollTo,
+  setRangeActiveButton,
 };
 export default connect(
   mapStateToProps,
@@ -38,6 +45,8 @@ export default connect(
     height,
     phoneLayout,
     showSection,
+    setRangeActiveButton,
+    rangeButtonActive,
   }) => {
     const videoRef = useRef(null);
     const [showLearnMore, setShowLearnMore] = useState(false);
@@ -69,12 +78,6 @@ export default connect(
         window.removeEventListener("touchmove", getAndShowTop);
       };
     }, []);
-
-    // useEffect(() => {
-    //   if (videoRef.current) {
-    //     videoRef.current.play();
-    //   }
-    // }, []);
 
     /* Scroll Learn more page into view */
     useEffect(() => {
@@ -218,10 +221,9 @@ export default connect(
                 title="Go Anywhere"
                 paragraph="Experience the freedom of long-distance travel with convenient access to the Tesla global charging network."
               />
+              <RangeAnimationEement learnMoreOn={learnMoreOn} page="Range" />
               <div className="range__learnMoreMapContainer">
-                <>
-                  <RangeMap />
-                </>
+                <>{/* <RangeMap /> */}</>
               </div>
             </div>
           )}

@@ -3,22 +3,28 @@
     position: relative
     width: 40rem
     height: 20rem
+    margin-right: 2rem
+    transition: all .5s ease
+
     @include responsive(1280)
         height: 16rem
-
     @include responsive(tablet-portrait)
         width: 20rem
         height: 25rem
-
     @include responsive(ipadPro-portrait)
         width: 40rem
     @include responsive(phone-landscape)
         width: 20rem
         height: 25rem
         margin-top: 7rem
-
     @include responsive(smallphone-portrait)
         width: 20rem
+
+    &--smaller
+        margin-top: 3rem
+        position: relative
+        width: 20rem
+        height: 17rem
 
     &__videoButtonContentContainer
         opacity: .4
@@ -30,12 +36,11 @@
             animation: opacityButton 1s ease forwards
         @include responsive(phone)
             padding-top: 1rem
+            width: 20rem
         @include responsive(phone-landscape)
             width: 20rem
-        @include responsive(smallphone-portrait)
-            width: 20rem
 
-    &__videoButtonContainerTopBorder
+    &__topBorder
         position: absolute
         top: 0
         left: 0
@@ -55,6 +60,9 @@
             font-size: 1.3rem
         @include responsive(phone)
             font-size: 1.3rem
+
+        &--smaller
+            width: 50%
 
     &__videoButtonText
         color: #5c5e62
@@ -102,9 +110,30 @@
         &:not(:first-child)
             margin-top: .4rem
 
-    &__videoButtonActiveBorder
+    &__activeBorder
         position: absolute
         left: 0
         height: 100%
         width: 100%
         border: 2px solid rgba(1,1,1,1)
+        transition: all .5s ease
+        &--top
+            border: none
+            border-top: 2px solid rgba(1,1,1,1)
+
+    /* Subtitle miles */
+    &__subtitleMilesContainer
+        display: flex
+        align-items: baseline
+        margin-top: 1.5rem
+        padding: 0 1.5rem
+        color: #171a20
+        font-weight: 500
+        font-family: 'Gotham Medium'
+
+    &__videoButtonSubtitle
+        font-size: 3rem
+
+    &__milesSpan
+        font-size: 1.7rem
+        margin-left: .5rem

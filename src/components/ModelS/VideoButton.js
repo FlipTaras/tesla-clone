@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
+
 const mapStateToProps = (state) => ({
   width: state.page.width,
 });
@@ -11,73 +12,79 @@ export default connect(mapStateToProps)(
     text,
     buttons,
     showBorder,
-    topBorderPosition,
+    showTopBorder,
     click,
     active,
     activeButton,
-    width,
+    subtitleMiles,
+    smaller,
+    noBorder,
   }) => {
-    const [animationBorder, setAnimationBorder] = useState(null);
-    const [animationElement, setAnimationElement] = useState({
-      animation: "none",
-    });
+    const [borderPosition, setBorderPosition] = useState("0");
 
-    const ContentContainerClassNames = classnames(
+    const contentContainerClassNames = classnames(
       "videoButtonElement__videoButtonContentContainer",
       active && "videoButtonElement__videoButtonContentContainer--active"
     );
 
+    const videoButtonElementClassNames = classnames(
+      "videoButtonElement",
+      smaller && "videoButtonElement--smaller"
+    );
+
+    const activeBorderClassNames = classnames(
+      "videoButtonElement__activeBorder",
+      showTopBorder && "videoButtonElement__activeBorder--top"
+    );
+
+    /* Animation Functionality */
+
     useEffect(() => {
-      if (activeButton === 2) {
-        setAnimationBorder({
-          animation: "moveBoxRight .4s ease-in-out forwards",
-        });
-        if (width <= 600) {
-          setAnimationElement({
-            animation: "moveContainerRightMedium .4s ease-in-out forwards",
-          });
-        } else if (width <= 812) {
-          setAnimationElement({
-            animation: "moveContainerRight .4s ease-in-out forwards",
-          });
-        }
-      } else if (activeButton === 1) {
-        setAnimationBorder({
-          animation: "moveBoxLeft .4s ease-in-out forwards",
-        });
-        if (width <= 600) {
-          setAnimationElement({
-            animation: "moveContainerLeftMedium .4s ease-in-out forwards",
-          });
-        } else if (width <= 812) {
-          setAnimationElement({
-            animation: "moveContainerLeft .4s ease-in-out forwards",
-          });
-        }
+      switch (activeButton) {
+        case 1:
+          setBorderPosition("0");
+          break;
+        case 2:
+          setBorderPosition("105%");
+          break;
+        case 3:
+          setBorderPosition("210%");
+          break;
+        case 4:
+          setBorderPosition("330%");
+          break;
+        case 5:
+          setBorderPosition("435%");
+          break;
+        default:
+          setBorderPosition("0");
+          break;
       }
-    }, [activeButton, width]);
+    }, [activeButton]);
+
+    /* Final Render */
     return (
-      <div
-        onClick={click}
-        style={{
-          marginRight: "2rem",
-          ...animationElement,
-        }}
-        className="videoButtonElement"
-      >
+      <div onClick={click} className={videoButtonElementClassNames}>
         {showBorder && (
           <div
-            style={{ ...animationBorder }}
-            className="videoButtonElement__videoButtonActiveBorder"
+            style={{ left: borderPosition }}
+            className={activeBorderClassNames}
           ></div>
         )}
-        <div className={ContentContainerClassNames}>
-          <div
-            style={{ ...topBorderPosition }}
-            className="videoButtonElement__videoButtonContainerTopBorder"
-          ></div>
+        <div className={contentContainerClassNames}>
+          {!noBorder && <div className="videoButtonElement__topBorder"></div>}
           <h1 className="videoButtonElement__videoButtonTitle">{title}</h1>
-          <p className="videoButtonElement__videoButtonText">{text}</p>
+          {subtitleMiles && (
+            <div className="videoButtonElement__subtitleMilesContainer">
+              <h1 className="videoButtonElement__videoButtonSubtitle">
+                {subtitleMiles}
+              </h1>
+              <span className="videoButtonElement__milesSpan">miles</span>
+            </div>
+          )}
+          {text && (
+            <p className="videoButtonElement__videoButtonText">{text}</p>
+          )}
           <div className="videoButtonElement__videoButtonInfoContainers">
             {buttons &&
               buttons.map((el) => (

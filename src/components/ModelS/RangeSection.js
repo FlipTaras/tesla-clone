@@ -47,7 +47,6 @@ export default connect(
     learnMoreOn,
     setPageToShow,
     setSilentScrollTo,
-    rightContainerRangeRef,
     pageYOffset,
     width,
     height,
@@ -59,9 +58,63 @@ export default connect(
     const videoRef = useRef(null);
     const [showLearnMore, setShowLearnMore] = useState(false);
     const checkLearnMore = showLearnMore || learnMoreOn;
+    const [chargeActiveButton, setChargeActiveButton] = useState(1);
+
+    /* Choose what image to redner for Charger Elment */
+    const renderImage = useCallback(() => {
+      switch (chargeActiveButton) {
+        case 1:
+          if (width <= 800) {
+            return Image1;
+          } else {
+            return Image1Mobile;
+          }
+        case 2:
+          if (width <= 800) {
+            return Image2;
+          } else {
+            return Image2Mobile;
+          }
+        case 3:
+          if (width <= 800) {
+            return Image3;
+          } else {
+            return Image3Mobile;
+          }
+
+        default:
+          return null;
+      }
+    }, [width, chargeActiveButton]);
+
+    /* Container animation Logic */
+    const [containerPosition, setContainerPosition] = useState("0");
+    useEffect(() => {
+      switch (rangeButtonActive) {
+        case 1:
+          setContainerPosition("0");
+          break;
+        case 2:
+          setContainerPosition("0");
+          break;
+        case 3:
+          setContainerPosition("0");
+          break;
+        case 4:
+          setContainerPosition("-20rem");
+          break;
+        case 5:
+          setContainerPosition("-40rem");
+          break;
+        default:
+          setContainerPosition("0");
+          break;
+      }
+    }, [rangeButtonActive]);
 
     /* rangeAnimationElement Logic */
     const [animation, setAnimation] = useState(null);
+    const [chargeAnimation, setChargerAnimation] = useState(null);
 
     const buttonClickedAnimation = useCallback(
       (value) => {
@@ -69,6 +122,13 @@ export default connect(
         setRangeActiveButton(value);
       },
       [animation, setRangeActiveButton]
+    );
+    const chargerAnimationReset = useCallback(
+      (value) => {
+        clearTimeout(chargeAnimation);
+        setChargeActiveButton(value);
+      },
+      [chargeAnimation, setChargeActiveButton]
     );
 
     useEffect(() => {
@@ -84,6 +144,20 @@ export default connect(
         );
       }
     }, [learnMoreOn, rangeButtonActive, setRangeActiveButton, phoneLayout]);
+
+    useEffect(() => {
+      if (learnMoreOn || phoneLayout) {
+        setChargerAnimation(
+          setTimeout(() => {
+            if (chargeActiveButton === 3) {
+              setChargeActiveButton(1);
+            } else {
+              setChargeActiveButton(chargeActiveButton + 1);
+            }
+          }, 4000)
+        );
+      }
+    }, [learnMoreOn, phoneLayout, chargeActiveButton, setRangeActiveButton]);
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
@@ -293,42 +367,52 @@ export default connect(
                 />
               </div>
               <div className="range__videoButtonsContainer">
-                <div className="range__videoButtonsInner">
+                <div
+                  style={{
+                    left: containerPosition,
+                  }}
+                  className="range__videoButtonsInner"
+                >
                   <VideoButton
-                    title="Title"
-                    text="340Miles"
+                    title="San Jose to Los Angeles"
+                    subtitleMiles="340"
+                    smaller
                     showBorder={true}
                     click={() => buttonClickedAnimation(1)}
                     active={rangeButtonActive === 1}
                     activeButton={rangeButtonActive}
                   />
                   <VideoButton
-                    title="Title"
-                    text="340Miles"
+                    title="Barkley to Lake Tahoe"
+                    subtitleMiles="178"
+                    smaller
                     showBorder={false}
                     click={() => buttonClickedAnimation(2)}
                     active={rangeButtonActive === 2}
                     activeButton={rangeButtonActive}
                   />
                   <VideoButton
-                    title="Title"
-                    text="340Miles"
+                    title="Manhattan to Boston"
+                    subtitleMiles="211"
+                    smaller
                     showBorder={false}
                     click={() => buttonClickedAnimation(3)}
                     active={rangeButtonActive === 3}
                     activeButton={rangeButtonActive}
                   />
                   <VideoButton
-                    title="Title"
-                    text="340Miles"
+                    title="Fort Lauderdale to Orlando"
+                    subtitleMiles="195"
+                    smaller
                     showBorder={false}
                     click={() => buttonClickedAnimation(4)}
                     active={rangeButtonActive === 4}
                     activeButton={rangeButtonActive}
                   />
                   <VideoButton
-                    title="Title"
-                    text="340Miles"
+                    title="Austin to Dallas"
+                    subtitleMiles="195"
+                    smaller
                     showBorder={false}
                     click={() => buttonClickedAnimation(5)}
                     active={rangeButtonActive === 5}
@@ -343,7 +427,41 @@ export default connect(
                 paragraph="Stay charged with convenient options anywhere you go — at home, on the road and upon arrival."
               />
               <div className="range__learnMoreAnimationElementsContainer">
-                <img className="range__image" src={Image1} alt="Model S" />
+                <img
+                  className="range__image"
+                  src={renderImage()}
+                  alt="Model S"
+                />
+              </div>
+              <div className="range__learnMoreChargingButtons">
+                <VideoButton
+                  title="Home Charging"
+                  text="Change Model S overnight for one week worth of driving"
+                  click={() => chargerAnimationReset(1)}
+                  active={chargeActiveButton === 1}
+                  activeButton={chargeActiveButton}
+                  showTopBorder
+                  noBorder
+                  showBorder={true}
+                />
+                <VideoButton
+                  title="On the Road"
+                  text="Stop and recharge half of the battery while you get a cup of coffee"
+                  click={() => chargerAnimationReset(2)}
+                  active={chargeActiveButton === 2}
+                  activeButton={chargeActiveButton}
+                  showTopBorder={false}
+                  noBorder
+                />
+                <VideoButton
+                  title="Upon Arrival"
+                  text="Park and recharge for your next destination while away from home"
+                  click={() => chargerAnimationReset(3)}
+                  active={chargeActiveButton === 3}
+                  activeButton={chargeActiveButton}
+                  showTopBorder={false}
+                  noBorder
+                />
               </div>
               <LearnMoreTitleContainer
                 customParagraphClassNames="range__learnMoreParagraph--3"

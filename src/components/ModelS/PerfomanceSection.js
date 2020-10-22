@@ -53,6 +53,33 @@ export default connect(
     const [showLearnMore, setShowLearnMore] = useState(false);
     const [activeButton, setActiveButton] = useState(1);
 
+    /* Video Buttons Container Animation */
+    const [containerPosition, setContainerPosition] = useState("0");
+    useEffect(() => {
+      switch (activeButton) {
+        case 1:
+          if (width <= 350) {
+            setContainerPosition("15rem");
+          } else if (width <= 600) {
+            setContainerPosition("10rem");
+          } else {
+            setContainerPosition("0");
+          }
+          break;
+        case 2:
+          if (width <= 600) {
+            setContainerPosition("-20rem");
+          } else if (width <= 812) {
+            setContainerPosition("-12rem");
+          }
+          break;
+
+        default:
+          setContainerPosition("0");
+          break;
+      }
+    }, [activeButton, width]);
+
     /* Different Checks of screen size */
     const checkIpad = height <= 1366 && width <= 1024;
     const dualMotorRef = useRef(null);
@@ -366,7 +393,12 @@ export default connect(
               <div className="perfomance__videosContainer">
                 {renderVideoElement()}
               </div>
-              <div className="perfomance__videoButtons">
+              <div
+                style={{
+                  marginLeft: containerPosition,
+                }}
+                className="perfomance__videoButtons"
+              >
                 {videoButtons.map((el, i) => (
                   <VideoButton
                     key={i}
@@ -442,6 +474,7 @@ export default connect(
       height,
       learnMoreSectionBottom,
       learnMoreSectionTop,
+      containerPosition,
     ]);
 
     const renderSection = useCallback(() => {

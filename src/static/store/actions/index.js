@@ -1,9 +1,30 @@
+import axios from "axios";
+
 export const SET_WIDTH = "SET_WIDTH";
 export const SET_HEIGHT = "SET_HEIGHT";
 export const SET_LOADED = "SET_LOADED";
 export const SET_NAVBAR = "SET_NAVBAR";
 export const SET_PAGEYOFFSET = "SET_PAGEYOFFSET";
 export const SET_RANGE_ACTIVE_BUTTON = "SET_RANGE_ACTIVE_BUTTON";
+export const SET_CHARGERS = "SET_CHARGERS";
+
+export const setChargers = () => async (dispatch) => {
+  const res = await axios.get("https://www.tesla.com/all-locations");
+  console.log(res);
+  const filteredRes = res.data
+    .filter(
+      (el) =>
+        el.country === "United States" ||
+        el.country === "Canada" ||
+        el.country === "Mexico"
+    )
+    .slice(0, 500)
+    .map((el) => ({ lat: +el.latitude, lng: +el.longitude }));
+  dispatch({
+    type: SET_CHARGERS,
+    payload: filteredRes,
+  });
+};
 
 export const setRangeActiveButton = (payload) => (dispatch) => {
   dispatch({

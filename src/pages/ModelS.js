@@ -7,8 +7,6 @@ import React, {
 } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Image from "../static/images/ModelS/FirstSection/Model-S.jpg";
-// import ImagePhone from "../static/images/ModelS/FirstSection/model-s@2x.jpg";
-// import ImageLand from "../static/images/ModelS/FirstSection/640.jpg";
 import TeslaLogo from "../static/images/Teslalogo.svg";
 import TeslaLogoWhite from "../static/images/TeslalogoWhite.svg";
 
@@ -23,6 +21,7 @@ import {
   setLoaded,
   setPageIndex,
   setSilentScrollTo,
+  setChargers,
 } from "../static/store/actions";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -41,10 +40,12 @@ const mapStateToProps = (state) => ({
   width: state.page.width,
   height: state.page.height,
 });
+
 const mapActionToProps = {
   setLoaded,
   setPageIndex,
   setSilentScrollTo,
+  setChargers,
 };
 
 const ModelSPage = ({
@@ -57,10 +58,16 @@ const ModelSPage = ({
   setSilentScrollTo,
   width,
   height,
+  setChargers,
 }) => {
   const [showSection, setShowSection] = useState(false);
   const [indexPage, setIndex] = useState("0");
   const logoref = useRef(null);
+
+  /* Axios call to set Chargers for Range Section */
+  useEffect(() => {
+    setChargers();
+  }, [setChargers]);
 
   /* After close learn More section functionality */
   useEffect(() => {

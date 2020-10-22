@@ -76,71 +76,63 @@
 
     /* Learn More Section */
     &__learnMoreContainer
-        height: 200vh
         padding-bottom: 10rem
 
     &__learnMoreInnerContainer
         padding-top: 8rem
         background: linear-gradient(180deg, rgba(244,244,244,1) 0%, rgba(255,255,255,1) 30%)
 
-    &__containerAnimation
+    &__learnMoreTitleContainer
+        &--1
+            width: 70% !important
+        &--2
+            width: 70% !important
+        &--3
+            margin: 0 !important
+            margin-left: auto !important
+            width: 60% !important
+
+    &__learnMoreParagraph
+        &--1
+            width: 50% !important
+        &--2
+            width: 90% !important
+        &--3
+            width: 65% !important
+
+    &__learnMoreAnimationElementsContainer
         position: relative
+        width: 90vw
         height: 80vh
-        width: 80%
+        margin: 5rem auto 0 auto
+
+    &__learnMoreMapContainer
+        height: 80vh
+        width: 90vw
+        margin: 7rem auto 0
+        pointer-events: none
+
+    &__learnMoreMapInner
+        width: 100%
+        height: 100%
         opacity: 0
+        animation: translateYOpacityShowFromTop .5s .5s ease forwards
+
+    &__videoButtonsContainer
+        position: relative
+        width: 60vw
+        overflow: hidden
+        height: 30vh
         margin: 0 auto
-        animation: subTitleAppear 1s 2s ease forwards
+
+    &__videoButtonsInner
+        display: flex
+        position: absolute
+        height: 50vh
+        width: 100vw
+        margin: 0 auto
 
     &__image
         max-height: 100%
         width: 100%
         object-fit: contain
-    &__svg
-        position: absolute
-        top: 0
-        left: 0
-
-    &__animationElement
-        &--active
-            animation: opacity1 .5s ease forwards
-        &--finished
-            animation: opacity0 .5s ease forwards
-
-    &__learnMoreTitleContainer
-        width: 80%
-
-    &__learnMoreMapContainer
-        height: 60vh
-        width: 60vw
-        margin: 7rem auto 0
-        pointer-events: none
-
-@keyframes dash
-    0%
-        stroke-dashoffset: 530.603
-
-    100%
-        stroke-dashoffset: 0
-
-@keyframes moveTextContainer
-    0%
-        transform: translate(297.1px , 150.1px)
-    15%
-        transform: translate(370px , 140.1px)
-
-    100%
-        transform: translateX(618.5px) translateY(466.784px)
-
-@keyframes opacity0
-    0%
-        opacity: 1
-
-    100%
-        opacity: 0
-
-@keyframes opacity1
-    0%
-        opacity: 0
-
-    100%
-        opacity: 1

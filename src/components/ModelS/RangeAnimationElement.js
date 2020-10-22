@@ -1,13 +1,13 @@
-import React, { useCallback, useRef, useEffect, useState } from "react";
+import React, { useCallback, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import TWEEN from "@tweenjs/tween.js";
 import { setRangeActiveButton } from "../../static/store/actions";
 
 import Image1 from "../../static/images/ModelS/Range/learnMoreSlider1.jpg";
 import Image2 from "../../static/images/ModelS/Range/learnMoreSlider2.jpg";
-// import Image3 from "../../static/images/ModelS/Range/learnMoreSlider3.jpg";
-// import Image4 from "../../static/images/ModelS/Range/learnMoreSlider4.jpg";
-// import Image5 from "../../static/images/ModelS/Range/learnMoreSlider5.jpg";
+import Image3 from "../../static/images/ModelS/Range/learnMoreSlider3.jpg";
+import Image4 from "../../static/images/ModelS/Range/learnMoreSlider4.jpg";
+import Image5 from "../../static/images/ModelS/Range/learnMoreSlider5.jpg";
 
 const mapStateToProps = (state) => ({
   rangeButtonActive: state.models.rangeButtonActive,
@@ -17,16 +17,23 @@ const mapActionToProps = {
   setRangeActiveButton,
 };
 
-function Icon({ page, rangeButtonActive, learnMoreOn, setRangeActiveButton }) {
-  const [delay, setDelay] = useState(3000);
-
+function Icon({
+  rangeButtonActive,
+  learnMoreOn,
+  phoneLayout,
+  setRangeActiveButton,
+  show,
+  number,
+}) {
   const textContainerRef = useRef(null);
   const textRef = useRef(null);
   const lineRef = useRef(null);
   const animationElementRef = useRef(null);
 
+  /* Animation Settings */
+
   useEffect(() => {
-    if (learnMoreOn) {
+    if (lineRef.current && (learnMoreOn || phoneLayout)) {
       function animate(time) {
         requestAnimationFrame(animate);
         TWEEN.update(time);
@@ -35,83 +42,54 @@ function Icon({ page, rangeButtonActive, learnMoreOn, setRangeActiveButton }) {
     }
 
     if (lineRef.current) {
-      const u = { value: 0 };
+      const initial = { value: 0 };
       const totalLength = lineRef.current.getTotalLength();
       const coordInitial = lineRef.current.getPointAtLength(0);
       textContainerRef.current.style.transform = `translate(${coordInitial.x}px, ${coordInitial.y}px)`;
 
-      // setTimeout(() => {
-      new TWEEN.Tween(u)
+      new TWEEN.Tween(initial)
         .to({ value: 100 }, 3000)
-        .delay(delay)
+        .delay(2000)
         .easing(TWEEN.Easing.Quadratic.Out)
-        .onStart(() => {
-          //   animationElementRef.current.classList.remove(
-          //     "range__animationElement--finished"
-          //   );
-          //   animationElementRef.current.classList.add(
-          //     "range__animationElement--active"
-          //   );
-        })
         .onUpdate(() => {
-          const coord = lineRef.current.getPointAtLength(
-            (u.value / 100) * totalLength
-          );
-          lineRef.current.style.strokeDashoffset =
-            totalLength - (totalLength * u.value) / 100;
-          textContainerRef.current.style.transform = `translate(${coord.x}px, ${coord.y}px)`;
-          textRef.current.textContent = `${Math.floor(
-            (textRef.current.dataset.miles * u.value) / 100
-          )} Miles`;
+          if (lineRef.current) {
+            const coord = lineRef.current.getPointAtLength(
+              (initial.value / 100) * totalLength
+            );
+            lineRef.current.style.strokeDashoffset =
+              totalLength - (totalLength * initial.value) / 100;
+            textContainerRef.current.style.transform = `translate(${coord.x}px, ${coord.y}px)`;
+            textRef.current.textContent = `${Math.floor(
+              (textRef.current.dataset.miles * initial.value) / 100
+            )} Miles`;
+          }
         })
         .onComplete(() => {
           animationElementRef.current.classList.add(
             "range__animationElement--finished"
           );
           setTimeout(() => {
-            setDelay(2000);
-
-            if (rangeButtonActive === 2) {
-              setRangeActiveButton(1);
-            } else {
-              setRangeActiveButton(rangeButtonActive + 1);
-            }
-          }, 1000);
-          setTimeout(() => {
-            /* Reset */
-            u.value = 0;
-            const coord = lineRef.current.getPointAtLength(
-              (u.value / 100) * totalLength
-            );
-            // lineRef.current.style.strokeDasharray = totalLength;
-            lineRef.current.style.strokeDashoffset =
-              lineRef.current.style.strokeDasharray;
-            textContainerRef.current.style.transform = `translate(${coord.x}px, ${coord.y}px)`;
-            textRef.current.textContent = `${Math.floor(
-              (textRef.current.dataset.miles * u.value) / 100
-            )} Miles`;
-          }, 1001);
-          setTimeout(() => {
             animationElementRef.current.classList.remove(
               "range__animationElement--finished"
             );
-            animationElementRef.current.classList.add(
-              "range__animationElement--active"
-            );
-          }, 1500);
+          }, 1000);
         })
         .start();
-      // }, 2000);
     }
-  }, [learnMoreOn, rangeButtonActive, setRangeActiveButton, delay]);
+  }, [learnMoreOn, rangeButtonActive, setRangeActiveButton, phoneLayout]);
 
+  /* Render element depending on number */
   const renderSvg = useCallback(() => {
-    if (rangeButtonActive === 1 && page === "Range") {
+    if (number === 1 && show) {
       return (
-        <div className="range__containerAnimation">
-          <img className="range__image" alt="map" src={Image1} />
+        <div className="rangeAnimationElement__container">
+          <img
+            className="rangeAnimationElement__image"
+            alt="map"
+            src={Image1}
+          />
           <svg
-            className="range__svg"
+            className="rangeAnimationElement__svg"
             xmlns="http://www.w3.org/2000/svg"
             x="0"
             y="0"
@@ -119,7 +97,6 @@ function Icon({ page, rangeButtonActive, learnMoreOn, setRangeActiveButton }) {
             viewBox="0 0 1225 562"
           >
             <path
-              className="range__line"
               ref={lineRef}
               fill="none"
               stroke="#000"
@@ -152,12 +129,16 @@ function Icon({ page, rangeButtonActive, learnMoreOn, setRangeActiveButton }) {
           </svg>
         </div>
       );
-    } else if (rangeButtonActive === 2 && page === "Range") {
+    } else if (number === 2 && show) {
       return (
-        <div className="range__containerAnimation">
-          <img alt="map" className="range__image" src={Image2} />
+        <div className="rangeAnimationElement__container">
+          <img
+            alt="map"
+            className="rangeAnimationElement__image"
+            src={Image2}
+          />
           <svg
-            className="range__svg"
+            className="rangeAnimationElement__svg"
             xmlns="http://www.w3.org/2000/svg"
             x="0"
             y="0"
@@ -165,11 +146,9 @@ function Icon({ page, rangeButtonActive, learnMoreOn, setRangeActiveButton }) {
             viewBox="0 0 1225 562"
           >
             <path
-              className="range__line"
               ref={lineRef}
               fill="none"
               stroke="#000"
-              //   data-strokeDashoffset={711.514}
               strokeDashoffset="711.514"
               strokeDasharray="711.514, 711.514"
               d="M467 446.1l.1-3.5-2-3.2.1-3.1-2.5-11.3 2-2 1.8-5.2 6.3-3.5 7.3-10.3 4-2.9.1-4.5-1.1-3.1v-10l4.5-11.7 7-5.4 7.5-8.6.5-.3 13.1-7.4 8.2-11.7.4-6.7 3.6-6.7 7.5-3.3 44.6-45.4 9-5.6 34.9-8.8 4.3-9 9-6.5h16.3l4.2-2.7h3.8l21.5-25.9 2.7-5.9 25.7-25.5 1-4.8 9-3.3 6.1-7.7 1.9-6.1 6.3-6.9 4.8-7.5 1-5.2 2.3-2.1 1.7-9 4.4-9.8 2.9-9.8 2.5-2.9h2.5l7.3-4.8v-2.7l9.4-5.4 3.8-4.2h3.6l8.4-8.4v-2.5l5.6-4 1.7-2.5 1.7-3.3 6.9-3.1 2.3-2.5 10.5-3.3 6.1-4.4h2.9l8.4 6.7 3.1-.2 1.5-1.9h11.9l8.6-2.7 8.4-.6 5.6-3.8h6.7l3.6 3.1 2.1-1 2.9 1.5 4.6-1.5 4 1.9 5.2.8V75l-1.5 5.9 3.6 11.7v2.9l1 1.9v3.6l1.9 2.5h8.4"
@@ -202,11 +181,166 @@ function Icon({ page, rangeButtonActive, learnMoreOn, setRangeActiveButton }) {
           </svg>
         </div>
       );
+    } else if (number === 3 && show) {
+      return (
+        <div className="rangeAnimationElement__container">
+          <img
+            alt="map"
+            className="rangeAnimationElement__image"
+            src={Image3}
+          />
+          <svg
+            className="rangeAnimationElement__svg"
+            xmlns="http://www.w3.org/2000/svg"
+            x="0"
+            y="0"
+            viewBox="0 0 1225 562"
+          >
+            <path
+              ref={lineRef}
+              fill="none"
+              stroke="#000"
+              strokeDashoffset="794.698"
+              strokeDasharray="794.698, 794.698"
+              d="M257.3 476.5l-.2-6.3 4.4-6.3.7-7.2 3.2-3.5 3.7-3.8.8-2.7 2.4-1.1 1.8-1 1.3-6.5 2-1.1 6.4 2.1s3.2 1.7 4.2-.4c1.1-2.1 1.4-3 2-3.4s1.1-3.8 1.1-3.8l4.7-3.8 3.8-1.7s5.8-5 6.6-8.4c0 0 1.1-3 3.4-3.5s5.6-2.2 5.8-4.3c.1-2.1-.8-4.7-.5-5.4.3-.7 2-5.8 3.9-7 2-1.2 4.3-2.2 4.9-1.2.6 1.1 4.8-.4 6-1.2 1.2-.8 2.5-.9 4.5-1.1 2-.1 5.5-2.6 7.1-3.3 1.6-.7 3.8-1.1 6.2-.8s4.6.4 5.8-.8c1.2-1.2 3.4-3.4 6-4.3 2.6-.9 7.3-2.9 8.9-4.2 1.6-1.3 6.2-2.1 8.7-2.8 2.5-.7 5.9-2.6 6.8-3.3.9-.7 3.7-3.2 5.4-3.8 1.7-.7 5.1-3.5 6.4-5.9s4.5-4.2 11.2-5.1c6.7-.9 11.4-.3 12.9-.7s9.1-2.1 9.8-2.8c.8-.7 7.9-8.9 8.5-10.4.7-1.4.3-4.7 1.7-5.4s5.3-2.2 6.4-3.5c1.2-1.3 4.5-5.1 5.3-5.9.8-.8 3-2.5 5.1-3.3 2.1-.8 12.7-7.1 13.8-9.7 1.1-2.6 3-7 3.8-9.2.8-2.2 5.1-12.1 5.1-12.1s5.4-5.1 6.3-6.2c.9-1.1 3.2-4 3.2-4s1.1-3.9 4-6.8 3.1-4.9 4.7-6.1c1.6-1.2 4.2-8.1 4.6-8.5l3.5-7.4 3.1-3.9 1.3-4.9 4.1-7s.9-6.6-2-9.7c-2.9-3.1-.5-6 1.7-7.4 2.2-1.3 9.2-3.2 11.4-3.7 2.2-.5 5.6-6.3 6-6.7.4-.4 6.4-3.3 6.4-3.3l3.8-3.2 7.9-2.3 5.8-5.8s5.8-.8 6.8-.8c1.1 0 2.2 1.7 4.1.1 1.8-1.6 12.7-7.4 12.7-7.4s7.1-4.6 8.9-8.2 8.5-5.8 9.4-6.5c.9-.7 4.6-6.1 6.6-10.3s4.6-9.2 5.4-9.7c.8-.5 4.5-4.7 5.2-5.8.8-1.1 6.4-13.3 7.1-14.2.7-.9 3.5-7.7 6-9.1l1.3-.8s3.6-2.1 5.3-2.7c1.7-.7 6.4-2.2 8.8-2.8s5.8-2.5 7.2-3.7 6.4-3.4 8-4.1c1.6-.7 13.3-5 15.1-5.3 1.8-.3 9.9-2.9 12.9-4.8 0 0 7.6-.7 8-.7.4 0 3.7-1.3 3.7-1.3s8.3-.7 10.5 0 2.8 0 5-1.3 5.8-3.8 5.8-4.2c0-.4 3.3-4.7 3.3-4.7s5.9-2.1 9.5-3.6 6.1-1.1 6.7-2.4c.6-1.3 1.7-2.6 3.5-3.1s6.4-2 7.9-2.9 4.2-.9 6-.8 6.8.8 8.7-.7c1.9-1.4 7.8-3.8 8.7-4.1.9-.3 5.9-1.3 5.9-1.3s6.7-2.6 8.3-2.6c1.6 0 8.5-2 8.5-2s9.1-.8 10.1-.8c1.1 0 4.2 2 5 2.4.8.4 8.8 1.2 9.9-2.5l3.5-3.3s1.2.4 1.5 0c.3-.4 2.4-3.3 2.4-3.3l3-5.5.5-3.8-3.5-2.6"
+            ></path>
+            <g
+              ref={textContainerRef}
+              className="tooltip"
+              transform="translate(828.1 48.5)"
+            >
+              <circle cy="0.8" r="4.4" fill="#231F20"></circle>
+              <g fill="#EC1C24">
+                <path d="M-38.2 5.5H38.099999999999994V27.6H-38.2z"></path>
+                <path
+                  d="M-4.4 1.7H4.5V10.6H-4.4z"
+                  transform="rotate(-45.001 0 6.161)"
+                ></path>
+              </g>
+              <text
+                ref={textRef}
+                data-miles={211}
+                fill="#fff"
+                fontFamily="Gotham Bold"
+                fontSize="13"
+                textAnchor="middle"
+                transform="translate(0 21.252)"
+              >
+                0 Miles
+              </text>
+            </g>
+          </svg>
+        </div>
+      );
+    } else if (number === 4 && show) {
+      return (
+        <div className="rangeAnimationElement__container">
+          <img
+            alt="map"
+            className="rangeAnimationElement__image"
+            src={Image4}
+          />
+          <svg
+            className="rangeAnimationElement__svg"
+            xmlns="http://www.w3.org/2000/svg"
+            x="0"
+            y="0"
+            viewBox="0 0 1225 562"
+          >
+            <path
+              ref={lineRef}
+              fill="none"
+              stroke="#000"
+              strokeDashoffset="522.051"
+              strokeDasharray="522.051, 522.051"
+              d="M783.8 488.9V485l2.8-6.4v-2.2l1.9-3.3v-5.4l1.4-2.6v-4l1.9-3.8V446l3.7-4v-11.5l2.9-7.2.3-11.5-.3-15.5 1.2-4.1-3.6-5.2v-6.3l-1.8-3.3v-10.3l-4.2-7.4-3.7-10-6.7-9.4-6.8-6.7V329l-3.7-8.6-3.7-4-7-12.8-2.6-9.2-3.4-6.4v-2.8l-.4-7.6-4.1-9.9-2.9-3.6-1.6-4-3.9-3.9-1.5-.7h-15l-6.5-7.9-5.7-4.7h-18.3l-4.9-1.8-9.8-14.9-4.9-4.3-.7-5.4-16.1-16.9-1.2-9-9.1-12.8L636 167l-5.7-2.7L615 151l-1.5-2.1-3.1-9.7-1.1-8.8-2.7-3.6-1.8-8.4-4.3-5.4-3.9-9.1-.3-9.4-7.9-9.7-.4-2 4.4-4.8 4.7-.5 1.1-4.2"
+            ></path>
+            <g
+              ref={textContainerRef}
+              className="tooltip"
+              transform="translate(598.2 73.3)"
+            >
+              <circle cy="0.8" r="4.4" fill="#231F20"></circle>
+              <g fill="#EC1C24">
+                <path d="M-38.2 5.5H38.099999999999994V27.6H-38.2z"></path>
+                <path
+                  d="M-4.4 1.7H4.5V10.6H-4.4z"
+                  transform="rotate(-45.001 0 6.161)"
+                ></path>
+              </g>
+              <text
+                ref={textRef}
+                data-miles={195}
+                fill="#fff"
+                fontFamily="Gotham Bold"
+                fontSize="13"
+                textAnchor="middle"
+                transform="translate(0 21.252)"
+              >
+                0 Miles
+              </text>
+            </g>
+          </svg>
+        </div>
+      );
+    } else if (number === 5 && show) {
+      return (
+        <div className="rangeAnimationElement__container">
+          <img
+            alt="map"
+            className="rangeAnimationElement__image"
+            src={Image5}
+          />
+          <svg
+            className="rangeAnimationElement__svg"
+            xmlns="http://www.w3.org/2000/svg"
+            x="0"
+            y="0"
+            viewBox="0 0 1225 562"
+          >
+            <path
+              ref={lineRef}
+              fill="none"
+              stroke="#000"
+              strokeDashoffset="464.01"
+              strokeDasharray="464.01, 464.01"
+              d="M436.3 488.4l8.7-17.7-.4-3.4.4-7.7-2-9.7-1.2-3.9.6-11.6-.8-4.6 1.8-2.5 2.9-6 9.2-27 2.1-5.2 5.1-6.9.9-5.2 5.3-6.3 5.1-9.6 4.3-2.3 3.7-3.3 6.2-2.9 2-4 2.9-1.3 3.9-12.7 8.7-17.7 2.2-2.3 2.5-12.5 11.7-22.3 1.6-6.2 2.1-8v-32.1l1-3.2 1.4-2.8v-4.3l-5-14.9 2.9-5.6.6-8.8 22.2-15.3 1.5-1.7 7.4-14.1 2.9-19.9-.6-1.6-1.8-3.4-.2-3.9s3-4.9 3.4-5.2c.3-.2.9-2.8.9-2.8l3.3-6.7V85.4l-1.6-2.5.4-2.9 2.5-3.1 1.4-3.8"
+            ></path>
+            <g
+              ref={textContainerRef}
+              className="tooltip"
+              transform="translate(568.4 73.1)"
+            >
+              <circle cy="0.8" r="4.4" fill="#231F20"></circle>
+              <g fill="#EC1C24">
+                <path d="M-38.2 5.5H38.099999999999994V27.6H-38.2z"></path>
+                <path
+                  d="M-4.4 1.7H4.5V10.6H-4.4z"
+                  transform="rotate(-45.001 0 6.161)"
+                ></path>
+              </g>
+              <text
+                ref={textRef}
+                data-miles={195}
+                fill="#fff"
+                fontFamily="Gotham Bold"
+                fontSize="13"
+                textAnchor="middle"
+                transform="translate(0 21.252)"
+              >
+                0 Miles
+              </text>
+            </g>
+          </svg>
+        </div>
+      );
+    } else {
+      return null;
     }
-  }, [rangeButtonActive, lineRef, page, textContainerRef, textRef]);
+  }, [lineRef, textContainerRef, textRef, number, show]);
 
   return (
-    <div ref={animationElementRef} className="range__animationElement">
+    <div ref={animationElementRef} className="rangeAnimationElement">
       {renderSvg()}
     </div>
   );

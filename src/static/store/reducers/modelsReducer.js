@@ -5,6 +5,7 @@ const initialState = {
   silentScrollTo: null,
   pageIndex: "0",
   rangeButtonActive: 1,
+  chargers: null,
 };
 
 export default (state = initialState, action) => {
@@ -17,6 +18,8 @@ export default (state = initialState, action) => {
       return { ...state, pageIndex: action.payload };
     case actionType.SET_RANGE_ACTIVE_BUTTON:
       return { ...state, rangeButtonActive: action.payload };
+    case actionType.SET_CHARGERS:
+      return { ...state, chargers: action.payload };
     default:
       return state;
   }

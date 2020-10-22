@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useCallback } from "react";
+// import axios from "axios";
 import { Marker, GoogleMap, useLoadScript } from "@react-google-maps/api";
 import Icon from "../../static/images/ModelS/Range/dotIcon.svg";
+import { connect } from "react-redux";
 
 const mapStyle = [
   {
@@ -270,38 +271,14 @@ const center = { lat: 37.09024, lng: -95.712891 };
 
 const options = { disableDefaultUI: true, styles: mapStyle };
 
-const Map = () => {
-  const [elements, setElements] = useState(null);
-
-  useEffect(() => {
-    let res = null;
-    const getInfo = async () => {
-      res = await axios.get("https://www.tesla.com/all-locations");
-      if (res) {
-        const filteredRes = res.data
-          .filter(
-            (el) =>
-              el.country === "United States" ||
-              el.country === "Canada" ||
-              el.country === "Mexico"
-          )
-          .slice(0, 1000)
-          .map((el) => ({ lat: +el.latitude, lng: +el.longitude }));
-
-        setElements(filteredRes);
-        console.log(filteredRes);
-      }
-    };
-    getInfo();
-  }, []);
-
+const Map = ({ chargers }) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
   });
 
   const renderMarkers = useCallback(() => {
-    if (elements) {
-      return elements.map((el, i) => {
+    if (chargers) {
+      return chargers.map((el, i) => {
         return (
           <Marker
             key={i}
@@ -311,28 +288,38 @@ const Map = () => {
             }}
             icon={{
               url: Icon,
-              scaledSize: new window.google.maps.Size(3, 3),
+              scaledSize: new window.google.maps.Size(4, 4),
             }}
           />
         );
       });
     }
-  }, [elements]);
+  }, [chargers]);
 
   if (loadError) return "Error Loading Maps";
 
-  if (!isLoaded) return "Loading Maps";
+  if (!isLoaded) return "";
 
   return (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      zoom={4}
-      center={center}
-      options={options}
-    >
-      {renderMarkers()}
-    </GoogleMap>
+    <>
+      {isLoaded && (
+        <div className="range__learnMoreMapInner">
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            zoom={4}
+            center={center}
+            options={options}
+          >
+            {renderMarkers()}
+          </GoogleMap>
+        </div>
+      )}
+    </>
   );
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  chargers: state.models.chargers,
+});
+
+export default connect(mapStateToProps)(Map);

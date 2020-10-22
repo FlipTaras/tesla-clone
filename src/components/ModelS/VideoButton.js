@@ -59,7 +59,10 @@ export default connect(mapStateToProps)(
     return (
       <div
         onClick={click}
-        style={{ marginRight: "2rem", ...animationElement }}
+        style={{
+          marginRight: "2rem",
+          ...animationElement,
+        }}
         className="videoButtonElement"
       >
         {showBorder && (
@@ -76,24 +79,25 @@ export default connect(mapStateToProps)(
           <h1 className="videoButtonElement__videoButtonTitle">{title}</h1>
           <p className="videoButtonElement__videoButtonText">{text}</p>
           <div className="videoButtonElement__videoButtonInfoContainers">
-            {buttons.map((el) => (
-              <div
-                key={el.buttonTitle}
-                className="videoButtonElement__videoButtonInfoInner"
-              >
-                <h2 className="videoButtonElement__videoButtonInfoTitle">
-                  {el.buttonTitle}
-                </h2>
-                <div className="videoButtonElement__videoButtonInfoTextContainer">
-                  <p className="videoButtonElement__videoButtonInfoText">
-                    {el.buttonFirstText}
-                  </p>
-                  <p className="videoButtonElement__videoButtonInfoText">
-                    {el.buttonSecondtext}
-                  </p>
+            {buttons &&
+              buttons.map((el) => (
+                <div
+                  key={el.buttonTitle}
+                  className="videoButtonElement__videoButtonInfoInner"
+                >
+                  <h2 className="videoButtonElement__videoButtonInfoTitle">
+                    {el.buttonTitle}
+                  </h2>
+                  <div className="videoButtonElement__videoButtonInfoTextContainer">
+                    <p className="videoButtonElement__videoButtonInfoText">
+                      {el.buttonFirstText}
+                    </p>
+                    <p className="videoButtonElement__videoButtonInfoText">
+                      {el.buttonSecondtext}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

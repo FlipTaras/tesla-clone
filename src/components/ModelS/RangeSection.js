@@ -16,6 +16,7 @@ import Image2 from "../../static/images/ModelS/Range/learnMoreImage2.jpg";
 import Image2Mobile from "../../static/images/ModelS/Range/learnMoreImage2-mobile.jpg";
 import Image3 from "../../static/images/ModelS/Range/learnMoreImage3.png";
 import Image3Mobile from "../../static/images/ModelS/Range/learnMoreImage3-mobile.png";
+import ImageFix from "../../static/images/ModelS/Range/learnMoreSlider1.jpg";
 
 /* Redux */
 import { connect } from "react-redux";
@@ -89,29 +90,94 @@ export default connect(
     }, [width, chargeActiveButton]);
 
     /* Container animation Logic */
-    const [containerPosition, setContainerPosition] = useState("0");
+    const [
+      showRangeButtonsContainerPositon,
+      setShowRangeButtonsContainerPositon,
+    ] = useState("0");
+
     useEffect(() => {
       switch (rangeButtonActive) {
         case 1:
-          setContainerPosition("0");
+          setShowRangeButtonsContainerPositon("0");
           break;
         case 2:
-          setContainerPosition("0");
+          if (width <= 400) {
+            setShowRangeButtonsContainerPositon("-10rem");
+          } else if (width <= 500) {
+            setShowRangeButtonsContainerPositon("-5rem");
+          } else {
+            setShowRangeButtonsContainerPositon("0");
+          }
           break;
         case 3:
-          setContainerPosition("0");
+          if (width <= 400) {
+            setShowRangeButtonsContainerPositon("-25rem");
+          } else if (width <= 800) {
+            setShowRangeButtonsContainerPositon("-20rem");
+          } else {
+            setShowRangeButtonsContainerPositon("0");
+          }
           break;
         case 4:
-          setContainerPosition("-20rem");
+          if (width <= 800) {
+            setShowRangeButtonsContainerPositon("-40rem");
+          } else {
+            setShowRangeButtonsContainerPositon("-20rem");
+          }
           break;
         case 5:
-          setContainerPosition("-40rem");
+          if (width <= 600) {
+            setShowRangeButtonsContainerPositon("-45rem");
+          } else if (width <= 800) {
+            setShowRangeButtonsContainerPositon("-40rem");
+          } else {
+            setShowRangeButtonsContainerPositon("-40rem");
+          }
           break;
         default:
-          setContainerPosition("0");
+          setShowRangeButtonsContainerPositon("0");
           break;
       }
-    }, [rangeButtonActive]);
+    }, [rangeButtonActive, width]);
+
+    /* Charger container animation logic */
+    const [
+      chargerButtonsContainerPosition,
+      setChargerButtonsContainerPosition,
+    ] = useState("0");
+
+    useEffect(() => {
+      if (width <= 800) {
+        switch (chargeActiveButton) {
+          case 1:
+            if (width <= 400) {
+              setChargerButtonsContainerPosition("5rem");
+            } else if (width <= 600) {
+              setChargerButtonsContainerPosition("10rem");
+            } else {
+              setChargerButtonsContainerPosition("0");
+            }
+            break;
+          case 2:
+            if (width <= 400) {
+              setChargerButtonsContainerPosition("-5rem");
+            } else {
+              setChargerButtonsContainerPosition("0");
+            }
+            break;
+          case 3:
+            if (width <= 600) {
+              setChargerButtonsContainerPosition("-20rem");
+            } else {
+              setChargerButtonsContainerPosition("-2rem");
+            }
+            break;
+          default:
+            setChargerButtonsContainerPosition("0");
+            break;
+        }
+      }
+    }, [chargeActiveButton, width]);
 
     /* rangeAnimationElement Logic */
     const [animation, setAnimation] = useState(null);
@@ -314,6 +380,11 @@ export default connect(
                 paragraph="Experience the freedom of long-distance travel with convenient access to the Tesla global charging network."
               />
               <div className="range__learnMoreContentContainer">
+                <img
+                  src={ImageFix}
+                  alt="height fix"
+                  style={{ opacity: "0", width: "100%", height: "100%" }}
+                />
                 {pageAnimationElements.map((el, i) => (
                   <RangeAnimationEement
                     page="Range"
@@ -325,10 +396,10 @@ export default connect(
                   />
                 ))}
               </div>
-              <div className="range__showRangeButtonsContainer">
+              <div className="range__learnMoreButtonsContainer range__learnMoreButtonsContainer--showRange">
                 <div
                   style={{
-                    left: containerPosition,
+                    left: showRangeButtonsContainerPositon,
                   }}
                   className="range__showRangeButtonsContainerInner"
                 >
@@ -352,16 +423,24 @@ export default connect(
                 title="Charge Anywhere"
                 paragraph="Stay charged with convenient options anywhere you go — at home, on the road and upon arrival."
               />
-              <div className="range__learnMoreContentContainer">
+              <div className="range__learnMoreContentContainer range__learnMoreContentContainer--charger">
                 <img
                   className="range__image"
                   src={renderImage()}
                   alt="Model S"
                 />
               </div>
-              <div className="range__learnMoreChargingButtons">
+              <div
+                style={{
+                  transform: `translateX(${chargerButtonsContainerPosition})`,
+                }}
+                className="range__learnMoreButtonsContainer range__learnMoreButtonsContainer--charger"
+              >
                 {chargeButtons.map((el, i) => (
                   <VideoButton
+                    customTextClassNames="range__chargerVideoButtonText"
+                    customTitleClassNames="range__chargerVideoButtonTitle"
+                    customClassNames="range__chargerVideoButton"
                     title={el.title}
                     text={el.text}
                     click={() => chargerAnimationReset(i + 1)}
@@ -380,10 +459,7 @@ export default connect(
             Supercharge"
                 paragraph="Charge for about 15 minutes while you grab a cup of coffee or a quick bite to eat. And with over 18,000 Superchargers placed along well-traveled routes around the world, Model S can get you anywhere you want to go."
               />
-              <div
-                style={{ pointerEvents: "none" }}
-                className="range__learnMoreContentContainer"
-              >
+              <div className="range__learnMoreContentContainer range__learnMoreContentContainer--map">
                 {learnMoreSectionTop < -300 && <RangeMap />}
               </div>
             </div>
@@ -403,9 +479,10 @@ export default connect(
       chargeActiveButton,
       chargerAnimationReset,
       checkLearnMore,
-      containerPosition,
+      showRangeButtonsContainerPositon,
       rangeButtonActive,
       renderImage,
+      chargerButtonsContainerPosition,
     ]);
 
     /* Section Render */

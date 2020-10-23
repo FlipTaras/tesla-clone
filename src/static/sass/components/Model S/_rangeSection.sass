@@ -76,7 +76,11 @@
 
     /* Learn More Section */
     &__learnMoreContainer
-        padding-bottom: 10rem
+        padding-bottom: 15rem
+        @include responsive(phone-landscape)
+            padding-bottom: 8rem
+        @include responsive(500)
+            padding-bottom: 10rem
 
     &__learnMoreInnerContainer
         padding-top: 8rem
@@ -85,63 +89,251 @@
     &__learnMoreTitleContainer
         &--1
             width: 30% !important
+            @include responsive(2200)
+                width: 40% !important
             @include responsive(1280)
                 width: 70% !important
+            @include responsive(1200)
+                width: 80% !important
+            @include responsive(800)
+                width: 50% !important
+                margin: 0 auto
+            @include responsive(phone-landscape)
+                width: 50% !important
+                margin: 0 auto
+            @include responsive(700)
+                width: 70% !important
+
         &--2
             width: 30% !important
+            @include responsive(2200)
+                width: 40% !important
             @include responsive(1280)
+                width: 70% !important
+            @include responsive(1200)
+                width: 80% !important
+            @include responsive(phone-landscape)
+                width: 50% !important
+                margin: 0 auto
+            @include responsive(700)
                 width: 70% !important
         &--3
             margin: 0 5% 0 auto !important
-            width: 50vw !important
+            width: 50% !important
+            @include responsive(1700)
+                width: 55% !important
             @include responsive(1280)
                 width: 60% !important
+            @include responsive(800)
+                width: 50% !important
+                margin: 0 auto !important
+            @include responsive(phone-landscape)
+                width: 80% !important
+                margin: 0 auto
+            @include responsive(700)
+                width: 70% !important
 
     &__learnMoreParagraph
         &--1
             width: 70% !important
             @include responsive(1280)
                 width: 50% !important
+            @include responsive(tablet)
+                width: 60% !important
+            @include responsive(800)
+                width: 100% !important
+            @include responsive(phone-landscape)
+                width: 100% !important
+
         &--2
             width: 90% !important
+            @include responsive(phone-landscape)
+                width: 100% !important
         &--3
             width: 41% !important
+            @include responsive(2200)
+                width: 60% !important
+            @include responsive(1600)
+                width: 65% !important
+            @include responsive(1366)
+                width: 75% !important
+            @include responsive(1100)
+                width: 85% !important
+            @include responsive(800)
+                width: 100% !important
+            @include responsive(phone-landscape)
+                width: 80% !important
 
     &__learnMoreContentContainer
         position: relative
-        width: 50vw
-        height: 42vh
+        width: 50%
         margin: 3rem auto 0 auto
+        height: 100%
+        @include responsive(2200)
+            width: 60%
+        @include responsive(1920)
+            width: 65%
+        @include responsive(1700)
+            width: 75%
+        @include responsive(1450)
+            width: 90%
         @include responsive(1280)
-            width: 95vw
+            width: 99%
+        @include responsive(phone-landscape)
+            width: 80%
 
-    &__showRangeButtonsContainer
+        &--charger
+            @include responsive(500)
+                width: 80%
+
+        &--map
+            pointer-events: none
+            @include responsive(800)
+                width: 70%
+            @include responsive(phone-landscape)
+                width: 70%
+            @include responsive(700)
+                width: 80%
+            @include responsive(phone)
+                width: 100%
+
+    &__learnMoreButtonsContainer
         position: relative
-        width: 35vw
+        display: flex
+        width: 35%
         overflow: hidden
-        height: 20vh
         margin: 0 auto
+        height: 15vh
+        margin-bottom: 5rem
+        @include responsive(2200)
+            width: 40%
+            height: 20vh
+
+        @include responsive(1920)
+            width: 45%
+        @include responsive(1700)
+            width: 50%
+        @include responsive(1600)
+            height: 30vh
+        @include responsive(1450)
+            width: 60%
+        @include responsive(1366)
+            width: 65%
+        @include responsive(1280)
+            width: 70%
+
+        &--showRange
+            @include responsive(1200)
+                width: 69% !important
+            @include responsive(1100)
+                width: 81% !important
+                margin-top: 3rem
+            @include responsive(900)
+                width: 95% !important
+                margin-bottom: 10rem
+            @include responsive(800)
+                height: 25vh
+                width: 70% !important
+            @include responsive(phone-landscape)
+                height: 60vh
+                margin-bottom: 5rem
+            @include responsive(phone)
+                height: 26vh
+                margin-bottom: 5rem
+                margin-top: 2rem
+            @include responsive(smallphone-landscape)
+                height: 58vh
+            @include responsive(500)
+                margin-top: 1rem
+                width: 90% !important
+            @include responsive(375-portrait)
+                height: 30vh
+            @include responsive(smallphone-portrait)
+                height: 32vh
+
+        &--charger
+            @include responsive(1200)
+                width: 75%  !important
+            @include responsive(1100)
+                width: 90%  !important
+            @include responsive(900)
+                width: 99% !important
+            @include responsive(800)
+                transition: all .5s ease
+                width: 80% !important
+            @include responsive(phone)
+                height: 20vh
+                margin-bottom: 10rem
+            @include responsive(phone-landscape)
+                height: 35vh
+                width: 90% !important
+                margin-left: 5rem
+            @include responsive(700)
+                width: 90% !important
+            @include responsive(phone)
+                width: 120% !important
+            @include responsive(smallphone-landscape)
+                height: 55vh
+            @include responsive(375-portrait)
+                width: 150% !important
 
     &__showRangeButtonsContainerInner
         display: flex
         position: absolute
-        height: 50vh
-        width: 100vw
         margin: 0 auto
         left: 0
         transition: all .5s ease
 
+    &__image
+        max-height: 100%
+        width: 100%
+        object-fit: contain
+
+    &__chargerVideoButton
+        height: 10rem
+        @include responsive(1280)
+            flex: .33
+
+    &__chargerVideoButtonTitle
+        font-size: 1.3rem
+        @include responsive(800)
+            padding: 1rem 0 !important
+
+    &__chargerVideoButtonText
+        @include responsive(800)
+            padding: 0 !important
+
     &__learnMoreMapInner
         width: 100%
-        height: 100%
+        height: 50vh
         opacity: 0
         animation: translateYOpacityShowFromTop .5s .5s ease forwards
+        @include responsive(800)
+            height: 40vh
+        @include responsive(phone-landscape)
+            height: 70vh
+        @include responsive(414-portrait)
+            height: 40vh
 
     &__learnMoreMapInfoContainer
         display: flex
         justify-content: space-between
         width: 90%
-        margin: 2rem auto 0
+        margin: 3rem auto 0
+        @include responsive(2200)
+            width: 80%
+        @include responsive(1920)
+            width: 75%
+        @include responsive(1700)
+            width: 65%
+        @include responsive(1450)
+            width: 50%
+        @include responsive(900)
+            width: 60%
+        @include responsive(800)
+            width: 80%
+        @include responsive(375-portrait)
+            width: 90%
 
     &__learnMoreMapInfo
         color: #171a20
@@ -155,16 +347,32 @@
         flex-direction: column
         margin-top: -15rem
         z-index: 1000
+        @include responsive(1600)
+            font-size: 2.6rem
+            padding: 1.5rem
+            height: 20rem
+        @include responsive(800)
+            font-size: 1rem
+            height: 12rem
+            margin-top: -10rem
+            padding: 1rem
+        @include responsive(phone-landscape)
+            font-size: 1rem
+            height: 12rem
+            margin-top: -10rem
+            padding: 1rem
+
+    &__learnMoreMapInfoTitle
+        font-size: 2.6rem
+        display: block
 
     &__learnMoreMapButton
         padding: .5rem 4rem
+        @include responsive(800)
+            margin-top: -1rem
+        @include responsive(phone-landscape)
+            margin-top: -2rem
 
-    &__image
-        max-height: 100%
-        width: 100%
-        object-fit: contain
-
-    &__learnMoreChargingButtons
-        display: flex
-        width: 35%
-        margin: 0 auto
+        @include responsive(375-portrait)
+            padding: 1rem 3rem
+            margin-top: -2rem

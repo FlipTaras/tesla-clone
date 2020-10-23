@@ -1,18 +1,25 @@
 .rangeAnimationElement
     position: absolute
     top: 0
-
+    left: 0
+    height: 100%
+    width: 100%
     &--finished
         animation: opacitydisappear .5s .5s ease forwards
 
     &__container
-        position: relative
+        position: absolute
+        top: 0
+        left: 0
         height: 100%
         width: 100%
         opacity: 0
         animation: subTitleAppear .5s  ease forwards
 
     &__image
+        position: absolute
+        top: 0
+        left: 0
         max-height: 100%
         width: 100%
         object-fit: contain

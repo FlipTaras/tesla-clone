@@ -169,6 +169,7 @@
         width: 50%
         margin: 3rem auto 0 auto
         height: 100%
+        opacity: 0
         @include responsive(2200)
             width: 60%
         @include responsive(1920)
@@ -182,11 +183,16 @@
         @include responsive(phone-landscape)
             width: 80%
 
+        &--showRange
+            animation: translateYOpacityShow 1s 1s ease forwards
+
         &--charger
+            animation: translateYOpacityShow 1s 1s ease forwards
             @include responsive(500)
                 width: 80%
 
         &--map
+            animation: translateYOpacityShow 1s 1.5s ease forwards
             pointer-events: none
             @include responsive(800)
                 width: 70%
@@ -205,10 +211,10 @@
         margin: 0 auto
         height: 15vh
         margin-bottom: 5rem
+        opacity: 0
         @include responsive(2200)
             width: 40%
             height: 20vh
-
         @include responsive(1920)
             width: 45%
         @include responsive(1700)
@@ -223,6 +229,7 @@
             width: 70%
 
         &--showRange
+            animation: translateYOpacityShow 1s 1.5s ease forwards
             @include responsive(1200)
                 width: 69% !important
             @include responsive(1100)
@@ -252,6 +259,7 @@
                 height: 32vh
 
         &--charger
+            animation: subTitleAppear 1s 1.5s ease forwards
             @include responsive(1200)
                 width: 75%  !important
             @include responsive(1100)
@@ -302,6 +310,10 @@
     &__chargerVideoButtonText
         @include responsive(800)
             padding: 0 !important
+
+    &__chargerVideoContentContainer
+        @include responsive(phone)
+            width: 15rem
 
     &__learnMoreMapInner
         width: 100%

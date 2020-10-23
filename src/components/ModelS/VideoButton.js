@@ -22,13 +22,16 @@ export default connect(mapStateToProps)(
     customClassNames,
     customTitleClassNames,
     customTextClassNames,
+    customVideoContentContainer,
     width,
   }) => {
     const [borderPosition, setBorderPosition] = useState("0");
 
     const contentContainerClassNames = classnames(
       "videoButtonElement__videoButtonContentContainer",
-      active && "videoButtonElement__videoButtonContentContainer--active"
+      active && "videoButtonElement__videoButtonContentContainer--active",
+      smaller && "videoButtonElement__videoButtonContentContainer--smaller",
+      customVideoContentContainer && customVideoContentContainer
     );
 
     const videoButtonElementClassNames = classnames(
@@ -57,6 +60,8 @@ export default connect(mapStateToProps)(
       "videoButtonElement__videoButtonText",
       customTextClassNames && customTextClassNames
     );
+
+    // const videoButtonContentContainerClassNames = classnames("", smaller && "");
 
     /* Animation Functionality */
     useEffect(() => {

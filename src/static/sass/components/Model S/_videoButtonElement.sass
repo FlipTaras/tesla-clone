@@ -39,9 +39,14 @@
             animation: opacityButton 1s ease forwards
         @include responsive(phone)
             padding-top: 1rem
-            // width: 20rem
+            width: 20rem
         @include responsive(phone-landscape)
-            // width: 20rem
+            width: 20rem
+        &--smaller
+            @include responsive(phone)
+                width: 15rem
+            @include responsive(phone-landscape)
+                width: 15rem
 
     &__topBorder
         position: absolute

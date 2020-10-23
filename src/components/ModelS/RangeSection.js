@@ -24,6 +24,7 @@ import {
   setSilentScrollTo,
   setRangeActiveButton,
 } from "../../static/store/actions";
+import CloseNextButton from "../Buttons/CloseNextButton";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -164,7 +165,7 @@ export default connect(
     const learnMoreSectionRef = useRef(null);
     const [sectionTop, setSectionTop] = useState(null);
     const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
-    // const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
+    const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
 
     useEffect(() => {
       const getAndShowTop = () => {
@@ -172,7 +173,7 @@ export default connect(
         const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
         setSectionTop(rectSection.top);
         setLearnMoreSectionTop(rectLearnMoreSection.top);
-        // setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
+        setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
       };
       if (sectionRef.current) {
         window.addEventListener("wheel", getAndShowTop);
@@ -196,6 +197,218 @@ export default connect(
       }
     }, [learnMoreOn, height]);
 
+    /* Learn More Section Render */
+    const renderLearnMoreSection = useCallback(() => {
+      /* Buttons logic */
+      const CloseHandler = () => {
+        if (!phoneLayout) {
+          setPageToShow(null);
+          setSilentScrollTo("range");
+        } else {
+          setShowLearnMore(false);
+          window.scrollTo({
+            top: sectionRef.current?.offsetTop,
+            behavior: "smooth",
+          });
+        }
+      };
+
+      const NextHandler = () => {
+        setPageToShow(null);
+        setSilentScrollTo("autopilot");
+      };
+
+      const closeButtonElement = (
+        <CloseNextButton
+          close={
+            phoneLayout
+              ? true
+              : learnMoreSectionBottom - 200 > height
+              ? true
+              : false
+          }
+          click={
+            phoneLayout
+              ? CloseHandler
+              : learnMoreSectionBottom - 200 > height
+              ? CloseHandler
+              : NextHandler
+          }
+        />
+      );
+
+      const renderCloseButton = () => {
+        if (
+          learnMoreSectionTop < height - 20 &&
+          learnMoreSectionBottom >= height
+        ) {
+          return closeButtonElement;
+        } else {
+          return null;
+        }
+      };
+
+      /* Data for animation Buttons */
+      const numberOfAnimationElements = 5;
+      const pageAnimationElements = Array.from(
+        Array(numberOfAnimationElements).keys()
+      );
+
+      const showRangeButtons = [
+        {
+          title: "San Jose to Los Angeles",
+          subtitleMiles: "340",
+          showBorder: true,
+        },
+        {
+          title: "Barkley to Lake Tahoe",
+          subtitleMiles: "178",
+          showBorder: false,
+        },
+        {
+          title: "Manhattan to Boston",
+          subtitleMiles: "221",
+          showBorder: false,
+        },
+        {
+          title: "Fort Lauderdale to Orlando",
+          subtitleMiles: "195",
+          showBorder: false,
+        },
+        {
+          title: "Austin to Dallas",
+          subtitleMiles: "195",
+          showBorder: false,
+        },
+      ];
+
+      const chargeButtons = [
+        {
+          title: "Home Charging",
+          text: "Change Model S overnight for one week worth of driving",
+          showBorder: true,
+        },
+        {
+          title: "On the Road",
+          text:
+            "Stop and recharge half of the battery while you get a cup of coffee",
+          showBorder: false,
+        },
+        {
+          title: "Upon Arrival",
+          text:
+            "Park and recharge for your next destination while away from home",
+          showBorder: false,
+        },
+      ];
+
+      /* Render */
+      if (checkLearnMore) {
+        return (
+          <>
+            <div className="range__learnMoreInnerContainer">
+              <LearnMoreTitleContainer
+                customParagraphClassNames="range__learnMoreParagraph--1"
+                customClassNames="range__learnMoreTitleContainer--1"
+                title="Go Anywhere"
+                paragraph="Experience the freedom of long-distance travel with convenient access to the Tesla global charging network."
+              />
+              <div className="range__learnMoreContentContainer">
+                {pageAnimationElements.map((el, i) => (
+                  <RangeAnimationEement
+                    page="Range"
+                    phoneLayout={phoneLayout}
+                    learnMoreOn={learnMoreOn}
+                    show={rangeButtonActive === i + 1}
+                    number={i + 1}
+                    key={i}
+                  />
+                ))}
+              </div>
+              <div className="range__showRangeButtonsContainer">
+                <div
+                  style={{
+                    left: containerPosition,
+                  }}
+                  className="range__showRangeButtonsContainerInner"
+                >
+                  {showRangeButtons.map((el, i) => (
+                    <VideoButton
+                      key={i}
+                      title={el.title}
+                      subtitleMiles={el.subtitleMiles}
+                      smaller
+                      showBorder={el.showBorder}
+                      click={() => buttonClickedAnimation(i + 1)}
+                      active={rangeButtonActive === i + 1}
+                      activeButton={rangeButtonActive}
+                    />
+                  ))}
+                </div>
+              </div>
+              <LearnMoreTitleContainer
+                customParagraphClassNames="range__learnMoreParagraph--2"
+                customClassNames="range__learnMoreTitleContainer--2"
+                title="Charge Anywhere"
+                paragraph="Stay charged with convenient options anywhere you go — at home, on the road and upon arrival."
+              />
+              <div className="range__learnMoreContentContainer">
+                <img
+                  className="range__image"
+                  src={renderImage()}
+                  alt="Model S"
+                />
+              </div>
+              <div className="range__learnMoreChargingButtons">
+                {chargeButtons.map((el, i) => (
+                  <VideoButton
+                    title={el.title}
+                    text={el.text}
+                    click={() => chargerAnimationReset(i + 1)}
+                    active={chargeActiveButton === i + 1}
+                    activeButton={chargeActiveButton}
+                    showTopBorder
+                    noBorder
+                    showBorder={el.showBorder}
+                  />
+                ))}
+              </div>
+              <LearnMoreTitleContainer
+                customParagraphClassNames="range__learnMoreParagraph--3"
+                customClassNames="range__learnMoreTitleContainer--3"
+                title="
+            Supercharge"
+                paragraph="Charge for about 15 minutes while you grab a cup of coffee or a quick bite to eat. And with over 18,000 Superchargers placed along well-traveled routes around the world, Model S can get you anywhere you want to go."
+              />
+              <div
+                style={{ pointerEvents: "none" }}
+                className="range__learnMoreContentContainer"
+              >
+                {learnMoreSectionTop < -300 && <RangeMap />}
+              </div>
+            </div>
+            {renderCloseButton()}
+          </>
+        );
+      }
+    }, [
+      height,
+      learnMoreSectionBottom,
+      learnMoreSectionTop,
+      phoneLayout,
+      setPageToShow,
+      setSilentScrollTo,
+      learnMoreOn,
+      buttonClickedAnimation,
+      chargeActiveButton,
+      chargerAnimationReset,
+      checkLearnMore,
+      containerPosition,
+      rangeButtonActive,
+      renderImage,
+    ]);
+
+    /* Section Render */
     const renderSection = useCallback(() => {
       /* Screen size check */
       const checkRenderInfo =
@@ -281,26 +494,35 @@ export default connect(
       /* Render */
       return (
         <>
-          <ContentElement horizontal={width <= 1200}>
-            <div className="range__infoElementsContainer">
-              {checkRenderInfo && renderInfoElement()}
-            </div>
-            {phoneLayout ? videoElement() : pageIndex === "3" && videoElement()}
-          </ContentElement>
-
-          <SideComponents
-            title="Go Anywhere"
-            subtitle="Range"
-            paragraph="Model S can get you anywhere you want to go—withindustry-leading range and convenient charging options, allover the world."
-            customClassNames="range__sideComponent"
-            customInnerContainerClassNames="range__sideInnerContainer"
-            horizontal={width <= 1200}
-            checkRenderInfo={checkRenderInfo}
-            learnMoreOn={learnMoreOn}
-            showLearnMore={showLearnMore}
-            learnMoreHandle={learnMoreHandler}
-            showSection={showSection}
-          />
+          <div className="range__container">
+            <ContentElement horizontal={width <= 1200}>
+              <div className="range__infoElementsContainer">
+                {checkRenderInfo && renderInfoElement()}
+              </div>
+              {phoneLayout
+                ? videoElement()
+                : pageIndex === "3" && videoElement()}
+            </ContentElement>
+            <SideComponents
+              title="Go Anywhere"
+              subtitle="Range"
+              paragraph="Model S can get you anywhere you want to go—withindustry-leading range and convenient charging options, allover the world."
+              customClassNames="range__sideComponent"
+              customInnerContainerClassNames="range__sideInnerContainer"
+              horizontal={width <= 1200}
+              checkRenderInfo={checkRenderInfo}
+              learnMoreOn={learnMoreOn}
+              showLearnMore={showLearnMore}
+              learnMoreHandle={learnMoreHandler}
+              showSection={showSection}
+            />
+          </div>
+          <div
+            className={checkLearnMore ? "range__learnMoreContainer" : ""}
+            ref={learnMoreSectionRef}
+          >
+            {renderLearnMoreSection()}
+          </div>
         </>
       );
     }, [
@@ -312,170 +534,13 @@ export default connect(
       sectionTop,
       width,
       showSection,
+      checkLearnMore,
+      renderLearnMoreSection,
     ]);
 
     return (
       <section ref={sectionRef} className="section range">
-        <div className="range__container">{renderSection()}</div>
-        <div
-          className={checkLearnMore ? "range__learnMoreContainer" : ""}
-          ref={learnMoreSectionRef}
-        >
-          {checkLearnMore && (
-            <div className="range__learnMoreInnerContainer">
-              <LearnMoreTitleContainer
-                customParagraphClassNames="range__learnMoreParagraph--1"
-                customClassNames="range__learnMoreTitleContainer--1"
-                title="Go Anywhere"
-                paragraph="Experience the freedom of long-distance travel with convenient access to the Tesla global charging network."
-              />
-              <div className="range__learnMoreAnimationElementsContainer">
-                <RangeAnimationEement
-                  number={1}
-                  show={rangeButtonActive === 1}
-                  learnMoreOn={learnMoreOn}
-                  phoneLayout={phoneLayout}
-                  page="Range"
-                />
-                <RangeAnimationEement
-                  number={2}
-                  show={rangeButtonActive === 2}
-                  phoneLayout={phoneLayout}
-                  learnMoreOn={learnMoreOn}
-                  page="Range"
-                />
-                <RangeAnimationEement
-                  number={3}
-                  show={rangeButtonActive === 3}
-                  phoneLayout={phoneLayout}
-                  learnMoreOn={learnMoreOn}
-                  page="Range"
-                />
-                <RangeAnimationEement
-                  number={4}
-                  show={rangeButtonActive === 4}
-                  phoneLayout={phoneLayout}
-                  learnMoreOn={learnMoreOn}
-                  page="Range"
-                />
-                <RangeAnimationEement
-                  number={5}
-                  show={rangeButtonActive === 5}
-                  phoneLayout={phoneLayout}
-                  learnMoreOn={learnMoreOn}
-                  page="Range"
-                />
-              </div>
-              <div className="range__videoButtonsContainer">
-                <div
-                  style={{
-                    left: containerPosition,
-                  }}
-                  className="range__videoButtonsInner"
-                >
-                  <VideoButton
-                    title="San Jose to Los Angeles"
-                    subtitleMiles="340"
-                    smaller
-                    showBorder={true}
-                    click={() => buttonClickedAnimation(1)}
-                    active={rangeButtonActive === 1}
-                    activeButton={rangeButtonActive}
-                  />
-                  <VideoButton
-                    title="Barkley to Lake Tahoe"
-                    subtitleMiles="178"
-                    smaller
-                    showBorder={false}
-                    click={() => buttonClickedAnimation(2)}
-                    active={rangeButtonActive === 2}
-                    activeButton={rangeButtonActive}
-                  />
-                  <VideoButton
-                    title="Manhattan to Boston"
-                    subtitleMiles="211"
-                    smaller
-                    showBorder={false}
-                    click={() => buttonClickedAnimation(3)}
-                    active={rangeButtonActive === 3}
-                    activeButton={rangeButtonActive}
-                  />
-                  <VideoButton
-                    title="Fort Lauderdale to Orlando"
-                    subtitleMiles="195"
-                    smaller
-                    showBorder={false}
-                    click={() => buttonClickedAnimation(4)}
-                    active={rangeButtonActive === 4}
-                    activeButton={rangeButtonActive}
-                  />
-                  <VideoButton
-                    title="Austin to Dallas"
-                    subtitleMiles="195"
-                    smaller
-                    showBorder={false}
-                    click={() => buttonClickedAnimation(5)}
-                    active={rangeButtonActive === 5}
-                    activeButton={rangeButtonActive}
-                  />
-                </div>
-              </div>
-              <LearnMoreTitleContainer
-                customParagraphClassNames="range__learnMoreParagraph--2"
-                customClassNames="range__learnMoreTitleContainer--2"
-                title="Charge Anywhere"
-                paragraph="Stay charged with convenient options anywhere you go — at home, on the road and upon arrival."
-              />
-              <div className="range__learnMoreAnimationElementsContainer">
-                <img
-                  className="range__image"
-                  src={renderImage()}
-                  alt="Model S"
-                />
-              </div>
-              <div className="range__learnMoreChargingButtons">
-                <VideoButton
-                  title="Home Charging"
-                  text="Change Model S overnight for one week worth of driving"
-                  click={() => chargerAnimationReset(1)}
-                  active={chargeActiveButton === 1}
-                  activeButton={chargeActiveButton}
-                  showTopBorder
-                  noBorder
-                  showBorder={true}
-                />
-                <VideoButton
-                  title="On the Road"
-                  text="Stop and recharge half of the battery while you get a cup of coffee"
-                  click={() => chargerAnimationReset(2)}
-                  active={chargeActiveButton === 2}
-                  activeButton={chargeActiveButton}
-                  showTopBorder={false}
-                  noBorder
-                />
-                <VideoButton
-                  title="Upon Arrival"
-                  text="Park and recharge for your next destination while away from home"
-                  click={() => chargerAnimationReset(3)}
-                  active={chargeActiveButton === 3}
-                  activeButton={chargeActiveButton}
-                  showTopBorder={false}
-                  noBorder
-                />
-              </div>
-              <LearnMoreTitleContainer
-                customParagraphClassNames="range__learnMoreParagraph--3"
-                customClassNames="range__learnMoreTitleContainer--3"
-                title="
-                Supercharge"
-                paragraph="Charge for about 15 minutes while you grab a cup of coffee or a quick bite to eat. And with over 18,000 Superchargers placed along well-traveled routes around the world, Model S can get you anywhere you want to go."
-              />
-              <div className="range__learnMoreMapContainer">
-                {learnMoreSectionTop < -300 && <RangeMap />}
-              </div>
-            </div>
-          )}
-        </div>
+        {renderSection()}
       </section>
     );
   }

@@ -3,6 +3,7 @@ import React, { useCallback } from "react";
 import { Marker, GoogleMap, useLoadScript } from "@react-google-maps/api";
 import Icon from "../../static/images/ModelS/Range/dotIcon.svg";
 import { connect } from "react-redux";
+import OrderButton from "../Buttons/OrderButton";
 
 const mapStyle = [
   {
@@ -288,7 +289,7 @@ const Map = ({ chargers }) => {
             }}
             icon={{
               url: Icon,
-              scaledSize: new window.google.maps.Size(4, 4),
+              scaledSize: new window.google.maps.Size(2, 2),
             }}
           />
         );
@@ -303,16 +304,31 @@ const Map = ({ chargers }) => {
   return (
     <>
       {isLoaded && (
-        <div className="range__learnMoreMapInner">
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            zoom={4}
-            center={center}
-            options={options}
-          >
-            {renderMarkers()}
-          </GoogleMap>
-        </div>
+        <>
+          <div className="range__learnMoreMapInner">
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              zoom={4}
+              center={center}
+              options={options}
+            >
+              {renderMarkers()}
+            </GoogleMap>
+          </div>
+          <div className="range__learnMoreMapInfoContainer">
+            <div className="range__learnMoreMapInfo">
+              <div>
+                <span style={{ display: "block" }}>18,000+</span>
+                <span>Superchargers</span>
+              </div>
+              <span>2,000+ Stations</span>
+            </div>
+            <OrderButton
+              classNames="range__learnMoreMapButton"
+              customText="Learn More"
+            />
+          </div>
+        </>
       )}
     </>
   );

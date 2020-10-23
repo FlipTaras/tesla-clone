@@ -3,3 +3,17 @@ Add visual buttons when learn More section is open, open to them functionality o
 Perfomance section play with the flex box order instead of re rendering depending on width of the screen
 
 Turn off close button while user scrolling on phone 
+
+/// For Tomorrow
+
+Range create learn more render function
+
+Try to do dot animation for the map Element
+
+Make the learn more function fully responsive
+
+Add close and next buttons - the easiest task
+
+Make boreplate for the autopilot section
+
+Make fully responsive autopilot section 

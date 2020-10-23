@@ -18,8 +18,9 @@ export const setChargers = () => async (dispatch) => {
         el.country === "Canada" ||
         el.country === "Mexico"
     )
-    .slice(0, 500)
+    .slice(0, 1000)
     .map((el) => ({ lat: +el.latitude, lng: +el.longitude }));
+
   dispatch({
     type: SET_CHARGERS,
     payload: filteredRes,

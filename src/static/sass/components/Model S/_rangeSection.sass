@@ -84,50 +84,45 @@
 
     &__learnMoreTitleContainer
         &--1
-            width: 70% !important
+            width: 30% !important
+            @include responsive(1280)
+                width: 70% !important
         &--2
-            width: 70% !important
+            width: 30% !important
+            @include responsive(1280)
+                width: 70% !important
         &--3
-            margin: 0 !important
-            margin-left: auto !important
-            width: 60% !important
+            margin: 0 5% 0 auto !important
+            width: 50vw !important
+            @include responsive(1280)
+                width: 60% !important
 
     &__learnMoreParagraph
         &--1
-            width: 50% !important
+            width: 70% !important
+            @include responsive(1280)
+                width: 50% !important
         &--2
             width: 90% !important
         &--3
-            width: 65% !important
+            width: 41% !important
 
-    &__learnMoreAnimationElementsContainer
+    &__learnMoreContentContainer
         position: relative
-        width: 60vw
-        height: 60vh
-        margin: 5rem auto 0 auto
+        width: 50vw
+        height: 42vh
+        margin: 3rem auto 0 auto
         @include responsive(1280)
             width: 95vw
 
-    &__learnMoreMapContainer
-        height: 80vh
-        width: 90vw
-        margin: 7rem auto 0
-        pointer-events: none
-
-    &__learnMoreMapInner
-        width: 100%
-        height: 100%
-        opacity: 0
-        animation: translateYOpacityShowFromTop .5s .5s ease forwards
-
-    &__videoButtonsContainer
+    &__showRangeButtonsContainer
         position: relative
-        width: 60vw
+        width: 35vw
         overflow: hidden
-        height: 30vh
+        height: 20vh
         margin: 0 auto
 
-    &__videoButtonsInner
+    &__showRangeButtonsContainerInner
         display: flex
         position: absolute
         height: 50vh
@@ -136,6 +131,34 @@
         left: 0
         transition: all .5s ease
 
+    &__learnMoreMapInner
+        width: 100%
+        height: 100%
+        opacity: 0
+        animation: translateYOpacityShowFromTop .5s .5s ease forwards
+
+    &__learnMoreMapInfoContainer
+        display: flex
+        justify-content: space-between
+        width: 90%
+        margin: 2rem auto 0
+
+    &__learnMoreMapInfo
+        color: #171a20
+        font-family: 'Gotham Medium'
+        font-size: 2.8rem
+        height: 22rem
+        padding: 2rem
+        justify-content: space-between
+        border: 2px solid black
+        display: flex
+        flex-direction: column
+        margin-top: -15rem
+        z-index: 1000
+
+    &__learnMoreMapButton
+        padding: .5rem 4rem
+
     &__image
         max-height: 100%
         width: 100%
@@ -143,5 +166,5 @@
 
     &__learnMoreChargingButtons
         display: flex
-        width: 70%
+        width: 35%
         margin: 0 auto

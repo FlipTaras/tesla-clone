@@ -354,7 +354,7 @@ export default connect(
     /* Final Render of the section */
     return (
       <section ref={sectionRef} className="safety section">
-        <>{renderSafetySection()}</>
+        {renderSafetySection()}
       </section>
     );
   }

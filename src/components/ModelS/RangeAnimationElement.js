@@ -65,13 +65,17 @@ function Icon({
           }
         })
         .onComplete(() => {
-          animationElementRef.current.classList.add(
-            "range__animationElement--finished"
-          );
-          setTimeout(() => {
-            animationElementRef.current.classList.remove(
+          if (animationElementRef.current) {
+            animationElementRef.current.classList.add(
               "range__animationElement--finished"
             );
+          }
+          setTimeout(() => {
+            if (animationElementRef.current) {
+              animationElementRef.current.classList.remove(
+                "range__animationElement--finished"
+              );
+            }
           }, 1000);
         })
         .start();

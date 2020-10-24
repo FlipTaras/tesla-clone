@@ -59,6 +59,7 @@
 
     /* Learn More Section */
     &__learnMoreContainer
+        min-height: 360vh
 
     &__learnMoreInnerContainer
         padding-top: 8rem
@@ -178,7 +179,7 @@
                 margin-top: -5rem
                 margin-bottom: -5rem
             @include responsive(phone)
-                margin: 5rem  0
+                margin: 3rem  0
             @include responsive(414-portrait)
                 margin: 8rem  0
 
@@ -215,7 +216,7 @@
         width: 35%
         overflow: hidden
         margin: 0 auto
-        height: 20vh
+        height: 25vh
         margin-bottom: 5rem
         margin-top: -12rem
         opacity: 0
@@ -225,15 +226,14 @@
             margin-top: -12rem
             margin-bottom: 10rem
         @include responsive(1700)
-            height: 25vh
+            height: 33vh
             width: 55%
         @include responsive(1600)
             margin-top: -15rem
         @include responsive(1366)
             width: 70%
-            height: 30vh
         @include responsive(1280)
-            height: 20vh
+            height: 25vh
         @include responsive(1200)
             margin-top: -20rem
         @include responsive(1100)
@@ -276,6 +276,14 @@
 
     &__learnMoreVideotextInfoContainer
         align-self: flex-start
+        @include responsive(phone)
+            order: 2 !important
+            margin-top: 1rem
+            margin-bottom: 0 !important
+
+    &__learnMoreVideotextVideoInner
+        @include responsive(phone)
+            order: 1 !important
 
     &__backgroundImage
         position: absolute
@@ -302,18 +310,45 @@
         width: 100%
         height: 100%
         z-index: 10
+        opacity: 0
+        transition: all .5s ease
+        animation: scaleOpacity 1s 1s ease forwards
         @include responsive(1100)
-            transform: scale(1.3)
+            transform: scale(1.3) !important
         @include responsive(900)
-            transform: scale(1.6)
+            transform: scale(1.6) !important
         @include responsive(800)
-            transform: scale(.8)
+            transform: scale(.8) !important
         @include responsive(phone-landscape)
-            transform: scale(.8)
-
+            transform: scale(.8) !important
         @include responsive(phone)
-            transform: scale(1)
+            transform: scale(1) !important
         @include responsive(414-portrait)
-            transform: scale(1.4)
+            transform: scale(1.4) !important
         @include responsive(375-portrait)
-            transform: scale(1.5)
+            transform: scale(1.5) !important
+
+    &__greenBackground
+        position: absolute
+        top: 0
+        z-index: 11
+        width: 100%
+        opacity: 0
+        // display: none
+        @include responsive(414-portrait)
+            // display: block
+            opacity: 1
+
+    @keyframes scaleOpacity
+        0%
+            opacity: 0
+            transform: scale(0)
+
+        100%
+            opacity: 1
+            transform: scale(1)
+
+    &__driverInner
+        opacity: 0
+        &--active
+            animation: translateYOpacityShow 1s ease forwards

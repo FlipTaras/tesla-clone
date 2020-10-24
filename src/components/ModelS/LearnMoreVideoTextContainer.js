@@ -8,11 +8,17 @@ export default ({
   paragraph,
   customTitleClassNames,
   customInfoContainerClassNames,
+  customVideoInnerClassNames,
   active,
 }) => {
   const titleClassNames = classnames(
     "learnMoreVideoTextContainer__title title",
     customTitleClassNames && customTitleClassNames
+  );
+
+  const videoInnerClassNames = classnames(
+    "learnMoreVideoTextContainer__videoInner",
+    customVideoInnerClassNames && customVideoInnerClassNames
   );
 
   const infoContainerClassNames = classnames(
@@ -22,7 +28,7 @@ export default ({
 
   return (
     <div className="learnMoreVideoTextContainer">
-      <div className="learnMoreVideoTextContainer__videoInner">
+      <div className={videoInnerClassNames}>
         <video
           playsInline
           preload="auto"

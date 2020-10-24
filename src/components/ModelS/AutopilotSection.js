@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import CloseNextButton from "../Buttons/CloseNextButton";
+import classnames from "classnames";
 
 import Icon from "../../static/images/ModelS/Autopilot/12Icon.png";
 import InfoElement from "./InfoElement";
@@ -246,6 +247,37 @@ export default connect(
 
     /* Render functionality */
     const renderLearnMoreSection = useCallback(() => {
+      /* Video Buttons */
+      const videoButtons = [
+        {
+          title: "Navigate on Autopilot",
+          text: "Active Guidance from hightway on-ramp to off-ramp",
+          showBorder: true,
+        },
+        {
+          title: "Summon",
+          text: "Automatically retrieve your car",
+          showBorder: false,
+        },
+        {
+          title: "Autopark",
+          text: "Parallel and perpendicular parking, with a single touch",
+          showBorder: false,
+        },
+        {
+          title: "Auto Lane Change",
+          text: "Automatically change lanes while driving on the hightway",
+          showBorder: false,
+        },
+      ];
+
+      const videos = [
+        { link: LearMoreSlider1, ref: LearMoreSlider1Ref },
+        { link: LearMoreSlider2, ref: LearMoreSlider2Ref },
+        { link: LearMoreSlider3, ref: LearMoreSlider3Ref },
+        { link: LearMoreSlider4, ref: LearMoreSlider4Ref },
+      ];
+
       const renderCloseButton = () => {
         /* Buttons logic */
         const CloseHandler = () => {
@@ -294,124 +326,152 @@ export default connect(
         }
       };
 
-      /* Video Buttons */
-      const videoButtons = [
-        {
-          title: "Navigate on Autopilot",
-          text: "Active Guidance from hightway on-ramp to off-ramp",
-          showBorder: true,
-        },
-        {
-          title: "Summon",
-          text: "Automatically retrieve your car",
-          showBorder: false,
-        },
-        {
-          title: "Autopark",
-          text: "Parallel and perpendicular parking, with a single touch",
-          showBorder: false,
-        },
-        {
-          title: "Auto Lane Change",
-          text: "Automatically change lanes while driving on the hightway",
-          showBorder: false,
-        },
-      ];
-
-      const videos = [
-        { link: LearMoreSlider1, ref: LearMoreSlider1Ref },
-        { link: LearMoreSlider2, ref: LearMoreSlider2Ref },
-        { link: LearMoreSlider3, ref: LearMoreSlider3Ref },
-        { link: LearMoreSlider4, ref: LearMoreSlider4Ref },
-      ];
-      if (checkLearnMore) {
+      const renderFeatures = () => {
         return (
           <>
-            <div className="autopilot__learnMoreInnerContainer">
-              <LearnMoreTitleContainer
-                title="Features"
-                customClassNames="autopilot__learnMoreTitleContainer--1"
-                customParagraphClassNames="autopilot__learnMoreParagraph--1"
-                paragraph="Autopilot enables your car to steer, accelerate and brake automatically within its lane. Full Self-Driving Capability introduces additional features and improves existing functionality to make your car more capable over time including:"
-              />
-              <div className="autopilot__learnMoreContentContainer autopilot__learnMoreContentContainer--features">
-                <div className="autopilot__learnMoreContentContainerInner">
-                  {videos.map((el, i) => (
-                    <video
-                      ref={el.ref}
-                      key={i}
-                      preload="auto"
-                      muted
-                      playsInline
-                      loop
-                      style={{
-                        transform: `translateX(${featuresContentContainerPosition})`,
-                      }}
-                      className="autopilot__video"
-                    >
-                      <source src={el.link} type="video/mp4" />
-                    </video>
-                  ))}
-                </div>
-              </div>
-              <div className="autopilot__learnMoreButtonsContainer">
-                <div
-                  style={{ transform: `translateX(${containerPosition})` }}
-                  className="autopilot__learnMoreButtonsContainerInner"
-                >
-                  {videoButtons.map((el, i) => (
-                    <VideoButton
-                      customClassNames="autopilot__videoButtonElement"
-                      key={i}
-                      title={el.title}
-                      text={el.text}
-                      showBorder={el.showBorder}
-                      smaller
-                      click={() => buttonClickedAnimation(i + 1)}
-                      active={featuresActiveButton === i + 1}
-                      activeButton={featuresActiveButton}
-                    />
-                  ))}
-                </div>
+            <LearnMoreTitleContainer
+              title="Features"
+              customClassNames="autopilot__learnMoreTitleContainer--1"
+              customParagraphClassNames="autopilot__learnMoreParagraph--1"
+              paragraph="Autopilot enables your car to steer, accelerate and brake automatically within its lane. Full Self-Driving Capability introduces additional features and improves existing functionality to make your car more capable over time including:"
+            />
+            <div className="autopilot__learnMoreContentContainer autopilot__learnMoreContentContainer--features">
+              <div className="autopilot__learnMoreContentContainerInner">
+                {videos.map((el, i) => (
+                  <video
+                    ref={el.ref}
+                    key={i}
+                    preload="auto"
+                    muted
+                    playsInline
+                    loop
+                    style={{
+                      transform: `translateX(${featuresContentContainerPosition})`,
+                    }}
+                    className="autopilot__video"
+                  >
+                    <source src={el.link} type="video/mp4" />
+                  </video>
+                ))}
               </div>
             </div>
+            <div className="autopilot__learnMoreButtonsContainer">
+              <div
+                style={{ transform: `translateX(${containerPosition})` }}
+                className="autopilot__learnMoreButtonsContainerInner"
+              >
+                {videoButtons.map((el, i) => (
+                  <VideoButton
+                    customClassNames="autopilot__videoButtonElement"
+                    key={i}
+                    title={el.title}
+                    text={el.text}
+                    showBorder={el.showBorder}
+                    smaller
+                    click={() => buttonClickedAnimation(i + 1)}
+                    active={featuresActiveButton === i + 1}
+                    activeButton={featuresActiveButton}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        );
+      };
+
+      const renderDriverAsistance = () => {
+        /* Animation Apper Settings */
+        const check =
+          (phoneLayout && pageYOffset > 3800) ||
+          (!phoneLayout && pageYOffset > 950);
+
+        const driverInnerClassNames = classnames(
+          "autopilot__driverInner",
+          check && "autopilot__driverInner--active"
+        );
+        return (
+          <div className={driverInnerClassNames}>
             <LearnMoreVideoTextContainer
+              customVideoInnerClassNames="autopilot__learnMoreVideotextVideoInner"
               customInfoContainerClassNames="autopilot__learnMoreVideotextInfoContainer"
               title="Driver Assistance Capabilities"
               paragraph={paragraph}
               video={DriverVideo}
               active={paragraphActive}
             />
-            <LearnMoreTitleContainer
-              customClassNames="autopilot__learnMoreTitleContainer--fullSelfDrive"
-              title="Full Self-Driving Hardware"
-              paragraph="Every new Model S comes standard with advanced hardware capable of providing Autopilot features today, and full self-driving capabilities in the future—through software updates designed to improve functionality over time."
-            />
-            <div className="autopilot__learnMoreContentContainer autopilot__learnMoreContentContainer--fullSelfDrive">
-              <div className="autopilot__learnMoreContentContainerInner--fullSelfDrive">
-                <img
-                  className="autopilot__backgroundImage"
-                  src={FullSelfDriveImage}
-                  alt="Model S"
-                />
-                {/* <img
-                  className="autopilot__backgroundImage"
-                  src={FullSelfDriveBackground1}
-                  alt="background"
-                /> */}
-                <img
-                  className="autopilot__frontImage"
-                  src={FullSelfDriveBackground2}
-                  alt="background"
-                />
-              </div>
-            </div>
+          </div>
+        );
+      };
 
+      const renderFullSelfDriving = () => {
+        const check =
+          (phoneLayout && pageYOffset > 4200) ||
+          (!phoneLayout && pageYOffset > 1200);
+        const checkImage =
+          (phoneLayout && pageYOffset > 4400) ||
+          (!phoneLayout && pageYOffset > 1600);
+
+        /* Render */
+        return (
+          <>
+            {check && (
+              <LearnMoreTitleContainer
+                customClassNames="autopilot__learnMoreTitleContainer--fullSelfDrive"
+                title="Full Self-Driving Hardware"
+                paragraph="Every new Model S comes standard with advanced hardware capable of providing Autopilot features today, and full self-driving capabilities in the future—through software updates designed to improve functionality over time."
+              />
+            )}
+            {checkImage && (
+              <div className="autopilot__learnMoreContentContainer autopilot__learnMoreContentContainer--fullSelfDrive">
+                <div className="autopilot__learnMoreContentContainerInner--fullSelfDrive">
+                  <img
+                    className="autopilot__backgroundImage"
+                    src={FullSelfDriveImage}
+                    alt="Model S"
+                  />
+                  <img
+                    className="autopilot__greenBackground"
+                    src={FullSelfDriveBackground1}
+                    alt="background"
+                  />
+                  <img
+                    className="autopilot__frontImage"
+                    src={FullSelfDriveBackground2}
+                    alt="background"
+                  />
+                </div>
+              </div>
+            )}
+          </>
+        );
+      };
+
+      const renderFuture = () => {
+        if (
+          (phoneLayout && pageYOffset > 4800) ||
+          (!phoneLayout && pageYOffset > 2400)
+        ) {
+          return (
             <LearnMoreVideoTextContainer
               title="The Future of Autopilot"
               paragraph="All Tesla vehicles have the hardware needed in the future for full self-driving in almost all circumstances, at a safety level we believe will be at least twice as good as the average human driver. "
               video={VideoFuture}
             />
+          );
+        }
+      };
+
+      /* Render */
+      if (checkLearnMore) {
+        return (
+          <>
+            <div className="autopilot__learnMoreInnerContainer">
+              {renderFeatures()}
+              {renderDriverAsistance()}
+              {renderFullSelfDriving()}
+              {renderFuture()}
+            </div>
+
             {renderCloseButton()}
           </>
         );
@@ -430,6 +490,7 @@ export default connect(
       paragraph,
       paragraphActive,
       containerPosition,
+      pageYOffset,
     ]);
 
     const renderSection = useCallback(() => {

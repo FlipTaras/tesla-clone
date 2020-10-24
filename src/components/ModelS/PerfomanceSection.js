@@ -255,38 +255,41 @@ export default connect(
     }, [pageIndex, learnMoreOn, showSection, width, phoneLayout, sectionTop]);
 
     const renderLearnMoreSection = useCallback(() => {
-      /* Buttons Logic */
-      const CloseHandler = () => {
-        if (!phoneLayout) {
-          setPageToShow(null);
-          setSilentScrollTo("perfomance");
-        } else {
-          setShowLearnMore(false);
-          window.scrollTo({
-            top: sectionRef.current?.offsetTop,
-            behavior: "smooth",
-          });
-        }
-      };
+      /* Parts Render */
 
-      const NextHandler = () => {
-        setPageToShow(null);
-        setSilentScrollTo("range");
-      };
-
-      const closeButtonElement = (
-        <CloseNextButton
-          close={phoneLayout ? true : pageYOffset < 1550}
-          click={
-            phoneLayout
-              ? CloseHandler
-              : pageYOffset < 1550
-              ? CloseHandler
-              : NextHandler
-          }
-        />
-      );
       const renderCloseButton = () => {
+        /* Buttons Logic */
+        const CloseHandler = () => {
+          if (!phoneLayout) {
+            setPageToShow(null);
+            setSilentScrollTo("perfomance");
+          } else {
+            setShowLearnMore(false);
+            window.scrollTo({
+              top: sectionRef.current?.offsetTop,
+              behavior: "smooth",
+            });
+          }
+        };
+
+        const NextHandler = () => {
+          setPageToShow(null);
+          setSilentScrollTo("range");
+        };
+
+        const closeButtonElement = (
+          <CloseNextButton
+            close={phoneLayout ? true : pageYOffset < 1550}
+            click={
+              phoneLayout
+                ? CloseHandler
+                : pageYOffset < 1550
+                ? CloseHandler
+                : NextHandler
+            }
+          />
+        );
+
         if (
           learnMoreSectionTop < height - 20 &&
           learnMoreSectionBottom >= height
@@ -297,120 +300,127 @@ export default connect(
         }
       };
 
-      /* Video Buttons Content */
-      const buttons1 = [
-        {
-          buttonTitle: "3.7s",
-          buttonFirstText: "0-60",
-          buttonSecondtext: "mph",
-        },
-        {
-          buttonTitle: "402",
-          buttonFirstText: "mile",
-          buttonSecondtext: "range",
-        },
-      ];
+      const renderElectricPower = () => {
+        /* Video Buttons Content */
+        const buttons1 = [
+          {
+            buttonTitle: "3.7s",
+            buttonFirstText: "0-60",
+            buttonSecondtext: "mph",
+          },
+          {
+            buttonTitle: "402",
+            buttonFirstText: "mile",
+            buttonSecondtext: "range",
+          },
+        ];
 
-      const buttons2 = [
-        {
-          buttonTitle: "2.3s",
-          buttonFirstText: "0-60",
-          buttonSecondtext: "mph",
-        },
-        {
-          buttonTitle: "348",
-          buttonFirstText: "mile",
-          buttonSecondtext: "range",
-        },
-      ];
+        const buttons2 = [
+          {
+            buttonTitle: "2.3s",
+            buttonFirstText: "0-60",
+            buttonSecondtext: "mph",
+          },
+          {
+            buttonTitle: "348",
+            buttonFirstText: "mile",
+            buttonSecondtext: "range",
+          },
+        ];
 
-      const videoButtons = [
-        {
-          title: "Long Range Plus",
-          text: "Premium option with all-wheel drive and longest range",
-          buttons: buttons1,
-          showBorder: true,
-        },
-        {
-          title: "Perfomance",
-          text:
-            "Perfomance option with all-wheel drive and ludicrous acceleration",
-          buttons: buttons2,
-          showBorder: false,
-        },
-      ];
+        const videoButtons = [
+          {
+            title: "Long Range Plus",
+            text: "Premium option with all-wheel drive and longest range",
+            buttons: buttons1,
+            showBorder: true,
+          },
+          {
+            title: "Perfomance",
+            text:
+              "Perfomance option with all-wheel drive and ludicrous acceleration",
+            buttons: buttons2,
+            showBorder: false,
+          },
+        ];
 
-      /* Render Video Elements */
-      const renderVideoElement = () => {
+        /* Render Video Elements */
+        const renderVideoElement = () => {
+          return (
+            <>
+              <video
+                playsInline
+                className={
+                  activeButton === 1
+                    ? "perfomance__video perfomance__video--active"
+                    : "perfomance__video "
+                }
+                preload="auto"
+                loop
+                muted
+                poster={Poster1}
+                autoPlay
+              >
+                <source src={Video1} type="video/mp4" />
+              </video>
+              <video
+                playsInline
+                className={
+                  activeButton === 2
+                    ? "perfomance__video perfomance__video--active"
+                    : "perfomance__video "
+                }
+                preload="auto"
+                loop
+                muted
+                poster={Poster2}
+                autoPlay
+              >
+                <source src={Video2} type="video/mp4" />
+              </video>
+            </>
+          );
+        };
+
+        /* Render */
         return (
           <>
-            <video
-              playsInline
-              className={
-                activeButton === 1
-                  ? "perfomance__video perfomance__video--active"
-                  : "perfomance__video "
-              }
-              preload="auto"
-              loop
-              muted
-              poster={Poster1}
-              autoPlay
+            <LearnMoreTitleContainer
+              title="Electric Powertrain"
+              paragraph="The all-electric powertrain and low center of gravity providethe best performance, range and efficiency."
+            />
+            <div className="perfomance__videosContainer">
+              {renderVideoElement()}
+            </div>
+            <div
+              style={{
+                marginLeft: containerPosition,
+              }}
+              className="perfomance__videoButtons"
             >
-              <source src={Video1} type="video/mp4" />
-            </video>
-            );
-            <video
-              playsInline
-              className={
-                activeButton === 2
-                  ? "perfomance__video perfomance__video--active"
-                  : "perfomance__video "
-              }
-              preload="auto"
-              loop
-              muted
-              poster={Poster2}
-              autoPlay
-            >
-              <source src={Video2} type="video/mp4" />
-            </video>
+              {videoButtons.map((el, i) => (
+                <VideoButton
+                  key={i}
+                  title={el.title}
+                  text={el.text}
+                  buttons={el.buttons}
+                  showBorder={el.showBorder}
+                  click={() => setActiveButton(i + 1)}
+                  active={activeButton === i + 1}
+                  activeButton={activeButton}
+                />
+              ))}
+            </div>
           </>
         );
       };
-
-      /* Render */
-      if (learnMoreOn || showLearnMore) {
-        return (
-          <>
-            <div className="perfomance__learnMoreInner">
-              <LearnMoreTitleContainer
-                title="Electric Powertrain"
-                paragraph="The all-electric powertrain and low center of gravity providethe best performance, range and efficiency."
-              />
-              <div className="perfomance__videosContainer">
-                {renderVideoElement()}
-              </div>
-              <div
-                style={{
-                  marginLeft: containerPosition,
-                }}
-                className="perfomance__videoButtons"
-              >
-                {videoButtons.map((el, i) => (
-                  <VideoButton
-                    key={i}
-                    title={el.title}
-                    text={el.text}
-                    buttons={el.buttons}
-                    showBorder={el.showBorder}
-                    click={() => setActiveButton(i + 1)}
-                    active={activeButton === i + 1}
-                    activeButton={activeButton}
-                  />
-                ))}
-              </div>
-            </div>
+      const renderDualMotor = () => {
+        console.log(pageYOffset);
+        if (
+          (phoneLayout && pageYOffset > 2200) ||
+          (!phoneLayout && pageYOffset > 1100)
+        ) {
+          return (
             <LearnMoreVideoTextContainer
               customTitleClassNames="perfomance__videoTextContainerTitle"
               paragraph="Only Tesla has the technology that provides dual motors with independent traction to both front and rear wheels for unparalleled control, in all weather conditions. As a result, Model S instantly controls traction and torque to every wheel, with a unique and superior all-wheel drive system."
@@ -418,7 +428,19 @@ export default connect(
               video={Video3}
               poster={Poster3}
             />
-            {renderCloseButton()}
+          );
+        }
+      };
+
+      /* Final Render */
+      if (learnMoreOn || showLearnMore) {
+        return (
+          <>
+            <div className="perfomance__learnMoreInner">
+              {renderElectricPower()}
+              {renderDualMotor()}
+              {renderCloseButton()}
+            </div>
           </>
         );
       } else {
@@ -440,7 +462,7 @@ export default connect(
 
     const renderSection = useCallback(() => {
       const checkRenderInfo =
-        pageIndex === "2" || (phoneLayout && sectionTop <= 550);
+        pageIndex === "2" || (phoneLayout && sectionTop <= 400);
 
       /* Button logic */
       const learnMoreHandler = () => {
@@ -508,7 +530,7 @@ export default connect(
     /* Final Render */
     return (
       <section ref={sectionRef} className="section perfomance">
-        <>{renderSection()}</>
+        {renderSection()}
       </section>
     );
   }

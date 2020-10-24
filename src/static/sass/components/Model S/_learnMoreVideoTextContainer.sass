@@ -14,10 +14,6 @@
         width: 90%
     @include responsive(1280)
         width: 85%
-    @include responsive(1200)
-        width: 70%
-    @include responsive(1100)
-        width: 80%
     @include responsive(tablet)
         width: 85%
     @include responsive(900)
@@ -54,6 +50,8 @@
             width: 60%
         @include responsive(700)
             width: 70%
+        @include responsive(phone-landscape)
+            width: 85%
         @include responsive(phone)
             width: 100%
             margin-bottom: 4rem
@@ -64,6 +62,8 @@
 
     &__paragraph
         width: 100%
+        // @include responsive(800)
+            // font-size: 1rem !important
         @include responsive(phone)
             width: 90%
 
@@ -72,6 +72,7 @@
         width: 5rem
         justify-content: space-between
         align-items: center
+        margin-top: 2rem
         margin-bottom: 2rem
         margin-left: 2px
 

@@ -210,45 +210,44 @@ export default connect(
 
     /* Render functionality */
     const renderLearnMoreSection = useCallback(() => {
-      /* Buttons logic */
-      const CloseHandler = () => {
-        if (!phoneLayout) {
-          setPageToShow(null);
-          setSilentScrollTo("range");
-        } else {
-          setShowLearnMore(false);
-          window.scrollTo({
-            top: sectionRef.current?.offsetTop,
-            behavior: "smooth",
-          });
-        }
-      };
-
-      const NextHandler = () => {
-        setPageToShow(null);
-        setSilentScrollTo("autopilot");
-      };
-
-      const closeButtonElement = (
-        <CloseNextButton
-          close={
-            phoneLayout
-              ? true
-              : learnMoreSectionBottom - 200 > height
-              ? true
-              : false
-          }
-          click={
-            phoneLayout
-              ? CloseHandler
-              : learnMoreSectionBottom - 200 > height
-              ? CloseHandler
-              : NextHandler
-          }
-        />
-      );
-
       const renderCloseButton = () => {
+        /* Buttons logic */
+        const CloseHandler = () => {
+          if (!phoneLayout) {
+            setPageToShow(null);
+            setSilentScrollTo("range");
+          } else {
+            setShowLearnMore(false);
+            window.scrollTo({
+              top: sectionRef.current?.offsetTop,
+              behavior: "smooth",
+            });
+          }
+        };
+
+        const NextHandler = () => {
+          setPageToShow(null);
+          setSilentScrollTo("autopilot");
+        };
+
+        const closeButtonElement = (
+          <CloseNextButton
+            close={
+              phoneLayout
+                ? true
+                : learnMoreSectionBottom - 200 > height
+                ? true
+                : false
+            }
+            click={
+              phoneLayout
+                ? CloseHandler
+                : learnMoreSectionBottom - 200 > height
+                ? CloseHandler
+                : NextHandler
+            }
+          />
+        );
         if (
           learnMoreSectionTop < height - 20 &&
           learnMoreSectionBottom >= height
@@ -342,20 +341,24 @@ export default connect(
               active={paragraphActive}
             />
             <LearnMoreTitleContainer
-              customClassNames=""
+              customClassNames="autopilot__learnMoreTitleContainer--fullSelfDrive"
               title="Full Self-Driving Hardware"
               paragraph="Every new Model S comes standard with advanced hardware capable of providing Autopilot features today, and full self-driving capabilities in the future—through software updates designed to improve functionality over time."
             />
-            <div className="autopilot__learnMoreContentContainer">
-              <div className="autopilot__learnMoreContentContainerInner">
-                <img src={FullSelfDriveImage} alt="Model S" />
+            <div className="autopilot__learnMoreContentContainer autopilot__learnMoreContentContainer--fullSelfDrive">
+              <div className="autopilot__learnMoreContentContainerInner--fullSelfDrive">
                 <img
+                  className="autopilot__backgroundImage"
+                  src={FullSelfDriveImage}
+                  alt="Model S"
+                />
+                {/* <img
                   className="autopilot__backgroundImage"
                   src={FullSelfDriveBackground1}
                   alt="background"
-                />
+                /> */}
                 <img
-                  className="autopilot__backgroundImage"
+                  className="autopilot__frontImage"
                   src={FullSelfDriveBackground2}
                   alt="background"
                 />
@@ -389,7 +392,9 @@ export default connect(
     const renderSection = useCallback(() => {
       /* Check when section to show up */
       const checkRenderInfo =
-        pageIndex === "4" || (phoneLayout && sectionTop <= 600);
+        pageIndex === "4" || (phoneLayout && sectionTop <= 500);
+      const sideElementRender =
+        pageIndex === "4" || (phoneLayout && sectionTop <= 350);
 
       /* Button logic */
       const learnMoreHandler = () => {
@@ -499,7 +504,7 @@ export default connect(
             subtitle="Autopilot"
             paragraph="Autopilot advanced safety and convenience features aredesigned to assist you with the most burdensome parts ofdriving."
             horizontal={true}
-            checkRenderInfo={checkRenderInfo}
+            checkRenderInfo={sideElementRender}
             learnMoreOn={learnMoreOn}
             showLearnMore={showLearnMore}
             learnMoreHandle={learnMoreHandler}

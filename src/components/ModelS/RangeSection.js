@@ -239,45 +239,46 @@ export default connect(
 
     /* Learn More Section Render */
     const renderLearnMoreSection = useCallback(() => {
-      /* Buttons logic */
-      const CloseHandler = () => {
-        if (!phoneLayout) {
-          setPageToShow(null);
-          setSilentScrollTo("range");
-        } else {
-          setShowLearnMore(false);
-          window.scrollTo({
-            top: sectionRef.current?.offsetTop,
-            behavior: "smooth",
-          });
-        }
-      };
-
-      const NextHandler = () => {
-        setPageToShow(null);
-        setSilentScrollTo("autopilot");
-      };
-
-      const closeButtonElement = (
-        <CloseNextButton
-          close={
-            phoneLayout
-              ? true
-              : learnMoreSectionBottom - 200 > height
-              ? true
-              : false
-          }
-          click={
-            phoneLayout
-              ? CloseHandler
-              : learnMoreSectionBottom - 200 > height
-              ? CloseHandler
-              : NextHandler
-          }
-        />
-      );
+      /* Render Parts */
 
       const renderCloseButton = () => {
+        /* Buttons logic */
+        const CloseHandler = () => {
+          if (!phoneLayout) {
+            setPageToShow(null);
+            setSilentScrollTo("range");
+          } else {
+            setShowLearnMore(false);
+            window.scrollTo({
+              top: sectionRef.current?.offsetTop,
+              behavior: "smooth",
+            });
+          }
+        };
+
+        const NextHandler = () => {
+          setPageToShow(null);
+          setSilentScrollTo("autopilot");
+        };
+
+        const closeButtonElement = (
+          <CloseNextButton
+            close={
+              phoneLayout
+                ? true
+                : learnMoreSectionBottom - 200 > height
+                ? true
+                : false
+            }
+            click={
+              phoneLayout
+                ? CloseHandler
+                : learnMoreSectionBottom - 200 > height
+                ? CloseHandler
+                : NextHandler
+            }
+          />
+        );
         if (
           learnMoreSectionTop < height - 20 &&
           learnMoreSectionBottom >= height
@@ -288,7 +289,6 @@ export default connect(
         }
       };
 
-      /* Render Parts */
       const renderGoAnywhere = () => {
         /* Data for animation Buttons */
         const numberOfAnimationElements = 5;
@@ -530,6 +530,9 @@ export default connect(
       const checkRenderInfo =
         pageIndex === "3" || (phoneLayout && sectionTop <= 600);
 
+      const checkRenderSideElement =
+        pageIndex === "3" || (phoneLayout && sectionTop <= 300);
+
       /* Video Element */
       const videoElement = () => (
         <video
@@ -627,7 +630,7 @@ export default connect(
               customClassNames="range__sideComponent"
               customInnerContainerClassNames="range__sideInnerContainer"
               horizontal={width <= 1200}
-              checkRenderInfo={checkRenderInfo}
+              checkRenderInfo={checkRenderSideElement}
               learnMoreOn={learnMoreOn}
               showLearnMore={showLearnMore}
               learnMoreHandle={learnMoreHandler}

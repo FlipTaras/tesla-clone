@@ -135,45 +135,45 @@ export default connect(
     }, [learnMoreOn, pageIndex, phoneLayout, sectionTop, safetyInfoContent]);
 
     const renderLearnMoreSection = useCallback(() => {
-      /* Buttons logic */
-      const CloseHandler = () => {
-        if (!phoneLayout) {
-          setPageToShow(null);
-          setSilentScrollTo("safety");
-        } else {
-          setShowLearnMore(false);
-          window.scrollTo({
-            top: sectionRef.current?.offsetTop,
-            behavior: "smooth",
-          });
-        }
-      };
-
-      const NextHandler = () => {
-        setPageToShow(null);
-        setSilentScrollTo("perfomance");
-      };
-
-      const closeButtonElement = (
-        <CloseNextButton
-          close={
-            phoneLayout
-              ? true
-              : learnMoreSectionBottom - 200 > height
-              ? true
-              : false
-          }
-          click={
-            phoneLayout
-              ? CloseHandler
-              : learnMoreSectionBottom - 200 > height
-              ? CloseHandler
-              : NextHandler
-          }
-        />
-      );
-
       const renderCloseButton = () => {
+        /* Buttons logic */
+
+        const CloseHandler = () => {
+          if (!phoneLayout) {
+            setPageToShow(null);
+            setSilentScrollTo("safety");
+          } else {
+            setShowLearnMore(false);
+            window.scrollTo({
+              top: sectionRef.current?.offsetTop,
+              behavior: "smooth",
+            });
+          }
+        };
+
+        const NextHandler = () => {
+          setPageToShow(null);
+          setSilentScrollTo("perfomance");
+        };
+
+        const closeButtonElement = (
+          <CloseNextButton
+            close={
+              phoneLayout
+                ? true
+                : learnMoreSectionBottom - 200 > height
+                ? true
+                : false
+            }
+            click={
+              phoneLayout
+                ? CloseHandler
+                : learnMoreSectionBottom - 200 > height
+                ? CloseHandler
+                : NextHandler
+            }
+          />
+        );
         if (
           learnMoreSectionTop < height - 20 &&
           learnMoreSectionBottom >= height

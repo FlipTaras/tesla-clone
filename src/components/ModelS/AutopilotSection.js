@@ -1,17 +1,28 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-// import CloseNextButton from "../Buttons/CloseNextButton";
-// import classnames from "classnames";
+import CloseNextButton from "../Buttons/CloseNextButton";
 
-import Video from "../../static/videos/ModelS/autopilot.mp4";
-import VideoMobile from "../../static/videos/ModelS/autopilot mobile.mp4";
 import Icon from "../../static/images/ModelS/Autopilot/12Icon.png";
 import InfoElement from "./InfoElement";
+import Video from "../../static/videos/ModelS/autopilot.mp4";
+import VideoMobile from "../../static/videos/ModelS/autopilot mobile.mp4";
+import LearMoreSlider1 from "../../static/videos/ModelS/Autopilot/LearnSlider1.mp4";
+import LearMoreSlider2 from "../../static/videos/ModelS/Autopilot/LearnSlider2.mp4";
+import LearMoreSlider3 from "../../static/videos/ModelS/Autopilot/LearnSlider3.mp4";
+import LearMoreSlider4 from "../../static/videos/ModelS/Autopilot/LearnSlider4.mp4";
+import DriverVideo from "../../static/videos/ModelS/Autopilot/DriverAsistance.mp4";
+import VideoFuture from "../../static/videos/ModelS/Autopilot/Future.mp4";
+import FullSelfDriveImage from "../../static/images/ModelS/Autopilot/Full-SelfdriveCarImage.jpg";
+import FullSelfDriveBackground1 from "../../static/images/ModelS/Autopilot/Full-SelfDriveBackGround1.png";
+import FullSelfDriveBackground2 from "../../static/images/ModelS/Autopilot/Full-SelfDriveBackGround2.png";
 
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import SideComponents from "./SideComponents";
 import ContentElement from "./ContentElement";
+import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
+import VideoButton from "./VideoButton";
+import LearnMoreVideoTextContainer from "./LearnMoreVideoTextContainer";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -41,22 +52,139 @@ export default connect(
     showSection,
   }) => {
     const [showLearnMore, setShowLearnMore] = useState(false);
+    const checkLearnMore = showLearnMore || learnMoreOn;
     const videoRef = useRef(null);
+    const LearMoreSlider1Ref = useRef(null);
+    const LearMoreSlider2Ref = useRef(null);
+    const LearMoreSlider3Ref = useRef(null);
+    const LearMoreSlider4Ref = useRef(null);
+    const [featuresActiveButton, setFeaturesActiveButton] = useState(1);
+    const [paragraphActive, setParagraphActive] = useState(1);
+    const [paragraph, setParagraph] = useState(
+      "All new Tesla vehicles come standard with the most advanced driver assistance capabilities, designed to provide enhanced safety and convenience for a stress-free driving experience."
+    );
+
+    /* Features Animation Logic */
+    const [
+      featuresContentContainerPosition,
+      setFeaturesContentContainerPosition,
+    ] = useState("0");
+    const [animation, setAnimation] = useState(null);
+
+    useEffect(() => {
+      if (LearMoreSlider1Ref.current) {
+        LearMoreSlider1Ref.current.currentTime = 0;
+        LearMoreSlider2Ref.current.currentTime = 0;
+        LearMoreSlider3Ref.current.currentTime = 0;
+        LearMoreSlider4Ref.current.currentTime = 0;
+        switch (featuresActiveButton) {
+          case 1:
+            setFeaturesContentContainerPosition("0");
+            LearMoreSlider1Ref.current.play();
+            setAnimation(
+              setTimeout(() => {
+                setFeaturesActiveButton(2);
+              }, 14000)
+            );
+            break;
+          case 2:
+            setFeaturesContentContainerPosition("-100%");
+            LearMoreSlider2Ref.current.play();
+            setAnimation(
+              setTimeout(() => {
+                setFeaturesActiveButton(3);
+              }, 4000)
+            );
+            break;
+          case 3:
+            setFeaturesContentContainerPosition("-200%");
+            LearMoreSlider3Ref.current.play();
+            setAnimation(
+              setTimeout(() => {
+                setFeaturesActiveButton(4);
+              }, 10000)
+            );
+            break;
+          case 4:
+            setFeaturesContentContainerPosition("-300%");
+            LearMoreSlider4Ref.current.play();
+            setAnimation(
+              setTimeout(() => {
+                setFeaturesActiveButton(1);
+              }, 9000)
+            );
+            break;
+          default:
+            setFeaturesContentContainerPosition("0");
+            LearMoreSlider1Ref.current.play();
+            setAnimation(
+              setTimeout(() => {
+                setFeaturesActiveButton(2);
+              }, 2000)
+            );
+            break;
+        }
+      }
+    }, [featuresActiveButton]);
+
+    const buttonClickedAnimation = useCallback(
+      (value) => {
+        clearTimeout(animation);
+        setFeaturesActiveButton(value);
+      },
+      [animation, setFeaturesActiveButton]
+    );
+
+    /* Choose paragraph for Driver Section */
+    useEffect(() => {
+      switch (paragraphActive) {
+        case 1:
+          setParagraph(
+            "All new Tesla vehicles come standard with the most advanced driver assistance capabilities, designed to provide enhanced safety and convenience for a stress-free driving experience."
+          );
+          setTimeout(() => {
+            setParagraphActive(2);
+          }, 8000);
+          break;
+        case 2:
+          setParagraph(
+            "Eight cameras and 12 ultrasonic sensors detect lane lines and surrounding objects—providing 360 degrees of visibility, at all times."
+          );
+          setTimeout(() => {
+            setParagraphActive(3);
+          }, 8000);
+          break;
+        case 3:
+          setParagraph(
+            "Model S keeps you within a lane while matching speed to traffic conditions, without any driver input."
+          );
+          setTimeout(() => {
+            setParagraphActive(1);
+          }, 8000);
+          break;
+        default:
+          setParagraphActive(1);
+          setParagraph(
+            "All new Tesla vehicles come standard with the most advanced driver assistance capabilities, designed to provide enhanced safety and convenience for a stress-free driving experience."
+          );
+          break;
+      }
+    }, [paragraphActive]);
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
     const learnMoreSectionRef = useRef(null);
     const [sectionTop, setSectionTop] = useState(null);
-    // const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
-    // const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
+    const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
+    const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
 
     useEffect(() => {
       const getAndShowTop = () => {
         const rectSection = sectionRef.current.getBoundingClientRect();
-        // const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
+        const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
         setSectionTop(rectSection.top);
-        // setLearnMoreSectionTop(rectLearnMoreSection.top);
-        // setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
+        setLearnMoreSectionTop(rectLearnMoreSection.top);
+        setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
       };
       if (sectionRef.current) {
         window.addEventListener("wheel", getAndShowTop);
@@ -81,6 +209,183 @@ export default connect(
     }, [learnMoreOn, height]);
 
     /* Render functionality */
+    const renderLearnMoreSection = useCallback(() => {
+      /* Buttons logic */
+      const CloseHandler = () => {
+        if (!phoneLayout) {
+          setPageToShow(null);
+          setSilentScrollTo("range");
+        } else {
+          setShowLearnMore(false);
+          window.scrollTo({
+            top: sectionRef.current?.offsetTop,
+            behavior: "smooth",
+          });
+        }
+      };
+
+      const NextHandler = () => {
+        setPageToShow(null);
+        setSilentScrollTo("autopilot");
+      };
+
+      const closeButtonElement = (
+        <CloseNextButton
+          close={
+            phoneLayout
+              ? true
+              : learnMoreSectionBottom - 200 > height
+              ? true
+              : false
+          }
+          click={
+            phoneLayout
+              ? CloseHandler
+              : learnMoreSectionBottom - 200 > height
+              ? CloseHandler
+              : NextHandler
+          }
+        />
+      );
+
+      const renderCloseButton = () => {
+        if (
+          learnMoreSectionTop < height - 20 &&
+          learnMoreSectionBottom >= height
+        ) {
+          return closeButtonElement;
+        } else {
+          return null;
+        }
+      };
+
+      /* Video Buttons */
+      const videoButtons = [
+        {
+          title: "Navigate on Autopilot",
+          text: "Active Guidance from hightway on-ramp to off-ramp",
+          showBorder: true,
+        },
+        {
+          title: "Summon",
+          text: "Automatically retrieve your car",
+          showBorder: false,
+        },
+        {
+          title: "Autopark",
+          text: "Parallel and perpendicular parking, with a single touch",
+          showBorder: false,
+        },
+        {
+          title: "Auto Lane Change",
+          text: "Automatically change lanes while driving on the hightway",
+          showBorder: false,
+        },
+      ];
+
+      const videos = [
+        { link: LearMoreSlider1, ref: LearMoreSlider1Ref },
+        { link: LearMoreSlider2, ref: LearMoreSlider2Ref },
+        { link: LearMoreSlider3, ref: LearMoreSlider3Ref },
+        { link: LearMoreSlider4, ref: LearMoreSlider4Ref },
+      ];
+      if (checkLearnMore) {
+        return (
+          <>
+            <div className="autopilot__learnMoreInnerContainer">
+              <LearnMoreTitleContainer
+                title="Features"
+                customClassNames="autopilot__learnMoreTitleContainer--1"
+                customParagraphClassNames="autopilot__learnMoreParagraph--1"
+                paragraph="Autopilot enables your car to steer, accelerate and brake automatically within its lane. Full Self-Driving Capability introduces additional features and improves existing functionality to make your car more capable over time including:"
+              />
+              <div className="autopilot__learnMoreContentContainer autopilot__learnMoreContentContainer--features">
+                <div className="autopilot__learnMoreContentContainerInner">
+                  {videos.map((el, i) => (
+                    <video
+                      ref={el.ref}
+                      key={i}
+                      preload="auto"
+                      muted
+                      playsInline
+                      loop
+                      style={{
+                        transform: `translateX(${featuresContentContainerPosition})`,
+                      }}
+                      className="autopilot__video"
+                    >
+                      <source src={el.link} type="video/mp4" />
+                    </video>
+                  ))}
+                </div>
+              </div>
+              <div className="autopilot__learnMoreButtonsContainer">
+                {videoButtons.map((el, i) => (
+                  <VideoButton
+                    key={i}
+                    title={el.title}
+                    text={el.text}
+                    showBorder={el.showBorder}
+                    smaller
+                    click={() => buttonClickedAnimation(i + 1)}
+                    active={featuresActiveButton === i + 1}
+                    activeButton={featuresActiveButton}
+                  />
+                ))}
+              </div>
+            </div>
+            <LearnMoreVideoTextContainer
+              customInfoContainerClassNames="autopilot__learnMoreVideotextInfoContainer"
+              title="Driver Assistance Capabilities"
+              paragraph={paragraph}
+              video={DriverVideo}
+              active={paragraphActive}
+            />
+            <LearnMoreTitleContainer
+              customClassNames=""
+              title="Full Self-Driving Hardware"
+              paragraph="Every new Model S comes standard with advanced hardware capable of providing Autopilot features today, and full self-driving capabilities in the future—through software updates designed to improve functionality over time."
+            />
+            <div className="autopilot__learnMoreContentContainer">
+              <div className="autopilot__learnMoreContentContainerInner">
+                <img src={FullSelfDriveImage} alt="Model S" />
+                <img
+                  className="autopilot__backgroundImage"
+                  src={FullSelfDriveBackground1}
+                  alt="background"
+                />
+                <img
+                  className="autopilot__backgroundImage"
+                  src={FullSelfDriveBackground2}
+                  alt="background"
+                />
+              </div>
+            </div>
+
+            <LearnMoreVideoTextContainer
+              title="The Future of Autopilot"
+              paragraph="All Tesla vehicles have the hardware needed in the future for full self-driving in almost all circumstances, at a safety level we believe will be at least twice as good as the average human driver. "
+              video={VideoFuture}
+            />
+            {renderCloseButton()}
+          </>
+        );
+      }
+    }, [
+      checkLearnMore,
+      height,
+      learnMoreSectionBottom,
+      learnMoreSectionTop,
+      phoneLayout,
+      setPageToShow,
+      setSilentScrollTo,
+      featuresActiveButton,
+      featuresContentContainerPosition,
+      buttonClickedAnimation,
+      paragraph,
+      paragraphActive,
+    ]);
+
     const renderSection = useCallback(() => {
       /* Check when section to show up */
       const checkRenderInfo =
@@ -202,8 +507,10 @@ export default connect(
           />
           <div
             ref={learnMoreSectionRef}
-            className="autopilot__learnMoreContainer"
-          ></div>
+            className={learnMoreOn ? "autopilot__learnMoreContainer" : ""}
+          >
+            {renderLearnMoreSection()}
+          </div>
         </>
       );
     }, [
@@ -215,7 +522,10 @@ export default connect(
       setPageToShow,
       showLearnMore,
       showSection,
+      renderLearnMoreSection,
     ]);
+
+    /* Final Render */
     return (
       <section ref={sectionRef} className="section autopilot">
         <div className="autopilot__container">{renderSection()}</div>

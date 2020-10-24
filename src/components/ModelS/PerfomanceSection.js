@@ -22,6 +22,7 @@ import Video1 from "../../static/videos/ModelS/dualmotor_desktop.mp4";
 import SideComponents from "./SideComponents";
 import ContentElement from "./ContentElement";
 import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
+import LearnMoreVideoTextContainer from "./LearnMoreVideoTextContainer";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -51,6 +52,7 @@ export default connect(
     phoneLayout,
   }) => {
     const [showLearnMore, setShowLearnMore] = useState(false);
+    const checkLearnMore = showLearnMore || learnMoreOn;
     const [activeButton, setActiveButton] = useState(1);
 
     /* Video Buttons Container Animation */
@@ -82,7 +84,6 @@ export default connect(
 
     /* Different Checks of screen size */
     const checkIpad = height <= 1366 && width <= 1024;
-    const dualMotorRef = useRef(null);
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
@@ -254,9 +255,6 @@ export default connect(
     }, [pageIndex, learnMoreOn, showSection, width, phoneLayout, sectionTop]);
 
     const renderLearnMoreSection = useCallback(() => {
-      /* Figure out when dualMotor come into view to play animation */
-      const dualMotorTop = dualMotorRef.current?.getBoundingClientRect().top;
-
       /* Buttons Logic */
       const CloseHandler = () => {
         if (!phoneLayout) {
@@ -413,50 +411,13 @@ export default connect(
                 ))}
               </div>
             </div>
-            <div
-              ref={dualMotorRef}
-              className="perfomance__learnMoreDualMotorSection"
-            >
-              <div className="perfomance__learnMoreDualMotorVideoContainer">
-                <div
-                  className={
-                    dualMotorTop < 700
-                      ? "perfomance__learnMoreDualMotorVideoInner perfomance__learnMoreDualMotorVideoInner--show"
-                      : "perfomance__learnMoreDualMotorVideoInner"
-                  }
-                >
-                  <video
-                    playsInline
-                    preload="auto"
-                    loop
-                    muted
-                    className="perfomance__learnMoreDualMotorVideo"
-                    src={Video3}
-                    poster={Poster3}
-                    autoPlay
-                  ></video>
-                </div>
-              </div>
-              <div
-                className={
-                  dualMotorTop < 700
-                    ? "perfomance__learnMoreDualMotorInfo perfomance__learnMoreDualMotorInfo--show"
-                    : "perfomance__learnMoreDualMotorInfo"
-                }
-              >
-                <h1 className="perfomance__dualTitle title">
-                  Dual Motor <br />
-                  All-Wheel Drive
-                </h1>
-                <p className="perfomance__dualParagraph paragraph">
-                  Only Tesla has the technology that provides dual motors with
-                  independent traction to both front and rear wheels for
-                  unparalleled control, in all weather conditions. As a result,
-                  Model S instantly controls traction and torque to every wheel,
-                  with a unique and superior all-wheel drive system.
-                </p>
-              </div>
-            </div>
+            <LearnMoreVideoTextContainer
+              customTitleClassNames="perfomance__videoTextContainerTitle"
+              paragraph="Only Tesla has the technology that provides dual motors with independent traction to both front and rear wheels for unparalleled control, in all weather conditions. As a result, Model S instantly controls traction and torque to every wheel, with a unique and superior all-wheel drive system."
+              title="Dual Motor All-Wheel Drive"
+              video={Video3}
+              poster={Poster3}
+            />
             {renderCloseButton()}
           </>
         );
@@ -523,7 +484,7 @@ export default connect(
           />
           <div
             ref={learnMoreSectionRef}
-            className="perfomance__learnMoreContainer"
+            className={checkLearnMore ? "perfomance__learnMoreContainer" : ""}
           >
             {renderLearnMoreSection()}
           </div>
@@ -541,6 +502,7 @@ export default connect(
       learnMoreOn,
       pageIndex,
       phoneLayout,
+      checkLearnMore,
     ]);
 
     /* Final Render */

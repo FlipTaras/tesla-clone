@@ -163,6 +163,7 @@ export default connect(
       },
       [animation, setRangeActiveButton]
     );
+
     const chargerAnimationReset = useCallback(
       (value) => {
         clearTimeout(chargeAnimation);
@@ -287,62 +288,42 @@ export default connect(
         }
       };
 
-      /* Data for animation Buttons */
-      const numberOfAnimationElements = 5;
-      const pageAnimationElements = Array.from(
-        Array(numberOfAnimationElements).keys()
-      );
-
-      const showRangeButtons = [
-        {
-          title: "San Jose to Los Angeles",
-          subtitleMiles: "340",
-          showBorder: true,
-        },
-        {
-          title: "Barkley to Lake Tahoe",
-          subtitleMiles: "178",
-          showBorder: false,
-        },
-        {
-          title: "Manhattan to Boston",
-          subtitleMiles: "221",
-          showBorder: false,
-        },
-        {
-          title: "Fort Lauderdale to Orlando",
-          subtitleMiles: "195",
-          showBorder: false,
-        },
-        {
-          title: "Austin to Dallas",
-          subtitleMiles: "195",
-          showBorder: false,
-        },
-      ];
-
-      const chargeButtons = [
-        {
-          title: "Home Charging",
-          text: "Change Model S overnight for one week worth of driving",
-          showBorder: true,
-        },
-        {
-          title: "On the Road",
-          text:
-            "Stop and recharge half of the battery while you get a cup of coffee",
-          showBorder: false,
-        },
-        {
-          title: "Upon Arrival",
-          text:
-            "Park and recharge for your next destination while away from home",
-          showBorder: false,
-        },
-      ];
-
       /* Render Parts */
       const renderGoAnywhere = () => {
+        /* Data for animation Buttons */
+        const numberOfAnimationElements = 5;
+        const pageAnimationElements = Array.from(
+          Array(numberOfAnimationElements).keys()
+        );
+
+        const showRangeButtons = [
+          {
+            title: "San Jose to Los Angeles",
+            subtitleMiles: "340",
+            showBorder: true,
+          },
+          {
+            title: "Barkley to Lake Tahoe",
+            subtitleMiles: "178",
+            showBorder: false,
+          },
+          {
+            title: "Manhattan to Boston",
+            subtitleMiles: "221",
+            showBorder: false,
+          },
+          {
+            title: "Fort Lauderdale to Orlando",
+            subtitleMiles: "195",
+            showBorder: false,
+          },
+          {
+            title: "Austin to Dallas",
+            subtitleMiles: "195",
+            showBorder: false,
+          },
+        ];
+
         return (
           <>
             <LearnMoreTitleContainer
@@ -394,7 +375,28 @@ export default connect(
       };
 
       const renderChargeAnywhere = () => {
-        /* Choose what image to redner for Charger Element */
+        /* Data for animation Buttons */
+        const chargeButtons = [
+          {
+            title: "Home Charging",
+            text: "Change Model S overnight for one week worth of driving",
+            showBorder: true,
+          },
+          {
+            title: "On the Road",
+            text:
+              "Stop and recharge half of the battery while you get a cup of coffee",
+            showBorder: false,
+          },
+          {
+            title: "Upon Arrival",
+            text:
+              "Park and recharge for your next destination while away from home",
+            showBorder: false,
+          },
+        ];
+
+        /* Choose what image to render for Charger Element */
         const renderImage = () => {
           switch (chargeActiveButton) {
             case 1:

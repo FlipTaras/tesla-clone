@@ -102,8 +102,6 @@
         padding-bottom: 10rem
         @include responsive(1920)
             padding-bottom: 6rem
-        @include responsive(tablet)
-            padding-bottom: 0
 
     &__learnMoreInner
         padding: 8rem 0 3rem
@@ -213,145 +211,18 @@
         @include responsive(phone-landscape)
             margin-top: 7rem
 
-    &__learnMoreDualMotorSection
-        padding: 6rem 0 10rem 0
-        display: flex
-        align-items: center
-        justify-content: center
-        width: 50%
-        margin: 0 auto
-        @include responsive(2560)
-            width: 50%
-        @include responsive(2200)
-            width: 55%
+    &__videoTextContainerTitle
+        width: 60%
         @include responsive(1920)
             width: 70%
-        @include responsive(1600)
-            width: 78%
-        @include responsive(1366)
-            width: 90%
-        @include responsive(1280)
-            width: 85%
         @include responsive(1200)
-            width: 70%
+            width: 90%
         @include responsive(1100)
-            width: 80%
-        @include responsive(tablet-portrait)
-            flex-direction: column
-        @include responsive(ipadPro-portrait)
-            flex-direction: row
-        @include responsive(tablet)
-            width: 85%
+            width: 100%
         @include responsive(900)
-            width: 90%
-        @include responsive(phone-landscape)
-            flex-direction: column
-        @include responsive(phone)
-            padding-bottom: 8rem
-
-    &__learnMoreDualMotorVideoInner
-        height: 49rem
-        margin-right: 4rem
-        opacity: 0
-        @include responsive(1280)
-            height: 40rem
-        @include responsive(1200)
-            height: 30rem
-        @include responsive(ipadPro-portrait)
-            height: 32.7rem
-        @include responsive(tablet)
-            height: 32.7rem
-        @include responsive(tablet-portrait)
-            height: 41.2rem
-        @include responsive(1000)
-            height: 30rem
-            margin-left: -2rem
-        @include responsive(800)
-            margin-left: 0
-
-        @include responsive(phone)
-            height: 20rem
-            margin: 2rem 0 0
-        @include responsive(smallphone-landscape)
-            height: 32.7rem
-        &--show
-            animation: translateYOpacityShow .8s ease forwards
-
-    &__learnMoreDualMotorVideoContainer
-        @include responsive(tablet-portrait)
-            order: 2
-            width: 100%
-        @include responsive(ipadPro-portrait)
-            order: 0
-            width: auto
-            margin-left: 0
-        @include responsive(phone-landscape)
-            order: 2
-            margin-top: 2rem
-
-    &__learnMoreDualMotorVideo
-        object-fit: contain
-        height: 49rem
-        @include responsive(1280)
-            height: 40rem
-        @include responsive(1200)
-            height: 30rem
-        @include responsive(ipadPro-portrait )
-            height: 32.7rem
-        @include responsive(tablet)
-            height: 32.7rem
-        @include responsive(tablet-portrait)
-            width: 100%
-            height: 41.2rem
-        @include responsive(ipadPro-portrait)
-            width: 45rem
-            height: 32.7rem
-        @include responsive(1000)
-            height: 30rem
-        @include responsive(phone)
-            height: 20rem
-        @include responsive(smallphone-landscape)
-            height: 32.7rem
-
-    &__learnMoreDualMotorInfo
-        opacity: 0
-        &--show
-            animation: translateYOpacityShow .8s .3s ease forwards
-
-        @include responsive(tablet-portrait)
-            width: 80%
-            margin: 0 auto 2rem
-        @include responsive(ipadPro-portrait)
-            margin: 0
-            width: auto
-            align-self: flex-start
-        @include responsive(phone-landscape)
-            width: 75%
-        @include responsive(phone)
-            width: 95%
-            margin: 0 auto
-
-    &__dualTitle
-        @include responsive(phone-landscape)
-            font-size: 3rem
-
-    &__dualParagraph
-        width: 93%
-        @include responsive(1600)
-            width: 100%
-        @include responsive(tablet-portrait)
-            order: 1
-        @include responsive(ipadPro-portrait)
-            width: 62%
-            order: 2
-        @include responsive(tablet)
-            width: 85%
-        @include responsive(phone-landscape)
-            width: 100%
-        @include responsive(phone)
-            width: 100%
+            width: 60%
 
     /* Fullpage.js adjustment */
     .fp-tableCell
-        vertical-align: top
-        display: block
+        // vertical-align: top
+        // display: block

@@ -1,0 +1,85 @@
+.learnMoreVideoTextContainer
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 50%
+    margin: 6rem auto 10rem
+    @include responsive(2200)
+        width: 60%
+    @include responsive(1920)
+        width: 70%
+    @include responsive(1600)
+        width: 78%
+    @include responsive(1450)
+        width: 90%
+    @include responsive(1280)
+        width: 85%
+    @include responsive(1200)
+        width: 70%
+    @include responsive(1100)
+        width: 80%
+    @include responsive(tablet)
+        width: 85%
+    @include responsive(900)
+        width: 90%
+        flex-direction: column
+    @include responsive(800)
+        flex-direction: column
+    @include responsive(phone-landscape)
+        flex-direction: column
+    @include responsive(phone)
+        margin-bottom: 8rem
+
+    &__videoInner
+        width: 70%
+        opacity: 0
+        animation: translateYOpacityShow 1s 1s ease forwards
+        @include responsive(900)
+            order: 2
+            width: 100%
+
+    &__video
+        object-fit: contain
+        height: 100%
+        width: 100%
+
+    &__infoContainer
+        width: 30%
+        opacity: 0
+        margin-left: 4rem
+        animation: translateYOpacityShow .8s .3s ease forwards
+        @include responsive(900)
+            order: 1
+            margin-bottom: 2rem
+            width: 60%
+        @include responsive(700)
+            width: 70%
+        @include responsive(phone)
+            width: 100%
+            margin-bottom: 4rem
+
+    &__title
+        @include responsive(phone-landscape)
+            font-size: 3rem
+
+    &__paragraph
+        width: 100%
+        @include responsive(phone)
+            width: 90%
+
+    &__buttonsContainer
+        display: flex
+        width: 5rem
+        justify-content: space-between
+        align-items: center
+        margin-bottom: 2rem
+        margin-left: 2px
+
+    &__button
+        height: 1rem
+        width: 1rem
+        background-color: none
+        border: 1px solid black
+        border-radius: 50%
+        &--active
+            background-color: black

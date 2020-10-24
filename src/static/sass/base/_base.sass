@@ -43,6 +43,7 @@ code
     &--animated
         opacity: 0
         animation: translateYOpacityShow .8s .3s forwards ease
+
 .paragraph
     color: #393c41
     font-family: 'Gotham Book'
@@ -53,9 +54,9 @@ code
     width: 90%
     @include responsive(2200)
         width: 80%
+
     @include responsive(phone-landscape)
-    // Caused bug on phone may be fix
-        font-size: 1.2rem !important
+        font-size: 1.2rem
 
     &--animated
         opacity: 0

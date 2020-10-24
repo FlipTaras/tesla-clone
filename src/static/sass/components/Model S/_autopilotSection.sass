@@ -63,6 +63,9 @@
     &__learnMoreInnerContainer
         padding-top: 8rem
         position: relative
+        @include responsive(phone)
+            padding-top: 3rem
+
         &::before
             content: ''
             position: absolute
@@ -90,6 +93,16 @@
                 width: 65% !important
             @include responsive(1100)
                 width: 70% !important
+            @include responsive(900)
+                width: 85% !important
+            @include responsive(800)
+                width: 50% !important
+            @include responsive(phone-landscape)
+                width: 55% !important
+            @include responsive(phone)
+                width: 80% !important
+            @include responsive(414-portrait)
+                width: 90% !important
 
         &--fullSelfDrive
             width: 35% !important
@@ -114,12 +127,26 @@
                 margin-right: 50% !important
             @include responsive(1100)
                 width: 40% !important
+            @include responsive(800)
+                margin: 0 auto !important
+                width: 55% !important
+            @include responsive(phone-landscape)
+                margin: 0 auto !important
+                width: 55% !important
+            @include responsive(phone)
+                width: 70% !important
+            @include responsive(414-portrait)
+                width: 85% !important
 
     &__learnMoreParagraph
         &--1
             width: 65% !important
             @include responsive(1280)
                 width: 80% !important
+            @include responsive(phone-landscape)
+                width: 100% !important
+            @include responsive(800)
+                width: 100% !important
 
     &__learnMoreContentContainer
         position: relative
@@ -132,6 +159,8 @@
             margin: -12rem auto 0
             @include responsive(1920)
                 margin-top: -10rem
+            @include responsive(800)
+                margin-top: 0
 
         &--fullSelfDrive
             margin: -9rem auto 0
@@ -140,6 +169,18 @@
             @include responsive(1100)
                 margin-top: 0
                 margin-bottom: 20rem
+            @include responsive(900)
+                margin-top: 10rem
+            @include responsive(800)
+                margin-top: 0
+                margin-bottom: 0
+            @include responsive(phone-landscape)
+                margin-top: -5rem
+                margin-bottom: -5rem
+            @include responsive(phone)
+                margin: 5rem  0
+            @include responsive(414-portrait)
+                margin: 8rem  0
 
     &__learnMoreContentContainerInner
         width: 50%
@@ -157,6 +198,13 @@
             width: 95%
         @include responsive(1100)
             width: 150%
+        @include responsive(800)
+            width: 85%
+        @include responsive(phone-landscape)
+            width: 85% !important
+            margin-top: 5rem
+        @include responsive(phone)
+            width: 100%
 
         &--fullSelfDrive
             width: 100%
@@ -189,8 +237,42 @@
         @include responsive(1200)
             margin-top: -20rem
         @include responsive(1100)
-            width: 85%
+            width: 95%
             margin-top: -15rem
+        @include responsive(900)
+            width: 99%
+        @include responsive(800)
+            margin-top: -5rem
+            width: 80%
+        @include responsive(phone-landscape)
+            height: 55vh
+            margin-top: 0
+            margin-bottom: 0
+        @include responsive(phone)
+            width: 95%
+            margin-top: 0
+            height: 25vh
+        @include responsive(smallphone-landscape)
+            height: 58vh
+        @include responsive(414-portrait)
+            margin-bottom: 0
+        @include responsive(375-portrait)
+            height: 30vh
+        @include responsive(smallphone-portrait)
+            height: 32vh
+
+    &__learnMoreButtonsContainerInner
+        display: flex
+        position: absolute
+        margin: 0 auto
+        left: 0
+        transition: all .5s ease
+
+    &__videoButtonElement
+        @include responsive(900)
+            flex: .23
+        @include responsive(800)
+            flex: .25
 
     &__learnMoreVideotextInfoContainer
         align-self: flex-start
@@ -202,6 +284,18 @@
         width: 100%
         @include responsive(1100)
             transform: scale(1.3)
+        @include responsive(900)
+            transform: scale(1.6)
+        @include responsive(800)
+            transform: scale(.8)
+        @include responsive(phone-landscape)
+            transform: scale(.8)
+        @include responsive(phone)
+            transform: scale(1)
+        @include responsive(414-portrait)
+            transform: scale(1.4)
+        @include responsive(375-portrait)
+            transform: scale(1.5)
 
     &__frontImage
         position: relative
@@ -210,3 +304,16 @@
         z-index: 10
         @include responsive(1100)
             transform: scale(1.3)
+        @include responsive(900)
+            transform: scale(1.6)
+        @include responsive(800)
+            transform: scale(.8)
+        @include responsive(phone-landscape)
+            transform: scale(.8)
+
+        @include responsive(phone)
+            transform: scale(1)
+        @include responsive(414-portrait)
+            transform: scale(1.4)
+        @include responsive(375-portrait)
+            transform: scale(1.5)

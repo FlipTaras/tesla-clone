@@ -4,6 +4,7 @@
     justify-content: space-between
     width: 50%
     margin: 6rem auto 10rem
+
     @include responsive(2200)
         width: 60%
     @include responsive(1920)
@@ -23,8 +24,7 @@
         flex-direction: column
     @include responsive(phone-landscape)
         flex-direction: column
-    @include responsive(phone)
-        margin-bottom: 8rem
+        margin: 5rem auto
 
     &__videoInner
         width: 70%
@@ -55,16 +55,20 @@
         @include responsive(phone)
             width: 100%
             margin-bottom: 4rem
+        @include responsive(414-portrait)
+            margin-left: 1rem
 
     &__title
         @include responsive(phone-landscape)
             font-size: 3rem
+        @include responsive(414-portrait)
+            width: 80%
 
     &__paragraph
         width: 100%
-        // @include responsive(800)
-            // font-size: 1rem !important
         @include responsive(phone)
+            width: 90%
+        @include responsive(phone-landscape)
             width: 90%
 
     &__buttonsContainer

@@ -135,6 +135,42 @@ export default connect(
       [animation, setFeaturesActiveButton]
     );
 
+    /* Container Animation Logic */
+    const [containerPosition, setContainerPosition] = useState("0");
+
+    useEffect(() => {
+      switch (featuresActiveButton) {
+        case 1:
+          setContainerPosition("0");
+          break;
+        case 2:
+          if (width <= 450) {
+            setContainerPosition("-10rem");
+          } else {
+            setContainerPosition("0");
+          }
+          break;
+        case 3:
+          if (width <= 450) {
+            setContainerPosition("-25rem");
+          } else {
+            setContainerPosition("-10rem");
+          }
+          break;
+        case 4:
+          if (width <= 450) {
+            setContainerPosition("-35rem");
+          } else {
+            setContainerPosition("-20rem");
+          }
+          break;
+
+        default:
+          setContainerPosition("0");
+
+          break;
+      }
+    }, [featuresActiveButton, width]);
     /* Choose paragraph for Driver Section */
     useEffect(() => {
       switch (paragraphActive) {
@@ -319,18 +355,24 @@ export default connect(
                 </div>
               </div>
               <div className="autopilot__learnMoreButtonsContainer">
-                {videoButtons.map((el, i) => (
-                  <VideoButton
-                    key={i}
-                    title={el.title}
-                    text={el.text}
-                    showBorder={el.showBorder}
-                    smaller
-                    click={() => buttonClickedAnimation(i + 1)}
-                    active={featuresActiveButton === i + 1}
-                    activeButton={featuresActiveButton}
-                  />
-                ))}
+                <div
+                  style={{ transform: `translateX(${containerPosition})` }}
+                  className="autopilot__learnMoreButtonsContainerInner"
+                >
+                  {videoButtons.map((el, i) => (
+                    <VideoButton
+                      customClassNames="autopilot__videoButtonElement"
+                      key={i}
+                      title={el.title}
+                      text={el.text}
+                      showBorder={el.showBorder}
+                      smaller
+                      click={() => buttonClickedAnimation(i + 1)}
+                      active={featuresActiveButton === i + 1}
+                      activeButton={featuresActiveButton}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
             <LearnMoreVideoTextContainer
@@ -387,6 +429,7 @@ export default connect(
       buttonClickedAnimation,
       paragraph,
       paragraphActive,
+      containerPosition,
     ]);
 
     const renderSection = useCallback(() => {

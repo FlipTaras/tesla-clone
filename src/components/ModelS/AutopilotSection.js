@@ -272,7 +272,7 @@ export default connect(
       ];
 
       const videos = [
-        { link: LearMoreSlider1, ref: LearMoreSlider1Ref },
+        { link: LearMoreSlider1, ref: LearMoreSlider1Ref, autoPlay: true },
         { link: LearMoreSlider2, ref: LearMoreSlider2Ref },
         { link: LearMoreSlider3, ref: LearMoreSlider3Ref },
         { link: LearMoreSlider4, ref: LearMoreSlider4Ref },
@@ -283,7 +283,7 @@ export default connect(
         const CloseHandler = () => {
           if (!phoneLayout) {
             setPageToShow(null);
-            setSilentScrollTo("range");
+            setSilentScrollTo("autopilot");
           } else {
             setShowLearnMore(false);
             window.scrollTo({
@@ -295,7 +295,7 @@ export default connect(
 
         const NextHandler = () => {
           setPageToShow(null);
-          setSilentScrollTo("autopilot");
+          setSilentScrollTo("interior");
         };
 
         const closeButtonElement = (
@@ -339,6 +339,7 @@ export default connect(
               <div className="autopilot__learnMoreContentContainerInner">
                 {videos.map((el, i) => (
                   <video
+                    autoPlay={el.autoPlay}
                     ref={el.ref}
                     key={i}
                     preload="auto"
@@ -381,9 +382,7 @@ export default connect(
 
       const renderDriverAsistance = () => {
         /* Animation Apper Settings */
-        const check =
-          (phoneLayout && pageYOffset > 3800) ||
-          (!phoneLayout && pageYOffset > 950);
+        const check = phoneLayout || (!phoneLayout && pageYOffset > 950);
 
         const driverInnerClassNames = classnames(
           "autopilot__driverInner",
@@ -404,12 +403,8 @@ export default connect(
       };
 
       const renderFullSelfDriving = () => {
-        const check =
-          (phoneLayout && pageYOffset > 4200) ||
-          (!phoneLayout && pageYOffset > 1200);
-        const checkImage =
-          (phoneLayout && pageYOffset > 4400) ||
-          (!phoneLayout && pageYOffset > 1600);
+        const check = phoneLayout || (!phoneLayout && pageYOffset > 1200);
+        const checkImage = phoneLayout || (!phoneLayout && pageYOffset > 1600);
 
         /* Render */
         return (
@@ -425,7 +420,7 @@ export default connect(
               <div className="autopilot__learnMoreContentContainer autopilot__learnMoreContentContainer--fullSelfDrive">
                 <div className="autopilot__learnMoreContentContainerInner--fullSelfDrive">
                   <img
-                    className="autopilot__backgroundImage"
+                    className="autopilot__carImage"
                     src={FullSelfDriveImage}
                     alt="Model S"
                   />
@@ -435,7 +430,7 @@ export default connect(
                     alt="background"
                   />
                   <img
-                    className="autopilot__frontImage"
+                    className="autopilot__orangeBackground"
                     src={FullSelfDriveBackground2}
                     alt="background"
                   />
@@ -447,10 +442,7 @@ export default connect(
       };
 
       const renderFuture = () => {
-        if (
-          (phoneLayout && pageYOffset > 4800) ||
-          (!phoneLayout && pageYOffset > 2400)
-        ) {
+        if (phoneLayout || (!phoneLayout && pageYOffset > 2400)) {
           return (
             <LearnMoreVideoTextContainer
               title="The Future of Autopilot"

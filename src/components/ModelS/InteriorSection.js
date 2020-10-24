@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import InfoElement from "./InfoElement";
 import Image from "../../static/images/ModelS/Interior/interior.jpg";
 import Icon from "../../static/images/ModelS/Interior/wifi-icon.png";
+import SideComponents from "./SideComponents";
+import ContentElement from "./ContentElement";
+import CloseNextButton from "../Buttons/CloseNextButton";
 
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
-import SideComponents from "./SideComponents";
-import ContentElement from "./ContentElement";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -37,21 +38,22 @@ export default connect(
     showSection,
   }) => {
     const [showLearnMore, setShowLearnMore] = useState(false);
+    const checkLearnMore = showLearnMore || learnMoreOn;
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
     const learnMoreSectionRef = useRef(null);
     const [sectionTop, setSectionTop] = useState(null);
-    // const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
-    // const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
+    const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
+    const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
 
     useEffect(() => {
       const getAndShowTop = () => {
         const rectSection = sectionRef.current.getBoundingClientRect();
-        // const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
+        const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
         setSectionTop(rectSection.top);
-        // setLearnMoreSectionTop(rectLearnMoreSection.top);
-        // setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
+        setLearnMoreSectionTop(rectLearnMoreSection.top);
+        setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
       };
       if (sectionRef.current) {
         window.addEventListener("wheel", getAndShowTop);
@@ -76,6 +78,74 @@ export default connect(
     }, [learnMoreOn, height]);
 
     /* Render functionality */
+
+    const renderLearnMoreSection = useCallback(() => {
+      const renderCloseButton = () => {
+        /* Buttons logic */
+        const CloseHandler = () => {
+          if (!phoneLayout) {
+            setPageToShow(null);
+            setSilentScrollTo("interior");
+          } else {
+            setShowLearnMore(false);
+            window.scrollTo({
+              top: sectionRef.current?.offsetTop,
+              behavior: "smooth",
+            });
+          }
+        };
+
+        const NextHandler = () => {
+          setPageToShow(null);
+          setSilentScrollTo("exterior");
+        };
+
+        const closeButtonElement = (
+          <CloseNextButton
+            close={
+              phoneLayout
+                ? true
+                : learnMoreSectionBottom - 200 > height
+                ? true
+                : false
+            }
+            click={
+              phoneLayout
+                ? CloseHandler
+                : learnMoreSectionBottom - 200 > height
+                ? CloseHandler
+                : NextHandler
+            }
+          />
+        );
+        if (
+          learnMoreSectionTop < height - 20 &&
+          learnMoreSectionBottom >= height
+        ) {
+          return closeButtonElement;
+        } else {
+          return null;
+        }
+      };
+
+      /* Render */
+      if (checkLearnMore) {
+        return (
+          <>
+            <div className="interior__learnMoreInnerContainer"></div>
+            {renderCloseButton()}
+          </>
+        );
+      }
+    }, [
+      height,
+      learnMoreSectionBottom,
+      learnMoreSectionTop,
+      phoneLayout,
+      setPageToShow,
+      setSilentScrollTo,
+      checkLearnMore,
+    ]);
     const renderSection = useCallback(() => {
       /* Check when section to show up */
       const checkRenderInfo =
@@ -183,14 +253,18 @@ export default connect(
           />
           <div
             ref={learnMoreSectionRef}
-            className="interior__learnMoreContainer"
-          ></div>
+            className={checkLearnMore ? "interior__learnMoreContainer" : ""}
+          >
+            {renderLearnMoreSection()}
+          </div>
         </>
       );
 
       /* Render */
     }, [
       pageIndex,
+      checkLearnMore,
+      renderLearnMoreSection,
       phoneLayout,
       sectionTop,
       setPageToShow,
@@ -200,7 +274,7 @@ export default connect(
       showLearnMore,
     ]);
     return (
-      <section className="section interior">
+      <section ref={sectionRef} className="section interior">
         <div className="interior__container">{renderSection()}</div>
       </section>
     );

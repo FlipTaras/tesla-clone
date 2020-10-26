@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+import CircleButtonsElement from "./CircleButtonsElement";
 
 export default ({
   video,
@@ -41,28 +42,7 @@ export default ({
         ></video>
       </div>
       <div className={infoContainerClassNames}>
-        {active && (
-          <div className="learnMoreVideoTextContainer__buttonsContainer">
-            <div
-              className={classnames(
-                "learnMoreVideoTextContainer__button",
-                active === 1 && "learnMoreVideoTextContainer__button--active"
-              )}
-            ></div>
-            <div
-              className={classnames(
-                "learnMoreVideoTextContainer__button",
-                active === 2 && "learnMoreVideoTextContainer__button--active"
-              )}
-            ></div>
-            <div
-              className={classnames(
-                "learnMoreVideoTextContainer__button",
-                active === 3 && "learnMoreVideoTextContainer__button--active"
-              )}
-            ></div>
-          </div>
-        )}
+        {active && <CircleButtonsElement numberOfElement={3} active={active} />}
 
         <h1 className={titleClassNames}>{title}</h1>
         <p className="learnMoreVideoTextContainer__paragraph paragraph">

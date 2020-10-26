@@ -1,14 +1,29 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+
+/* Elements */
 import InfoElement from "./InfoElement";
-import Image from "../../static/images/ModelS/Interior/interior.jpg";
-import Icon from "../../static/images/ModelS/Interior/wifi-icon.png";
 import SideComponents from "./SideComponents";
 import ContentElement from "./ContentElement";
 import CloseNextButton from "../Buttons/CloseNextButton";
 
+/* Images */
+import Image from "../../static/images/ModelS/Interior/interior.jpg";
+import Icon from "../../static/images/ModelS/Interior/wifi-icon.png";
+
+// /* Slider Images */
+import Slider1 from "../../static/images/ModelS/Interior/Slider1.jpg";
+import Slider1Mobile from "../../static/images/ModelS/Interior/Slider1Mobile.jpg";
+import Slider2 from "../../static/images/ModelS/Interior/Slider2.jpg";
+import Slider2Mobile from "../../static/images/ModelS/Interior/Slider2Mobile.jpg";
+import Slider3 from "../../static/images/ModelS/Interior/Slider3.jpg";
+import Slider3Mobile from "../../static/images/ModelS/Interior/Slider3Mobile.jpg";
+import Slider4 from "../../static/images/ModelS/Interior/Slider4.jpg";
+import Slider4Mobile from "../../static/images/ModelS/Interior/Slider4Mobile.jpg";
+
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
+import Slider from "./Slider";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -128,11 +143,48 @@ export default connect(
         }
       };
 
+      const renderSlider = () => {
+        const slidesData = [
+          {
+            paragraph:
+              "The front of Model S is extended forward, where an engine would be—providing an extremely spacious front row experience.",
+            image: width <= 800 ? Slider1Mobile : Slider1,
+            alt: "interior",
+          },
+          {
+            paragraph:
+              "Model S has two driver displays—a central 17-inch touchscreen, and a second screen located behind the steering wheel.",
+            image: width <= 800 ? Slider2Mobile : Slider2,
+            alt: "interior",
+          },
+          {
+            paragraph:
+              "With the front row forward, the back seat is extremely spacious, providing a comfortable driving experience for every passenger.",
+            image: width <= 800 ? Slider3Mobile : Slider3,
+            alt: "interior",
+          },
+          {
+            paragraph:
+              "A second trunk in the front provides extra cargo room, for all your things.",
+            image: width <= 800 ? Slider4Mobile : Slider4,
+            alt: "interior",
+          },
+        ];
+        return (
+          <>
+            <Slider numberOfSlides={4} slidesData={slidesData} />
+            <div className="homework">Something</div>
+          </>
+        );
+      };
+
       /* Render */
       if (checkLearnMore) {
         return (
           <>
-            <div className="interior__learnMoreInnerContainer"></div>
+            <div className="interior__learnMoreInnerContainer">
+              {renderSlider()}
+            </div>
             {renderCloseButton()}
           </>
         );
@@ -145,7 +197,9 @@ export default connect(
       setPageToShow,
       setSilentScrollTo,
       checkLearnMore,
+      width,
     ]);
+
     const renderSection = useCallback(() => {
       /* Check when section to show up */
       const checkRenderInfo =

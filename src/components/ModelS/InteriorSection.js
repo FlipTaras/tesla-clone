@@ -5,12 +5,12 @@ import InfoElement from "./InfoElement";
 import SideComponents from "./SideComponents";
 import ContentElement from "./ContentElement";
 import CloseNextButton from "../Buttons/CloseNextButton";
-
+import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
 /* Images */
 import Image from "../../static/images/ModelS/Interior/interior.jpg";
 import Icon from "../../static/images/ModelS/Interior/wifi-icon.png";
 
-// /* Slider Images */
+/* Slider Images */
 import Slider1 from "../../static/images/ModelS/Interior/Slider1.jpg";
 import Slider1Mobile from "../../static/images/ModelS/Interior/Slider1Mobile.jpg";
 import Slider2 from "../../static/images/ModelS/Interior/Slider2.jpg";
@@ -19,6 +19,26 @@ import Slider3 from "../../static/images/ModelS/Interior/Slider3.jpg";
 import Slider3Mobile from "../../static/images/ModelS/Interior/Slider3Mobile.jpg";
 import Slider4 from "../../static/images/ModelS/Interior/Slider4.jpg";
 import Slider4Mobile from "../../static/images/ModelS/Interior/Slider4Mobile.jpg";
+
+/* Better Slider Images */
+import BetterSlider1 from "../../static/images/ModelS/Interior/BetterSlider1.jpg";
+import BetterSlider1Mobile from "../../static/images/ModelS/Interior/BetterSlider1Mobile.jpg";
+import BetterSlider2 from "../../static/images/ModelS/Interior/BetterSlider2.jpg";
+import BetterSlider2Mobile from "../../static/images/ModelS/Interior/BetterSlider2Mobile.jpg";
+import BetterSlider3 from "../../static/images/ModelS/Interior/BetterSlider3.jpg";
+import BetterSlider3Mobile from "../../static/images/ModelS/Interior/BetterSlider3Mobile.jpg";
+import BetterSlider4 from "../../static/images/ModelS/Interior/BetterSlider4.jpg";
+import BetterSlider4Mobile from "../../static/images/ModelS/Interior/BetterSlider4Mobile.jpg";
+
+/* Room Slider Images */
+import RoomSlider1 from "../../static/images/ModelS/Interior/RoomSlider1.jpg";
+import RoomSlider1Mobile from "../../static/images/ModelS/Interior/RoomSlider1Mobile.jpg";
+import RoomSlider2 from "../../static/images/ModelS/Interior/RoomSlider2.jpg";
+import RoomSlider2Mobile from "../../static/images/ModelS/Interior/RoomSlider2Mobile.jpg";
+import RoomSlider3 from "../../static/images/ModelS/Interior/RoomSlider3.jpg";
+import RoomSlider3Mobile from "../../static/images/ModelS/Interior/RoomSlider3Mobile.jpg";
+import RoomSlider4 from "../../static/images/ModelS/Interior/RoomSlider4.jpg";
+import RoomSlider4Mobile from "../../static/images/ModelS/Interior/RoomSlider4Mobile.jpg";
 
 /* Redux */
 import { connect } from "react-redux";
@@ -170,10 +190,168 @@ export default connect(
             alt: "interior",
           },
         ];
+
+        /* Render */
         return (
           <>
-            <Slider numberOfSlides={4} slidesData={slidesData} />
-            <div className="homework">Something</div>
+            <Slider
+              slideContent="images"
+              swipeSlider
+              showInfo
+              showButtons
+              numberOfSlides={4}
+              slidesData={slidesData}
+            />
+          </>
+        );
+      };
+
+      const renderBetter = () => {
+        const slidesData = [
+          {
+            image: width <= 800 ? BetterSlider1Mobile : BetterSlider1,
+            alt: "interior",
+          },
+          {
+            image: width <= 800 ? BetterSlider2Mobile : BetterSlider2,
+            alt: "interior",
+          },
+          {
+            image: width <= 800 ? BetterSlider3Mobile : BetterSlider3,
+            alt: "interior",
+          },
+          {
+            image: width <= 800 ? BetterSlider4Mobile : BetterSlider4,
+            alt: "interior",
+          },
+        ];
+
+        const bigButtonsData = [
+          {
+            title: "Media",
+            text:
+              "FM radio and Bluetooth® connectivity, with on-demand & internet radio capability",
+            showBorder: true,
+            smaller: true,
+            white: true,
+          },
+          {
+            title: "Navigation",
+            text:
+              "Smart routing that automatically adjusts to real-time traffic conditions",
+            showBorder: false,
+            smaller: true,
+            white: true,
+          },
+          {
+            title: "Controls",
+            text:
+              "Personalized drive settings, climate controls and cabin controls",
+            showBorder: false,
+            smaller: true,
+            white: true,
+          },
+          {
+            title: "Energy",
+            text: "Real-time energy consumption and range estimation",
+            showBorder: false,
+            smaller: true,
+            white: true,
+          },
+        ];
+
+        /* Render */
+        return (
+          <>
+            <LearnMoreTitleContainer
+              customClassNames="interior__titleContainer--2"
+              white
+              title="Better Over Time"
+              paragraph="Access everything on the expansive 17-inch touchscreen — designed to improve over time with regular software updates, introducing new features, functionality and performance."
+            />
+            <Slider
+              slideContent="images"
+              numberOfSlides={4}
+              slidesData={slidesData}
+              showButtons
+              opacitySlider
+              bigButtonsData={bigButtonsData}
+            />
+          </>
+        );
+      };
+
+      const renderRoom = () => {
+        const slidesData = [
+          {
+            image: width <= 800 ? RoomSlider1Mobile : RoomSlider1,
+            alt: "interior",
+          },
+          {
+            image: width <= 800 ? RoomSlider2Mobile : RoomSlider2,
+            alt: "interior",
+          },
+          {
+            image: width <= 800 ? RoomSlider3Mobile : RoomSlider3,
+            alt: "interior",
+          },
+          {
+            image: width <= 800 ? RoomSlider4Mobile : RoomSlider4,
+            alt: "interior",
+          },
+        ];
+
+        const bigButtonsData = [
+          {
+            title: "Max Space",
+            text: "Seats fold flat for all the space you need",
+            showTopBorder: true,
+            showBorder: true,
+            longer: true,
+            white: true,
+          },
+          {
+            title: "Luggage",
+            text: "Carry all your things, anywhere you go",
+            showTopBorder: true,
+            showBorder: false,
+            longer: true,
+            white: true,
+          },
+          {
+            title: "Bike",
+            text: "Fit your bike in the back, with the wheels on",
+            showTopBorder: true,
+            showBorder: false,
+            longer: true,
+            white: true,
+          },
+          {
+            title: "Snowboard",
+            text: "Go on an adventure with the whole family",
+            showTopBorder: true,
+            showBorder: false,
+            longer: true,
+            white: true,
+          },
+        ];
+
+        /* Render */
+        return (
+          <>
+            <LearnMoreTitleContainer
+              white
+              customClassNames="interior__titleContainer--3"
+              title="Room For Everything"
+              paragraph="Model S has best in class storage and fold-flat seats, providing more space than most SUVs. You can fit anything you want to bring—like a bike with the wheels on, or luggage for every passenger."
+            />
+            <Slider
+              slideContent="images"
+              bigButtonsData={bigButtonsData}
+              numberOfSlides={4}
+              opacitySlider
+              slidesData={slidesData}
+            />
           </>
         );
       };
@@ -184,6 +362,8 @@ export default connect(
           <>
             <div className="interior__learnMoreInnerContainer">
               {renderSlider()}
+              {renderBetter()}
+              {renderRoom()}
             </div>
             {renderCloseButton()}
           </>

@@ -18,12 +18,13 @@ export default connect(mapStateToProps)(
     activeButton,
     subtitleMiles,
     smaller,
-    noBorder,
     customClassNames,
     customTitleClassNames,
     customTextClassNames,
     customVideoContentContainer,
     width,
+    white,
+    longer,
   }) => {
     const [borderPosition, setBorderPosition] = useState("0");
 
@@ -37,31 +38,34 @@ export default connect(mapStateToProps)(
     const videoButtonElementClassNames = classnames(
       "videoButtonElement",
       smaller && "videoButtonElement--smaller",
+      longer && "videoButtonElement--longer",
       customClassNames && customClassNames
     );
 
     const activeBorderClassNames = classnames(
       "videoButtonElement__activeBorder",
-      showTopBorder && "videoButtonElement__activeBorder--top"
+      showTopBorder && "videoButtonElement__activeBorder--top",
+      white && "videoButtonElement__activeBorder--white"
     );
 
     const titleClassNames = classnames(
       "videoButtonElement__videoButtonTitle",
       smaller && "videoButtonElement__videoButtonTitle--smaller",
-      customTitleClassNames && customTitleClassNames
+      customTitleClassNames && customTitleClassNames,
+      white && "videoButtonElement__videoButtonTitle--white"
     );
 
     const topBorderClassNames = classnames(
       "videoButtonElement__topBorder",
-      smaller && "videoButtonElement__topBorder--smaller"
+      smaller && "videoButtonElement__topBorder--smaller",
+      white && "videoButtonElement__topBorder--white"
     );
 
     const textClassNames = classnames(
       "videoButtonElement__videoButtonText",
-      customTextClassNames && customTextClassNames
+      customTextClassNames && customTextClassNames,
+      white && "videoButtonElement__videoButtonText--white"
     );
-
-    // const videoButtonContentContainerClassNames = classnames("", smaller && "");
 
     /* Animation Functionality */
     useEffect(() => {
@@ -70,40 +74,38 @@ export default connect(mapStateToProps)(
           setBorderPosition("0");
           break;
         case 2:
-          if (width <= 600) {
-            setBorderPosition("109%");
+          if (showTopBorder) {
+            setBorderPosition("100%");
           } else {
             setBorderPosition("105%");
           }
           break;
         case 3:
-          if (width <= 600) {
-            setBorderPosition("220%");
+          if (showTopBorder) {
+            setBorderPosition("200%");
           } else {
             setBorderPosition("218%");
           }
           break;
         case 4:
-          if (width <= 600) {
-            setBorderPosition("338%");
+          if (showTopBorder) {
+            setBorderPosition("300%");
           } else {
             setBorderPosition("330%");
           }
           break;
         case 5:
-          if (width <= 600) {
-            setBorderPosition("452%");
-          } else if (width <= 800) {
-            setBorderPosition("443%");
+          if (showTopBorder) {
+            setBorderPosition("400%");
           } else {
-            setBorderPosition("440%");
+            setBorderPosition("452%");
           }
           break;
         default:
           setBorderPosition("0");
           break;
       }
-    }, [activeButton, width]);
+    }, [activeButton, width, showTopBorder]);
 
     /* Final Render */
     return (
@@ -115,7 +117,7 @@ export default connect(mapStateToProps)(
           ></div>
         )}
         <div className={contentContainerClassNames}>
-          {!noBorder && <div className={topBorderClassNames}></div>}
+          {!showTopBorder && <div className={topBorderClassNames}></div>}
           <h1 className={titleClassNames}>{title}</h1>
           {subtitleMiles && (
             <div className="videoButtonElement__subtitleMilesContainer">

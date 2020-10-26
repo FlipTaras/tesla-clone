@@ -40,6 +40,7 @@ const mapActionToProps = {
   setSilentScrollTo,
   setRangeActiveButton,
 };
+
 export default connect(
   mapStateToProps,
   mapActionToProps
@@ -460,7 +461,7 @@ export default connect(
                     active={chargeActiveButton === i + 1}
                     activeButton={chargeActiveButton}
                     showTopBorder
-                    noBorder
+                    // noBorder
                     showBorder={el.showBorder}
                   />
                 ))}

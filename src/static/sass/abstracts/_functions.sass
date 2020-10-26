@@ -64,6 +64,10 @@
         @media only screen and (max-width: 62.5em)
             @content
 
+    @if $breakpoint == tablet-land  // 1024 px
+        @media only screen and (max-width: 64em) and (orientation: landscape)
+            @content
+
     @if $breakpoint == tablet  // 1024 px
         @media only screen and (max-width: 64em)
             @content

@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import CloseNextButton from "../Buttons/CloseNextButton";
 import classnames from "classnames";
 
+/* Components */
+import CloseNextButton from "../Buttons/CloseNextButton";
+import SideComponents from "./SideComponents";
+import ContentElement from "./ContentElement";
+import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
+import LearnMoreVideoTextContainer from "./LearnMoreVideoTextContainer";
+import Slider from "./Slider";
+
+/* Images */
 import Icon from "../../static/images/ModelS/Autopilot/12Icon.png";
 import InfoElement from "./InfoElement";
 import Video from "../../static/videos/ModelS/autopilot.mp4";
@@ -19,11 +27,6 @@ import FullSelfDriveBackground2 from "../../static/images/ModelS/Autopilot/Full-
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
-import SideComponents from "./SideComponents";
-import ContentElement from "./ContentElement";
-import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
-import VideoButton from "./VideoButton";
-import LearnMoreVideoTextContainer from "./LearnMoreVideoTextContainer";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -59,119 +62,11 @@ export default connect(
     const LearMoreSlider2Ref = useRef(null);
     const LearMoreSlider3Ref = useRef(null);
     const LearMoreSlider4Ref = useRef(null);
-    const [featuresActiveButton, setFeaturesActiveButton] = useState(1);
     const [paragraphActive, setParagraphActive] = useState(1);
     const [paragraph, setParagraph] = useState(
       "All new Tesla vehicles come standard with the most advanced driver assistance capabilities, designed to provide enhanced safety and convenience for a stress-free driving experience."
     );
 
-    /* Features Animation Logic */
-    const [
-      featuresContentContainerPosition,
-      setFeaturesContentContainerPosition,
-    ] = useState("0");
-    const [animation, setAnimation] = useState(null);
-
-    useEffect(() => {
-      if (LearMoreSlider1Ref.current) {
-        LearMoreSlider1Ref.current.currentTime = 0;
-        LearMoreSlider2Ref.current.currentTime = 0;
-        LearMoreSlider3Ref.current.currentTime = 0;
-        LearMoreSlider4Ref.current.currentTime = 0;
-        switch (featuresActiveButton) {
-          case 1:
-            setFeaturesContentContainerPosition("0");
-            LearMoreSlider1Ref.current.play();
-            setAnimation(
-              setTimeout(() => {
-                setFeaturesActiveButton(2);
-              }, 14000)
-            );
-            break;
-          case 2:
-            setFeaturesContentContainerPosition("-100%");
-            LearMoreSlider2Ref.current.play();
-            setAnimation(
-              setTimeout(() => {
-                setFeaturesActiveButton(3);
-              }, 4000)
-            );
-            break;
-          case 3:
-            setFeaturesContentContainerPosition("-200%");
-            LearMoreSlider3Ref.current.play();
-            setAnimation(
-              setTimeout(() => {
-                setFeaturesActiveButton(4);
-              }, 10000)
-            );
-            break;
-          case 4:
-            setFeaturesContentContainerPosition("-300%");
-            LearMoreSlider4Ref.current.play();
-            setAnimation(
-              setTimeout(() => {
-                setFeaturesActiveButton(1);
-              }, 9000)
-            );
-            break;
-          default:
-            setFeaturesContentContainerPosition("0");
-            LearMoreSlider1Ref.current.play();
-            setAnimation(
-              setTimeout(() => {
-                setFeaturesActiveButton(2);
-              }, 2000)
-            );
-            break;
-        }
-      }
-    }, [featuresActiveButton]);
-
-    const buttonClickedAnimation = useCallback(
-      (value) => {
-        clearTimeout(animation);
-        setFeaturesActiveButton(value);
-      },
-      [animation, setFeaturesActiveButton]
-    );
-
-    /* Container Animation Logic */
-    const [containerPosition, setContainerPosition] = useState("0");
-
-    useEffect(() => {
-      switch (featuresActiveButton) {
-        case 1:
-          setContainerPosition("0");
-          break;
-        case 2:
-          if (width <= 450) {
-            setContainerPosition("-10rem");
-          } else {
-            setContainerPosition("0");
-          }
-          break;
-        case 3:
-          if (width <= 450) {
-            setContainerPosition("-25rem");
-          } else {
-            setContainerPosition("-10rem");
-          }
-          break;
-        case 4:
-          if (width <= 450) {
-            setContainerPosition("-35rem");
-          } else {
-            setContainerPosition("-20rem");
-          }
-          break;
-
-        default:
-          setContainerPosition("0");
-
-          break;
-      }
-    }, [featuresActiveButton, width]);
     /* Choose paragraph for Driver Section */
     useEffect(() => {
       switch (paragraphActive) {
@@ -247,37 +142,6 @@ export default connect(
 
     /* Render functionality */
     const renderLearnMoreSection = useCallback(() => {
-      /* Video Buttons */
-      const videoButtons = [
-        {
-          title: "Navigate on Autopilot",
-          text: "Active Guidance from hightway on-ramp to off-ramp",
-          showBorder: true,
-        },
-        {
-          title: "Summon",
-          text: "Automatically retrieve your car",
-          showBorder: false,
-        },
-        {
-          title: "Autopark",
-          text: "Parallel and perpendicular parking, with a single touch",
-          showBorder: false,
-        },
-        {
-          title: "Auto Lane Change",
-          text: "Automatically change lanes while driving on the hightway",
-          showBorder: false,
-        },
-      ];
-
-      const videos = [
-        { link: LearMoreSlider1, ref: LearMoreSlider1Ref, autoPlay: true },
-        { link: LearMoreSlider2, ref: LearMoreSlider2Ref },
-        { link: LearMoreSlider3, ref: LearMoreSlider3Ref },
-        { link: LearMoreSlider4, ref: LearMoreSlider4Ref },
-      ];
-
       const renderCloseButton = () => {
         /* Buttons logic */
         const CloseHandler = () => {
@@ -327,6 +191,61 @@ export default connect(
       };
 
       const renderFeatures = () => {
+        /* Video Buttons */
+        const videoButtons = [
+          {
+            title: "Navigate on Autopilot",
+            text: "Active Guidance from hightway on-ramp to off-ramp",
+            showBorder: true,
+            smaller: true,
+            white: false,
+          },
+          {
+            title: "Summon",
+            text: "Automatically retrieve your car",
+            smaller: true,
+            showBorder: false,
+            white: false,
+          },
+          {
+            title: "Autopark",
+            text: "Parallel and perpendicular parking, with a single touch",
+            smaller: true,
+            showBorder: false,
+            white: false,
+          },
+          {
+            title: "Auto Lane Change",
+            text: "Automatically change lanes while driving on the hightway",
+            smaller: true,
+            showBorder: false,
+            white: false,
+          },
+        ];
+
+        const videos = [
+          {
+            link: LearMoreSlider1,
+            ref: LearMoreSlider1Ref,
+            autoPlay: true,
+            duration: 14000,
+          },
+          {
+            link: LearMoreSlider2,
+            ref: LearMoreSlider2Ref,
+            duration: 4000,
+          },
+          {
+            link: LearMoreSlider3,
+            ref: LearMoreSlider3Ref,
+            duration: 10000,
+          },
+          {
+            link: LearMoreSlider4,
+            ref: LearMoreSlider4Ref,
+            duration: 9000,
+          },
+        ];
         return (
           <>
             <LearnMoreTitleContainer
@@ -335,47 +254,15 @@ export default connect(
               customParagraphClassNames="autopilot__learnMoreParagraph--1"
               paragraph="Autopilot enables your car to steer, accelerate and brake automatically within its lane. Full Self-Driving Capability introduces additional features and improves existing functionality to make your car more capable over time including:"
             />
-            <div className="autopilot__learnMoreContentContainer autopilot__learnMoreContentContainer--features">
-              <div className="autopilot__learnMoreContentContainerInner">
-                {videos.map((el, i) => (
-                  <video
-                    autoPlay={el.autoPlay}
-                    ref={el.ref}
-                    key={i}
-                    preload="auto"
-                    muted
-                    playsInline
-                    loop
-                    style={{
-                      transform: `translateX(${featuresContentContainerPosition})`,
-                    }}
-                    className="autopilot__video"
-                  >
-                    <source src={el.link} type="video/mp4" />
-                  </video>
-                ))}
-              </div>
-            </div>
-            <div className="autopilot__learnMoreButtonsContainer">
-              <div
-                style={{ transform: `translateX(${containerPosition})` }}
-                className="autopilot__learnMoreButtonsContainerInner"
-              >
-                {videoButtons.map((el, i) => (
-                  <VideoButton
-                    customClassNames="autopilot__videoButtonElement"
-                    key={i}
-                    title={el.title}
-                    text={el.text}
-                    showBorder={el.showBorder}
-                    smaller
-                    click={() => buttonClickedAnimation(i + 1)}
-                    active={featuresActiveButton === i + 1}
-                    activeButton={featuresActiveButton}
-                  />
-                ))}
-              </div>
-            </div>
+            <Slider
+              sliderCustomClassNames="autopilot__slider"
+              sliderButtonsCustomClassNames="autopilot__sliderButtons"
+              numberOfSlides={4}
+              slidesData={videos}
+              bigButtonsData={videoButtons}
+              swipeSlider
+              slideContent="videos"
+            />
           </>
         );
       };
@@ -476,12 +363,8 @@ export default connect(
       phoneLayout,
       setPageToShow,
       setSilentScrollTo,
-      featuresActiveButton,
-      featuresContentContainerPosition,
-      buttonClickedAnimation,
       paragraph,
       paragraphActive,
-      containerPosition,
       pageYOffset,
     ]);
 

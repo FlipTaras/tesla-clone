@@ -156,13 +156,6 @@
         margin: 0 auto
         animation: translateYOpacityShow 1s 1s ease forwards
 
-        &--features
-            margin: -12rem auto 0
-            @include responsive(1920)
-                margin-top: -10rem
-            @include responsive(800)
-                margin-top: 0
-
         &--fullSelfDrive
             margin: -9rem auto 0
             @include responsive(2200)
@@ -182,6 +175,16 @@
                 margin: 3rem  0
             @include responsive(414-portrait)
                 margin: 8rem  0
+
+    &__slider
+        margin-top: -12rem !important
+        @include responsive(1920)
+            margin-top: -10rem
+        @include responsive(800)
+            margin-top: 0
+
+    &__sliderButtons
+        margin-top: -12rem !important
 
     &__learnMoreContentContainerInner
         width: 50%

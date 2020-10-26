@@ -1,0 +1,191 @@
+.slider
+    position: relative
+    width: 100vw
+    opacity: 0
+    margin: 0 auto
+    animation: translateYOpacityShow 1s 1s ease forwards
+
+    &__inner
+        width: 50%
+        display: flex
+        overflow: hidden
+        margin: 0 auto
+        position: relative
+        @include responsive(2200)
+            width: 60%
+        @include responsive(1920)
+            width: 70%
+        @include responsive(1600)
+            width: 80%
+        @include responsive(1450)
+            width: 90%
+        @include responsive(1366)
+            width: 95%
+        @include responsive(1280)
+            width: 99%
+        @include responsive(1200)
+            width: 100%
+        @include responsive(800)
+            width: 75%
+        @include responsive(phone-landscape)
+            width: 75%
+        @include responsive(700)
+            width: 90%
+        @include responsive(phone)
+            width: 100%
+
+    &__image
+        width: 100%
+        height: 70rem
+        object-fit: cover
+        transition: all .5s ease
+        @include responsive(800)
+            height: 30rem
+
+    &__buttons
+        position: absolute
+        display: flex
+        justify-content: space-between
+        width: 50%
+        padding: 0 2rem
+        width: 100%
+        top: 50%
+        z-index: 1000
+        transform: translateY(-50%)
+        @include responsive(1366)
+            width: 95%
+            left: 2.5%
+        @include responsive(800)
+            display: none
+        @include responsive(phone-landscape)
+            display: none
+
+    &__button
+        background-color: rgba(0,0,0,.3)
+        padding: 1.5rem
+        border: 1px solid white
+        cursor: pointer
+        outline: none
+        &:active
+            opacity: .5
+
+    &__icon
+        width: 1rem
+        height: 1rem
+        fill: white
+        transform: scale(2.5)
+
+    &__infoContainer
+        display: flex
+        margin: 0 auto
+        width: 30%
+        align-items: baseline
+        justify-content: space-between
+        @include responsive(2200)
+            width: 40%
+        @include responsive(1920)
+            width: 50%
+        @include responsive(1600)
+            width: 55%
+        @include responsive(1450)
+            width: 60%
+        @include responsive(1366)
+            width: 65%
+            margin-top: 1rem
+        @include responsive(1200)
+            width: 70%
+        @include responsive(1100)
+            width: 80%
+            margin-top: 4rem
+        @include responsive(1000)
+            width: 50%
+            flex-direction: column
+            align-items: center
+            margin-top: 7rem
+        @include responsive(900)
+            margin-top: 10rem
+            width: 60%
+        @include responsive(800)
+            width: 70%
+            margin-top: 3rem
+            margin-left: 25%
+            align-items: flex-start
+        @include responsive(phone-landscape)
+            width: 70%
+            margin-top: 3rem
+            margin-left: 25%
+            align-items: flex-start
+        @include responsive(700)
+            width: 80%
+            margin-left: 20%
+        @include responsive(phone)
+            width: 85%
+            margin-left: 20%
+        @include responsive(414-portrait)
+            width: 100%
+            margin-left: 10%
+        @include responsive(smallphone-portrait)
+            margin-top: 8rem
+
+    &__paragraph
+        color: rgba(255,255,255,1)
+        font-size: 1.4rem
+        width: 75%
+        height: 0
+        line-height: 1.5
+        @include responsive(1100)
+            margin-bottom: 2rem
+        @include responsive(800)
+            height: 4rem
+        @include responsive(414-portrait)
+            width: 80%
+
+    &__bigButtonsContainer
+        position: relative
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 40%
+        overflow: hidden
+        margin: 0 auto
+        height: 33vh
+        margin-bottom: 5rem
+        opacity: 0
+        animation: translateYOpacityShow 1s 1.5s ease forwards
+        @include responsive(1920)
+            width: 50%
+            margin-bottom: 10rem
+        @include responsive(1700)
+            height: 33vh
+            width: 60%
+        @include responsive(1366)
+            width: 70%
+        @include responsive(1100)
+            width: 85%
+        @include responsive(900)
+            width: 99%
+        @include responsive(800)
+            width: 85%
+        @include responsive(phone-landscape)
+            height: 55vh
+            margin-top: 0
+            margin-bottom: 0
+        @include responsive(phone)
+            width: 95%
+            margin-top: 0
+        @include responsive(smallphone-landscape)
+            height: 58vh
+        @include responsive(414-portrait)
+            margin-bottom: 0
+        @include responsive(375-portrait)
+            height: 36vh
+        @include responsive(smallphone-portrait)
+            height: 40vh
+
+    &__bigButtonsInner
+        display: flex
+        transition: all .5s ease
+
+    &__videoButtonElement
+        flex: .25
+        @include responsive(800)

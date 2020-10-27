@@ -23,6 +23,7 @@ export default connect(mapStateToProps)(
     image,
     titleSmall,
     lineBottom,
+    // key,
   }) => {
     const infoElementClassNames = classnames(
       "infoElement",
@@ -60,7 +61,7 @@ export default connect(mapStateToProps)(
     );
 
     return (
-      <div key={title} className={infoElementClassNames}>
+      <div className={infoElementClassNames}>
         <div className={titleContainerClassNames}>
           {svg && svg}
           <div className={titleClassNames}>{title}</div>

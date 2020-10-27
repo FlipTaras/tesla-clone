@@ -52,7 +52,8 @@ export default connect(mapStateToProps)(
       "videoButtonElement__videoButtonTitle",
       smaller && "videoButtonElement__videoButtonTitle--smaller",
       customTitleClassNames && customTitleClassNames,
-      white && "videoButtonElement__videoButtonTitle--white"
+      white && "videoButtonElement__videoButtonTitle--white",
+      longer && "videoButtonElement__videoButtonTitle--longer"
     );
 
     const topBorderClassNames = classnames(
@@ -64,7 +65,8 @@ export default connect(mapStateToProps)(
     const textClassNames = classnames(
       "videoButtonElement__videoButtonText",
       customTextClassNames && customTextClassNames,
-      white && "videoButtonElement__videoButtonText--white"
+      white && "videoButtonElement__videoButtonText--white",
+      longer && "videoButtonElement__videoButtonText--longer"
     );
 
     /* Animation Functionality */
@@ -98,11 +100,10 @@ export default connect(mapStateToProps)(
           if (showTopBorder) {
             setBorderPosition("400%");
           } else {
-            setBorderPosition("452%");
+            setBorderPosition("440%");
           }
           break;
         default:
-          setBorderPosition("0");
           break;
       }
     }, [activeButton, width, showTopBorder]);
@@ -128,9 +129,9 @@ export default connect(mapStateToProps)(
             </div>
           )}
           {text && <p className={textClassNames}>{text}</p>}
-          <div className="videoButtonElement__videoButtonInfoContainers">
-            {buttons &&
-              buttons.map((el) => (
+          {buttons && (
+            <div className="videoButtonElement__videoButtonInfoContainers">
+              {buttons.map((el) => (
                 <div
                   key={el.buttonTitle}
                   className="videoButtonElement__videoButtonInfoInner"
@@ -148,7 +149,8 @@ export default connect(mapStateToProps)(
                   </div>
                 </div>
               ))}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     );

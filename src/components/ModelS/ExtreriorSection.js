@@ -149,13 +149,13 @@ export default connect(
       ];
 
       const renderInfoElement = () => {
-        return infoElements.map((el) => (
+        return infoElements.map((el, i) => (
           <InfoElement
             customInfoElementClassNames={el.infoElementClassNames}
             customTitleClassNames={el.titleClassNames}
             customSubtitleClassNames={el.subtitleClassNames}
             customTitleSmallClassNames={el.smallTitleClassNames}
-            key={el.title}
+            key={i}
             title={el.title}
             svg={el.svg}
             subtitle={el.subtitle}

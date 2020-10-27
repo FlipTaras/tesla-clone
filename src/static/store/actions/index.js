@@ -10,7 +10,6 @@ export const SET_CHARGERS = "SET_CHARGERS";
 
 export const setChargers = () => async (dispatch) => {
   const res = await axios.get("https://www.tesla.com/all-locations");
-  console.log(res);
   const filteredRes = res.data
     .filter(
       (el) =>

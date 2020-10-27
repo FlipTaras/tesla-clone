@@ -176,16 +176,6 @@
             @include responsive(414-portrait)
                 margin: 8rem  0
 
-    &__slider
-        margin-top: -12rem !important
-        @include responsive(1920)
-            margin-top: -10rem
-        @include responsive(800)
-            margin-top: 0
-
-    &__sliderButtons
-        margin-top: -12rem !important
-
     &__learnMoreContentContainerInner
         width: 50%
         display: flex
@@ -212,70 +202,6 @@
 
         &--fullSelfDrive
             width: 100%
-
-    &__learnMoreButtonsContainer
-        position: relative
-        display: flex
-        width: 35%
-        overflow: hidden
-        margin: 0 auto
-        height: 25vh
-        margin-bottom: 5rem
-        margin-top: -12rem
-        opacity: 0
-        animation: translateYOpacityShow 1s 1.5s ease forwards
-        @include responsive(1920)
-            width: 50%
-            margin-top: -12rem
-            margin-bottom: 10rem
-        @include responsive(1700)
-            height: 33vh
-            width: 55%
-        @include responsive(1600)
-            margin-top: -15rem
-        @include responsive(1366)
-            width: 70%
-        @include responsive(1280)
-            height: 25vh
-        @include responsive(1200)
-            margin-top: -20rem
-        @include responsive(1100)
-            width: 95%
-            margin-top: -15rem
-        @include responsive(900)
-            width: 99%
-        @include responsive(800)
-            margin-top: -5rem
-            width: 80%
-        @include responsive(phone-landscape)
-            height: 55vh
-            margin-top: 0
-            margin-bottom: 0
-        @include responsive(phone)
-            width: 95%
-            margin-top: 0
-            height: 25vh
-        @include responsive(smallphone-landscape)
-            height: 58vh
-        @include responsive(414-portrait)
-            margin-bottom: 0
-        @include responsive(375-portrait)
-            height: 30vh
-        @include responsive(smallphone-portrait)
-            height: 32vh
-
-    &__learnMoreButtonsContainerInner
-        display: flex
-        position: absolute
-        margin: 0 auto
-        left: 0
-        transition: all .5s ease
-
-    &__videoButtonElement
-        @include responsive(900)
-            flex: .23
-        @include responsive(800)
-            flex: .25
 
     &__learnMoreVideotextInfoContainer
         align-self: flex-start
@@ -346,3 +272,35 @@
         opacity: 0
         &--active
             animation: translateYOpacityShow 1s ease forwards
+
+    /* Custom Slider Settings */
+
+    &__slider
+        margin-top: -12rem !important
+        @include responsive(1920)
+            margin-top: -10rem !important
+        @include responsive(800)
+            margin-top: 0 !important
+        @include responsive(phone-landscape)
+            margin-top: 0 !important
+
+    &__sliderButtons
+        margin-top: -12rem !important
+        margin-bottom: 5rem !important
+        @include responsive(1920)
+            margin-bottom: 10rem !important
+        @include responsive(1600)
+            margin-top: -15rem !important
+        @include responsive(1200)
+            margin-top: -20rem !important
+        @include responsive(1100)
+            margin-top: -15rem !important
+        @include responsive(800)
+            margin-top: -5rem !important
+        @include responsive(phone-landscape)
+            margin-top: 0 !important
+            margin-bottom: 0 !important
+        @include responsive(phone)
+            margin-top: 0 !important
+        @include responsive(414-portrait)
+            margin-bottom: 0 !important

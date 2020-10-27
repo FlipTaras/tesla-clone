@@ -2,16 +2,28 @@
     position: relative
     margin-right: 2rem
     transition: all .5s ease
+    display: flex
+    width: 40rem
+    transition: all .5s ease
+    @include responsive(tablet)
+        width: 20rem
+    // @include responsive(ipadPro-portrait)
+        // width: 40rem
+    @include responsive(smallphone-portrait)
+        width: 20rem
 
     &--smaller
+        width: 20rem
         @include responsive(800)
-            width: 20rem
+            width: 18rem
         @include responsive(414-portrait)
             width: 15rem
 
     &--longer
-        width: 20rem
+        width: 100%
         margin-right: 0
+        @include responsive(800)
+            width: 25rem
         @include responsive(smallphone-portrait)
             width: 18rem
 
@@ -66,19 +78,32 @@
             @include responsive(phone)
                 line-height: 1.5
 
+        &--longer
+            @include responsive(800)
+                padding: 1rem 0
+
     &__videoButtonText
         color: #5c5e62
         font-family: 'Gotham Book'
         font-size: 1.2rem
         font-weight: 400
-        padding: 0 3rem 0 2rem
+        padding: 0 3rem 2rem 2rem
         line-height: 1.4
         &--white
             color: white
 
+        &--longer
+            @include responsive(800)
+                padding: 0 1rem 0 0
+                width: 80%
+            @include responsive(phone)
+                width: 90%
+
     &__videoButtonInfoContainers
         margin-top: 3rem
         display: flex
+        @include responsive(900)
+            margin-top: 0
         @include responsive(tablet-portrait)
             flex-direction: column
         @include responsive(phone-landscape)
@@ -129,13 +154,14 @@
             border-top: 2px solid rgba(1,1,1,1)
             width: 70%
             margin-left: 2rem
+            @include responsive(800)
+                margin-left: 0
 
     /* Subtitle miles */
     &__subtitleMilesContainer
         display: flex
         align-items: baseline
-        margin-top: 1.5rem
-        padding: 0 1.5rem
+        padding: 1.5rem 1.5rem
         color: #171a20
         font-weight: 500
         font-family: 'Gotham Medium'

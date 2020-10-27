@@ -201,6 +201,7 @@ export default connect(
               showButtons
               numberOfSlides={4}
               slidesData={slidesData}
+              big
             />
           </>
         );
@@ -276,6 +277,7 @@ export default connect(
               showButtons
               opacitySlider
               bigButtonsData={bigButtonsData}
+              big
             />
           </>
         );
@@ -351,6 +353,7 @@ export default connect(
               numberOfSlides={4}
               opacitySlider
               slidesData={slidesData}
+              big
             />
           </>
         );
@@ -439,13 +442,13 @@ export default connect(
       ];
 
       const renderInfoElement = () => {
-        return infoElements.map((el) => (
+        return infoElements.map((el, i) => (
           <InfoElement
+            key={i}
             customInfoElementClassNames={el.infoElementClassNames}
             customTitleClassNames={el.titleClassNames}
             customSubtitleClassNames={el.subtitleClassNames}
             customTitleSmallClassNames={el.smallTitleClassNames}
-            key={el.title}
             title={el.title}
             svg={el.svg}
             subtitle={el.subtitle}

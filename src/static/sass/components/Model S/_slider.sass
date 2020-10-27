@@ -11,28 +11,45 @@
         overflow: hidden
         margin: 0 auto
         position: relative
-        @include responsive(2200)
-            width: 60%
-        @include responsive(1920)
-            width: 70%
-        @include responsive(1600)
-            width: 80%
-        @include responsive(1450)
-            width: 90%
-        @include responsive(1366)
-            width: 95%
-        @include responsive(1280)
-            width: 99%
-        @include responsive(1200)
-            width: 100%
-        @include responsive(800)
-            width: 75%
-        @include responsive(phone-landscape)
-            width: 75%
-        @include responsive(700)
-            width: 90%
-        @include responsive(phone)
-            width: 100%
+        &--big
+            @include responsive(2200)
+                width: 60%
+            @include responsive(1920)
+                width: 70%
+            @include responsive(1600)
+                width: 80%
+            @include responsive(1450)
+                width: 90%
+            @include responsive(1366)
+                width: 95%
+            @include responsive(1280)
+                width: 99%
+            @include responsive(1200)
+                width: 100%
+            @include responsive(800)
+                width: 75%
+            @include responsive(phone-landscape)
+                width: 75%
+            @include responsive(700)
+                width: 90%
+            @include responsive(phone)
+                width: 100%
+
+        &--medium
+            @include responsive(2200)
+                width: 60%
+            @include responsive(1920)
+                width: 65%
+            @include responsive(1700)
+                width: 75%
+            @include responsive(1450)
+                width: 90%
+            @include responsive(1280)
+                width: 99%
+            @include responsive(phone-landscape)
+                width: 80%
+            @include responsive(500)
+                width: 80%
 
     &__image
         width: 100%
@@ -41,6 +58,15 @@
         transition: all .5s ease
         @include responsive(800)
             height: 30rem
+        @include responsive(phone-landscape)
+            height: 30rem
+
+        &--medium
+            height: 100%
+            @include responsive(800)
+                height: 100%
+            @include responsive(phone-landscape)
+                height: 100%
 
     &__buttons
         position: absolute
@@ -62,9 +88,9 @@
 
     &__button
         background-color: rgba(0,0,0,.3)
-        padding: 1.5rem
         border: 1px solid white
         cursor: pointer
+        padding: 1.5rem
         outline: none
         &:active
             opacity: .5
@@ -136,7 +162,9 @@
         @include responsive(1100)
             margin-bottom: 2rem
         @include responsive(800)
-            height: 4rem
+            height: 5rem
+        @include responsive(phone-landscape)
+            height: 5rem
         @include responsive(414-portrait)
             width: 80%
 
@@ -148,15 +176,14 @@
         width: 40%
         overflow: hidden
         margin: 0 auto
-        height: 33vh
+        margin-top: 5rem
         margin-bottom: 5rem
         opacity: 0
         animation: translateYOpacityShow 1s 1.5s ease forwards
         @include responsive(1920)
             width: 50%
-            margin-bottom: 10rem
+            margin-bottom: 8rem
         @include responsive(1700)
-            height: 33vh
             width: 60%
         @include responsive(1366)
             width: 70%
@@ -166,26 +193,50 @@
             width: 99%
         @include responsive(800)
             width: 85%
-        @include responsive(phone-landscape)
-            height: 55vh
-            margin-top: 0
-            margin-bottom: 0
         @include responsive(phone)
             width: 95%
-            margin-top: 0
-        @include responsive(smallphone-landscape)
-            height: 58vh
-        @include responsive(414-portrait)
-            margin-bottom: 0
-        @include responsive(375-portrait)
-            height: 36vh
-        @include responsive(smallphone-portrait)
-            height: 40vh
 
     &__bigButtonsInner
         display: flex
         transition: all .5s ease
 
     &__videoButtonElement
-        flex: .25
-        @include responsive(800)
+        flex: var(--flex)
+
+    &__video
+        width: 100%
+        height: 100%
+        object-fit: cover
+        transition: all .5s ease
+
+    &__videoOpacitySlider
+        position: absolute
+        top: 0
+        left: 0
+        object-fit: cover
+        height: 50rem
+        opacity: 0
+        width: 100%
+        transition: opacity 1.1s ease-in-out
+        @include responsive(phone-landscape)
+            height: 25rem
+            transform: scale(1.2)
+            margin: 2rem 0
+        @include responsive(phone)
+            height: 20rem
+        @include responsive(smallphone-landscape)
+            transform: scale(1)
+            height: 17rem
+        &--active
+            opacity: 1
+
+    &__videoFix
+        height: 50rem
+        min-width: 100%
+        opacity: 0
+        @include responsive(phone-landscape)
+            height: 25rem
+        @include responsive(phone)
+            height: 20rem
+        @include responsive(smallphone-landscape)
+            height: 17rem

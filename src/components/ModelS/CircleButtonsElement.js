@@ -22,7 +22,8 @@ export default ({ numberOfElement, active, white, setActive, animation }) => {
     <div className="circleButtonElement">
       {elementsArray.map((el, i) => (
         <div
-          style={setActive ? { cursor: "pointer" } : {}}
+          key={i}
+          style={setActive ? { cursor: "pointer" } : { pointerEvents: "none" }}
           onClick={() => circleClickHandler(i + 1)}
           className={classnames(
             buttonClassNames,

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import InfoElement from "./InfoElement";
 import CountUp from "react-countup";
 import CloseNextButton from "../Buttons/CloseNextButton";
-import VideoButton from "./VideoButton";
+import Slider from "./Slider";
 
 /* Redux */
 import { connect } from "react-redux";
@@ -12,8 +12,6 @@ import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
 import Image from "../../static/images/ModelS/Perfomance/model-s-performance.jpg";
 import ImageLand from "../../static/images/ModelS/Perfomance/model-s-performance-portrait.jpg";
 import imagePhone from "../../static/images/ModelS/Perfomance/model-s-performance-mobile.jpg";
-import Poster1 from "../../static/images/ModelS/Perfomance/dualmotor_desktop_poster.png";
-import Poster2 from "../../static/images/ModelS/Perfomance/performancemotor_desktop_poster.png";
 import Poster3 from "../../static/images/ModelS/Perfomance/total-control-s-poster.png";
 
 import Video3 from "../../static/videos/ModelS/KD8BAH_total-control-s_0.mp4-2000_M3C5DL.mp4";
@@ -53,34 +51,9 @@ export default connect(
   }) => {
     const [showLearnMore, setShowLearnMore] = useState(false);
     const checkLearnMore = showLearnMore || learnMoreOn;
-    const [activeButton, setActiveButton] = useState(1);
 
-    /* Video Buttons Container Animation */
-    const [containerPosition, setContainerPosition] = useState("0");
-    useEffect(() => {
-      switch (activeButton) {
-        case 1:
-          if (width <= 350) {
-            setContainerPosition("15rem");
-          } else if (width <= 600) {
-            setContainerPosition("10rem");
-          } else {
-            setContainerPosition("0");
-          }
-          break;
-        case 2:
-          if (width <= 600) {
-            setContainerPosition("-20rem");
-          } else if (width <= 812) {
-            setContainerPosition("-12rem");
-          }
-          break;
-
-        default:
-          setContainerPosition("0");
-          break;
-      }
-    }, [activeButton, width]);
+    const LearMoreSlider1Ref = useRef(null);
+    const LearMoreSlider2Ref = useRef(null);
 
     /* Different Checks of screen size */
     const checkIpad = height <= 1366 && width <= 1024;
@@ -256,7 +229,6 @@ export default connect(
 
     const renderLearnMoreSection = useCallback(() => {
       /* Parts Render */
-
       const renderCloseButton = () => {
         /* Buttons Logic */
         const CloseHandler = () => {
@@ -344,92 +316,53 @@ export default connect(
           },
         ];
 
-        /* Render Video Elements */
-        const renderVideoElement = () => {
-          return (
-            <>
-              <video
-                playsInline
-                className={
-                  activeButton === 1
-                    ? "perfomance__video perfomance__video--active"
-                    : "perfomance__video "
-                }
-                preload="auto"
-                loop
-                muted
-                poster={Poster1}
-                autoPlay
-              >
-                <source src={Video1} type="video/mp4" />
-              </video>
-              <video
-                playsInline
-                className={
-                  activeButton === 2
-                    ? "perfomance__video perfomance__video--active"
-                    : "perfomance__video "
-                }
-                preload="auto"
-                loop
-                muted
-                poster={Poster2}
-                autoPlay
-              >
-                <source src={Video2} type="video/mp4" />
-              </video>
-            </>
-          );
-        };
+        const videos = [
+          {
+            link: Video1,
+            ref: LearMoreSlider1Ref,
+            autoPlay: true,
+            duration: 10000,
+          },
+          {
+            link: Video2,
+            ref: LearMoreSlider2Ref,
+            duration: 10000,
+          },
+        ];
 
         /* Render */
         return (
           <>
             <LearnMoreTitleContainer
+              customClassNames="perfomance__titleContainer--1"
               title="Electric Powertrain"
               paragraph="The all-electric powertrain and low center of gravity providethe best performance, range and efficiency."
             />
-            <div className="perfomance__videosContainer">
-              {renderVideoElement()}
-            </div>
-            <div
-              style={{
-                marginLeft: containerPosition,
-              }}
-              className="perfomance__videoButtons"
-            >
-              {videoButtons.map((el, i) => (
-                <VideoButton
-                  key={i}
-                  title={el.title}
-                  text={el.text}
-                  buttons={el.buttons}
-                  showBorder={el.showBorder}
-                  click={() => setActiveButton(i + 1)}
-                  active={activeButton === i + 1}
-                  activeButton={activeButton}
-                />
-              ))}
-            </div>
+            <Slider
+              sliderCustomClassNames="perfomance__slider"
+              sliderButtonsCustomClassNames="perfomance__sliderButtons"
+              numberOfSlides={2}
+              slideContent="videos"
+              slidesData={videos}
+              opacitySlider
+              bigButtonsData={videoButtons}
+              medium
+            />
           </>
         );
       };
+
+      /* Render */
       const renderDualMotor = () => {
-        console.log(pageYOffset);
-        if (
-          (phoneLayout && pageYOffset > 2200) ||
-          (!phoneLayout && pageYOffset > 1100)
-        ) {
-          return (
-            <LearnMoreVideoTextContainer
-              customTitleClassNames="perfomance__videoTextContainerTitle"
-              paragraph="Only Tesla has the technology that provides dual motors with independent traction to both front and rear wheels for unparalleled control, in all weather conditions. As a result, Model S instantly controls traction and torque to every wheel, with a unique and superior all-wheel drive system."
-              title="Dual Motor All-Wheel Drive"
-              video={Video3}
-              poster={Poster3}
-            />
-          );
-        }
+        return (
+          <LearnMoreVideoTextContainer
+            customTitleClassNames="perfomance__videoTextContainerTitle"
+            paragraph="Only Tesla has the technology that provides dual motors with independent traction to both front and rear wheels for unparalleled control, in all weather conditions. As a result, Model S instantly controls traction and torque to every wheel, with a unique and superior all-wheel drive system."
+            title="Dual Motor All-Wheel Drive"
+            video={Video3}
+            poster={Poster3}
+          />
+        );
       };
 
       /* Final Render */
@@ -451,13 +384,11 @@ export default connect(
       setSilentScrollTo,
       learnMoreOn,
       pageYOffset,
-      activeButton,
       phoneLayout,
       showLearnMore,
       height,
       learnMoreSectionBottom,
       learnMoreSectionTop,
-      containerPosition,
     ]);
 
     const renderSection = useCallback(() => {

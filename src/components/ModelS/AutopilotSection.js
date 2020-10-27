@@ -246,6 +246,7 @@ export default connect(
             duration: 9000,
           },
         ];
+        /* Render */
         return (
           <>
             <LearnMoreTitleContainer
@@ -262,6 +263,7 @@ export default connect(
               bigButtonsData={videoButtons}
               swipeSlider
               slideContent="videos"
+              big
             />
           </>
         );
@@ -275,6 +277,7 @@ export default connect(
           "autopilot__driverInner",
           check && "autopilot__driverInner--active"
         );
+
         return (
           <div className={driverInnerClassNames}>
             <LearnMoreVideoTextContainer
@@ -448,9 +451,9 @@ export default connect(
       ];
 
       const renderInfoElement = () => {
-        return infoElements.map((el) => (
+        return infoElements.map((el, i) => (
           <InfoElement
-            key={el.title}
+            key={i}
             customInfoElementClassNames={el.infoElementClassNames}
             customTitleClassNames={el.titleClassNames}
             customSubtitleClassNames={el.subtitleClassNames}

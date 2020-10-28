@@ -197,17 +197,15 @@ export default connect(
 
         /* Render */
         return (
-          <>
-            <Slider
-              slideContent="images"
-              swipeSlider
-              showInfo
-              showButtons
-              numberOfSlides={4}
-              slidesData={slidesData}
-              big
-            />
-          </>
+          <Slider
+            slideContent="images"
+            swipeSlider
+            showInfo
+            showButtons
+            numberOfSlides={4}
+            slidesData={slidesData}
+            big
+          />
         );
       };
 
@@ -269,7 +267,8 @@ export default connect(
         return (
           <>
             <LearnMoreTitleContainer
-              customClassNames="interior__titleContainer--2"
+              customParagraphClassNames="interior__paragraph--1"
+              customClassNames="interior__titleContainer--1"
               white
               title="Better Over Time"
               paragraph="Access everything on the expansive 17-inch touchscreen — designed to improve over time with regular software updates, introducing new features, functionality and performance."
@@ -347,7 +346,8 @@ export default connect(
           <>
             <LearnMoreTitleContainer
               white
-              customClassNames="interior__titleContainer--3"
+              customParagraphClassNames="interior__paragraph--1"
+              customClassNames="interior__titleContainer--1 interior__titleContainer--2"
               title="Room For Everything"
               paragraph="Model S has best in class storage and fold-flat seats, providing more space than most SUVs. You can fit anything you want to bring—like a bike with the wheels on, or luggage for every passenger."
             />
@@ -368,8 +368,8 @@ export default connect(
           <section className="interior__roof">
             <div className="interior__roofInner">
               <LearnMoreTitleContainer
-                customClassNames="interior__titleContainer--4"
-                customParagraphClassNames="interior__paragraph--4"
+                customClassNames="interior__titleContainer--3"
+                customParagraphClassNames="interior__paragraph--3"
                 white
                 title="Glass Roof"
                 paragraph="The standard, expansive Glass Roof in Model S provides passengers with a brighter, more spacious experience—and a seamless view of the sky."
@@ -387,7 +387,9 @@ export default connect(
         );
       };
 
-      const renderPremiumInterior = () => {};
+      const renderPremiumInterior = () => {
+        return <section className="interior__premium"></section>;
+      };
 
       /* Render */
       if (checkLearnMore) {

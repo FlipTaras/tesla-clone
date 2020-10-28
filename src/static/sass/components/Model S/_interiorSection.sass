@@ -91,13 +91,46 @@
         min-height: 1000vh
 
     &__titleContainer
-        &--2
+        &--1
             margin-top: 10rem
             margin-bottom: 5rem
+            @include responsive(2200)
+                width: 40%
+                margin-bottom: 3rem
+            @include responsive(1920)
+                width: 50%
+            @include responsive(1366)
+                width: 65%
+            @include responsive(1200)
+                width: 70%
+            @include responsive(1100)
+                width: 80%
+            @include responsive(900)
+                width: 90%
+            @include responsive(800)
+                width: 50%
+            @include responsive(phone-landscape)
+                width: 50%
+
+            @include responsive(700)
+                width: 60%
+            @include responsive(phone)
+                width: 75%
+            @include responsive(414-portrait)
+                width: 85%
+
+        &--2
+            margin-bottom: 10rem !important
+            @include responsive(1280)
+                margin-bottom: 6rem !important
+            @include responsive(1100)
+                margin-bottom: 0 !important
+            @include responsive(800)
+                margin-bottom: 5rem !important
+            @include responsive(phone-landscape)
+                margin-bottom: 5rem !important
+
         &--3
-            margin-top: 10rem
-            margin-bottom: 10rem
-        &--4
             width: 20%
             margin: 0
             margin-left: auto
@@ -138,7 +171,32 @@
                 width: 85%
 
     &__paragraph
-        &--4
+        &--1
+            width: 60%
+            @include responsive(2200)
+                width: 55%
+            @include responsive(1920)
+                width: 50%
+            @include responsive(1800)
+                width: 55%
+            @include responsive(1700)
+                width: 60%
+            @include responsive(1366)
+                width: 50%
+            @include responsive(1280)
+                width: 55%
+            @include responsive(1100)
+                width: 53%
+            @include responsive(1000)
+                width: 58%
+            @include responsive(800)
+                width: 100%
+            @include responsive(phone-landscape)
+                width: 100%
+
+        &--2
+            width: 100% !important
+        &--3
             width: 100% !important
             @include responsive(414-portrait)
                 width: 95% !important
@@ -146,16 +204,19 @@
                 width: 90% !important
 
     /* Roof Section */
+    &__roof
+        margin-top: 10rem
+        @include responsive(1280)
+            margin-top: 7rem
+
     &__roofInner
         width: 55%
         margin: 0 auto
         display: flex
         align-items: center
         justify-content: space-between
-        @include responsive(2560)
-            width: 60%
         @include responsive(2200)
-            width: 70%
+            width: 60%
         @include responsive(1920)
             width: 75%
         @include responsive(1600)
@@ -184,12 +245,15 @@
             margin-right: 0
 
         img
-            width: 80%
-            margin: 0 auto
-            display: block
+            @include responsive(800)
+                width: 80%
+                margin: 0 auto
+                display: block
             @include responsive(phone-landscape)
                 width: 70%
             @include responsive(phone)
                 width: 90%
             @include responsive(smallphone-portrait)
                 width: 85%
+
+    /* Premium section */

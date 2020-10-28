@@ -11,10 +11,7 @@ Finish exterior learn more section
 Finish Spec learn more section 
 
 Create a HOC to feature all the code that is repeating all over the components
- 
+
+Fix the appear animation everywhere on the app
+
 Make a general clean up of all the code, file structure, sass, components.
-
-
-// Interior Section TODO
-
-// Change the position of title container element

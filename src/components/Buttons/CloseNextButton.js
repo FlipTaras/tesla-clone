@@ -1,33 +1,40 @@
 import React, { useState } from "react";
 import classnames from "classnames";
 
-export default ({ click, close }) => {
+export default ({ click, close, white }) => {
   const [toolTipClassNames, setToolTipClassNames] = useState(
     "closeNextButton__text"
   );
+
   const changeTooltipClassName = () => {
-    if (toolTipClassNames === "closeNextButton__text") {
-      setToolTipClassNames(
-        classnames("closeNextButton__text closeNextButton__text--hover")
-      );
-    } else {
-      setToolTipClassNames("closeNextButton__text");
-    }
+    setToolTipClassNames(
+      classnames(
+        "closeNextButton__text",
+        white && "closeNextButton__text--white",
+        toolTipClassNames === "closeNextButton__text" &&
+          "closeNextButton__text--hover"
+      )
+    );
   };
+
+  const CloseNextButtonClassNames = classnames(
+    "closeNextButton",
+    close ? "closeNextButton--close" : "closeNextButton--next",
+    white && "closeNextButton--white"
+  );
+
+  const ContainerClassNames = classnames(
+    "closeNextButton__container",
+    white && "closeNextButton__container--white"
+  );
+
   return (
     <div
       onMouseEnter={() => changeTooltipClassName()}
       onMouseLeave={() => changeTooltipClassName()}
-      className="closeNextButton__container"
+      className={ContainerClassNames}
     >
-      <button
-        className={
-          close
-            ? "closeNextButton closeNextButton--close"
-            : "closeNextButton closeNextButton--next"
-        }
-        onClick={click}
-      >
+      <button className={CloseNextButtonClassNames} onClick={click}>
         {close ? (
           <i className="closeNextButton__icon fas fa-times"></i>
         ) : (

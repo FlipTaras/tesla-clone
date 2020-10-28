@@ -1,0 +1,110 @@
+/* Premium section */
+
+.premiumComponent
+    width: 45%
+    margin: 0 auto
+    display: flex
+    align-items: center
+    color: white
+    justify-content: space-between
+    margin-bottom: 2rem
+    @include responsive(2200)
+        width: 55%
+        @include responsive(1920)
+            width: 60%
+        @include responsive(1700)
+            width: 70%
+        @include responsive(1450)
+            width: 75%
+        @include responsive(1366)
+            width: 85%
+        @include responsive(1280)
+            width: 90%
+        @include responsive(1200)
+            width: 98%
+        @include responsive(1100)
+            width: 100%
+        @include responsive(800)
+            flex-direction: column
+        @include responsive(phone-landscape)
+            flex-direction: column
+
+    &__textContainer
+        flex: .45
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        justify-content: flex-start
+        @include responsive(800)
+            width: 70%
+            margin-left: 20%
+            margin-top: 2rem
+        @include responsive(phone-landscape)
+            width: 70%
+            margin-left: 20%
+            margin-top: 2rem
+        @include responsive(700)
+            width: 75%
+        @include responsive(phone)
+            width: 89%
+            margin-left: 0
+        @include responsive(414-portrait)
+            width: 85%
+        &--2
+            align-items: flex-end
+            justify-content: flex-end
+
+    &__contentContainer
+        flex: .5
+        @include responsive(1000)
+            margin-left: -10rem
+        @include responsive(900)
+            margin-left: -15rem
+        @include responsive(800)
+            margin-left: 0
+        @include responsive(phone-landscape)
+            margin-left: 0
+        @include responsive(phone)
+            width: 100%
+        &--2
+            order: 2
+            @include responsive(800)
+                order: unset
+            @include responsive(phone-landscape)
+                order: unset
+
+    &__title
+        color: white
+        width: 55%
+
+    &__text
+        color: white
+        width: 55%
+        @include responsive(1200)
+            width: 60%
+        @include responsive(1100)
+            width: 70%
+        @include responsive(800)
+            margin-top: .5rem
+        @include responsive(phone)
+            width: 100%
+
+    &__video
+        width: 100%
+        height: 100%
+        object-fit: cover
+        @include responsive(700)
+            width: 90%
+            margin: 0 auto
+            display: block
+        @include responsive(phone-landscape)
+            width: 90%
+            margin: 0 auto
+            display: block
+        @include responsive(phone)
+            width: 100%
+
+    &__image
+        width: 100%
+        height: 100%
+        object-fit: cover

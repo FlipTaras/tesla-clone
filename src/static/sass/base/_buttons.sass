@@ -83,18 +83,26 @@
     border-radius: 100%
     cursor: pointer
     transition: all .1s linear
+    @include responsive(phone)
+        left: 45%
+        bottom: 5%
+
     &:hover
         background-color: black
         color: white
     &:focus
     &:active
         outline: none
-    @include responsive(phone)
-        left: 45%
-        bottom: 5%
 
     &--next
         padding: .6rem .9rem .4rem .9rem
+
+    &--white
+        border-color: white
+        &:hover
+            background-color: white
+            color: black
+
     &__container
         position: fixed
         bottom: 2.7%
@@ -108,6 +116,9 @@
             animation: expandShadowCloseButton .1s linear forwards
         @include responsive(tablet)
             background: none
+
+        &--white
+            background-color: rgba(0, 0, 0, .5)
 
     &__text
         position: fixed
@@ -127,3 +138,8 @@
         &:active
         &:focus
             outline: none
+
+        &--white
+            color: white
+            &--hover
+                opacity: 1

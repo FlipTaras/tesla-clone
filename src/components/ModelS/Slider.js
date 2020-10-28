@@ -398,7 +398,9 @@ export default connect(mapStateToProps)(
             {slidesData.map(
               (el, i) =>
                 activeSlider === i + 1 && (
-                  <p className="slider__paragraph">{el.paragraph}</p>
+                  <p key={i} className="slider__paragraph">
+                    {el.paragraph}
+                  </p>
                 )
             )}
             <CircleButtonsElement

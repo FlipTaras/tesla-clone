@@ -88,7 +88,8 @@
     &__learnMoreInnerContainer
         padding-top: 8rem
         background-color: black
-        min-height: 1000vh
+        min-height: 300vh
+        padding-bottom: 8rem
 
     &__titleContainer
         &--1
@@ -170,6 +171,39 @@
             @include responsive(smallphone-portrait)
                 width: 85%
 
+        &--4
+            margin-top: 10rem
+            margin-bottom: 2rem
+            @include responsive(2200)
+                width: 40%
+            @include responsive(1920)
+                width: 45%
+            @include responsive(1600)
+                width: 50%
+            @include responsive(1450)
+                width: 55%
+            @include responsive(1366)
+                width: 60%
+            @include responsive(1280)
+                width: 65%
+            @include responsive(1200)
+                width: 70%
+            @include responsive(1100)
+                width: 80%
+            @include responsive(900)
+                width: 90%
+            @include responsive(800)
+                width: 50%
+            @include responsive(phone-landscape)
+                width: 50%
+            @include responsive(700)
+                width: 60%
+            @include responsive(phone)
+                width: 75%
+                margin-top: 5rem
+            @include responsive(414-portrait)
+                width: 90%
+
     &__paragraph
         &--1
             width: 60%
@@ -202,6 +236,15 @@
                 width: 95% !important
             @include responsive(smallphone-portrait)
                 width: 90% !important
+        &--4
+            width: 100% !important
+            @include responsive(2200)
+                width: 90% !important
+            @include responsive(800)
+                width: 100% !important
+
+            @include responsive(phone-landscape)
+                width: 100% !important
 
     /* Roof Section */
     &__roof
@@ -250,10 +293,10 @@
                 margin: 0 auto
                 display: block
             @include responsive(phone-landscape)
-                width: 70%
+                width: 80%
+                margin: 0 auto
+                display: block
             @include responsive(phone)
                 width: 90%
             @include responsive(smallphone-portrait)
                 width: 85%
-
-    /* Premium section */

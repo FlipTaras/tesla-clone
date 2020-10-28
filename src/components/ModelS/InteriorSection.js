@@ -6,6 +6,7 @@ import SideComponents from "./SideComponents";
 import ContentElement from "./ContentElement";
 import CloseNextButton from "../Buttons/CloseNextButton";
 import LearnMoreTitleContainer from "./LearnMoreTitleContainer";
+import PremiumComponent from "./PremiumComponent";
 /* Images */
 import Image from "../../static/images/ModelS/Interior/interior.jpg";
 import Icon from "../../static/images/ModelS/Interior/wifi-icon.png";
@@ -43,6 +44,11 @@ import RoomSlider4Mobile from "../../static/images/ModelS/Interior/RoomSlider4Mo
 /* Roof Section Images */
 import RoofImage from "../../static/images/ModelS/Interior/Roof.jpg";
 import RoofMobileImage from "../../static/images/ModelS/Interior/RoofMobile.jpg";
+
+/* Premium Section Images and Videos */
+import PremiumVideo from "../../static/videos/ModelS/Interior/Premium.mp4";
+import PremiumImage2 from "../../static/images/ModelS/Interior/PremiumImage2.jpg";
+import PremiumImage3 from "../../static/images/ModelS/Interior/PremiumImage3.jpg";
 
 /* Redux */
 import { connect } from "react-redux";
@@ -141,6 +147,7 @@ export default connect(
 
         const closeButtonElement = (
           <CloseNextButton
+            white
             close={
               phoneLayout
                 ? true
@@ -388,7 +395,36 @@ export default connect(
       };
 
       const renderPremiumInterior = () => {
-        return <section className="interior__premium"></section>;
+        return (
+          <section className="interior__premium">
+            <LearnMoreTitleContainer
+              customClassNames="interior__titleContainer--4"
+              customParagraphClassNames="interior__paragraph--4"
+              title="Premium Interior"
+              white
+              paragraph="Tesla's quiet powertrain and meticulous noise suppression engineering create interior sound dynamics comparable to a recording studio."
+            />
+            <PremiumComponent
+              order={1}
+              title="Pollution-Free, Inside and Out"
+              text="Hospital-grade air quality is delivered through a HEPA filtration
+              system to prevent viruses and bacteria from entering the cabin."
+              video={PremiumVideo}
+            />
+            <PremiumComponent
+              order={2}
+              title="All-Weather Comfort"
+              text="Enhance comfort with front and rear seat heaters, a heated steering wheel, wiper blade defrosters and washer nozzle heaters."
+              image={PremiumImage2}
+            />
+            <PremiumComponent
+              order={1}
+              title="Pristine Sound"
+              text="A custom audio system featuring 11 speakers with neodymium magnets and an 8” subwoofer."
+              image={PremiumImage3}
+            />
+          </section>
+        );
       };
 
       /* Render */

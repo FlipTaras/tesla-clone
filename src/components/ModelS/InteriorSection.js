@@ -40,6 +40,10 @@ import RoomSlider3Mobile from "../../static/images/ModelS/Interior/RoomSlider3Mo
 import RoomSlider4 from "../../static/images/ModelS/Interior/RoomSlider4.jpg";
 import RoomSlider4Mobile from "../../static/images/ModelS/Interior/RoomSlider4Mobile.jpg";
 
+/* Roof Section Images */
+import RoofImage from "../../static/images/ModelS/Interior/Roof.jpg";
+import RoofMobileImage from "../../static/images/ModelS/Interior/RoofMobile.jpg";
+
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
@@ -359,6 +363,32 @@ export default connect(
         );
       };
 
+      const renderGlassRoof = () => {
+        return (
+          <section className="interior__roof">
+            <div className="interior__roofInner">
+              <LearnMoreTitleContainer
+                customClassNames="interior__titleContainer--4"
+                customParagraphClassNames="interior__paragraph--4"
+                white
+                title="Glass Roof"
+                paragraph="The standard, expansive Glass Roof in Model S provides passengers with a brighter, more spacious experience—and a seamless view of the sky."
+              />
+              <picture className="interior__roofImage">
+                <source media="(min-width: 801px)" srcSet={RoofImage}></source>
+                <source
+                  media="(max-width: 800px)"
+                  srcSet={RoofMobileImage}
+                ></source>
+                <img alt="" />
+              </picture>
+            </div>
+          </section>
+        );
+      };
+
+      const renderPremiumInterior = () => {};
+
       /* Render */
       if (checkLearnMore) {
         return (
@@ -367,6 +397,8 @@ export default connect(
               {renderSlider()}
               {renderBetter()}
               {renderRoom()}
+              {renderGlassRoof()}
+              {renderPremiumInterior()}
             </div>
             {renderCloseButton()}
           </>

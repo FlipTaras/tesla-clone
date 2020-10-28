@@ -88,7 +88,7 @@
     &__learnMoreInnerContainer
         padding-top: 8rem
         background-color: black
-        min-height: 400vh
+        min-height: 1000vh
 
     &__titleContainer
         &--2
@@ -97,3 +97,99 @@
         &--3
             margin-top: 10rem
             margin-bottom: 10rem
+        &--4
+            width: 20%
+            margin: 0
+            margin-left: auto
+            margin-right: 5rem
+            @include responsive(2200)
+                width: 17%
+            @include responsive(1920)
+                width: 20%
+            @include responsive(1600)
+                width: 18%
+            @include responsive(1450)
+                width: 20%
+            @include responsive(1100)
+                width: 25%
+            @include responsive(900)
+                margin-left: 4rem
+            @include responsive(800)
+                width: 50%
+                margin-right: 0
+                margin-bottom: 2rem
+                margin-left: 0
+            @include responsive(phone-landscape)
+                width: 50%
+                margin-right: 0
+                margin-bottom: 2rem
+                margin-left: 0
+            @include responsive(700)
+                width: 60%
+            @include responsive(phone)
+                width: 70%
+                margin-bottom: 4rem
+            @include responsive(414-portrait)
+                width: 90%
+                margin-bottom: 2rem
+            @include responsive(375-portrait)
+                margin-bottom: 3rem
+            @include responsive(smallphone-portrait)
+                width: 85%
+
+    &__paragraph
+        &--4
+            width: 100% !important
+            @include responsive(414-portrait)
+                width: 95% !important
+            @include responsive(smallphone-portrait)
+                width: 90% !important
+
+    /* Roof Section */
+    &__roofInner
+        width: 55%
+        margin: 0 auto
+        display: flex
+        align-items: center
+        justify-content: space-between
+        @include responsive(2560)
+            width: 60%
+        @include responsive(2200)
+            width: 70%
+        @include responsive(1920)
+            width: 75%
+        @include responsive(1600)
+            width: 80%
+        @include responsive(1450)
+            width: 90%
+        @include responsive(1366)
+            width: 95%
+        @include responsive(900)
+            width: 100%
+        @include responsive(800)
+            flex-direction: column
+        @include responsive(phone-landscape)
+            flex-direction: column
+
+    &__roofImage
+        @include responsive(1200)
+            margin-right: -10rem
+        @include responsive(1100)
+            margin-right: -18rem
+        @include responsive(900)
+            margin-right: -22rem
+        @include responsive(800)
+            margin-right: 0
+        @include responsive(phone-landscape)
+            margin-right: 0
+
+        img
+            width: 80%
+            margin: 0 auto
+            display: block
+            @include responsive(phone-landscape)
+                width: 70%
+            @include responsive(phone)
+                width: 90%
+            @include responsive(smallphone-portrait)
+                width: 85%

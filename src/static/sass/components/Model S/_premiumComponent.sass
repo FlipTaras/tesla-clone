@@ -53,6 +53,12 @@
         &--2
             align-items: flex-end
             justify-content: flex-end
+            @include responsive(800)
+                align-items: flex-start
+                justify-content: flex-start
+            @include responsive(phone-landscape)
+                align-items: flex-start
+                justify-content: flex-start
 
     &__contentContainer
         flex: .5
@@ -76,6 +82,10 @@
     &__title
         color: white
         width: 55%
+        @include responsive(800)
+            width: 100%
+        @include responsive(phone-landscape)
+            width: 100%
 
     &__text
         color: white

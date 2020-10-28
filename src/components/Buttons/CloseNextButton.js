@@ -7,14 +7,19 @@ export default ({ click, close, white }) => {
   );
 
   const changeTooltipClassName = () => {
-    setToolTipClassNames(
-      classnames(
+    if (toolTipClassNames === "closeNextButton__text") {
+      setToolTipClassNames(
+        classnames(
+          "closeNextButton__text closeNextButton__text--hover",
+          white && "closeNextButton__text--white"
+        )
+      );
+    } else {
+      setToolTipClassNames(
         "closeNextButton__text",
-        white && "closeNextButton__text--white",
-        toolTipClassNames === "closeNextButton__text" &&
-          "closeNextButton__text--hover"
-      )
-    );
+        white && "closeNextButton__text--white"
+      );
+    }
   };
 
   const CloseNextButtonClassNames = classnames(
@@ -36,9 +41,9 @@ export default ({ click, close, white }) => {
     >
       <button className={CloseNextButtonClassNames} onClick={click}>
         {close ? (
-          <i className="closeNextButton__icon fas fa-times"></i>
+          <i className="fas fa-times"></i>
         ) : (
-          <i className="closeNextButton__icon closeNextButton__icon--next fas fa-angle-down"></i>
+          <i className="fas fa-angle-down"></i>
         )}
       </button>
 

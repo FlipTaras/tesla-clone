@@ -138,6 +138,9 @@ const ModelSPage = ({
           if (showSection) {
             setShowSection(false);
           }
+          /* Small fix when resize while learn more section is open */
+          document.querySelector("body").style.overflow = "";
+          document.querySelector("html").style.overflow = "";
         });
       }
     }

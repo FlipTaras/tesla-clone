@@ -32,14 +32,19 @@ function App({ navbarActive, setPageYOffSet, setWidth, setHeight }) {
       document.documentElement.style.setProperty("--height", `${vh}px`);
       setWidth(window.innerWidth);
       setHeight(window.innerHeight);
+      /* Small fix when resize while learn more section is open */
+      document.querySelector("body").style.overflow = "";
+      document.querySelector("html").style.overflow = "";
     });
   }, [setWidth, setHeight]);
 
+  /* Scrolling offf when side bar On */
   if (navbarActive) {
     document.querySelector("body").classList.add("overscroll-off");
   } else {
     document.querySelector("body").classList.remove("overscroll-off");
   }
+
   return (
     <div className="app">
       <Switch>

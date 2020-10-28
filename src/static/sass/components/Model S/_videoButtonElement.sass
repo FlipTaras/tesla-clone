@@ -6,9 +6,11 @@
     width: 40rem
     transition: all .5s ease
     @include responsive(tablet)
+        width: 25rem
+    @include responsive(ipadPro-portrait)
+        width: 40rem
+    @include responsive(800)
         width: 20rem
-    // @include responsive(ipadPro-portrait)
-        // width: 40rem
     @include responsive(smallphone-portrait)
         width: 20rem
 

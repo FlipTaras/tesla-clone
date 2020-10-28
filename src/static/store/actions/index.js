@@ -26,13 +26,6 @@ export const setChargers = () => async (dispatch) => {
   });
 };
 
-export const setRangeActiveButton = (payload) => (dispatch) => {
-  dispatch({
-    type: SET_RANGE_ACTIVE_BUTTON,
-    payload,
-  });
-};
-
 export const setPageYOffSet = (offset) => (dispatch) => {
   dispatch({
     type: SET_PAGEYOFFSET,

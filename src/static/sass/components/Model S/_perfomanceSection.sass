@@ -120,15 +120,23 @@
             margin-bottom: 5rem !important
 
     &__sliderButtons
-        margin-top: -12rem !important
+        margin-top: 0 !important
+        width: 50% !important
         @include responsive(1600)
-            margin-top: -8rem !important
-        @include responsive(tablet)
-            margin-top: 0 !important
+            width: 60% !important
+        @include responsive(1450)
+            width: 70% !important
+        @include responsive(1100)
+            width: 86% !important
+        @include responsive(900)
+            width: 99% !important
+        @include responsive(800)
+            width: 85% !important
         @include responsive(phone-landscape)
             margin-top: 5rem !important
         @include responsive(phone)
             margin-top: 5rem !important
+            width: 95% !important
 
         @include responsive(414-portrait)
             margin-top: 0 !important

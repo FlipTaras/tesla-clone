@@ -15,6 +15,7 @@ export default connect(
 )(
   ({
     title,
+    disabled,
     subtitle,
     paragraph,
     learnMoreOn,
@@ -87,10 +88,14 @@ export default connect(
                   click={learnMoreHandle}
                   customLearnMoreText={customLearnMoreText}
                   white={white}
+                  disabled={disabled}
                 />
               )}
               {!noOrder && (
-                <OrderButton classNames="sideComponent__orderButton" />
+                <OrderButton
+                  disabled={disabled}
+                  classNames="sideComponent__orderButton"
+                />
               )}
             </div>
           </div>

@@ -206,6 +206,8 @@ const ModelSPage = ({
           return <AutopilotSection learnMoreOn />;
         } else if (pagetoShow === "interior") {
           return <InteriorSection learnMoreOn />;
+        } else if (pagetoShow === "exterior") {
+          return <ExtreriorSection learnMoreOn />;
         } else {
           return (
             <>

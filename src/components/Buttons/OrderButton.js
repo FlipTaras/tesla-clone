@@ -7,6 +7,7 @@ export default ({
   animated,
   classNames,
   customText,
+  disabled,
 }) => {
   const orderButtonClassNames = classnames(
     "orderButton",
@@ -16,6 +17,7 @@ export default ({
   );
   return (
     <button
+      disabled={disabled}
       style={{ ...userStyles }}
       onClick={click ? () => click() : () => {}}
       className={orderButtonClassNames}

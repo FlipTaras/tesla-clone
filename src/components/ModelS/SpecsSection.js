@@ -204,6 +204,7 @@ export default connect(
                       classNames="specs__learnMore"
                       white
                       customLearnMoreText="Expand List"
+                      disabled
                     />
                   )}
                 </div>
@@ -259,6 +260,7 @@ export default connect(
             white
             noLearnMore={width > 800}
             customLearnMoreText="Expand List"
+            disabled
           >
             {renderSpecsContainer()}
           </SideComponents>

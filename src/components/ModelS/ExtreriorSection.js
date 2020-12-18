@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import InfoElement from "./InfoElement";
 import ContentElement from "./ContentElement";
 import SideComponents from "./SideComponents";
+import Slider from "../../components/ModelS/Slider";
 
 import Icon5 from "../../static/images/ModelS/Exterior/5Icon.png";
 import cdIcon from "../../static/images/ModelS/Exterior/cdIcon.png";
@@ -11,9 +12,18 @@ import Image from "../../static/images/ModelS/Exterior/extrerior.jpg";
 import ImagePortrait from "../../static/images/ModelS/Exterior/exterior-portrait.jpg";
 import ImageMobile from "../../static/images/ModelS/Exterior/exterior-mobile.jpg";
 
+/* Slider */
+import Slider1 from "../../static/images/ModelS/Exterior/Slider1Black.jpg";
+import Slider2 from "../../static/images/ModelS/Exterior/Slider1Blue.jpg";
+import Slider3 from "../../static/images/ModelS/Exterior/Slider1Silver.jpg";
+import Slider4 from "../../static/images/ModelS/Exterior/Slider1Red.jpg";
+import SliderLeft from "../../static/images/ModelS/Exterior/Slider1Left.jpg";
+import SliderRight from "../../static/images/ModelS/Exterior/Slider1Right.jpg";
+
 /* Redux */
 import { connect } from "react-redux";
 import { setPageToShow, setSilentScrollTo } from "../../static/store/actions";
+import CloseNextButton from "../Buttons/CloseNextButton";
 
 const mapStateToProps = (state) => ({
   pageIndex: state.models.pageIndex,
@@ -43,21 +53,23 @@ export default connect(
     showSection,
   }) => {
     const [showLearnMore, setShowLearnMore] = useState(false);
+    const checkLearnMore = showLearnMore || learnMoreOn;
 
     /* Get section offset, used for Animation on small screens  */
     const sectionRef = useRef(null);
     const learnMoreSectionRef = useRef(null);
     const [sectionTop, setSectionTop] = useState(null);
-    // const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
-    // const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
+    const [learnMoreSectionTop, setLearnMoreSectionTop] = useState(null);
+    const [learnMoreSectionBottom, setLearnMoreSectionBottom] = useState(null);
 
     useEffect(() => {
       const getAndShowTop = () => {
         const rectSection = sectionRef.current.getBoundingClientRect();
-        // const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
+        const rectLearnMoreSection = learnMoreSectionRef.current?.getBoundingClientRect();
+
         setSectionTop(rectSection.top);
-        // setLearnMoreSectionTop(rectLearnMoreSection.top);
-        // setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
+        setLearnMoreSectionTop(rectLearnMoreSection.top);
+        setLearnMoreSectionBottom(rectLearnMoreSection.bottom);
       };
       if (sectionRef.current) {
         window.addEventListener("wheel", getAndShowTop);
@@ -81,6 +93,119 @@ export default connect(
       }
     }, [learnMoreOn, height]);
 
+    /* Learn more render */
+    const renderLearnMoreSection = useCallback(() => {
+      /* Close button functionality */
+      const renderCloseButton = () => {
+        /* Buttons logic */
+        const CloseHandler = () => {
+          if (!phoneLayout) {
+            setPageToShow(null);
+            setSilentScrollTo("exterior");
+          } else {
+            setShowLearnMore(false);
+            window.scrollTo({
+              top: sectionRef.current?.offsetTop,
+              behavior: "smooth",
+            });
+          }
+        };
+
+        const NextHandler = () => {
+          setPageToShow(null);
+          setSilentScrollTo("specs");
+        };
+
+        const closeButtonElement = (
+          <CloseNextButton
+            close={
+              phoneLayout
+                ? true
+                : learnMoreSectionBottom - 200 > height
+                ? true
+                : false
+            }
+            click={
+              phoneLayout
+                ? CloseHandler
+                : learnMoreSectionBottom - 200 > height
+                ? CloseHandler
+                : NextHandler
+            }
+          />
+        );
+
+        if (
+          learnMoreSectionTop < height - 20 &&
+          learnMoreSectionBottom >= height
+        ) {
+          return closeButtonElement;
+        } else {
+          return null;
+        }
+      };
+
+      /* First Slider */
+      const renderSlider = () => {
+        const slidesData = [
+          {
+            image: Slider1,
+            alt: "interior",
+          },
+          {
+            image: Slider2,
+            alt: "interior",
+          },
+          {
+            image: Slider3,
+
+            alt: "interior",
+          },
+          {
+            image: Slider4,
+
+            alt: "interior",
+          },
+        ];
+
+        /* Render */
+        return (
+          <Slider
+            slideContent="images"
+            opacitySlider
+            showInfo
+            showButtons
+            numberOfSlides={5}
+            slidesData={slidesData}
+            noAuto
+            fullWidth
+            big
+            sliderCustomClassNames="exterior__slider1"
+          />
+        );
+      };
+
+      /* Render */
+      if (checkLearnMore) {
+        return (
+          <>
+            <div className="exterior__learnMoreInnerContainer">
+              <div>{renderSlider()}</div>
+            </div>
+            {renderCloseButton()}
+          </>
+        );
+      }
+    }, [
+      height,
+      phoneLayout,
+      setPageToShow,
+      setSilentScrollTo,
+      learnMoreSectionBottom,
+      learnMoreSectionTop,
+      checkLearnMore,
+    ]);
+
     /* Render functionality */
     const renderSection = useCallback(() => {
       /* Check when section to show up */
@@ -93,7 +218,7 @@ export default connect(
       /* Button logic */
       const learnMoreHandler = () => {
         if (!phoneLayout) {
-          setPageToShow("interior");
+          setPageToShow("exterior");
         } else {
           setShowLearnMore(true);
           window.scrollTo({
@@ -169,45 +294,50 @@ export default connect(
       /* Render */
       return (
         <>
-          <ContentElement
-            horizontal={true}
-            customContentElementClassNames={
-              width > 815
-                ? "exterior__contentElement"
-                : "exterior__contentElement--small"
-            }
-          >
-            <div className="exterior__infoElementsContainer">
-              {checkRenderInfo && renderInfoElement()}
-            </div>
-            <img
-              className="exterior__backgroundImage"
-              src={
-                portraitImageCheck
-                  ? ImagePortrait
-                  : width <= 1024
-                  ? ImageMobile
-                  : Image
+          <div className="exterior__container">
+            <ContentElement
+              horizontal={true}
+              customContentElementClassNames={
+                width > 815
+                  ? "exterior__contentElement"
+                  : "exterior__contentElement--small"
               }
-              alt="interior"
+            >
+              <div className="exterior__infoElementsContainer">
+                {checkRenderInfo && renderInfoElement()}
+              </div>
+              <img
+                className="exterior__backgroundImage"
+                src={
+                  portraitImageCheck
+                    ? ImagePortrait
+                    : width <= 1024
+                    ? ImageMobile
+                    : Image
+                }
+                alt="interior"
+              />
+            </ContentElement>
+            <SideComponents
+              title="Designed for Efficiency"
+              subtitle="Exterior"
+              paragraph="Model S was designed for speed and endurance—with incredible aerodynamics, ludicrous performance and uncompromised aesthetics. Automatic door handles auto-present upon approach and withdraw when closed."
+              titleCustomClassNames="exterior__sideComponentTitle"
+              horizontal={true}
+              checkRenderInfo={checkRenderInfo}
+              learnMoreOn={learnMoreOn}
+              showLearnMore={showLearnMore}
+              learnMoreHandle={learnMoreHandler}
+              showSection={showSection}
+              disabled
             />
-          </ContentElement>
-          <SideComponents
-            title="Designed for Efficiency"
-            subtitle="Exterior"
-            paragraph="Model S was designed for speed and endurance—with incredible aerodynamics, ludicrous performance and uncompromised aesthetics. Automatic door handles auto-present upon approach and withdraw when closed."
-            titleCustomClassNames="exterior__sideComponentTitle"
-            horizontal={true}
-            checkRenderInfo={checkRenderInfo}
-            learnMoreOn={learnMoreOn}
-            showLearnMore={showLearnMore}
-            learnMoreHandle={learnMoreHandler}
-            showSection={showSection}
-          />
+          </div>
           <div
             ref={learnMoreSectionRef}
-            className="exterior__learnMoreContainer"
-          ></div>
+            className={checkLearnMore ? "exterior__learnMoreContainer" : ""}
+          >
+            {renderLearnMoreSection()}
+          </div>
         </>
       );
     }, [
@@ -220,11 +350,13 @@ export default connect(
       showLearnMore,
       showSection,
       height,
+      checkLearnMore,
+      renderLearnMoreSection,
     ]);
 
     return (
-      <section className="section exterior">
-        <div className="exterior__container">{renderSection()}</div>
+      <section ref={sectionRef} className="section exterior">
+        {renderSection()}
       </section>
     );
   }

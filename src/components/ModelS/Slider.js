@@ -26,6 +26,8 @@ export default connect(mapStateToProps)(
     sliderButtonsCustomClassNames,
     medium,
     big,
+    noAuto,
+    fullWidth,
   }) => {
     /* Set flex depending on the max Elements */
     useEffect(() => {
@@ -62,7 +64,8 @@ export default connect(mapStateToProps)(
     const innerClassNames = classnames(
       "slider__inner",
       big && "slider__inner--big",
-      medium && "slider__inner--medium"
+      medium && "slider__inner--medium",
+      fullWidth && "slider__inner--fullWidth"
     );
 
     /* Container Position Animation */
@@ -110,16 +113,18 @@ export default connect(mapStateToProps)(
         }
 
         /* Set change of the slide */
-        setAnimation(
-          setTimeout(
-            () => {
-              setActiveSlider(active);
-            },
-            slidesDataState
-              ? slidesDataState[activeSlider - 1].duration || 4000
-              : 6000
-          )
-        );
+        if (!noAuto) {
+          setAnimation(
+            setTimeout(
+              () => {
+                setActiveSlider(active);
+              },
+              slidesDataState
+                ? slidesDataState[activeSlider - 1].duration || 4000
+                : 6000
+            )
+          );
+        }
       };
 
       /* Slider Animation depending on the number of slides */
@@ -193,7 +198,14 @@ export default connect(mapStateToProps)(
             break;
         }
       }
-    }, [activeSlider, slidesDataState, width, slideContent, numberOfSlides]);
+    }, [
+      activeSlider,
+      slidesDataState,
+      width,
+      slideContent,
+      numberOfSlides,
+      noAuto,
+    ]);
 
     /* Reset Slider */
     const resetAnimation = useCallback(
@@ -300,7 +312,8 @@ export default connect(mapStateToProps)(
     const renderImage = useCallback(() => {
       const imageClassNames = classnames(
         "slider__image",
-        medium && "slider__image--medium"
+        medium && "slider__image--medium",
+        fullWidth && "slider__image--fullWidth"
       );
       if (swipeSlider) {
         return slidesData.map((el, i) => (
@@ -323,6 +336,7 @@ export default connect(mapStateToProps)(
       }
     }, [
       containerPosition,
+      fullWidth,
       slidesData,
       opacitySlider,
       activeSlider,
